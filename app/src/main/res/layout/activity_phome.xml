@@ -1,0 +1,26 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".PHomeActivity">
+
+    <cn.com.infohold.p2papp.views.TestTextView
+        android:id="@+id/textTest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        android:text="@string/hello_world" />
+
+    <cn.com.infohold.p2papp.views.TouchTestView
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:background="@android:color/darker_gray">
+
+        <cn.com.infohold.p2papp.views.TouchChildView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </cn.com.infohold.p2papp.views.TouchTestView>
+
+
+</LinearLayout>
