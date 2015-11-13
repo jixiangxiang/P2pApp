@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <declare-styleable name="RingView">
+        <attr name="bgColor" format="color" />
+        <attr name="centerColor" format="color" />
+        <attr name="angle" format="integer" />
+        <attr name="ringViewStrokeWidth" format="dimension" />
+        <attr name="isDynamic" format="boolean" />
+        <attr name="ringViewRadius" format="dimension" />
+    </declare-styleable>
+</resources>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/p_bg_color"
+    tools:context="cn.com.infohold.p2papp.activity.PInvestProjectActivity">
+
+    <ImageView
+        android:id="@+id/newInvest"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_95"
+        android:onClick="onClick"
+        android:scaleType="fitXY"
+        android:src="@mipmap/p_new_invest_meeting" />
+
+    <LinearLayout
+        android:id="@+id/sortArea"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_45"
+        android:layout_below="@+id/newInvest"
+        android:background="@android:color/white">
+
+        <TextView
+            android:id="@+id/colligate"
+            style="@style/text_13_black"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="综合排序" />
+
+        <LinearLayout
+            android:id="@+id/yieldArea"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:onClick="onClick">
+
+            <TextView
+                android:id="@+id/yieldText"
+                style="@style/text_13_black"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="按收益率" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/dp_5"
+                android:scaleType="center"
+                android:src="@mipmap/p_sort_default" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/limitArea"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:onClick="onClick">
+
+            <TextView
+                android:id="@+id/limitText"
+                style="@style/text_13_black"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="按期限" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/dp_5"
+                android:scaleType="center"
+                android:src="@mipmap/p_sort_default" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/investProjectList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/sortArea"
+        android:layout_marginTop="@dimen/dp_8"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="@dimen/dp_15">
+
+
+    </ListView>
+</RelativeLayout>
