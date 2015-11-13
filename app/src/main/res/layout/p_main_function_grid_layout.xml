@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp_115"
+    android:background="@android:color/white"
+    android:gravity="center">
+
+    <ImageView
+        android:id="@+id/functionIcon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_24"
+        android:scaleType="center"
+        android:src="@mipmap/p_dot_more" />
+
+    <TextView
+        android:id="@+id/functionName"
+        style="@style/text_13_black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_65"
+        android:gravity="center_horizontal"
+        android:text="功能" />
+
+    <TextView
+        android:id="@+id/functionDesc"
+        style="@style/text_10_999"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_82"
+        android:gravity="center_horizontal"
+        android:text="xxx" />
+</RelativeLayout>

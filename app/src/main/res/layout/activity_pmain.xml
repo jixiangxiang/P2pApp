@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/p_bg_color"
+    tools:context="cn.com.infohold.p2papp.activity.PMainActivity">
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/homePager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottomBar">
+
+    </android.support.v4.view.ViewPager>
+
+    <LinearLayout
+        android:id="@+id/bottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_46"
+        android:layout_alignParentBottom="true"
+        android:background="@color/p_bottom_bar_color"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/homeBtn"
+                android:layout_width="@dimen/dp_25"
+                android:layout_height="@dimen/dp_25"
+                android:background="@drawable/p_home_btn_selector"
+                android:onClick="onClick" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/selfBtn"
+                android:layout_width="@dimen/dp_25"
+                android:layout_height="@dimen/dp_25"
+                android:background="@drawable/p_self_btn_selector"
+                android:onClick="onClick" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:layout_width="@dimen/dp_37"
+        android:layout_height="@dimen/dp_37"
+        android:layout_margin="@dimen/dp_12"
+        android:scaleType="fitXY"
+        app:placeholderImageScaleType="fitXY"
+        fresco:placeholderImage="@mipmap/p_head_img_default"
+        fresco:roundAsCircle="true" />
+</RelativeLayout>
+
+

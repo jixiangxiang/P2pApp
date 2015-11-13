@@ -1,0 +1,413 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="cn.com.infohold.p2papp.fragment.PSelfFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/topArea"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/p_self_bg">
+
+            <RelativeLayout
+                android:id="@+id/titleBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/userName"
+                    style="@style/text_12_white"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:gravity="center_horizontal"
+                    android:text="Eric" />
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="@dimen/dp_18">
+
+                    <ImageView
+                        android:id="@+id/message"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/dp_15"
+                        android:src="@mipmap/p_self_message" />
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/assetsTitle"
+                style="@style/text_11_white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/titleBar"
+                android:layout_marginTop="@dimen/dp_45"
+                android:gravity="center_horizontal"
+                android:text="总资产 (元)" />
+
+            <TextView
+                android:id="@+id/assetsCount"
+                style="@style/text_55_white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/assetsTitle"
+                android:layout_marginTop="@dimen/dp_28"
+                android:gravity="center_horizontal"
+                android:text="0.00" />
+
+            <LinearLayout
+                android:id="@+id/moneyArea"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_90"
+                android:layout_below="@+id/assetsCount"
+                android:layout_marginTop="@dimen/dp_50"
+                android:background="@color/p_trans_white_color">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/text_11_white"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="累计收益 (元)" />
+
+                    <TextView
+                        android:id="@+id/income"
+                        style="@style/text_20_white"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_12"
+                        android:text="0.00" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/text_11_white"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="待收利息 (元)" />
+
+                    <TextView
+                        android:id="@+id/interest"
+                        style="@style/text_20_white"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_12"
+                        android:text="0.00" />
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/topArea"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_46"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/recharge"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@android:color/white"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_20"
+                        android:src="@mipmap/p_recharge_icon" />
+
+                    <TextView
+                        style="@style/text_14_black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_15"
+
+                        android:text="充值" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/withdraw"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/dp_0.1"
+                    android:layout_weight="1"
+                    android:background="@android:color/white"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_20"
+                        android:src="@mipmap/p_withdraw_icon" />
+
+                    <TextView
+                        style="@style/text_14_black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_15"
+
+                        android:text="提现" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_69"
+                android:layout_marginTop="@dimen/dp_15">
+
+                <RelativeLayout
+                    android:id="@+id/selfInvest"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@android:color/white"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_20"
+                        android:layout_marginTop="@dimen/dp_13"
+                        android:src="@mipmap/p_self_invest_icon" />
+
+                    <TextView
+                        style="@style/text_14_black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_53"
+                        android:layout_marginTop="@dimen/dp_15"
+                        android:text="我的投资" />
+
+                    <TextView
+                        android:id="@+id/investMoney"
+                        style="@style/text_10_999"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_53"
+                        android:layout_marginTop="@dimen/dp_37"
+                        android:text="0.00" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/investRecord"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/dp_0.1"
+                    android:layout_weight="1"
+                    android:background="@android:color/white"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_20"
+                        android:layout_marginTop="@dimen/dp_13"
+                        android:src="@mipmap/p_self_trans_icon" />
+
+                    <TextView
+                        style="@style/text_14_black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_53"
+                        android:layout_marginTop="@dimen/dp_15"
+                        android:text="交易记录" />
+
+                    <TextView
+                        android:id="@+id/transRecord"
+                        style="@style/text_10_999"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_53"
+                        android:layout_marginTop="@dimen/dp_37"
+                        android:text="0.00" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_69"
+                android:layout_marginTop="@dimen/dp_1">
+
+                <RelativeLayout
+                    android:id="@+id/selfLoan"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@android:color/white"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_20"
+                        android:layout_marginTop="@dimen/dp_13"
+                        android:src="@mipmap/p_self_loan_icon" />
+
+                    <TextView
+                        style="@style/text_14_black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_53"
+                        android:layout_marginTop="@dimen/dp_15"
+                        android:text="我的借款" />
+
+                    <TextView
+                        android:id="@+id/loanMoney"
+                        style="@style/text_10_999"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_53"
+                        android:layout_marginTop="@dimen/dp_37"
+                        android:text="0.00" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/accountSafe"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/dp_0.1"
+                    android:layout_weight="1"
+                    android:background="@android:color/white"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_20"
+                        android:layout_marginTop="@dimen/dp_13"
+                        android:src="@mipmap/p_safe_icon" />
+
+                    <TextView
+                        style="@style/text_14_black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_53"
+                        android:layout_marginTop="@dimen/dp_15"
+                        android:text="账户安全" />
+
+                    <TextView
+                        style="@style/text_10_999"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_53"
+                        android:layout_marginTop="@dimen/dp_37"
+                        android:text="完善个人账户资料" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_69"
+                android:layout_marginTop="@dimen/dp_1">
+
+                <RelativeLayout
+                    android:id="@+id/creditoArea"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@android:color/white"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_20"
+                        android:layout_marginTop="@dimen/dp_13"
+                        android:src="@mipmap/p_credito_icon" />
+
+                    <TextView
+                        style="@style/text_14_black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_53"
+                        android:layout_marginTop="@dimen/dp_15"
+                        android:text="债权转让" />
+
+                    <TextView
+                        android:id="@+id/creditoTrans"
+                        style="@style/text_10_999"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_53"
+                        android:layout_marginTop="@dimen/dp_37"
+                        android:text="暂无转让记录" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/bankArea"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/dp_0.1"
+                    android:layout_weight="1"
+                    android:background="@android:color/white"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_20"
+                        android:layout_marginTop="@dimen/dp_13"
+                        android:src="@mipmap/p_bank_icon" />
+
+                    <TextView
+                        style="@style/text_14_black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_53"
+                        android:layout_marginTop="@dimen/dp_15"
+                        android:text="银行卡" />
+
+                    <TextView
+                        android:id="@+id/bankCount"
+                        style="@style/text_10_999"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_53"
+                        android:layout_marginTop="@dimen/dp_37"
+                        android:text="1 张" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <TextView
+                style="@style/text_8_999"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp_15"
+                android:layout_marginTop="@dimen/dp_15"
+                android:gravity="center"
+                android:text="客户服务热线 400-018-6789" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</ScrollView>
