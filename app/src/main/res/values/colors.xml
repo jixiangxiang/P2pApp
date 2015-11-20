@@ -8,4 +8,5 @@
     <color name="p_count_color">#38B4E5</color>
     <color name="p_trans_white_color">#22ffffff</color>
     <color name="p_circle_white_color">#55ffffff</color>
+    <color name="p_blue_color">#1D78BC</color>
 </resources>

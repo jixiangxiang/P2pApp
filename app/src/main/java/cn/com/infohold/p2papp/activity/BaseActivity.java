@@ -45,6 +45,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(R.mipmap.p_back_black);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,10 +68,11 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void initTitleText(String title, int gravity, int color) {
         if (gravity == TITLE_LEFT) {
             toolbar.setTitle(title);
+            toolbar.setTitleTextColor(getResources().getColor(color));
         } else if (gravity == TITLE_CENTER) {
             TextView titleView = (TextView) toolbar.findViewById(R.id.toolbar_title);
-            titleView.setTextColor(color);
             titleView.setText(title);
+            titleView.setTextColor(getResources().getColor(color));
         }
     }
 
@@ -94,7 +96,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_view_title, menu);
+        //getMenuInflater().inflate(R.menu.menu_view_title, menu);
         return true;
     }
 

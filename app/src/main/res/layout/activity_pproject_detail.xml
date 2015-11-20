@@ -9,7 +9,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:layout_above="@+id/toInvestBtn">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -294,7 +295,7 @@
                 </LinearLayout>
             </RelativeLayout>
 
-            <android.support.v4.view.ViewPager
+            <cn.com.infohold.p2papp.views.WrapScrollViewPager
                 android:id="@+id/detailPager"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -302,7 +303,7 @@
                 android:layout_marginTop="@dimen/dp_8"
                 android:background="@android:color/white">
 
-            </android.support.v4.view.ViewPager>
+            </cn.com.infohold.p2papp.views.WrapScrollViewPager>
         </RelativeLayout>
     </ScrollView>
 
@@ -314,5 +315,6 @@
         android:layout_marginBottom="@dimen/dp_10"
         android:layout_marginLeft="@dimen/dp_18"
         android:layout_marginRight="@dimen/dp_18"
+        android:onClick="onClick"
         android:background="@mipmap/p_invest_btn" />
 </RelativeLayout>

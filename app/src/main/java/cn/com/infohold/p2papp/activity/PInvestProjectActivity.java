@@ -12,7 +12,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.com.infohold.p2papp.InvestProjectBean;
+import cn.com.infohold.p2papp.bean.InvestProjectBean;
 import cn.com.infohold.p2papp.R;
 import common.eric.com.ebaselibrary.adapter.EBaseAdapter;
 

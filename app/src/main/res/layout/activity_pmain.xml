@@ -57,9 +57,12 @@
     </LinearLayout>
 
     <com.facebook.drawee.view.SimpleDraweeView
-        android:layout_width="@dimen/dp_37"
-        android:layout_height="@dimen/dp_37"
+        android:id="@+id/headImage"
+        android:layout_width="@dimen/dp_42"
+        android:layout_height="@dimen/dp_42"
         android:layout_margin="@dimen/dp_12"
+        android:onClick="onClick"
+        android:padding="@dimen/dp_5"
         android:scaleType="fitXY"
         app:placeholderImageScaleType="fitXY"
         fresco:placeholderImage="@mipmap/p_head_img_default"

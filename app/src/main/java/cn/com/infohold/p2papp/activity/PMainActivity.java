@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import com.facebook.drawee.view.SimpleDraweeView;
+
 import java.util.ArrayList;
 
 import cn.com.infohold.p2papp.R;
@@ -22,6 +24,7 @@ public class PMainActivity extends BaseActivity implements View.OnClickListener,
     private ArrayList<Fragment> fragmentList;
     private Button homeBtn;
     private Button selfBtn;
+    private SimpleDraweeView headImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +75,8 @@ public class PMainActivity extends BaseActivity implements View.OnClickListener,
                 homePager.setCurrentItem(1);
                 homeBtn.setSelected(false);
             }
+        } else if (v == headImage) {
+            toActivity(PAccountSetActivity.class);
         }
     }
 
@@ -106,5 +111,6 @@ public class PMainActivity extends BaseActivity implements View.OnClickListener,
         bottomBar = (LinearLayout) findViewById(R.id.bottomBar);
         homeBtn = (Button) findViewById(R.id.homeBtn);
         selfBtn = (Button) findViewById(R.id.selfBtn);
+        headImage = (SimpleDraweeView) findViewById(R.id.headImage);
     }
 }

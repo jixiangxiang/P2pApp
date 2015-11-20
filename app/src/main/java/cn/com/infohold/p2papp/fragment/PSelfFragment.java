@@ -13,6 +13,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import cn.com.infohold.p2papp.R;
+import cn.com.infohold.p2papp.activity.BaseActivity;
+import cn.com.infohold.p2papp.activity.PRechargeActivity;
+import cn.com.infohold.p2papp.activity.PSelfLoanActivity;
+import cn.com.infohold.p2papp.activity.PWithdrawActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -22,7 +26,7 @@ import cn.com.infohold.p2papp.R;
  * Use the {@link PSelfFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PSelfFragment extends Fragment {
+public class PSelfFragment extends Fragment implements View.OnClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -98,6 +102,9 @@ public class PSelfFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initialize(view);
+        recharge.setOnClickListener(this);
+        withdraw.setOnClickListener(this);
+        selfLoan.setOnClickListener(this);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -148,6 +155,17 @@ public class PSelfFragment extends Fragment {
         creditoArea = (RelativeLayout) view.findViewById(R.id.creditoArea);
         bankCount = (TextView) view.findViewById(R.id.bankCount);
         bankArea = (RelativeLayout) view.findViewById(R.id.bankArea);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v == recharge) {
+            ((BaseActivity) getActivity()).toActivity(PRechargeActivity.class);
+        } else if (v == withdraw) {
+            ((BaseActivity) getActivity()).toActivity(PWithdrawActivity.class);
+        } else if (v == selfLoan) {
+            ((BaseActivity) getActivity()).toActivity(PSelfLoanActivity.class);
+        }
     }
 
     /**

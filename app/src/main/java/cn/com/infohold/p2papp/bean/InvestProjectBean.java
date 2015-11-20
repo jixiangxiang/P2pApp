@@ -1,4 +1,4 @@
-package cn.com.infohold.p2papp;
+package cn.com.infohold.p2papp.bean;
 
 import common.eric.com.ebaselibrary.model.EBaseModel;
 

@@ -24,7 +24,22 @@
             android:label="@string/title_activity_pinvest_project" />
         <activity
             android:name=".activity.PProjectDetailActivity"
-            android:label="@string/title_activity_pproject_detail"></activity>
+            android:label="@string/title_activity_pproject_detail" />
+        <activity
+            android:name=".activity.PInvestConfirmActivity"
+            android:label="@string/title_activity_pinvest_confirm" />
+        <activity
+            android:name=".activity.PAccountSetActivity"
+            android:label="@string/title_activity_paccount_set" />
+        <activity
+            android:name=".activity.PWithdrawActivity"
+            android:label="@string/title_activity_precharge" />
+        <activity
+            android:name=".activity.PRechargeActivity"
+            android:label="@string/title_activity_pwithdraw" />
+        <activity
+            android:name=".activity.PSelfLoanActivity"
+            android:label="@string/title_activity_pself_loan"></activity>
     </application>
 
 </manifest>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/p_bg_color"
+    tools:context="cn.com.infohold.p2papp.activity.PSelfLoanActivity">
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/loanMoneyPager"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_165"
+        android:background="@mipmap/p_loan_top">
+
+    </android.support.v4.view.ViewPager>
+
+    <LinearLayout
+        android:id="@+id/tabView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:layout_below="@+id/loanMoneyPager"
+        android:background="@android:color/white">
+
+        <TextView
+            android:id="@+id/repaying"
+            style="@style/text_13_selector"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:onClick="onClick"
+            android:text="还款中" />
+
+        <TextView
+            android:id="@+id/applying"
+            style="@style/text_13_selector"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:onClick="onClick"
+            android:text="申请中" />
+
+        <TextView
+            android:id="@+id/finish"
+            style="@style/text_13_selector"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:onClick="onClick"
+            android:text="已结清" />
+
+        <TextView
+            android:id="@+id/loaning"
+            style="@style/text_13_selector"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:onClick="onClick"
+            android:text="已欠款" />
+    </LinearLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/loanListPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tabView"
+        android:layout_marginTop="@dimen/dp_8"
+        android:background="@android:color/white">
+
+    </android.support.v4.view.ViewPager>
+
+</RelativeLayout>

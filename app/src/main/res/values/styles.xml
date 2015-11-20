@@ -105,6 +105,11 @@
         <item name="android:textColor">@color/p_99_color</item>
     </style>
 
+    <style name="text_12_blue">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/p_blue_color</item>
+    </style>
+
     <style name="text_12_white">
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">@android:color/white</item>
@@ -118,6 +123,11 @@
     <style name="text_13_black">
         <item name="android:textSize">13sp</item>
         <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="text_13_selector">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@drawable/textview_btn_selector</item>
     </style>
 
     <style name="text_13_white">
@@ -219,6 +229,11 @@
     <style name="text_20_white">
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="text_21_red">
+        <item name="android:textSize">21sp</item>
+        <item name="android:textColor">@android:color/holo_red_dark</item>
     </style>
 
     <style name="text_22_red">

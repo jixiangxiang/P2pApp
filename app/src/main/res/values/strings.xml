@@ -9,4 +9,9 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_pinvest_project">直投项目</string>
     <string name="title_activity_pproject_detail">项目详情</string>
+    <string name="title_activity_pinvest_confirm">投资确认</string>
+    <string name="title_activity_paccount_set">账户设置</string>
+    <string name="title_activity_precharge">充值</string>
+    <string name="title_activity_pwithdraw">提现</string>
+    <string name="title_activity_pself_loan">我的借款</string>
 </resources>

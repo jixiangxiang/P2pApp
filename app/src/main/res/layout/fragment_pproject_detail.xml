@@ -1,0 +1,503 @@
+<cn.com.infohold.p2papp.views.WrapScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/p_bg_color"
+    tools:context="cn.com.infohold.p2papp.fragment.PProjectDetailFragment">
+
+    <LinearLayout
+        android:id="@+id/loanContract"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            android:onClick="onClick"
+            android:paddingLeft="@dimen/dp_20"
+            android:paddingRight="@dimen/dp_20">
+
+            <TextView
+                style="@style/text_13_black"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="借款合同" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/p_right_arrow" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:background="@color/p_bg_color" />
+
+        <RelativeLayout
+            android:id="@+id/guarantee"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            android:onClick="onClick"
+            android:paddingLeft="@dimen/dp_20"
+            android:paddingRight="@dimen/dp_20">
+
+            <TextView
+                style="@style/text_13_black"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="联合本息担保函" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/p_right_arrow" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:background="@color/p_bg_color" />
+
+        <RelativeLayout
+            android:id="@+id/riskWarn"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            android:onClick="onClick"
+            android:paddingLeft="@dimen/dp_20"
+            android:paddingRight="@dimen/dp_20">
+
+            <TextView
+                style="@style/text_13_black"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="风险提示" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/p_right_arrow" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_10"
+            android:background="@color/p_bg_color" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            android:onClick="onClick"
+            android:paddingLeft="@dimen/dp_20"
+            android:paddingRight="@dimen/dp_20">
+
+            <TextView
+                style="@style/text_13_black"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="用户信息" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:background="@color/p_bg_color" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_120"
+            android:paddingLeft="@dimen/dp_20"
+            android:paddingRight="@dimen/dp_20">
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <TextView
+                    style="@style/text_10_777"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_17"
+                    android:text="昵    称" />
+
+                <TextView
+                    android:id="@+id/nickName"
+                    style="@style/text_10_black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_65"
+                    android:layout_marginTop="@dimen/dp_17"
+                    android:text="雪山2220" />
+
+                <TextView
+                    android:id="@+id/age"
+                    style="@style/text_10_777"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_35"
+                    android:text="年    龄" />
+
+                <TextView
+                    style="@style/text_10_black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_65"
+                    android:layout_marginTop="@dimen/dp_35"
+                    android:text="28岁" />
+
+                <TextView
+                    style="@style/text_10_777"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_52"
+                    android:text="户    籍" />
+
+                <TextView
+                    android:id="@+id/address"
+                    style="@style/text_10_black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_65"
+                    android:layout_marginTop="@dimen/dp_52"
+                    android:text="北京" />
+
+                <TextView
+                    style="@style/text_10_777"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_70"
+                    android:text="学    历" />
+
+                <TextView
+                    android:id="@+id/education"
+                    style="@style/text_10_black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_65"
+                    android:layout_marginTop="@dimen/dp_70"
+                    android:text="本科" />
+
+                <TextView
+                    style="@style/text_10_777"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_87"
+                    android:text="婚    姻" />
+
+                <TextView
+                    android:id="@+id/marriage"
+                    style="@style/text_10_black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_65"
+                    android:layout_marginTop="@dimen/dp_87"
+                    android:text="已婚，子女一人" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <TextView
+                    style="@style/text_10_777"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_17"
+                    android:text="收入水平" />
+
+                <TextView
+                    android:id="@+id/income"
+                    style="@style/text_10_black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_65"
+                    android:layout_marginTop="@dimen/dp_17"
+                    android:text="20000-50000元" />
+
+                <TextView
+                    style="@style/text_10_777"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_35"
+                    android:text="房        产" />
+
+                <TextView
+                    android:id="@+id/property"
+                    style="@style/text_10_black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_65"
+                    android:layout_marginTop="@dimen/dp_35"
+                    android:text="北京市区 三居室" />
+
+                <TextView
+                    style="@style/text_10_777"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_52"
+                    android:text="房        贷" />
+
+                <TextView
+                    android:id="@+id/mortgage"
+                    style="@style/text_10_black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_65"
+                    android:layout_marginTop="@dimen/dp_52"
+                    android:text="无" />
+
+                <TextView
+                    style="@style/text_10_777"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_70"
+                    android:text="车        贷" />
+
+                <TextView
+                    android:id="@+id/car"
+                    style="@style/text_10_black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_65"
+                    android:layout_marginTop="@dimen/dp_70"
+                    android:text="本科" />
+
+                <TextView
+                    style="@style/text_10_777"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_87"
+                    android:text="车        贷" />
+
+                <TextView
+                    android:id="@+id/carLoan"
+                    style="@style/text_10_black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_65"
+                    android:layout_marginTop="@dimen/dp_87"
+                    android:text="已婚，子女一人" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_10"
+            android:background="@color/p_bg_color" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            android:onClick="onClick"
+            android:paddingLeft="@dimen/dp_20"
+            android:paddingRight="@dimen/dp_20">
+
+            <TextView
+                style="@style/text_13_black"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="借款描述" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:background="@color/p_bg_color" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_120"
+            android:paddingBottom="@dimen/dp_17"
+            android:paddingLeft="@dimen/dp_20"
+            android:paddingRight="@dimen/dp_20"
+            android:paddingTop="@dimen/dp_17"
+            android:text="11111111111111111111111111111111111111111111111111111111111111111111111111111111111" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_10"
+            android:background="@color/p_bg_color" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            android:onClick="onClick"
+            android:paddingLeft="@dimen/dp_20"
+            android:paddingRight="@dimen/dp_20">
+
+            <TextView
+                style="@style/text_13_black"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="审核状态" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:background="@color/p_bg_color" />
+
+        <cn.com.infohold.p2papp.views.WrapScrollGridView
+            android:id="@+id/reviewGrid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:numColumns="3">
+
+        </cn.com.infohold.p2papp.views.WrapScrollGridView>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_10"
+            android:background="@color/p_bg_color" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            android:onClick="onClick"
+            android:paddingLeft="@dimen/dp_20"
+            android:paddingRight="@dimen/dp_20">
+
+            <TextView
+                style="@style/text_13_black"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="安全保障" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:background="@color/p_bg_color" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_120"
+            android:paddingLeft="@dimen/dp_20"
+            android:paddingRight="@dimen/dp_20">
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <TextView
+                    style="@style/text_10_777"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_17"
+                    android:text="房产位置" />
+
+                <TextView
+                    android:id="@+id/hourseAddress"
+                    style="@style/text_10_black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_65"
+                    android:layout_marginTop="@dimen/dp_17"
+                    android:text="北京市丰台区" />
+
+                <TextView
+
+                    style="@style/text_10_777"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_37"
+                    android:text="规划用途" />
+
+                <TextView
+                    android:id="@+id/hourseUse"
+                    style="@style/text_10_black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_65"
+                    android:layout_marginTop="@dimen/dp_37"
+                    android:text="住宅" />
+
+                <TextView
+                    style="@style/text_10_777"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_57"
+                    android:text="房产属性" />
+
+                <TextView
+                    android:id="@+id/hourseAttr"
+                    style="@style/text_10_black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_65"
+                    android:layout_marginTop="@dimen/dp_57"
+                    android:text="商品房" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <TextView
+                    style="@style/text_10_777"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_17"
+                    android:text="建筑面积" />
+
+                <TextView
+                    android:id="@+id/hourseArea"
+                    style="@style/text_10_black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_65"
+                    android:layout_marginTop="@dimen/dp_17"
+                    android:text="105.48平方米" />
+
+                <TextView
+
+                    style="@style/text_10_777"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_37"
+                    android:text="评估价值" />
+
+                <TextView
+                    android:id="@+id/hoursePrice"
+                    style="@style/text_10_black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_65"
+                    android:layout_marginTop="@dimen/dp_37"
+                    android:text="290万元" />
+
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</cn.com.infohold.p2papp.views.WrapScrollView>

@@ -82,6 +82,7 @@ public class RingView extends View implements View.OnClickListener {
         Paint paintArc = new Paint();
         paintArc.setColor(getCenterColor());
         paintArc.setStyle(Paint.Style.STROKE);
+        paintArc.setStrokeCap(Paint.Cap.ROUND);
         paintArc.setStrokeWidth(getStrokeWidth());
         paintArc.setAntiAlias(true);
         RectF rectF = new RectF(paint.getStrokeWidth(), paint.getStrokeWidth(), getRadius() * 2 - paint.getStrokeWidth(), getRadius() * 2 - paint.getStrokeWidth());
