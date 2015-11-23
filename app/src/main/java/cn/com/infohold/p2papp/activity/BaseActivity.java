@@ -43,6 +43,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     private void initTitle() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setBackgroundColor(getResources().getColor(android.R.color.white));
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.mipmap.p_back_black);

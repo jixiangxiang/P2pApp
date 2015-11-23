@@ -16,7 +16,7 @@ import java.util.List;
 import cn.com.infohold.p2papp.R;
 import cn.com.infohold.p2papp.activity.BaseActivity;
 import cn.com.infohold.p2papp.activity.PProjectDetailActivity;
-import cn.com.infohold.p2papp.bean.LoanProjectBean;
+import cn.com.infohold.p2papp.bean.InvestProjectBean;
 import common.eric.com.ebaselibrary.adapter.EBaseAdapter;
 
 /**
@@ -24,10 +24,10 @@ import common.eric.com.ebaselibrary.adapter.EBaseAdapter;
  * Activities that contain this fragment must implement the
  * {@link OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link PLoanListFragment#newInstance} factory method to
+ * Use the {@link PInvestListFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PLoanListFragment extends Fragment {
+public class PInvestListFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "status";
@@ -40,9 +40,9 @@ public class PLoanListFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
     private ListView loanList;
     private EBaseAdapter baseAdapter;
-    private List<LoanProjectBean> investProjectBeans;
+    private List<InvestProjectBean> investProjectBeans;
 
-    public PLoanListFragment() {
+    public PInvestListFragment() {
         // Required empty public constructor
     }
 
@@ -55,8 +55,8 @@ public class PLoanListFragment extends Fragment {
      * @return A new instance of fragment PProjectDetailFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static PLoanListFragment newInstance(Integer param1, String param2) {
-        PLoanListFragment fragment = new PLoanListFragment();
+    public static PInvestListFragment newInstance(Integer param1, String param2) {
+        PInvestListFragment fragment = new PInvestListFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -77,34 +77,34 @@ public class PLoanListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_ploan_list, container, false);
+        return inflater.inflate(R.layout.fragment_pinvest_list, container, false);
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initialize(view);
-        investProjectBeans = new ArrayList<LoanProjectBean>();
-        investProjectBeans.add(new LoanProjectBean(9.00, 1000.00, 360, 1));
-        investProjectBeans.add(new LoanProjectBean(9.00, 1000.00, 360, 1));
-        investProjectBeans.add(new LoanProjectBean(9.00, 1000.00, 360, 1));
-        investProjectBeans.add(new LoanProjectBean(9.00, 1000.00, 360, 1));
-        investProjectBeans.add(new LoanProjectBean(9.00, 1000.00, 360, 1));
-        investProjectBeans.add(new LoanProjectBean(9.00, 1000.00, 360, 0));
-        investProjectBeans.add(new LoanProjectBean(9.00, 1000.00, 360, 0));
-        investProjectBeans.add(new LoanProjectBean(9.00, 1000.00, 360, 0));
-        investProjectBeans.add(new LoanProjectBean(9.00, 1000.00, 360, 0));
-        investProjectBeans.add(new LoanProjectBean(9.00, 1000.00, 360, 0));
-        investProjectBeans.add(new LoanProjectBean(9.00, 1000.00, 360, 0));
-        baseAdapter = new EBaseAdapter(getActivity(), investProjectBeans, R.layout.p_loan_project_item,
+        investProjectBeans = new ArrayList<InvestProjectBean>();
+        investProjectBeans.add(new InvestProjectBean(9.00, 1000.00, 360, 1));
+        investProjectBeans.add(new InvestProjectBean(9.00, 1000.00, 360, 1));
+        investProjectBeans.add(new InvestProjectBean(9.00, 1000.00, 360, 1));
+        investProjectBeans.add(new InvestProjectBean(9.00, 1000.00, 360, 1));
+        investProjectBeans.add(new InvestProjectBean(9.00, 1000.00, 360, 1));
+        investProjectBeans.add(new InvestProjectBean(9.00, 1000.00, 360, 0));
+        investProjectBeans.add(new InvestProjectBean(9.00, 1000.00, 360, 0));
+        investProjectBeans.add(new InvestProjectBean(9.00, 1000.00, 360, 0));
+        investProjectBeans.add(new InvestProjectBean(9.00, 1000.00, 360, 0));
+        investProjectBeans.add(new InvestProjectBean(9.00, 1000.00, 360, 0));
+        investProjectBeans.add(new InvestProjectBean(9.00, 1000.00, 360, 0));
+        baseAdapter = new EBaseAdapter(getActivity(), investProjectBeans, R.layout.p_self_invest_project_item,
                 new String[]{"preYield", "investableMoney", "limit"},
-                new int[]{R.id.loanRates, R.id.loanMoney, R.id.loanLimit});
+                new int[]{R.id.loanRates, R.id.holdMoney, R.id.loanLimit});
         loanList.setAdapter(baseAdapter);
         loanList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Bundle bundle = new Bundle();
-                bundle.putBoolean("isInvest", false);
+                bundle.putBoolean("isInvest", true);
                 ((BaseActivity) getActivity()).toActivity(PProjectDetailActivity.class, bundle);
             }
         });

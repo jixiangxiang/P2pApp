@@ -39,6 +39,7 @@ public class PProjectDetailActivity extends BaseActivity implements View.OnClick
     private TextView yieldText;
     private ImageView backBtn;
     private TextView questions;
+    private Boolean isInvest = null;
 
     private FragmentPagerAdapter adapter;
 
@@ -53,6 +54,8 @@ public class PProjectDetailActivity extends BaseActivity implements View.OnClick
     protected void initView() {
         initTitleGone();
         initialize();
+        if (getIntent().getExtras() != null)
+            isInvest = getIntent().getExtras().getBoolean("isInvest");
         yieldCircle.setAngle((int) (0.24 * 360));
         yieldCircle.invalidate();
         yieldText.setText("24");
@@ -63,6 +66,14 @@ public class PProjectDetailActivity extends BaseActivity implements View.OnClick
         adapter = new FragmentPagerAdapter(getSupportFragmentManager(), fragmentList);
         detailPager.setAdapter(adapter);
         detailPager.setCurrentItem(0);
+
+        if (isInvest == null) {
+
+        } else if (isInvest) {
+            toInvestBtn.setVisibility(View.GONE);
+        } else {
+            toInvestBtn.setBackgroundResource(R.mipmap.p_repay_btn);
+        }
     }
 
     private void initialize() {
@@ -87,7 +98,11 @@ public class PProjectDetailActivity extends BaseActivity implements View.OnClick
         if (v == backBtn) {
             this.finish();
         } else if (v == toInvestBtn) {
-            toActivity(PInvestConfirmActivity.class);
+            if (isInvest == null) {
+                toActivity(PInvestConfirmActivity.class);
+            } else if (!isInvest) {
+                toActivity(PRepaymentActivity.class);
+            }
         }
     }
 

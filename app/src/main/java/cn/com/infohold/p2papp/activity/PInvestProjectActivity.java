@@ -12,11 +12,11 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.com.infohold.p2papp.bean.InvestProjectBean;
 import cn.com.infohold.p2papp.R;
+import cn.com.infohold.p2papp.bean.InvestProjectBean;
 import common.eric.com.ebaselibrary.adapter.EBaseAdapter;
 
-public class PInvestProjectActivity extends BaseActivity {
+public class PInvestProjectActivity extends BaseActivity implements View.OnClickListener {
 
     private ImageView newInvest;
     private TextView colligate;
@@ -100,5 +100,10 @@ public class PInvestProjectActivity extends BaseActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         return false;
+    }
+
+    @Override
+    public void onClick(View v) {
+
     }
 }

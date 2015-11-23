@@ -39,7 +39,16 @@
             android:label="@string/title_activity_pwithdraw" />
         <activity
             android:name=".activity.PSelfLoanActivity"
-            android:label="@string/title_activity_pself_loan"></activity>
+            android:label="@string/title_activity_pself_loan" />
+        <activity
+            android:name=".activity.PSelfInvestActivity"
+            android:label="@string/title_activity_pself_invest" />
+        <activity
+            android:name=".activity.PRepaymentActivity"
+            android:label="@string/title_activity_prepayment" />
+        <activity
+            android:name=".activity.PAccountActivity"
+            android:label="@string/title_activity_paccount"></activity>
     </application>
 
 </manifest>

@@ -4,7 +4,7 @@
     tools:context=".ViewTestActivity">
     <item
         android:id="@+id/action_home"
-        android:icon="@mipmap/icon_set_self"
+        android:icon="@mipmap/ic_launcher"
         android:orderInCategory="100"
         android:title="@string/app_name"
         app:showAsAction="always|withText" />

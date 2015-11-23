@@ -14,7 +14,9 @@ import android.widget.TextView;
 
 import cn.com.infohold.p2papp.R;
 import cn.com.infohold.p2papp.activity.BaseActivity;
+import cn.com.infohold.p2papp.activity.PAccountActivity;
 import cn.com.infohold.p2papp.activity.PRechargeActivity;
+import cn.com.infohold.p2papp.activity.PSelfInvestActivity;
 import cn.com.infohold.p2papp.activity.PSelfLoanActivity;
 import cn.com.infohold.p2papp.activity.PWithdrawActivity;
 
@@ -105,6 +107,9 @@ public class PSelfFragment extends Fragment implements View.OnClickListener {
         recharge.setOnClickListener(this);
         withdraw.setOnClickListener(this);
         selfLoan.setOnClickListener(this);
+        selfInvest.setOnClickListener(this);
+        topArea.setOnClickListener(this);
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -165,6 +170,10 @@ public class PSelfFragment extends Fragment implements View.OnClickListener {
             ((BaseActivity) getActivity()).toActivity(PWithdrawActivity.class);
         } else if (v == selfLoan) {
             ((BaseActivity) getActivity()).toActivity(PSelfLoanActivity.class);
+        } else if (v == selfInvest) {
+            ((BaseActivity) getActivity()).toActivity(PSelfInvestActivity.class);
+        } else if (v == topArea) {
+            ((BaseActivity) getActivity()).toActivity(PAccountActivity.class);
         }
     }
 

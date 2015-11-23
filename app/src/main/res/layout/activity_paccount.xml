@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_210"
+            android:layout_marginTop="@dimen/dp_10"
+            android:background="@android:color/white">
+
+            <com.github.mikephil.charting.charts.PieChart
+                android:id="@+id/chart1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="@dimen/dp_18"
+                android:layout_marginRight="@dimen/dp_18" />
+
+            <TextView
+                style="@style/text_11_99"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dp_20"
+                android:text="单位  (元)" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_45"
+            android:layout_marginTop="@dimen/dp_10"
+            android:background="@android:color/white"
+            android:onClick="onClick">
+
+            <TextView
+                style="@style/text_13_black"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/dp_18"
+                android:gravity="center_vertical"
+                android:text="我的投资" />
+
+            <TextView
+                android:id="@+id/selfInvestMoney"
+                style="@style/text_11_red"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/dp_18"
+                android:gravity="center_vertical"
+                android:text="80,6433.00" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="@dimen/dp_18"
+                android:background="@color/p_bg_color" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_45"
+            android:background="@android:color/white"
+            android:onClick="onClick">
+
+            <TextView
+                style="@style/text_13_black"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/dp_18"
+                android:gravity="center_vertical"
+                android:text="可用金额" />
+
+            <TextView
+                android:id="@+id/availMoney"
+                style="@style/text_11_red"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/dp_18"
+                android:gravity="center_vertical"
+                android:text="0.00" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="@dimen/dp_18"
+                android:background="@color/p_bg_color" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_45"
+            android:background="@android:color/white"
+            android:onClick="onClick">
+
+            <TextView
+                style="@style/text_13_black"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/dp_18"
+                android:gravity="center_vertical"
+                android:text="待收利息" />
+
+            <TextView
+                android:id="@+id/toInterest"
+                style="@style/text_11_red"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/dp_18"
+                android:gravity="center_vertical"
+                android:text="80,6433.00" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="@dimen/dp_18"
+                android:background="@color/p_bg_color" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_45"
+            android:background="@android:color/white"
+            android:onClick="onClick">
+
+            <TextView
+                style="@style/text_13_black"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/dp_18"
+                android:gravity="center_vertical"
+                android:text="冻结金额" />
+
+            <TextView
+                android:id="@+id/freezeAmonut"
+                style="@style/text_11_red"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/dp_18"
+                android:gravity="center_vertical"
+                android:text="0.00" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="@dimen/dp_18"
+                android:background="@color/p_bg_color" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_45"
+            android:background="@android:color/white"
+            android:onClick="onClick">
+
+            <TextView
+                style="@style/text_13_black"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/dp_18"
+                android:gravity="center_vertical"
+                android:text="红包" />
+
+            <TextView
+                android:id="@+id/redPacket"
+                style="@style/text_11_red"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/dp_18"
+                android:gravity="center_vertical"
+                android:text="0.00" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="@dimen/dp_18"
+                android:background="@color/p_bg_color" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+</ScrollView>
