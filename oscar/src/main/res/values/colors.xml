@@ -11,5 +11,6 @@
 
     //
     <color name="o_line_bg">#969696</color>
+    <color name="o_55_color">#555555</color>
     <color name="o_title_bgcolor">#014BA0</color>
 </resources>

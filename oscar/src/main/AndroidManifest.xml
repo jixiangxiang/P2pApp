@@ -23,11 +23,13 @@
         <activity
             android:name=".activity.ORegistActivity"
             android:label="@string/title_activity_oregist"
-            android:parentActivityName=".common.BaseActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.eric.oscar.common.BaseActivity" />
-        </activity>
+            android:parentActivityName=".common.BaseActivity"></activity>
+        <activity
+            android:name=".activity.OModifyLoginPwdActivity"
+            android:label="@string/title_activity_omodify_login_pwd"></activity>
+        <activity
+            android:name=".activity.OSetPayPwdActivity"
+            android:label="@string/title_activity_oset_pay_pwd"></activity>
     </application>
 
 </manifest>
