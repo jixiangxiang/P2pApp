@@ -19,7 +19,7 @@ public class PResetPwdActivity extends BaseActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preset_pwd);
-        
+
     }
 
     @Override
@@ -27,13 +27,15 @@ public class PResetPwdActivity extends BaseActivity implements View.OnClickListe
         initTitleGone();
         initialize();
         backBtn.setOnClickListener(this);
-        
+
     }
 
 
     @Override
     public void onClick(View v) {
-        
+        if (v == backBtn) {
+            this.finish();
+        }
     }
 
     private void initialize() {
