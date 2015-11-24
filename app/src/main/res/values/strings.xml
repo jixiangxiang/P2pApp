@@ -17,4 +17,8 @@
     <string name="title_activity_pself_invest">我的投资</string>
     <string name="title_activity_prepayment">还款</string>
     <string name="title_activity_paccount">账户资产</string>
+    <string name="title_activity_ptrade_record">交易记录</string>
+    <string name="title_activity_plogin">登录</string>
+    <string name="title_activity_pregist">注册</string>
+    <string name="title_activity_preset_pwd">密码找回</string>
 </resources>

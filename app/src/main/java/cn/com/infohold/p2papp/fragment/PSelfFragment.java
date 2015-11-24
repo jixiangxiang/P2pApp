@@ -15,9 +15,11 @@ import android.widget.TextView;
 import cn.com.infohold.p2papp.R;
 import cn.com.infohold.p2papp.activity.BaseActivity;
 import cn.com.infohold.p2papp.activity.PAccountActivity;
+import cn.com.infohold.p2papp.activity.PLoginActivity;
 import cn.com.infohold.p2papp.activity.PRechargeActivity;
 import cn.com.infohold.p2papp.activity.PSelfInvestActivity;
 import cn.com.infohold.p2papp.activity.PSelfLoanActivity;
+import cn.com.infohold.p2papp.activity.PTradeRecordActivity;
 import cn.com.infohold.p2papp.activity.PWithdrawActivity;
 
 /**
@@ -109,6 +111,9 @@ public class PSelfFragment extends Fragment implements View.OnClickListener {
         selfLoan.setOnClickListener(this);
         selfInvest.setOnClickListener(this);
         topArea.setOnClickListener(this);
+        investRecord.setOnClickListener(this);
+
+        ((BaseActivity) getActivity()).toActivity(PLoginActivity.class);
 
     }
 
@@ -174,6 +179,8 @@ public class PSelfFragment extends Fragment implements View.OnClickListener {
             ((BaseActivity) getActivity()).toActivity(PSelfInvestActivity.class);
         } else if (v == topArea) {
             ((BaseActivity) getActivity()).toActivity(PAccountActivity.class);
+        } else if (v == investRecord) {
+            ((BaseActivity) getActivity()).toActivity(PTradeRecordActivity.class);
         }
     }
 

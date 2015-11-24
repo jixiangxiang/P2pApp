@@ -48,7 +48,22 @@
             android:label="@string/title_activity_prepayment" />
         <activity
             android:name=".activity.PAccountActivity"
-            android:label="@string/title_activity_paccount"></activity>
+            android:label="@string/title_activity_paccount" />
+        <activity
+            android:name=".activity.PTradeRecordActivity"
+            android:label="@string/title_activity_ptrade_record" />
+        <activity
+            android:name=".activity.PLoginActivity"
+            android:windowSoftInputMode="stateHidden|adjustPan"
+            android:label="@string/title_activity_plogin"></activity>
+        <activity
+            android:name=".activity.PRegistActivity"
+            android:windowSoftInputMode="stateHidden|adjustPan"
+            android:label="@string/title_activity_pregist"></activity>
+        <activity
+            android:name=".activity.PResetPwdActivity"
+            android:windowSoftInputMode="stateHidden|adjustPan"
+            android:label="@string/title_activity_preset_pwd"></activity>
     </application>
 
 </manifest>

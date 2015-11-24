@@ -13,6 +13,7 @@ import android.view.View;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.data.DataSet;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -41,7 +42,7 @@ public class PAccountActivity extends BaseActivity implements View.OnClickListen
     protected void initView() {
         initTitleText(getString(R.string.title_activity_paccount), BaseActivity.TITLE_CENTER, android.R.color.black);
         mChart = (PieChart) findViewById(R.id.chart1);
-        //mChart.setUsePercentValues(true);
+        mChart.setUsePercentValues(true);
         mChart.setDescription("");
         mChart.setExtraOffsets(5, 10, 5, 5);
 
@@ -58,8 +59,7 @@ public class PAccountActivity extends BaseActivity implements View.OnClickListen
         mChart.setTransparentCircleRadius(61f);
 
         mChart.setDrawCenterText(true);
-        mChart.setDrawSliceText(false);
-        mChart.setUsePercentValues(false);
+        //mChart.setHoleColor(getResources().getColor(android.R.color.transparent));
 
         mChart.setRotationAngle(0);
         // enable rotation of the chart by touch
@@ -72,12 +72,18 @@ public class PAccountActivity extends BaseActivity implements View.OnClickListen
         setData(3, 100);
 
         mChart.animateY(1400, Easing.EasingOption.EaseInOutQuad);
-        // mChart.spin(2000, 0, 360);
 
         Legend l = mChart.getLegend();
         l.setPosition(Legend.LegendPosition.LEFT_OF_CHART);
         l.setXEntrySpace(5f);
         l.setYEntrySpace(0f);
+
+        //取消图上的文字
+        mChart.setDrawSliceText(false);
+        for (DataSet<?> set : mChart.getData().getDataSets())
+            set.setDrawValues(false);
+
+        mChart.invalidate();
     }
 
     @Override

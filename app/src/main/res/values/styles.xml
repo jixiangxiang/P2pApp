@@ -90,6 +90,11 @@
         <item name="android:textColor">@android:color/holo_red_dark</item>
     </style>
 
+    <style name="text_11_blue">
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">@color/p_blue_color</item>
+    </style>
+
     <style name="text_12_black">
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">@android:color/black</item>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp_65"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/dp_20"
+    android:paddingRight="@dimen/dp_20">
+
+    <TextView
+        android:id="@+id/tradeType"
+        style="@style/text_12_black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_17"
+        android:text="充值" />
+
+    <TextView
+        android:id="@+id/tradeDate"
+        style="@style/text_10_999"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_40"
+        android:text="2015-12-21 39:00" />
+
+    <TextView
+        android:id="@+id/tradeMoney"
+        style="@style/text_11_red"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="@dimen/dp_17"
+        android:text="+10,000.00" />
+
+    <TextView
+        android:id="@+id/balanceMoney"
+        style="@style/text_11_99"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="@dimen/dp_40"
+        android:text="可用余额  (元): 10,000.00" />
+</RelativeLayout>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/p_login_bg"
+    tools:context="cn.com.infohold.p2papp.activity.PLoginActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/dp_18"
+        android:paddingRight="@dimen/dp_18">
+
+        <EditText
+            android:id="@+id/userNameText"
+            style="@style/text_12_white"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            android:layout_marginTop="@dimen/dp_105"
+            android:gravity="left|center_vertical"
+            android:hint="邮箱/手机号/用户名"
+            android:padding="@dimen/dp_5"
+            android:textColorHint="@color/p_bg_color" />
+
+        <EditText
+            android:id="@+id/pwdText"
+            style="@style/text_12_white"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            android:gravity="left|center_vertical"
+            android:hint="登录密码"
+            android:padding="@dimen/dp_5"
+            android:textColorHint="@color/p_bg_color" />
+
+        <ImageButton
+            android:id="@+id/loginBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dp_27"
+            android:background="@drawable/p_login_btn_selector" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_23"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/text_11_white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="点击“登录”按钮，即表示您同意" />
+
+            <TextView
+                style="@style/text_11_blue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="《小草金服服务协议》" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/closeBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_18"
+        android:layout_marginTop="@dimen/dp_33"
+        android:background="@android:color/transparent"
+        android:src="@mipmap/p_close_icon" />
+
+    <Button
+        android:id="@+id/forgetPwdBtn"
+        style="@style/text_11_white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/dp_18"
+        android:background="@android:color/transparent"
+        android:text="忘记密码？" />
+
+    <Button
+        android:id="@+id/registBtn"
+        style="@style/text_11_white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/dp_18"
+        android:background="@android:color/transparent"
+        android:text="新用户注册" />
+</RelativeLayout>
