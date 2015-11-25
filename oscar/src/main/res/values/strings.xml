@@ -9,4 +9,8 @@
     <string name="title_activity_oself_center">个人中心</string>
     <string name="title_activity_omodify_login_pwd">修改登录密码</string>
     <string name="title_activity_oset_pay_pwd">设置支付密码</string>
+    <string name="title_activity_oreset_pwd">忘记登录密码</string>
+    <string name="title_activity_ochange_phone">更换注册手机</string>
+    <string name="title_activity_oaccount">我的账户</string>
+    <string name="title_activity_ofunds_record">资金记录</string>
 </resources>

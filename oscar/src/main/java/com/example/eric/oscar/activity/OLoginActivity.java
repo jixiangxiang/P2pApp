@@ -48,10 +48,11 @@ public class OLoginActivity extends BaseActivity implements View.OnClickListener
         findPwd = (TextView) findViewById(R.id.findPwd);
     }
 
+
     @Override
     public void onClick(View v) {
         if (v == findPwd) {
-
+            toActivity(OResetPwdActivity.class);
         } else if (v == toRegist) {
             toActivity(ORegistActivity.class);
         } else if (v == loginBtn) {

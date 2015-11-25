@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp_42"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/fundsType"
+        style="@style/text_13_55"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="业务" />
+
+    <TextView
+        android:id="@+id/addFunds"
+        style="@style/text_13_55"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="入金" />
+
+    <TextView
+        android:id="@+id/deleteFunds"
+        style="@style/text_13_55"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="出金" />
+
+    <TextView
+        android:id="@+id/fundsTime"
+        style="@style/text_13_55"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="时间" />
+
+</LinearLayout>

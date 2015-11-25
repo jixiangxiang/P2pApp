@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.eric.oscar.activity.OResetPwdActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        android:background="@android:color/white"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin">
+
+        <TextView
+            style="@style/text_13_black"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="注册手机：" />
+
+        <EditText
+            android:id="@+id/phoneText"
+            style="@style/text_13_black"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            android:layout_marginLeft="@dimen/dp_5"
+            android:background="@drawable/edittext_border_conner"
+            android:gravity="center_vertical"
+            android:hint="请输入您的注册手机号码"
+            android:padding="@dimen/dp_5" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        android:background="@android:color/white"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin">
+
+        <TextView
+            style="@style/text_13_black"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="短信验证码：" />
+
+        <EditText
+            android:id="@+id/captchaText"
+            style="@style/text_11_black"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/dp_5"
+            android:layout_marginLeft="@dimen/dp_80"
+            android:layout_marginTop="@dimen/dp_5"
+            android:layout_toLeftOf="@+id/captchaSendBtn"
+            android:background="@drawable/edittext_border_conner"
+            android:gravity="center_vertical"
+            android:hint="90有效，过期请重新获取"
+            android:padding="@dimen/dp_5" />
+
+        <Button
+            android:id="@+id/captchaSendBtn"
+            style="@style/text_13_black"
+            android:layout_width="@dimen/dp_75"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="@dimen/dp_5"
+            android:layout_marginLeft="@dimen/dp_8"
+            android:layout_marginTop="@dimen/dp_5"
+            android:background="@drawable/edittext_border_conner"
+            android:gravity="center"
+            android:text="免费获取" />
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/nextStepBtn"
+        style="@style/text_16_white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_8"
+        android:layout_marginRight="@dimen/dp_8"
+        android:layout_marginTop="@dimen/dp_24"
+        android:background="@mipmap/o_login_btn"
+        android:text="下一步" />
+</LinearLayout>

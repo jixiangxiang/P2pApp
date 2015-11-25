@@ -11,6 +11,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.eric.oscar.R;
+import com.example.eric.oscar.activity.OAccountActivity;
+import com.example.eric.oscar.activity.OChangePhoneActivity;
 import com.example.eric.oscar.activity.OModifyLoginPwdActivity;
 import com.example.eric.oscar.activity.OSetPayPwdActivity;
 import com.example.eric.oscar.common.BaseActivity;
@@ -91,6 +93,8 @@ public class OSelfFragment extends BaseFragment implements View.OnClickListener 
         initialize(view);
         loginPwdArea.setOnClickListener(this);
         payPwdArea.setOnClickListener(this);
+        registPhoneArea.setOnClickListener(this);
+        ((ViewGroup) arrowRight.getParent()).setOnClickListener(this);
     }
 
     @Override
@@ -99,6 +103,10 @@ public class OSelfFragment extends BaseFragment implements View.OnClickListener 
             ((BaseActivity) getActivity()).toActivity(OModifyLoginPwdActivity.class);
         } else if (v == payPwdArea) {
             ((BaseActivity) getActivity()).toActivity(OSetPayPwdActivity.class);
+        } else if (v == registPhoneArea) {
+            ((BaseActivity) getActivity()).toActivity(OChangePhoneActivity.class);
+        } else if (v == ((ViewGroup) arrowRight.getParent())) {
+            ((BaseActivity) getActivity()).toActivity(OAccountActivity.class);
         }
     }
 
