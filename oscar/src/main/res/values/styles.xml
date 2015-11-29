@@ -55,6 +55,11 @@
         <item name="android:textColor">@color/p_99_color</item>
     </style>
 
+    <style name="text_10_400">
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">@color/p_400_color</item>
+    </style>
+
     <style name="text_10_white">
         <item name="android:textSize">10sp</item>
         <item name="android:textColor">@android:color/white</item>
@@ -68,6 +73,11 @@
     <style name="text_11_99">
         <item name="android:textSize">11sp</item>
         <item name="android:textColor">@color/p_99_color</item>
+    </style>
+
+    <style name="text_11_select">
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">@drawable/p_textcolor_selector</item>
     </style>
 
     <style name="text_11_white">

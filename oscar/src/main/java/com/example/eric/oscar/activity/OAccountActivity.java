@@ -47,14 +47,14 @@ public class OAccountActivity extends BaseActivity implements View.OnClickListen
             toActivity(OFundsRecordActivity.class);
         } else if (v == bankCard) {
 
-        } else if (v == socar) {
-
         } else if (v == frozen) {
             toActivity(OFundsRecordActivity.class);
         } else if (v == recharge) {
             toActivity(OFundsRecordActivity.class);
         } else if (v == withdraw) {
             toActivity(OFundsRecordActivity.class);
+        } else if (v == socar) {
+            toActivity(OSelfOscarActivity.class);
         }
     }
 

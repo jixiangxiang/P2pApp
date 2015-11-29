@@ -54,10 +54,13 @@
     <dimen name="dp_145">145dp</dimen>
     <dimen name="dp_150">150dp</dimen>
     <dimen name="dp_165">165dp</dimen>
+    <dimen name="dp_170">170dp</dimen>
     <dimen name="dp_175">175dp</dimen>
     <dimen name="dp_188">188dp</dimen>
     <dimen name="dp_200">200dp</dimen>
     <dimen name="dp_210">210dp</dimen>
     <dimen name="dp_215">215dp</dimen>
     <dimen name="dp_230">230dp</dimen>
+    <dimen name="dp_250">250dp</dimen>
+    <dimen name="dp_270">270dp</dimen>
 </resources>

@@ -13,4 +13,6 @@
     <string name="title_activity_ochange_phone">更换注册手机</string>
     <string name="title_activity_oaccount">我的账户</string>
     <string name="title_activity_ofunds_record">资金记录</string>
+    <string name="title_activity_oauthentication">身份验证</string>
+    <string name="title_activity_oself_oscar">我的奥斯卡</string>
 </resources>

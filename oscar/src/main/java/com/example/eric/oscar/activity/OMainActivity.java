@@ -46,6 +46,7 @@ public class OMainActivity extends BaseActivity implements View.OnClickListener,
         homePagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager(), fragmentList);
         fragmentPager.setAdapter(homePagerAdapter);
         fragmentPager.addOnPageChangeListener(this);
+        initBottomBarSelect(0);
     }
 
     @Override

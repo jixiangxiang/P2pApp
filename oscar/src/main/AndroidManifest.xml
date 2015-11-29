@@ -44,7 +44,13 @@
             android:label="@string/title_activity_oaccount" />
         <activity
             android:name=".activity.OFundsRecordActivity"
-            android:label="@string/title_activity_ofunds_record"></activity>
+            android:label="@string/title_activity_ofunds_record" />
+        <activity
+            android:name=".activity.OAuthenticationActivity"
+            android:label="@string/title_activity_oauthentication" />
+        <activity
+            android:name=".activity.OSelfOscarActivity"
+            android:label="@string/title_activity_oself_oscar"></activity>
     </application>
 
 </manifest>

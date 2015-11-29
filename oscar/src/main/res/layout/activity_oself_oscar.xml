@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.eric.oscar.activity.OSelfOscarActivity">
+
+    <RelativeLayout
+        android:id="@+id/topArea"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:gravity="center_vertical">
+
+        <TextView
+            style="@style/text_13_55"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_30"
+            android:text="卡号"
+            android:textStyle="bold" />
+
+        <TextView
+            style="@style/text_13_55"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_30"
+            android:text="卡号"
+            android:textStyle="bold" />
+
+        <TextView
+            style="@style/text_13_55"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_170"
+            android:text="绑定日期"
+            android:textStyle="bold" />
+
+        <TextView
+            style="@style/text_13_55"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_270"
+            android:text="余额（元）"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/oscarList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/topArea"
+        android:background="@android:color/white"
+        android:divider="@color/o_line_bg"
+        android:dividerHeight="@dimen/dp_line"
+        android:paddingLeft="@dimen/dp_20"
+        android:paddingRight="@dimen/dp_20">
+
+    </ListView>
+
+    <RelativeLayout
+        android:id="@+id/totalArea"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/oscarList"
+        android:layout_marginLeft="@dimen/dp_20"
+        android:layout_marginRight="@dimen/dp_20">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_line"
+            android:layout_alignParentTop="true"
+            android:background="@color/o_line_bg" />
+
+        <TextView
+            android:id="@+id/totalMoney"
+            style="@style/text_13_55"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_15"
+            android:text="总计：1468.00元" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/infoArea"
+        style="@style/text_10_777"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/totalArea"
+        android:layout_marginRight="@dimen/dp_35"
+        android:layout_marginTop="@dimen/dp_30"
+        android:gravity="right|center"
+        android:text="小提示：奥斯卡的绑定等操作在“奥斯卡服务区”" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/infoArea"
+        android:layout_marginTop="@dimen/dp_18">
+
+        <TextView
+            style="@style/text_10_400"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/dp_35"
+            android:text="现在就去    >"
+            android:textStyle="bold" />
+    </RelativeLayout>
+</RelativeLayout>
