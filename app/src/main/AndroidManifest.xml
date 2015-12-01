@@ -4,21 +4,25 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/android_iocn"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activity.PHomeActivity"
-            android:label="@string/app_name" />
-        <activity
-            android:name=".activity.PMainActivity"
-            android:label="@string/app_name">
+            android:name=".activity.PStartActivity"
+            android:label="@string/app_name"
+            android:theme="@style/Start_Theme_Default">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activity.PHomeActivity"
+            android:label="@string/app_name" />
+        <activity
+            android:name=".activity.PMainActivity"
+            android:label="@string/app_name" />
         <activity
             android:name=".activity.PInvestProjectActivity"
             android:label="@string/title_activity_pinvest_project" />
@@ -54,16 +58,60 @@
             android:label="@string/title_activity_ptrade_record" />
         <activity
             android:name=".activity.PLoginActivity"
-            android:windowSoftInputMode="stateHidden|adjustPan"
-            android:label="@string/title_activity_plogin"></activity>
+            android:label="@string/title_activity_plogin"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name=".activity.PRegistActivity"
-            android:windowSoftInputMode="stateHidden|adjustPan"
-            android:label="@string/title_activity_pregist"></activity>
+            android:label="@string/title_activity_pregist"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name=".activity.PResetPwdActivity"
-            android:windowSoftInputMode="stateHidden|adjustPan"
-            android:label="@string/title_activity_preset_pwd"></activity>
+            android:label="@string/title_activity_preset_pwd"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".activity.PGuideActivity"
+            android:label="@string/title_activity_pguide"
+            android:theme="@style/Start_Theme_Default" />
+        <activity
+            android:name=".activity.PAccountSafeActivity"
+            android:label="@string/title_activity_paccount_safe" />
+        <activity
+            android:name=".activity.PVerificationActivity"
+            android:label="@string/title_activity_pverification"
+            android:windowSoftInputMode="stateHidden|adjustPan"></activity>
+        <activity
+            android:name=".activity.PMailSetActivity"
+            android:label="@string/title_activity_pmail_set"
+            android:windowSoftInputMode="stateHidden|adjustPan">
+
+        </activity>
+        <activity
+            android:name=".activity.PLoginPwdSetActivity"
+            android:label="@string/title_activity_plogin_pwd_set">
+
+        </activity>
+        <activity
+            android:name=".activity.PPayPwdSetActivity"
+            android:label="@string/title_activity_ppay_pwd_set"
+            android:windowSoftInputMode="stateHidden|adjustPan">
+
+        </activity>
+        <activity
+            android:name=".activity.PPhoneSetActivity"
+            android:label="@string/title_activity_pphone_set"
+            android:windowSoftInputMode="stateHidden|adjustPan"></activity>
+        <activity
+            android:name=".activity.PBindPhoneActivity"
+            android:label="@string/title_activity_pbind_phone"
+            android:windowSoftInputMode="stateHidden|adjustPan"></activity>
+        <activity
+            android:name=".activity.PCreditAssigActivity"
+            android:label="@string/title_activity_pbind_phone"
+            android:windowSoftInputMode="stateHidden|adjustPan"></activity>
+        <activity
+            android:name=".activity.PConfirmTransActivity"
+            android:label="@string/title_activity_pbind_phone"
+            android:windowSoftInputMode="stateHidden|adjustPan"></activity>
     </application>
 
 </manifest>

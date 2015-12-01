@@ -82,7 +82,7 @@
                         style="@style/text_11_white"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="累计收益 (元)" />
+                        android:text="昨日收益 (元)" />
 
                     <TextView
                         android:id="@+id/income"
@@ -104,7 +104,7 @@
                         style="@style/text_11_white"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="待收利息 (元)" />
+                        android:text="累计收益 (元)" />
 
                     <TextView
                         android:id="@+id/interest"
@@ -207,7 +207,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_53"
                         android:layout_marginTop="@dimen/dp_15"
-                        android:text="我的投资" />
+                        android:text="投资总额" />
 
                     <TextView
                         android:id="@+id/investMoney"
@@ -281,7 +281,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_53"
                         android:layout_marginTop="@dimen/dp_15"
-                        android:text="我的借款" />
+                        android:text="借款总额" />
 
                     <TextView
                         android:id="@+id/loanMoney"

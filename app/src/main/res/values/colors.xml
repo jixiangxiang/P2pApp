@@ -9,4 +9,11 @@
     <color name="p_trans_white_color">#22ffffff</color>
     <color name="p_circle_white_color">#55ffffff</color>
     <color name="p_blue_color">#1D78BC</color>
+
+
+    <color name="self_invest_color">#D67B82</color>
+    <color name="avaliable_balance_color">#39C7C8</color>
+    <color name="collect_interst_color">#B6A5DC</color>
+    <color name="frozen_money_color">#5EB3EC</color>
+    <color name="red_money_color">#FFB985</color>
 </resources>

@@ -19,12 +19,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_200" />
 
+            <cn.com.infohold.p2papp.views.DotLayout
+                android:id="@+id/dotLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_188">
+
+            </cn.com.infohold.p2papp.views.DotLayout>
+
             <cn.com.infohold.p2papp.views.WrapScrollGridView
                 android:id="@+id/functionGrid"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/bannerPager"
-                android:background="@color/p_bg_color"
                 android:horizontalSpacing="@dimen/dp_1"
                 android:numColumns="3"
                 android:verticalSpacing="@dimen/dp_1">

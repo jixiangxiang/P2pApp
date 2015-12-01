@@ -104,7 +104,7 @@ public class PLoanListFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Bundle bundle = new Bundle();
-                bundle.putBoolean("isInvest", false);
+                bundle.putInt("status", 2);
                 ((BaseActivity) getActivity()).toActivity(PProjectDetailActivity.class, bundle);
             }
         });

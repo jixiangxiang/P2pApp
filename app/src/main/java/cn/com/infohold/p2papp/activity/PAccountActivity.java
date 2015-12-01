@@ -19,7 +19,6 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
-import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
 
@@ -112,28 +111,13 @@ public class PAccountActivity extends BaseActivity implements View.OnClickListen
 
         PieDataSet set1 = new PieDataSet(yVals1, "");
         set1.setSliceSpace(3f);
-
         // add a lot of colors
-
         ArrayList<Integer> colors = new ArrayList<Integer>();
-
-        for (int c : ColorTemplate.VORDIPLOM_COLORS)
-            colors.add(c);
-
-        for (int c : ColorTemplate.JOYFUL_COLORS)
-            colors.add(c);
-
-        for (int c : ColorTemplate.COLORFUL_COLORS)
-            colors.add(c);
-
-        for (int c : ColorTemplate.LIBERTY_COLORS)
-            colors.add(c);
-
-        for (int c : ColorTemplate.PASTEL_COLORS)
-            colors.add(c);
-
-        colors.add(ColorTemplate.getHoloBlue());
-
+        colors.add(getResources().getColor(R.color.self_invest_color));
+        colors.add(getResources().getColor(R.color.avaliable_balance_color));
+        colors.add(getResources().getColor(R.color.collect_interst_color));
+        colors.add(getResources().getColor(R.color.frozen_money_color));
+        colors.add(getResources().getColor(R.color.red_money_color));
         set1.setColors(colors);
         PieData data = new PieData(xVals, set1);
         mChart.setData(data);

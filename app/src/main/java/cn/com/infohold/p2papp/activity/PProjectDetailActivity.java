@@ -39,7 +39,7 @@ public class PProjectDetailActivity extends BaseActivity implements View.OnClick
     private TextView yieldText;
     private ImageView backBtn;
     private TextView questions;
-    private Boolean isInvest = null;
+    private Integer status = 0;
 
     private FragmentPagerAdapter adapter;
 
@@ -55,7 +55,7 @@ public class PProjectDetailActivity extends BaseActivity implements View.OnClick
         initTitleGone();
         initialize();
         if (getIntent().getExtras() != null)
-            isInvest = getIntent().getExtras().getBoolean("isInvest");
+            status = getIntent().getExtras().getInt("status");
         yieldCircle.setAngle((int) (0.24 * 360));
         yieldCircle.invalidate();
         yieldText.setText("24");
@@ -67,12 +67,16 @@ public class PProjectDetailActivity extends BaseActivity implements View.OnClick
         detailPager.setAdapter(adapter);
         detailPager.setCurrentItem(0);
 
-        if (isInvest == null) {
-
-        } else if (isInvest) {
-            toInvestBtn.setVisibility(View.GONE);
-        } else {
-            toInvestBtn.setBackgroundResource(R.mipmap.p_repay_btn);
+        switch (status) {
+            case 1:
+                toInvestBtn.setVisibility(View.GONE);
+                break;
+            case 2:
+                toInvestBtn.setBackgroundResource(R.mipmap.p_repay_btn);
+                break;
+            case 3:
+                toInvestBtn.setBackgroundResource(R.mipmap.p_to_trans_btn);
+                break;
         }
     }
 
@@ -98,10 +102,16 @@ public class PProjectDetailActivity extends BaseActivity implements View.OnClick
         if (v == backBtn) {
             this.finish();
         } else if (v == toInvestBtn) {
-            if (isInvest == null) {
-                toActivity(PInvestConfirmActivity.class);
-            } else if (!isInvest) {
-                toActivity(PRepaymentActivity.class);
+            switch (status) {
+                case 1:
+                    toActivity(PInvestConfirmActivity.class);
+                    break;
+                case 2:
+                    toActivity(PRepaymentActivity.class);
+                    break;
+                case 3:
+                    toActivity(PConfirmTransActivity.class);
+                    break;
             }
         }
     }

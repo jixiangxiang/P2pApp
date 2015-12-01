@@ -3,10 +3,10 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
+        <item name="android:windowNoTitle">true</item>
         <item name="android:windowAnimationStyle">@android:style/Animation.Translucent</item>
         <item name="android:windowExitAnimation">@android:anim/slide_out_right</item>
         <item name="android:windowEnterAnimation">@android:anim/slide_in_left</item>
-        <!--<item name="android:windowBackground">@mipmap/background_img</item>-->
         <!-- Actionbar color -->
         <!--<item name="colorPrimary">@color/material_blue_grey_950</item>-->
         <!--&lt;!&ndash;Status bar color&ndash;&gt;-->
@@ -16,7 +16,11 @@
         <!--<item name="android:textColorPrimary">@color/dim_foreground_material_dark</item>-->
         <!-- 使用自定义样式-->
         <!--<item name="drawerArrowStyle">@style/AppTheme.MyDrawerArrowStyle</item>-->
+    </style>
 
+    <style name="Start_Theme_Default" parent="AppTheme">
+        <item name="android:windowBackground">@mipmap/p_start_bg</item>
+        <item name="android:windowFullscreen">true</item>
     </style>
 
     <style name="dialog_animations" parent="android:Animation">

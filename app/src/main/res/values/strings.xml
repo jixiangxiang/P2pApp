@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">P2P</string>
+    <string name="app_name">小草金服</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
@@ -13,12 +13,23 @@
     <string name="title_activity_paccount_set">账户设置</string>
     <string name="title_activity_precharge">充值</string>
     <string name="title_activity_pwithdraw">提现</string>
-    <string name="title_activity_pself_loan">我的借款</string>
-    <string name="title_activity_pself_invest">我的投资</string>
+    <string name="title_activity_pself_loan">借款总额</string>
+    <string name="title_activity_pself_invest">投资总额</string>
     <string name="title_activity_prepayment">还款</string>
     <string name="title_activity_paccount">账户资产</string>
     <string name="title_activity_ptrade_record">交易记录</string>
     <string name="title_activity_plogin">登录</string>
     <string name="title_activity_pregist">注册</string>
     <string name="title_activity_preset_pwd">密码找回</string>
+    <string name="title_activity_pstart">启动页</string>
+    <string name="title_activity_pguide">引导页</string>
+    <string name="title_activity_paccount_safe">账户安全</string>
+    <string name="title_activity_pverification">实名认证</string>
+    <string name="title_activity_pmail_set">邮箱认证</string>
+    <string name="title_activity_plogin_pwd_set">登陆密码</string>
+    <string name="title_activity_ppay_pwd_set">支付密码</string>
+    <string name="title_activity_pphone_set">修改绑定手机</string>
+    <string name="title_activity_pbind_phone">修改绑定手机</string>
+    <string name="title_activity_pcredit_assig">债权转让</string>
+    <string name="title_activity_confirm_trans">债权转让</string>
 </resources>

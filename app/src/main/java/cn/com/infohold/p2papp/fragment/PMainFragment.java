@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ import cn.com.infohold.p2papp.activity.BaseActivity;
 import cn.com.infohold.p2papp.adapter.FunctionGridAdapter;
 import cn.com.infohold.p2papp.adapter.ImagePagerAdapter;
 import cn.com.infohold.p2papp.enums.FunctionEnum;
+import cn.com.infohold.p2papp.views.DotLayout;
 import cn.com.infohold.p2papp.views.WrapScrollGridView;
 import cn.trinea.android.view.autoscrollviewpager.AutoScrollViewPager;
 
@@ -53,6 +55,7 @@ public class PMainFragment extends Fragment {
     private TextView hour;
     private TextView minute;
     private FunctionGridAdapter functionGridAdapter;
+    private DotLayout dotLayout;
 
     private List<Integer> imageIdList;
 
@@ -103,7 +106,7 @@ public class PMainFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Class toClass = FunctionEnum.values()[position].getFunctionClass();
-                if(toClass!=null){
+                if (toClass != null) {
                     ((BaseActivity) getActivity()).toActivity(toClass);
                 }
             }
@@ -115,10 +118,26 @@ public class PMainFragment extends Fragment {
         imageIdList.add(R.mipmap.banner_1);
         imageIdList.add(R.mipmap.banner_1);
         bannerPager.setAdapter(new ImagePagerAdapter(getActivity(), imageIdList).setInfiniteLoop(true));
-
+        dotLayout.setSize(imageIdList.size());
         bannerPager.setInterval(2000);
         bannerPager.startAutoScroll();
         bannerPager.setCurrentItem(Integer.MAX_VALUE / 2 - Integer.MAX_VALUE / 2 % imageIdList.size());
+        bannerPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                dotLayout.selectChildViewByIndex(position % imageIdList.size());
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -155,6 +174,7 @@ public class PMainFragment extends Fragment {
         yield = (TextView) view.findViewById(R.id.yield);
         hour = (TextView) view.findViewById(R.id.hour);
         minute = (TextView) view.findViewById(R.id.minute);
+        dotLayout = (DotLayout) view.findViewById(R.id.dotLayout);
     }
 
     /**

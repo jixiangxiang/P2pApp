@@ -65,10 +65,10 @@ public class PInvestProjectActivity extends BaseActivity implements View.OnClick
                     Integer status = (Integer) o;
                     switch (status) {
                         case 0:
-                            iv.setImageResource(R.mipmap.p_loaning_btn);
+                            iv.setSelected(false);
                             break;
                         case 1:
-                            iv.setImageResource(R.mipmap.p_invest_btn);
+                            iv.setSelected(true);
                             break;
                     }
                     return true;

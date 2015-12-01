@@ -15,6 +15,7 @@ import cn.com.infohold.p2papp.R;
 import cn.com.infohold.p2papp.adapter.FragmentPagerAdapter;
 import cn.com.infohold.p2papp.adapter.ViewPagerAdapter;
 import cn.com.infohold.p2papp.fragment.PLoanListFragment;
+import cn.com.infohold.p2papp.views.DotLayout;
 
 public class PSelfLoanActivity extends BaseActivity implements View.OnClickListener, PLoanListFragment.OnFragmentInteractionListener {
 
@@ -29,6 +30,8 @@ public class PSelfLoanActivity extends BaseActivity implements View.OnClickListe
     private FragmentPagerAdapter adapter;
     private ViewPagerAdapter viewAdapter;
     ArrayList<View> views;
+    private DotLayout dotLayout;
+    private ArrayList<Fragment> fragmentList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +44,7 @@ public class PSelfLoanActivity extends BaseActivity implements View.OnClickListe
         initialize();
         getToolbar().setBackgroundColor(getResources().getColor(android.R.color.white));
         initTitleText(getString(R.string.title_activity_pself_loan), BaseActivity.TITLE_CENTER, android.R.color.black);
-        ArrayList<Fragment> fragmentList = new ArrayList<Fragment>();
+        fragmentList = new ArrayList<Fragment>();
         fragmentList.add(PLoanListFragment.newInstance(1, null));
         fragmentList.add(PLoanListFragment.newInstance(2, null));
         fragmentList.add(PLoanListFragment.newInstance(3, null));
@@ -50,7 +53,23 @@ public class PSelfLoanActivity extends BaseActivity implements View.OnClickListe
         initTopMoenyViews(9000.00, 8000.00, 1000.00);
         viewAdapter = new ViewPagerAdapter(getSupportFragmentManager(), views);
         loanMoneyPager.setAdapter(viewAdapter);
+        dotLayout.setSize(views.size());
+        loanMoneyPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                dotLayout.selectChildViewByIndex(position % views.size());
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
         adapter = new FragmentPagerAdapter(getSupportFragmentManager(), fragmentList);
         loanListPager.setAdapter(adapter);
         loanListPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -62,6 +81,7 @@ public class PSelfLoanActivity extends BaseActivity implements View.OnClickListe
             @Override
             public void onPageSelected(int position) {
                 selectStatusList(position + 1);
+                dotLayout.selectChildViewByIndex(position % views.size());
             }
 
             @Override
@@ -94,6 +114,7 @@ public class PSelfLoanActivity extends BaseActivity implements View.OnClickListe
         loaning = (TextView) findViewById(R.id.loaning);
         tabView = (LinearLayout) findViewById(R.id.tabView);
         loanListPager = (ViewPager) findViewById(R.id.loanListPager);
+        dotLayout = (DotLayout) findViewById(R.id.dotLayout);
     }
 
     @Override

@@ -15,6 +15,7 @@ import cn.com.infohold.p2papp.R;
 import cn.com.infohold.p2papp.adapter.FragmentPagerAdapter;
 import cn.com.infohold.p2papp.adapter.ViewPagerAdapter;
 import cn.com.infohold.p2papp.fragment.PInvestListFragment;
+import cn.com.infohold.p2papp.views.DotLayout;
 
 public class PSelfInvestActivity extends BaseActivity implements View.OnClickListener, PInvestListFragment.OnFragmentInteractionListener {
 
@@ -28,7 +29,9 @@ public class PSelfInvestActivity extends BaseActivity implements View.OnClickLis
 
     private FragmentPagerAdapter adapter;
     private ViewPagerAdapter viewAdapter;
+    private DotLayout dotLayout;
     ArrayList<View> views;
+    private ArrayList<Fragment> fragmentList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +44,7 @@ public class PSelfInvestActivity extends BaseActivity implements View.OnClickLis
         initialize();
         getToolbar().setBackgroundColor(getResources().getColor(android.R.color.white));
         initTitleText(getString(R.string.title_activity_pself_invest), BaseActivity.TITLE_CENTER, android.R.color.black);
-        ArrayList<Fragment> fragmentList = new ArrayList<Fragment>();
+        fragmentList = new ArrayList<Fragment>();
         fragmentList.add(PInvestListFragment.newInstance(1, null));
         fragmentList.add(PInvestListFragment.newInstance(2, null));
         fragmentList.add(PInvestListFragment.newInstance(3, null));
@@ -50,7 +53,23 @@ public class PSelfInvestActivity extends BaseActivity implements View.OnClickLis
         initTopMoenyViews(9000.00, 8000.00, 1000.00);
         viewAdapter = new ViewPagerAdapter(getSupportFragmentManager(), views);
         investMoneyPager.setAdapter(viewAdapter);
+        dotLayout.setSize(views.size());
+        investMoneyPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                dotLayout.selectChildViewByIndex(position % views.size());
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
         adapter = new FragmentPagerAdapter(getSupportFragmentManager(), fragmentList);
         investListPager.setAdapter(adapter);
         investListPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -94,6 +113,7 @@ public class PSelfInvestActivity extends BaseActivity implements View.OnClickLis
         loaning = (TextView) findViewById(R.id.loaning);
         tabView = (LinearLayout) findViewById(R.id.tabView);
         investListPager = (ViewPager) findViewById(R.id.investListPager);
+        dotLayout = (DotLayout) findViewById(R.id.dotLayout);
     }
 
     @Override

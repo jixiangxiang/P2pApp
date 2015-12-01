@@ -104,7 +104,7 @@ public class PInvestListFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Bundle bundle = new Bundle();
-                bundle.putBoolean("isInvest", true);
+                bundle.putInt("status", 1);
                 ((BaseActivity) getActivity()).toActivity(PProjectDetailActivity.class, bundle);
             }
         });
