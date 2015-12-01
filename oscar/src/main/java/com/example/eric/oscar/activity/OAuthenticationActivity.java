@@ -17,7 +17,7 @@ public class OAuthenticationActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-
+        initTitleText(getString(R.string.title_activity_oauthentication),BaseActivity.TITLE_CENTER);
     }
 
     @Override

@@ -1,15 +1,15 @@
-package cn.com.infohold.p2papp.views;
+package com.example.eric.oscar.views;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import cn.com.infohold.p2papp.R;
-import cn.com.infohold.p2papp.common.DensityUtils;
+import com.example.eric.oscar.R;
+import com.example.eric.oscar.common.DensityUtils;
+
 
 /**
  * Created by eric on 2015/11/30.
