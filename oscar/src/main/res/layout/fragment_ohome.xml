@@ -155,7 +155,10 @@
                 <android.support.v4.view.ViewPager
                     android:id="@+id/merchantCatePager"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"></android.support.v4.view.ViewPager>
+                    android:layout_height="match_parent"
+                    android:background="@color/o_title_bgcolor">
+
+                </android.support.v4.view.ViewPager>
 
                 <com.example.eric.oscar.views.DotLayout
                     android:id="@+id/dotLayout"
