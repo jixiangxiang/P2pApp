@@ -15,4 +15,8 @@
     <string name="title_activity_ofunds_record">资金记录</string>
     <string name="title_activity_oauthentication">身份验证</string>
     <string name="title_activity_oself_oscar">我的奥斯卡</string>
+    <string name="title_activity_ohelp">奥斯卡帮助中心</string>
+    <string name="title_activity_obind_oscar">绑定奥斯卡</string>
+    <string name="title_activity_obind_valid">绑定奥斯卡</string>
+    <string name="title_activity_ooscar_balance">查询余额</string>
 </resources>

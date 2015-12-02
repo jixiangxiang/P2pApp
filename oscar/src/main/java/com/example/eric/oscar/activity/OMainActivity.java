@@ -13,6 +13,7 @@ import com.example.eric.oscar.adapter.FragmentPagerAdapter;
 import com.example.eric.oscar.common.BaseActivity;
 import com.example.eric.oscar.fragment.BaseFragment;
 import com.example.eric.oscar.fragment.OHomeFragment;
+import com.example.eric.oscar.fragment.OOscarFragment;
 import com.example.eric.oscar.fragment.OSelfFragment;
 
 import java.util.ArrayList;
@@ -41,7 +42,7 @@ public class OMainActivity extends BaseActivity implements View.OnClickListener,
         initialize();
         fragmentList = new ArrayList<Fragment>();
         fragmentList.add(OHomeFragment.newInstance(null, null));
-        fragmentList.add(OSelfFragment.newInstance(null, null));
+        fragmentList.add(OOscarFragment.newInstance(null, null));
         fragmentList.add(OSelfFragment.newInstance(null, null));
         fragmentList.add(OSelfFragment.newInstance(null, null));
         homePagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager(), fragmentList);

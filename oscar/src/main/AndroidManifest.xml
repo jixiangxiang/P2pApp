@@ -50,7 +50,19 @@
             android:label="@string/title_activity_oauthentication" />
         <activity
             android:name=".activity.OSelfOscarActivity"
-            android:label="@string/title_activity_oself_oscar"></activity>
+            android:label="@string/title_activity_oself_oscar" />
+        <activity
+            android:name=".activity.OHelpActivity"
+            android:label="@string/title_activity_ohelp" />
+        <activity
+            android:name=".activity.OBindOscarActivity"
+            android:label="@string/title_activity_obind_oscar" />
+        <activity
+            android:name=".activity.OBindValidActivity"
+            android:label="@string/title_activity_obind_valid"></activity>
+        <activity
+            android:name=".activity.OOscarBalanceActivity"
+            android:label="@string/title_activity_ooscar_balance"></activity>
     </application>
 
 </manifest>

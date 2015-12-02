@@ -47,7 +47,7 @@ public class OHomeFragment extends BaseFragment implements View.OnClickListener 
     private ViewPagerAdapter merchantCateAdapter;
     private DotLayout dotLayout;
     private List<MerchantBean> merchantBeans;
-    private ArrayList<View> views = new ArrayList<View>();
+    private ArrayList<View> views;
 
     public OHomeFragment() {
         // Required empty public constructor
@@ -92,6 +92,7 @@ public class OHomeFragment extends BaseFragment implements View.OnClickListener 
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initialize(view);
+        views = new ArrayList<View>();
         merchantBeans = new ArrayList<MerchantBean>();
         merchantBeans.add(new MerchantBean(R.mipmap.o_merchant1, "朝阳大悦城", "地址：北京市朝阳区朝阳北路101号（青年）", "0.9km"));
         merchantBeans.add(new MerchantBean(R.mipmap.o_merchant2, "中国联通(朝阳区营业厅)", "地址：北京市朝阳区朝阳路住邦2000", "1.3km"));
