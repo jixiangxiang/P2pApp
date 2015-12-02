@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="cn.com.infohold.p2papp.activity.PSelfBankActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/dp_18"
+        android:paddingRight="@dimen/dp_18">
+
+        <LinearLayout
+            android:id="@+id/bankCardArea"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_18"
+            android:background="@mipmap/p_bank_card_bg"
+            android:onClick="onClick"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_35">
+
+                <TextView
+                    android:id="@+id/bankName"
+                    style="@style/text_13_white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/dp_13"
+                    android:gravity="center_vertical"
+                    android:text="工商银行借记卡" />
+
+                <TextView
+                    android:id="@+id/phoneNum"
+                    style="@style/text_11_bg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/dp_13"
+                    android:gravity="center_vertical"
+                    android:text="手机尾号8832" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_45">
+
+                <TextView
+                    android:id="@+id/bankNo"
+                    style="@style/text_13_black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/dp_13"
+                    android:gravity="center_vertical"
+                    android:text="6222    ****    ****    8832" />
+
+                <TextView
+                    style="@style/text_13_blue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/dp_13"
+                    android:gravity="center_vertical"
+                    android:text="修改" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/addBankBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_18"
+            android:background="@android:color/transparent"
+            android:onClick="onClick"
+            android:src="@mipmap/p_add_bankcard_icon" />
+    </LinearLayout>
+</ScrollView>

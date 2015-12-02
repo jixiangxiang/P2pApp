@@ -78,40 +78,40 @@
         <activity
             android:name=".activity.PVerificationActivity"
             android:label="@string/title_activity_pverification"
-            android:windowSoftInputMode="stateHidden|adjustPan"></activity>
+            android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name=".activity.PMailSetActivity"
             android:label="@string/title_activity_pmail_set"
-            android:windowSoftInputMode="stateHidden|adjustPan">
-
-        </activity>
+            android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name=".activity.PLoginPwdSetActivity"
-            android:label="@string/title_activity_plogin_pwd_set">
-
-        </activity>
+            android:label="@string/title_activity_plogin_pwd_set" />
         <activity
             android:name=".activity.PPayPwdSetActivity"
             android:label="@string/title_activity_ppay_pwd_set"
-            android:windowSoftInputMode="stateHidden|adjustPan">
-
-        </activity>
+            android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name=".activity.PPhoneSetActivity"
             android:label="@string/title_activity_pphone_set"
-            android:windowSoftInputMode="stateHidden|adjustPan"></activity>
+            android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name=".activity.PBindPhoneActivity"
             android:label="@string/title_activity_pbind_phone"
-            android:windowSoftInputMode="stateHidden|adjustPan"></activity>
+            android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name=".activity.PCreditAssigActivity"
             android:label="@string/title_activity_pbind_phone"
-            android:windowSoftInputMode="stateHidden|adjustPan"></activity>
+            android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name=".activity.PConfirmTransActivity"
             android:label="@string/title_activity_pbind_phone"
-            android:windowSoftInputMode="stateHidden|adjustPan"></activity>
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".activity.PSelfBankActivity"
+            android:label="@string/title_activity_pself_bank" />
+        <activity
+            android:name=".activity.PAddBankActivity"
+            android:label="@string/title_activity_padd_bank"></activity>
     </application>
 
 </manifest>

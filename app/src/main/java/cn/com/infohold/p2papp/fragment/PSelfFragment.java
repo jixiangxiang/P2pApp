@@ -19,6 +19,7 @@ import cn.com.infohold.p2papp.activity.PAccountSafeActivity;
 import cn.com.infohold.p2papp.activity.PCreditAssigActivity;
 import cn.com.infohold.p2papp.activity.PLoginActivity;
 import cn.com.infohold.p2papp.activity.PRechargeActivity;
+import cn.com.infohold.p2papp.activity.PSelfBankActivity;
 import cn.com.infohold.p2papp.activity.PSelfInvestActivity;
 import cn.com.infohold.p2papp.activity.PSelfLoanActivity;
 import cn.com.infohold.p2papp.activity.PTradeRecordActivity;
@@ -116,6 +117,7 @@ public class PSelfFragment extends Fragment implements View.OnClickListener {
         investRecord.setOnClickListener(this);
         accountSafe.setOnClickListener(this);
         creditoArea.setOnClickListener(this);
+        bankArea.setOnClickListener(this);
 
         ((BaseActivity) getActivity()).toActivity(PLoginActivity.class);
 
@@ -189,6 +191,8 @@ public class PSelfFragment extends Fragment implements View.OnClickListener {
             ((BaseActivity) getActivity()).toActivity(PAccountSafeActivity.class);
         } else if (v == creditoArea) {
             ((BaseActivity) getActivity()).toActivity(PCreditAssigActivity.class);
+        } else if (v == bankArea) {
+            ((BaseActivity) getActivity()).toActivity(PSelfBankActivity.class);
         }
     }
 

@@ -84,6 +84,11 @@
         <item name="android:textColor">@color/p_99_color</item>
     </style>
 
+    <style name="text_11_bg">
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">@color/p_bg_color</item>
+    </style>
+
     <style name="text_11_white">
         <item name="android:textSize">11sp</item>
         <item name="android:textColor">@android:color/white</item>
@@ -147,6 +152,11 @@
     <style name="text_13_99">
         <item name="android:textSize">13sp</item>
         <item name="android:textColor">@color/p_99_color</item>
+    </style>
+
+    <style name="text_13_blue">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/p_blue_color</item>
     </style>
 
     <style name="text_14_black">

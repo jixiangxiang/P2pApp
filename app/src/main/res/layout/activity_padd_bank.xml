@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="cn.com.infohold.p2papp.activity.PAddBankActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_32"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/dp_20"
+        android:paddingRight="@dimen/dp_20">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+            android:src="@mipmap/p_warn_icon" />
+
+        <TextView
+            style="@style/text_11_99"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_5"
+            android:text="密码需要6-16位，建议使用字母加数字或符号的组合" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_45"
+        android:background="@android:color/white"
+        android:paddingLeft="@dimen/dp_18"
+        android:paddingRight="@dimen/dp_18">
+
+        <TextView
+            android:id="@+id/username"
+            style="@style/text_13_black"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="萧长风" />
+
+        <EditText
+            android:id="@+id/bankCardNo"
+            style="@style/text_13_black"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dp_60"
+            android:background="@android:color/transparent"
+            android:gravity="center_vertical"
+            android:hint="银行卡号" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/bankNameArea"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_45"
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="@android:color/white"
+        android:onClick="onClick"
+        android:paddingLeft="@dimen/dp_18"
+        android:paddingRight="@dimen/dp_18">
+
+        <TextView
+            style="@style/text_13_black"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="银行" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/p_right_arrow" />
+
+        <TextView
+            android:id="@+id/bankName"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/dp_10"
+            android:gravity="center_vertical"
+            android:hint="请选择" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/bankProvinceArea"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_45"
+        android:layout_marginTop="@dimen/dp_0.1"
+        android:background="@android:color/white"
+        android:onClick="onClick"
+        android:paddingLeft="@dimen/dp_18"
+        android:paddingRight="@dimen/dp_18">
+
+        <TextView
+            style="@style/text_13_black"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="开户省份" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/p_right_arrow" />
+
+        <TextView
+            android:id="@+id/bankProvince"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/dp_10"
+            android:gravity="center_vertical"
+            android:hint="请选择" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/bankCityArea"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_45"
+        android:layout_marginTop="@dimen/dp_0.1"
+        android:background="@android:color/white"
+        android:onClick="onClick"
+        android:paddingLeft="@dimen/dp_18"
+        android:paddingRight="@dimen/dp_18">
+
+        <TextView
+            style="@style/text_13_black"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="城市" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/p_right_arrow" />
+
+        <TextView
+            android:id="@+id/bankCity"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/dp_10"
+            android:gravity="center_vertical"
+            android:hint="请选择" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/bankDotArea"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_45"
+        android:layout_marginTop="@dimen/dp_0.1"
+        android:background="@android:color/white"
+        android:onClick="onClick"
+        android:paddingLeft="@dimen/dp_18"
+        android:paddingRight="@dimen/dp_18">
+
+        <TextView
+            style="@style/text_13_black"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="开户行网点名称" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/p_right_arrow" />
+
+        <TextView
+            android:id="@+id/bankDot"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/dp_10"
+            android:gravity="center_vertical"
+            android:hint="请选择" />
+    </RelativeLayout>
+
+    <ImageButton
+        android:id="@+id/agreeBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dp_30"
+        android:background="@android:color/transparent"
+        android:onClick="onClick"
+        android:src="@drawable/p_agree_selector" />
+
+    <TextView
+        android:id="@+id/agreement"
+        style="@style/text_11_blue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        android:gravity="center"
+        android:onClick="onClick"
+        android:padding="@dimen/dp_5"
+        android:text="《小草金服快捷支付服务协议》" />
+</LinearLayout>

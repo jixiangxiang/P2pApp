@@ -32,4 +32,6 @@
     <string name="title_activity_pbind_phone">修改绑定手机</string>
     <string name="title_activity_pcredit_assig">债权转让</string>
     <string name="title_activity_confirm_trans">债权转让</string>
+    <string name="title_activity_pself_bank">我的银行卡</string>
+    <string name="title_activity_padd_bank">添加银行卡</string>
 </resources>
