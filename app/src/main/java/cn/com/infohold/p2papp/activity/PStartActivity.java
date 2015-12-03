@@ -6,6 +6,9 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import cn.com.infohold.p2papp.R;
+import cn.com.infohold.p2papp.common.ApiUtils;
+import cn.com.infohold.p2papp.common.SharedPreferencesUtils;
+import cn.com.infohold.p2papp.common.gate.SignatureUtil;
 
 public class PStartActivity extends BaseActivity {
 
@@ -23,6 +26,10 @@ public class PStartActivity extends BaseActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+                SharedPreferencesUtils.setParam(getApplicationContext(), "app_key", ApiUtils.APP_KEY);
+                SharedPreferencesUtils.setParam(getApplicationContext(), "app_channel", ApiUtils.APP_CHANNEL);
+                SharedPreferencesUtils.setParam(getApplicationContext(), "app_secret", ApiUtils.APP_SECRET);
+                SharedPreferencesUtils.setParam(getApplicationContext(), "deviceid", SignatureUtil.getImei(PStartActivity.this));
                 toActivity(PGuideActivity.class);
                 PStartActivity.this.finish();
             }

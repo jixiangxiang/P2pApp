@@ -11,10 +11,10 @@ import common.eric.com.ebaselibrary.common.EBaseApplication;
 /**
  * Created by eric on 2015/9/7.
  */
-public class PBaseApplication extends EBaseApplication {
+public class BaseApplication extends EBaseApplication {
     private Stack<Activity> activityStack;
 
-    private PBaseApplication instance;
+    private BaseApplication instance;
 
     @Override
     public void onCreate() {

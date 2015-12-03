@@ -1,10 +1,10 @@
-package cn.com.infohold.p2papp.base;
+package cn.com.infohold.p2papp.views;
 
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
-import cn.com.infohold.p2papp.R;
 
+import cn.com.infohold.p2papp.R;
 
 public class CustomProgressDialog extends Dialog {
 

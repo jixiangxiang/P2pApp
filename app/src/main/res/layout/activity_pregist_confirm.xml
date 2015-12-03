@@ -14,15 +14,15 @@
         android:paddingRight="@dimen/dp_18">
 
         <EditText
-            android:id="@+id/phoneText"
+            android:id="@+id/userName"
             style="@style/text_12_white"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_50"
             android:layout_marginTop="@dimen/dp_105"
             android:background="@android:color/transparent"
             android:gravity="left|center_vertical"
-            android:hint="请输入手机号"
-            android:inputType="phone"
+            android:hint="用户名"
+            android:inputType="text"
             android:padding="@dimen/dp_5"
             android:textColorHint="@color/p_bg_color" />
 
@@ -37,29 +37,39 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/captchText"
+                android:id="@+id/loginPwd"
                 style="@style/text_12_white"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
                 android:gravity="left|center_vertical"
-                android:hint="请输入验证码"
-                android:inputType="numberSigned"
+                android:hint="登录密码"
+                android:inputType="textPassword"
                 android:padding="@dimen/dp_5"
                 android:textColorHint="@color/p_bg_color" />
+        </RelativeLayout>
 
-            <Button
-                android:id="@+id/sendvalidCodeBtn"
-                style="@style/text_11_white"
-                android:layout_width="@dimen/dp_90"
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_0.1"
+            android:background="@color/p_bg_color" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/confirmPwd"
+                style="@style/text_12_white"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
-                android:layout_gravity="center_vertical"
-                android:layout_marginRight="@dimen/dp_10"
                 android:background="@android:color/transparent"
-                android:gravity="center"
-                android:onClick="onClick"
-                android:text="发送验证码" />
+                android:gravity="left|center_vertical"
+                android:hint="确认密码"
+                android:inputType="textPassword"
+                android:padding="@dimen/dp_5"
+                android:textColorHint="@color/p_bg_color" />
         </RelativeLayout>
 
         <View
@@ -73,8 +83,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/dp_27"
-            android:onClick="onClick"
-            android:background="@drawable/p_regist_next_btn_selector" />
+            android:background="@drawable/p_regist_next_btn_selector"
+            android:onClick="onClick" />
 
     </LinearLayout>
 
