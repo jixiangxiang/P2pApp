@@ -1,9 +1,9 @@
 package cn.com.infohold.p2papp.fragment;
 
-import android.app.Activity;
-import android.net.Uri;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,18 +12,26 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSONObject;
+
+import java.util.HashMap;
+
 import cn.com.infohold.p2papp.R;
 import cn.com.infohold.p2papp.activity.BaseActivity;
 import cn.com.infohold.p2papp.activity.PAccountActivity;
 import cn.com.infohold.p2papp.activity.PAccountSafeActivity;
 import cn.com.infohold.p2papp.activity.PCreditAssigActivity;
-import cn.com.infohold.p2papp.activity.PLoginActivity;
 import cn.com.infohold.p2papp.activity.PRechargeActivity;
 import cn.com.infohold.p2papp.activity.PSelfBankActivity;
 import cn.com.infohold.p2papp.activity.PSelfInvestActivity;
 import cn.com.infohold.p2papp.activity.PSelfLoanActivity;
 import cn.com.infohold.p2papp.activity.PTradeRecordActivity;
 import cn.com.infohold.p2papp.activity.PWithdrawActivity;
+import cn.com.infohold.p2papp.base.BaseFragment;
+import cn.com.infohold.p2papp.common.ApiUtils;
+import cn.com.infohold.p2papp.common.ResponseResult;
+import cn.com.infohold.p2papp.common.SharedPreferencesUtils;
+import common.eric.com.ebaselibrary.util.StringUtils;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,7 +41,7 @@ import cn.com.infohold.p2papp.activity.PWithdrawActivity;
  * Use the {@link PSelfFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PSelfFragment extends Fragment implements View.OnClickListener {
+public class PSelfFragment extends BaseFragment implements View.OnClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -43,7 +51,6 @@ public class PSelfFragment extends Fragment implements View.OnClickListener {
     private String mParam1;
     private String mParam2;
 
-    private OnFragmentInteractionListener mListener;
     private TextView userName;
     private ImageView message;
     private RelativeLayout titleBar;
@@ -66,6 +73,8 @@ public class PSelfFragment extends Fragment implements View.OnClickListener {
     private RelativeLayout creditoArea;
     private TextView bankCount;
     private RelativeLayout bankArea;
+    private boolean isVisibleToUser;
+    private JSONObject data;
 
     public PSelfFragment() {
         // Required empty public constructor
@@ -119,36 +128,17 @@ public class PSelfFragment extends Fragment implements View.OnClickListener {
         creditoArea.setOnClickListener(this);
         bankArea.setOnClickListener(this);
 
-        ((BaseActivity) getActivity()).toActivity(PLoginActivity.class);
-
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
-    @Override
-    public void onAttach(Activity context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                params = new HashMap<String, String>();
+                params.put("mobilephone", ApiUtils.getLoginUserPhone(getActivity()));
+                addToRequestQueue(ApiUtils.getInstance().getRequestByMethod(PSelfFragment.this, params, ApiUtils.ACCTPREVIEW), false);
+            }
+        });
     }
 
     private void initialize(View view) {
-
         userName = (TextView) view.findViewById(R.id.userName);
         message = (ImageView) view.findViewById(R.id.message);
         titleBar = (RelativeLayout) view.findViewById(R.id.titleBar);
@@ -171,6 +161,7 @@ public class PSelfFragment extends Fragment implements View.OnClickListener {
         creditoArea = (RelativeLayout) view.findViewById(R.id.creditoArea);
         bankCount = (TextView) view.findViewById(R.id.bankCount);
         bankArea = (RelativeLayout) view.findViewById(R.id.bankArea);
+        swipeRefresh = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefresh);
     }
 
     @Override
@@ -196,18 +187,48 @@ public class PSelfFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (this.isVisibleToUser) {
+            params = new HashMap<String, String>();
+            params.put("mobilephone", ApiUtils.getLoginUserPhone(getActivity()));
+            addToRequestQueue(ApiUtils.getInstance().getRequestByMethod(this, params, ApiUtils.ACCTPREVIEW), true);
+        }
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        this.isVisibleToUser = isVisibleToUser;
+        if (!isCreated) {
+            return;
+        }
+        if (isVisibleToUser) {
+            if (StringUtils.isEmpty(SharedPreferencesUtils.getParam(getActivity(), "userinfo", "").toString())) {
+                showLogin();
+                ((BaseActivity) getActivity()).showToastShort("此功能需要登录后才能使用!");
+            } else {
+                if (data == null) {
+                    params = new HashMap<String, String>();
+                    params.put("mobilephone", ApiUtils.getLoginUserPhone(getActivity()));
+                    addToRequestQueue(ApiUtils.getInstance().getRequestByMethod(this, params, ApiUtils.ACCTPREVIEW), true);
+                }
+            }
+        }
+    }
+
+    @Override
+    protected void doResponse(ResponseResult response) {
+        data = response.getData();
+        assetsCount.setText(data.getString("asset_amount"));
+        income.setText(data.getString("yesterday_profit"));
+        interest.setText(data.getString("all_profit_amount"));
+        investMoney.setText(data.getString("all_loan_out_amount"));
+        loanMoney.setText(data.getString("my_loan_amount"));
+        transRecord.setText(data.getString("transfer_num"));
+        creditoTrans.setText(data.getString("transfer_num"));
+        bankCount.setText(data.getString("bank_card_num") + " 张");
+        userName.setText(data.getString("nickname"));
     }
 }

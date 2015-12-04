@@ -2,6 +2,7 @@ package cn.com.infohold.p2papp.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -40,6 +41,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Response
     protected String requestMethod = "";
     private NiftyDialogBuilder dialogBuilder;
     protected Map<String, String> params;
+    protected SwipeRefreshLayout swipeRefresh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -240,7 +242,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Response
         dialogBuilder = NiftyDialogBuilder.getInstance(this);
         dialogBuilder
                 .withTitle("温馨提示")
-                .withDialogColor(getResources().getColor(R.color.p_bg_color))
+                .withDialogColor(getResources().getColor(R.color.p_77_color))
                 .withIcon(R.mipmap.android_iocn)
                 .withButton1Text("确定")                                    //def gone
                 .withDuration(500)
@@ -279,6 +281,8 @@ public abstract class BaseActivity extends AppCompatActivity implements Response
     public void onErrorResponse(VolleyError error) {
         if (getProgressDialog().isShowing())
             getProgressDialog().dismiss();
+        if (swipeRefresh != null)
+            swipeRefresh.setRefreshing(false);
         alertDialog(error.toString(), null);
     }
 
@@ -286,7 +290,8 @@ public abstract class BaseActivity extends AppCompatActivity implements Response
     public void onResponse(Object response) {
         Log.i("onResponse", "Response: " + response.toString());
         getProgressDialog().dismiss();
-
+        if (swipeRefresh != null)
+            swipeRefresh.setRefreshing(false);
         ResponseResult result = JSONObject.parseObject(response.toString(), ResponseResult.class);
         if (result.getReturn_code() == ApiUtils.REQUEST_SUCCESS) {
             doResponse(result);
@@ -301,5 +306,10 @@ public abstract class BaseActivity extends AppCompatActivity implements Response
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

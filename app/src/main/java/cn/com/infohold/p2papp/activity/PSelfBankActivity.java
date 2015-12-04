@@ -50,7 +50,7 @@ public class PSelfBankActivity extends BaseActivity implements View.OnClickListe
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == ADD_BANK_CARD_CODE && resultCode == RESULT_OK) {
             addBankBtn.setVisibility(View.GONE);

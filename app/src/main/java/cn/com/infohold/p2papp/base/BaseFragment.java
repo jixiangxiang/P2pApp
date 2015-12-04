@@ -1,7 +1,11 @@
 package cn.com.infohold.p2papp.base;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.View;
 
@@ -13,7 +17,11 @@ import com.android.volley.VolleyError;
 import com.gitonway.lee.niftymodaldialogeffects.lib.Effectstype;
 import com.gitonway.lee.niftymodaldialogeffects.lib.NiftyDialogBuilder;
 
+import java.util.Map;
+
 import cn.com.infohold.p2papp.R;
+import cn.com.infohold.p2papp.activity.BaseActivity;
+import cn.com.infohold.p2papp.activity.PLoginActivity;
 import cn.com.infohold.p2papp.common.ApiUtils;
 import cn.com.infohold.p2papp.common.ProgressUtil;
 import cn.com.infohold.p2papp.common.ResponseResult;
@@ -21,27 +29,29 @@ import cn.com.infohold.p2papp.views.CustomProgressDialog;
 import common.eric.com.ebaselibrary.common.EBaseApplication;
 
 public class BaseFragment extends Fragment implements Response.Listener, Response.ErrorListener {
+    protected boolean isCreated = false;
     private CustomProgressDialog progressDialog;
     private NiftyDialogBuilder dialogBuilder;
     protected String requestMethod = "";
-    private OnFragmentListener mListener;
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void loadFragment(Fragment frg) {
-        if (mListener != null) {
-            mListener.onLoad(frg);
-        }
-    }
+    private OnFragmentInteractionListener mListener;
+    protected Map<String, String> params;
+    protected SwipeRefreshLayout swipeRefresh;
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        try {
-            mListener = (OnFragmentListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
+        if (activity instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) activity;
+        } else {
+            throw new RuntimeException(activity.toString()
                     + " must implement OnFragmentInteractionListener");
         }
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        isCreated = true;
     }
 
     @Override
@@ -50,9 +60,27 @@ public class BaseFragment extends Fragment implements Response.Listener, Respons
         mListener = null;
     }
 
-    public interface OnFragmentListener {
+
+    /**
+     * This interface must be implemented by activities that contain this
+     * fragment to allow an interaction in this fragment to be communicated
+     * to the activity and potentially other fragments contained in that
+     * activity.
+     * <p/>
+     * See the Android Training lesson <a href=
+     * "http://developer.android.com/training/basics/fragments/communicating.html"
+     * >Communicating with Other Fragments</a> for more information.
+     */
+    public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        public void onLoad(Fragment frg);
+        void onFragmentInteraction(Uri uri);
+    }
+
+    // TODO: Rename method, update argument and hook method into UI event
+    public void onButtonPressed(Uri uri) {
+        if (mListener != null) {
+            mListener.onFragmentInteraction(uri);
+        }
     }
 
     /**
@@ -65,7 +93,7 @@ public class BaseFragment extends Fragment implements Response.Listener, Respons
         dialogBuilder = NiftyDialogBuilder.getInstance(getActivity());
         dialogBuilder
                 .withTitle("温馨提示")
-                .withDialogColor(getResources().getColor(R.color.p_bg_color))
+                .withDialogColor(getResources().getColor(R.color.p_77_color))
                 .withIcon(R.mipmap.android_iocn)
                 .withButton1Text("确定")                                      //def gone
                 .withDuration(500)
@@ -92,7 +120,7 @@ public class BaseFragment extends Fragment implements Response.Listener, Respons
         dialogBuilder = NiftyDialogBuilder.getInstance(getActivity());
         dialogBuilder
                 .withTitle("温馨提示")
-                .withDialogColor(getResources().getColor(R.color.p_bg_color))
+                .withDialogColor(getResources().getColor(R.color.p_77_color))
                 .withIcon(R.mipmap.android_iocn)
                 .withButton1Text("确定")                                    //def gone
                 .withDuration(500)
@@ -114,6 +142,8 @@ public class BaseFragment extends Fragment implements Response.Listener, Respons
     public void onErrorResponse(VolleyError error) {
         if (getProgressDialog().isShowing())
             getProgressDialog().dismiss();
+        if (swipeRefresh != null)
+            swipeRefresh.setRefreshing(false);
         alertDialog(error.toString(), null);
     }
 
@@ -121,10 +151,13 @@ public class BaseFragment extends Fragment implements Response.Listener, Respons
     public void onResponse(Object response) {
         Log.i("onResponse", "Response: " + response.toString());
         getProgressDialog().dismiss();
-
+        if (swipeRefresh != null)
+            swipeRefresh.setRefreshing(false);
         ResponseResult result = JSONObject.parseObject(response.toString(), ResponseResult.class);
         if (result.getReturn_code() == ApiUtils.REQUEST_SUCCESS) {
             doResponse(result);
+        } else if (result.getReturn_code().intValue() == ApiUtils.NEED_LOGIN) {
+            ((BaseActivity) getActivity()).showLogin();
         } else
             alertDialog(result.getReturn_message(), null);
     }
@@ -156,4 +189,22 @@ public class BaseFragment extends Fragment implements Response.Listener, Respons
         ((EBaseApplication) getActivity().getApplication()).addToRequestQueue(req, tag);
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    /**
+     * 跳转到登录页面
+     */
+    public void showLogin() {
+        Intent intent = new Intent(getActivity(), PLoginActivity.class);
+        intent.putExtra("fromCode", true);
+        startActivityForResult(intent, getActivity().RESULT_FIRST_USER);//为返回是否登录的状态
+    }
 }

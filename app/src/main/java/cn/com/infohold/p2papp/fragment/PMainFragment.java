@@ -1,6 +1,5 @@
 package cn.com.infohold.p2papp.fragment;
 
-import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -21,6 +20,7 @@ import cn.com.infohold.p2papp.R;
 import cn.com.infohold.p2papp.activity.BaseActivity;
 import cn.com.infohold.p2papp.adapter.FunctionGridAdapter;
 import cn.com.infohold.p2papp.adapter.ImagePagerAdapter;
+import cn.com.infohold.p2papp.base.BaseFragment;
 import cn.com.infohold.p2papp.enums.FunctionEnum;
 import cn.com.infohold.p2papp.views.DotLayout;
 import cn.com.infohold.p2papp.views.WrapScrollGridView;
@@ -29,12 +29,10 @@ import cn.trinea.android.view.autoscrollviewpager.AutoScrollViewPager;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link OnFragmentInteractionListener} interface
- * to handle interaction events.
  * Use the {@link PMainFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PMainFragment extends Fragment {
+public class PMainFragment extends BaseFragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -43,8 +41,6 @@ public class PMainFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
-    private OnFragmentInteractionListener mListener;
     private TextView seconds;
     private LinearLayout recommended;
     private ScrollView content;
@@ -140,30 +136,6 @@ public class PMainFragment extends Fragment {
         });
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
-    @Override
-    public void onAttach(Activity context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
     private void initialize(View view) {
         seconds = (TextView) view.findViewById(R.id.seconds);
         recommended = (LinearLayout) view.findViewById(R.id.recommended);
@@ -175,21 +147,6 @@ public class PMainFragment extends Fragment {
         hour = (TextView) view.findViewById(R.id.hour);
         minute = (TextView) view.findViewById(R.id.minute);
         dotLayout = (DotLayout) view.findViewById(R.id.dotLayout);
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
     }
 
     @Override

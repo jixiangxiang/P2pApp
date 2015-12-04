@@ -2,12 +2,14 @@ package cn.com.infohold.p2papp.common;
 
 import android.content.Context;
 
+import com.alibaba.fastjson.JSONObject;
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 
 import java.util.Map;
 
 import cn.com.infohold.p2papp.activity.BaseActivity;
+import cn.com.infohold.p2papp.base.BaseFragment;
 import cn.com.infohold.p2papp.common.gate.SignatureUtil;
 
 /**
@@ -29,6 +31,7 @@ public class ApiUtils {
     public final static String APP_SECRET = "XjieYvpcSdVgrhTlHytDImKwA9W3zPFU";
     public final static String APP_CHANNEL = "10002";
     public static final Integer REQUEST_SUCCESS = 0;
+    public static final Integer NEED_LOGIN = -112004;
 
     /**
      * ***************************************
@@ -39,6 +42,8 @@ public class ApiUtils {
     public static final String SEND_VALID_CODE = API_BASE + "router.send_validatecode";
     public static final String CHECK_VALID_CODE = API_BASE + "router.check_validatecode";
     public static final String USER_REGIST = API_BASE + "router.userRegist";
+    public static final String USER_LOGIN = API_BASE + "router.userLogin";
+    public static final String ACCTPREVIEW = API_BASE + "router.acctpreview";
 
     private ApiUtils() {
 
@@ -86,6 +91,23 @@ public class ApiUtils {
     public Request getRequestByMethod(BaseActivity activity, Map<String, String> params, String method) {
         request = new StringRequest(transGatewayUrl(activity, method, params), activity, activity);
         return request;
+    }
+
+    /**
+     * 获取请求类
+     *
+     * @param activity
+     * @param params
+     * @return
+     */
+    public Request getRequestByMethod(BaseFragment fragment, Map<String, String> params, String method) {
+        request = new StringRequest(transGatewayUrl(fragment.getActivity(), method, params), fragment, fragment);
+        return request;
+    }
+
+    public static String getLoginUserPhone(Context context) {
+        String userinfo = (String) SharedPreferencesUtils.getParam(context, "userinfo", "");
+        return JSONObject.parseObject(userinfo).getString("mobilephone");
     }
 
 }

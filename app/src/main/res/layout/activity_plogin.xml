@@ -21,6 +21,7 @@
             android:layout_marginTop="@dimen/dp_105"
             android:gravity="left|center_vertical"
             android:hint="邮箱/手机号/用户名"
+            android:inputType="textAutoComplete"
             android:padding="@dimen/dp_5"
             android:textColorHint="@color/p_bg_color" />
 
@@ -31,6 +32,7 @@
             android:layout_height="@dimen/dp_50"
             android:gravity="left|center_vertical"
             android:hint="登录密码"
+            android:inputType="textPassword"
             android:padding="@dimen/dp_5"
             android:textColorHint="@color/p_bg_color" />
 

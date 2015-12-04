@@ -7,19 +7,19 @@ import common.eric.com.ebaselibrary.model.EBaseModel;
  */
 public class InvestProjectBean extends EBaseModel {
     private Integer id;
-    private Double preYield;
-    private Double investableMoney;
-    private Integer limit;
+    private Double rate;
+    private Double balance;
+    private Integer issuenum;
     private String descript;
-    private Integer status;
+    private String status;
 
     public InvestProjectBean() {
     }
 
-    public InvestProjectBean(Double preYield, Double investableMoney, Integer limit, Integer status) {
-        this.preYield = preYield;
-        this.investableMoney = investableMoney;
-        this.limit = limit;
+    public InvestProjectBean(Double preYield, Double investableMoney, Integer limit, String status) {
+        this.rate = preYield;
+        this.balance = investableMoney;
+        this.issuenum = limit;
         this.status = status;
     }
 
@@ -31,28 +31,28 @@ public class InvestProjectBean extends EBaseModel {
         this.id = id;
     }
 
-    public Double getPreYield() {
-        return preYield;
+    public Double getRate() {
+        return rate;
     }
 
-    public void setPreYield(Double preYield) {
-        this.preYield = preYield;
+    public void setRate(Double rate) {
+        this.rate = rate;
     }
 
-    public Double getInvestableMoney() {
-        return investableMoney;
+    public Double getBalance() {
+        return balance;
     }
 
-    public void setInvestableMoney(Double investableMoney) {
-        this.investableMoney = investableMoney;
+    public void setBalance(Double balance) {
+        this.balance = balance;
     }
 
-    public Integer getLimit() {
-        return limit;
+    public Integer getIssuenum() {
+        return issuenum;
     }
 
-    public void setLimit(Integer limit) {
-        this.limit = limit;
+    public void setIssuenum(Integer issuenum) {
+        this.issuenum = issuenum;
     }
 
     public String getDescript() {
@@ -63,11 +63,11 @@ public class InvestProjectBean extends EBaseModel {
         this.descript = descript;
     }
 
-    public Integer getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 }

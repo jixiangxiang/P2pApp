@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -85,20 +86,37 @@ public class PInvestListFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         initialize(view);
         investProjectBeans = new ArrayList<InvestProjectBean>();
-        investProjectBeans.add(new InvestProjectBean(9.00, 1000.00, 360, 1));
-        investProjectBeans.add(new InvestProjectBean(9.00, 1000.00, 360, 1));
-        investProjectBeans.add(new InvestProjectBean(9.00, 1000.00, 360, 1));
-        investProjectBeans.add(new InvestProjectBean(9.00, 1000.00, 360, 1));
-        investProjectBeans.add(new InvestProjectBean(9.00, 1000.00, 360, 1));
-        investProjectBeans.add(new InvestProjectBean(9.00, 1000.00, 360, 0));
-        investProjectBeans.add(new InvestProjectBean(9.00, 1000.00, 360, 0));
-        investProjectBeans.add(new InvestProjectBean(9.00, 1000.00, 360, 0));
-        investProjectBeans.add(new InvestProjectBean(9.00, 1000.00, 360, 0));
-        investProjectBeans.add(new InvestProjectBean(9.00, 1000.00, 360, 0));
-        investProjectBeans.add(new InvestProjectBean(9.00, 1000.00, 360, 0));
-        baseAdapter = new EBaseAdapter(getActivity(), investProjectBeans, R.layout.p_self_invest_project_item,
-                new String[]{"preYield", "investableMoney", "limit"},
-                new int[]{R.id.loanRates, R.id.holdMoney, R.id.loanLimit});
+        investProjectBeans.add(new InvestProjectBean(9.00, 1000.00, 360, "01"));
+        investProjectBeans.add(new InvestProjectBean(9.00, 1000.00, 360, "01"));
+        investProjectBeans.add(new InvestProjectBean(9.00, 1000.00, 360, "01"));
+        investProjectBeans.add(new InvestProjectBean(9.00, 1000.00, 360, "01"));
+        investProjectBeans.add(new InvestProjectBean(9.00, 1000.00, 360, "01"));
+        investProjectBeans.add(new InvestProjectBean(9.00, 1000.00, 360, "02"));
+        investProjectBeans.add(new InvestProjectBean(9.00, 1000.00, 360, "02"));
+        investProjectBeans.add(new InvestProjectBean(9.00, 1000.00, 360, "02"));
+        investProjectBeans.add(new InvestProjectBean(9.00, 1000.00, 360, "02"));
+        investProjectBeans.add(new InvestProjectBean(9.00, 1000.00, 360, "02"));
+        investProjectBeans.add(new InvestProjectBean(9.00, 1000.00, 360, "02"));
+        baseAdapter = new EBaseAdapter(getActivity(), investProjectBeans, R.layout.p_invest_project_item,
+                new String[]{"rate", "balance", "issuenum", "status"},
+                new int[]{R.id.preIncome, R.id.investableMoney, R.id.loanLimit, R.id.investBtn});
+        baseAdapter.setViewBinder(new EBaseAdapter.ViewBinder() {
+            @Override
+            public boolean setViewValue(View view, Object o, String s) {
+                if (view instanceof ImageView && o instanceof String) {
+                    ImageView iv = (ImageView) view;
+                    String status = (String) o;
+                    if (status.equals("01")) {
+                        iv.setSelected(false);
+                    } else if (status.equals("02")) {
+                        iv.setSelected(true);
+                    }
+                    return true;
+                }
+                return false;
+            }
+        });
+
         loanList.setAdapter(baseAdapter);
         loanList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

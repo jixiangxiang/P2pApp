@@ -108,8 +108,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_18"
             android:layout_marginRight="@dimen/dp_18"
-            android:scaleType="fitXY"
-            android:src="@drawable/p_invest_btn_selector" />
+            android:focusable="false"
+            android:scaleType="fitXY"/>
     </LinearLayout>
 
 </LinearLayout>

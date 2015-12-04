@@ -1,5 +1,6 @@
 package cn.com.infohold.p2papp.activity;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,10 +15,11 @@ import java.util.ArrayList;
 
 import cn.com.infohold.p2papp.R;
 import cn.com.infohold.p2papp.adapter.FragmentPagerAdapter;
+import cn.com.infohold.p2papp.base.BaseFragment;
 import cn.com.infohold.p2papp.fragment.PMainFragment;
 import cn.com.infohold.p2papp.fragment.PSelfFragment;
 
-public class PMainActivity extends BaseActivity implements View.OnClickListener, PSelfFragment.OnFragmentInteractionListener, PMainFragment.OnFragmentInteractionListener {
+public class PMainActivity extends BaseActivity implements View.OnClickListener, BaseFragment.OnFragmentInteractionListener {
 
     private ViewPager homePager;
     private LinearLayout bottomBar;
@@ -112,5 +114,10 @@ public class PMainActivity extends BaseActivity implements View.OnClickListener,
         homeBtn = (Button) findViewById(R.id.homeBtn);
         selfBtn = (Button) findViewById(R.id.selfBtn);
         headImage = (SimpleDraweeView) findViewById(R.id.headImage);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

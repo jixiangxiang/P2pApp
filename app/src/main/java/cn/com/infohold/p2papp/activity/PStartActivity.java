@@ -11,6 +11,7 @@ import cn.com.infohold.p2papp.common.SharedPreferencesUtils;
 import cn.com.infohold.p2papp.common.gate.SignatureUtil;
 
 public class PStartActivity extends BaseActivity {
+    private int startCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +31,14 @@ public class PStartActivity extends BaseActivity {
                 SharedPreferencesUtils.setParam(getApplicationContext(), "app_channel", ApiUtils.APP_CHANNEL);
                 SharedPreferencesUtils.setParam(getApplicationContext(), "app_secret", ApiUtils.APP_SECRET);
                 SharedPreferencesUtils.setParam(getApplicationContext(), "deviceid", SignatureUtil.getImei(PStartActivity.this));
-                toActivity(PGuideActivity.class);
+                startCount = (int) SharedPreferencesUtils.getParam(PStartActivity.this, "startCount", 0);
+                if (startCount > 0) {
+                    toActivity(PMainActivity.class);
+                } else {
+                    toActivity(PGuideActivity.class);
+                }
                 PStartActivity.this.finish();
+                SharedPreferencesUtils.setParam(PStartActivity.this, "startCount", startCount + 1);
             }
         }, 2000);
     }
