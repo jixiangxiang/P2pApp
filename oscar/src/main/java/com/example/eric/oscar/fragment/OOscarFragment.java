@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 import com.example.eric.oscar.R;
 import com.example.eric.oscar.activity.OBindOscarActivity;
 import com.example.eric.oscar.activity.OHelpActivity;
+import com.example.eric.oscar.activity.OMerchantListActivity;
 import com.example.eric.oscar.activity.OOscarBalanceActivity;
 import com.example.eric.oscar.bean.OscarServiceBean;
 import com.example.eric.oscar.common.BaseActivity;
@@ -114,6 +115,7 @@ public class OOscarFragment extends BaseFragment implements View.OnClickListener
                         ((BaseActivity) getActivity()).toActivity(OOscarBalanceActivity.class);
                         break;
                     case R.mipmap.o_os_trans:
+                        ((BaseActivity) getActivity()).toActivity(OMerchantListActivity.class);
                         break;
                     case R.mipmap.o_os_recharge:
                         break;

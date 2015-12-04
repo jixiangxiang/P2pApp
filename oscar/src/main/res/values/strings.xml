@@ -19,4 +19,5 @@
     <string name="title_activity_obind_oscar">绑定奥斯卡</string>
     <string name="title_activity_obind_valid">绑定奥斯卡</string>
     <string name="title_activity_ooscar_balance">查询余额</string>
+    <string name="title_activity_omerchant_list">商户名录</string>
 </resources>

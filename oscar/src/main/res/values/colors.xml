@@ -16,4 +16,5 @@
     <color name="o_55_color">#555555</color>
     <color name="o_title_bgcolor">#014BA0</color>
     <color name="o_home_top_bgcolor">#54C3F1</color>
+    <color name="o_merchant_list_bg">#E6E6E6</color>
 </resources>

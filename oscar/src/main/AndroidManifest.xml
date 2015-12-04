@@ -59,10 +59,13 @@
             android:label="@string/title_activity_obind_oscar" />
         <activity
             android:name=".activity.OBindValidActivity"
-            android:label="@string/title_activity_obind_valid"></activity>
+            android:label="@string/title_activity_obind_valid" />
         <activity
             android:name=".activity.OOscarBalanceActivity"
-            android:label="@string/title_activity_ooscar_balance"></activity>
+            android:label="@string/title_activity_ooscar_balance" />
+        <activity
+            android:name=".activity.OMerchantListActivity"
+            android:label="@string/title_activity_omerchant_list"></activity>
     </application>
 
 </manifest>
