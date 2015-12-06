@@ -6,12 +6,15 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.example.eric.oscar.R;
+import com.example.eric.oscar.activity.OMerchantDetailActivity;
 import com.example.eric.oscar.adapter.ViewPagerAdapter;
 import com.example.eric.oscar.bean.MerchantBean;
+import com.example.eric.oscar.common.BaseActivity;
 import com.example.eric.oscar.views.DotLayout;
 import com.example.eric.oscar.views.WrapScrollListView;
 
@@ -113,6 +116,12 @@ public class OHomeFragment extends BaseFragment implements View.OnClickListener 
         });
         marchantList.setAdapter(baseAdapter);
         marchantList.setFocusable(false);
+        marchantList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ((BaseActivity) getActivity()).toActivity(OMerchantDetailActivity.class);
+            }
+        });
         initMerchantCateViews();
         merchantCateAdapter = new ViewPagerAdapter(getFragmentManager(), views);
         merchantCatePager.setAdapter(merchantCateAdapter);

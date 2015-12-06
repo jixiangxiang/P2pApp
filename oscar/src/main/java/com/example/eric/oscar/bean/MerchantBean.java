@@ -10,6 +10,7 @@ public class MerchantBean extends EBaseModel {
     private String merchantName;
     private String merchantAddress;
     private String distance;
+    private String phone;
 
     public MerchantBean() {
     }
@@ -19,6 +20,12 @@ public class MerchantBean extends EBaseModel {
         this.merchantName = merchantName;
         this.merchantAddress = merchantAddress;
         this.distance = distance;
+    }
+
+    public MerchantBean(String merchantName, String merchantAddress, String phone) {
+        this.merchantName = merchantName;
+        this.merchantAddress = merchantAddress;
+        this.phone = phone;
     }
 
     public int getMerchantLogo() {
@@ -51,5 +58,13 @@ public class MerchantBean extends EBaseModel {
 
     public void setDistance(String distance) {
         this.distance = distance;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

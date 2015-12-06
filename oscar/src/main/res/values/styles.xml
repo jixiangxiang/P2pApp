@@ -45,6 +45,11 @@
         <item name="android:textColor">@android:color/black</item>
     </style>
 
+    <style name="text_10_55">
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">@color/o_55_color</item>
+    </style>
+
     <style name="text_10_777">
         <item name="android:textSize">10sp</item>
         <item name="android:textColor">@color/p_77_color</item>
@@ -177,6 +182,11 @@
         <item name="android:shadowDy">-1</item>
         <item name="android:shadowRadius">4</item>
         <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="text_14_55">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/o_55_color</item>
     </style>
 
     <style name="text_15_black">

@@ -65,7 +65,13 @@
             android:label="@string/title_activity_ooscar_balance" />
         <activity
             android:name=".activity.OMerchantListActivity"
-            android:label="@string/title_activity_omerchant_list"></activity>
+            android:label="@string/title_activity_omerchant_list" />
+        <activity
+            android:name=".activity.OMerchantDetailActivity"
+            android:label="@string/title_activity_omerchant_detail" />
+        <activity
+            android:name=".activity.OTransCardsActivity"
+            android:label="@string/title_activity_otrans_cards"></activity>
     </application>
 
 </manifest>

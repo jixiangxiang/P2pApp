@@ -15,6 +15,7 @@ import com.example.eric.oscar.activity.OBindOscarActivity;
 import com.example.eric.oscar.activity.OHelpActivity;
 import com.example.eric.oscar.activity.OMerchantListActivity;
 import com.example.eric.oscar.activity.OOscarBalanceActivity;
+import com.example.eric.oscar.activity.OTransCardsActivity;
 import com.example.eric.oscar.bean.OscarServiceBean;
 import com.example.eric.oscar.common.BaseActivity;
 import com.example.eric.oscar.views.WrapScrollListView;
@@ -100,6 +101,7 @@ public class OOscarFragment extends BaseFragment implements View.OnClickListener
         oscarServiceBeans.add(new OscarServiceBean(R.mipmap.o_os_recharge, "奥斯卡充值"));
         oscarServiceBeans.add(new OscarServiceBean(R.mipmap.o_os_bill, "奥斯卡账单查询"));
         oscarServiceBeans.add(new OscarServiceBean(R.mipmap.o_os_salecard, "售卡中心"));
+        oscarServiceBeans.add(new OscarServiceBean(R.mipmap.o_os_salecard, "商户名录"));
         baseAdapter = new EBaseAdapter(getActivity(), oscarServiceBeans, R.layout.list_oscar_service_item,
                 new String[]{"serviceIcon", "serviceName"}, new int[]{R.id.serviceIcon, R.id.serviceName});
         oscarServiceList.setAdapter(baseAdapter);
@@ -115,13 +117,14 @@ public class OOscarFragment extends BaseFragment implements View.OnClickListener
                         ((BaseActivity) getActivity()).toActivity(OOscarBalanceActivity.class);
                         break;
                     case R.mipmap.o_os_trans:
-                        ((BaseActivity) getActivity()).toActivity(OMerchantListActivity.class);
+                        ((BaseActivity) getActivity()).toActivity(OTransCardsActivity.class);
                         break;
                     case R.mipmap.o_os_recharge:
                         break;
                     case R.mipmap.o_os_bill:
                         break;
                     case R.mipmap.o_os_salecard:
+                        ((BaseActivity) getActivity()).toActivity(OMerchantListActivity.class);
                         break;
 
                 }

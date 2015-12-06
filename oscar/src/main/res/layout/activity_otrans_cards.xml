@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    tools:context="com.example.eric.oscar.activity.OTransCardsActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_42"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/dp_8"
+        android:layout_marginRight="@dimen/dp_8"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_toLeftOf="@+id/createNew"
+        android:background="@drawable/cards_border_conner"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/amazon"
+            style="@style/text_14_black"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/left_corner_button_seletor"
+            android:gravity="center"
+            android:onClick="onClick"
+            android:text="亚马逊礼品卡"
+            android:textColor="@drawable/press_black_to_white" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/o_home_top_bgcolor" />
+
+        <TextView
+            android:id="@+id/jd"
+            style="@style/text_14_black"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/cards_button_seletor"
+            android:gravity="center"
+            android:onClick="onClick"
+            android:text="京东E卡"
+            android:textColor="@drawable/press_black_to_white" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/o_home_top_bgcolor" />
+
+        <TextView
+            android:id="@+id/damai"
+            style="@style/text_14_black"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/right_corner_button_seletor"
+            android:gravity="center"
+            android:onClick="onClick"
+            android:text="大麦网超级票"
+            android:textColor="@drawable/press_black_to_white" />
+    </LinearLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/cardsPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v4.view.ViewPager>
+</LinearLayout>
