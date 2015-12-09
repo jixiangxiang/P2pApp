@@ -10,7 +10,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.example.eric.oscar.R;
+import com.example.eric.oscar.activity.OTransListActivity;
 import com.example.eric.oscar.bean.CardBean;
+import com.example.eric.oscar.common.BaseActivity;
 import com.example.eric.oscar.views.WrapScrollListView;
 
 import java.util.ArrayList;
@@ -96,10 +98,15 @@ public class OCardTransFragment extends BaseFragment implements View.OnClickList
                 new String[]{"bar", "count"}, new int[]{R.id.bar, R.id.count});
         cardBarList.setAdapter(baseAdapter);
 
+        transBtn.setOnClickListener(this);
+
     }
 
     @Override
     public void onClick(View v) {
+        if (v == transBtn) {
+            ((BaseActivity) getActivity()).toActivity(OTransListActivity.class);
+        }
     }
 
     private void initialize(View view) {

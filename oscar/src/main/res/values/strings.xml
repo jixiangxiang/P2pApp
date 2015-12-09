@@ -22,4 +22,5 @@
     <string name="title_activity_omerchant_list">商户名录</string>
     <string name="title_activity_omerchant_detail">商户详情</string>
     <string name="title_activity_otrans_cards">兑换专区</string>
+    <string name="title_activity_otrans_list">兑换专区</string>
 </resources>

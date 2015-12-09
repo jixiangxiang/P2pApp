@@ -25,6 +25,7 @@ public class OFundsRecordActivity extends BaseActivity implements View.OnClickLi
     private Button selectBtn;
     private ListView fundsList;
     private EBaseAdapter baseAdapter;
+    private String title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +35,9 @@ public class OFundsRecordActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     protected void initView() {
+        title = getIntent().getExtras().getString("title");
         initialize();
-        initTitleText(getString(R.string.title_activity_ofunds_record), BaseActivity.TITLE_CENTER);
+        initTitleText(title, BaseActivity.TITLE_CENTER);
         List<FundsRecordBean> fundsRecordBeans = new ArrayList<FundsRecordBean>();
         fundsRecordBeans.add(new FundsRecordBean("充值", "100.00", "100.00", "2015-10-30"));
         fundsRecordBeans.add(new FundsRecordBean("充值", "100.00", "100.00", "2015-10-30"));

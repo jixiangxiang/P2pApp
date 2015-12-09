@@ -71,7 +71,10 @@
             android:label="@string/title_activity_omerchant_detail" />
         <activity
             android:name=".activity.OTransCardsActivity"
-            android:label="@string/title_activity_otrans_cards"></activity>
+            android:label="@string/title_activity_otrans_cards" />
+        <activity
+            android:name=".activity.OTransListActivity"
+            android:label="@string/title_activity_otrans_list"></activity>
     </application>
 
 </manifest>

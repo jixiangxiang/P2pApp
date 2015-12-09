@@ -43,16 +43,21 @@ public class OAccountActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void onClick(View v) {
+        Bundle bundle = new Bundle();
         if (v == money) {
-            toActivity(OFundsRecordActivity.class);
+            bundle.putString("title", "资金记录");
+            toActivity(OFundsRecordActivity.class, bundle);
         } else if (v == bankCard) {
 
         } else if (v == frozen) {
-            toActivity(OFundsRecordActivity.class);
+            bundle.putString("title", "冻结记录");
+            toActivity(OFundsRecordActivity.class, bundle);
         } else if (v == recharge) {
-            toActivity(OFundsRecordActivity.class);
+            bundle.putString("title", "充值记录");
+            toActivity(OFundsRecordActivity.class, bundle);
         } else if (v == withdraw) {
-            toActivity(OFundsRecordActivity.class);
+            bundle.putString("title", "提现记录");
+            toActivity(OFundsRecordActivity.class, bundle);
         } else if (v == socar) {
             toActivity(OSelfOscarActivity.class);
         }
