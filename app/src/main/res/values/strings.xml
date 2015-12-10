@@ -34,4 +34,8 @@
     <string name="title_activity_confirm_trans">债权转让</string>
     <string name="title_activity_pself_bank">我的银行卡</string>
     <string name="title_activity_padd_bank">添加银行卡</string>
+    <string name="title_activity_pbank_list">选择银行</string>
+    <string name="title_activity_pprovince_list">选择开户省份</string>
+    <string name="title_activity_pcity_list">选择开户城市</string>
+    <string name="title_activity_pdot_list">请选择开户网点</string>
 </resources>

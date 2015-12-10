@@ -3,6 +3,7 @@ package cn.com.infohold.p2papp.activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -10,15 +11,22 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import cn.com.infohold.p2papp.R;
 import cn.com.infohold.p2papp.adapter.FragmentPagerAdapter;
+import cn.com.infohold.p2papp.bean.InvestProjectBean;
+import cn.com.infohold.p2papp.common.ApiUtils;
+import cn.com.infohold.p2papp.common.ResponseResult;
 import cn.com.infohold.p2papp.fragment.PInvestRecordFragment;
 import cn.com.infohold.p2papp.fragment.PProjectDetailFragment;
 import cn.com.infohold.p2papp.fragment.PQuestFragment;
 import cn.com.infohold.p2papp.views.RingView;
 import cn.com.infohold.p2papp.views.WrapScrollViewPager;
+import common.eric.com.ebaselibrary.util.StringUtils;
 
 public class PProjectDetailActivity extends BaseActivity implements View.OnClickListener,
         PProjectDetailFragment.OnFragmentInteractionListener,
@@ -42,31 +50,26 @@ public class PProjectDetailActivity extends BaseActivity implements View.OnClick
     private Integer status = 0;
 
     private FragmentPagerAdapter adapter;
+    private InvestProjectBean investProjectBean;
+    private TextView transDayShow;
+    private TextView addAmountShow;
+    private TextView productNameShow;
+    private JSONObject data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pproject_detail);
-
     }
 
     @Override
     protected void initView() {
         initTitleGone();
         initialize();
-        if (getIntent().getExtras() != null)
+        if (getIntent().getExtras() != null) {
             status = getIntent().getExtras().getInt("status");
-        yieldCircle.setAngle((int) (0.24 * 360));
-        yieldCircle.invalidate();
-        yieldText.setText("24");
-        ArrayList<Fragment> fragmentList = new ArrayList<Fragment>();
-        fragmentList.add(PProjectDetailFragment.newInstance(null, null));
-        fragmentList.add(PInvestRecordFragment.newInstance(null, null));
-        fragmentList.add(PQuestFragment.newInstance(null, null));
-        adapter = new FragmentPagerAdapter(getSupportFragmentManager(), fragmentList);
-        detailPager.setAdapter(adapter);
-        detailPager.setCurrentItem(0);
-
+            investProjectBean = (InvestProjectBean) getIntent().getExtras().getSerializable("investProject");
+        }
         switch (status) {
             case 1:
                 toInvestBtn.setVisibility(View.GONE);
@@ -77,7 +80,48 @@ public class PProjectDetailActivity extends BaseActivity implements View.OnClick
             case 3:
                 toInvestBtn.setBackgroundResource(R.mipmap.p_to_trans_btn);
                 break;
+            default:
+                if (investProjectBean.getStatus().equals("01")) {
+                    toInvestBtn.setBackgroundResource(R.mipmap.p_invest_btn);
+                } else {
+                    //toInvestBtn.setBackgroundResource(R.mipmap.p_invest_btn_default);
+                    toInvestBtn.setVisibility(View.GONE);
+                }
+                break;
         }
+        params = new HashMap<>();
+        params.put("loanno", investProjectBean.getLoanno());
+        params.put("cif_seq", ApiUtils.CIFSEQ);
+        params.put("status", investProjectBean.getStatus());
+        switch (investProjectBean.getUsertype()) {
+            case 1:
+                addToRequestQueue(ApiUtils.getInstance().getRequestByMethod(this, params, ApiUtils.PROJECTDETAILPER), ApiUtils.PROJECTDETAILPER, true);
+                break;
+            case 2:
+                addToRequestQueue(ApiUtils.getInstance().getRequestByMethod(this, params, ApiUtils.PROJECTDETAILCUST), ApiUtils.PROJECTDETAILCUST, true);
+                break;
+        }
+
+        detailPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                questions.setSelected(position == 2);
+                investRecord.setSelected(position == 1);
+                projectDetail.setSelected(position == 0);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+        detailPager.setCurrentItem(0);
+        projectDetail.setSelected(true);
     }
 
     private void initialize() {
@@ -95,6 +139,9 @@ public class PProjectDetailActivity extends BaseActivity implements View.OnClick
         yieldText = (TextView) findViewById(R.id.yieldText);
         backBtn = (ImageView) findViewById(R.id.backBtn);
         questions = (TextView) findViewById(R.id.questions);
+        transDayShow = (TextView) findViewById(R.id.transDayShow);
+        addAmountShow = (TextView) findViewById(R.id.addAmountShow);
+        productNameShow = (TextView) findViewById(R.id.productNameShow);
     }
 
     @Override
@@ -102,7 +149,25 @@ public class PProjectDetailActivity extends BaseActivity implements View.OnClick
         if (v == backBtn) {
             this.finish();
         } else if (v == toInvestBtn) {
+            if (!ApiUtils.isLogin(this)) {
+                showLogin();
+                return;
+            }
+            if (StringUtils.isEquals(ApiUtils.getLoginUserStatus(this), "00")) {
+                toActivity(PVerificationActivity.class);
+                return;
+            } else if (StringUtils.isEquals(ApiUtils.getLoginUserStatus(this), "01")) {
+                toActivity(PAddBankActivity.class);
+                return;
+            }
             switch (status) {
+                case 0:
+                    Bundle bundle = new Bundle();
+                    bundle.putString("data", data.toJSONString());
+                    if (investProjectBean.getStatus().equals("01")) {
+                        toActivity(PInvestConfirmActivity.class, bundle);
+                    }
+                    break;
                 case 1:
                     toActivity(PInvestConfirmActivity.class);
                     break;
@@ -113,6 +178,21 @@ public class PProjectDetailActivity extends BaseActivity implements View.OnClick
                     toActivity(PConfirmTransActivity.class);
                     break;
             }
+        } else if (v == projectDetail) {
+            questions.setSelected(v == questions);
+            investRecord.setSelected(v == investRecord);
+            projectDetail.setSelected(v == projectDetail);
+            detailPager.setCurrentItem(0);
+        } else if (v == investRecord) {
+            questions.setSelected(v == questions);
+            investRecord.setSelected(v == investRecord);
+            projectDetail.setSelected(v == projectDetail);
+            detailPager.setCurrentItem(1);
+        } else if (v == questions) {
+            questions.setSelected(v == questions);
+            investRecord.setSelected(v == investRecord);
+            projectDetail.setSelected(v == projectDetail);
+            detailPager.setCurrentItem(2);
         }
     }
 
@@ -125,5 +205,48 @@ public class PProjectDetailActivity extends BaseActivity implements View.OnClick
         ViewGroup.LayoutParams layoutParams = detailPager.getLayoutParams();
         layoutParams.height = height;
         detailPager.setLayoutParams(layoutParams);
+    }
+
+    @Override
+    protected void doResponse(ResponseResult response) {
+        data = response.getData();
+        Double angle = Double.valueOf(data.getString("balance")) / Double.valueOf(data.getString("amount")) * 360;
+        yieldCircle.setAngle(angle.intValue());
+        yieldCircle.invalidate();
+        yieldText.setText(data.getString("rate"));
+        ArrayList<Fragment> fragmentList = new ArrayList<Fragment>();
+        fragmentList.add(PProjectDetailFragment.newInstance(data.toJSONString(), null));
+        fragmentList.add(PInvestRecordFragment.newInstance(data.getString("projectno"), null));
+        fragmentList.add(PQuestFragment.newInstance(null, null));
+        adapter = new FragmentPagerAdapter(getSupportFragmentManager(), fragmentList);
+        detailPager.setAdapter(adapter);
+        detailPager.setCurrentItem(0);
+        addAmountShow.setText(data.getString("addamount") + "元起投");
+        String incomeWay = "等额本息";
+        String incomeway = data.getString("incomway");
+        if (StringUtils.isEmpty(incomeway)) incomeway = "1";
+        switch (Integer.valueOf(incomeway)) {
+            case 1:
+                incomeWay = "等额本息";
+                break;
+            case 2:
+                incomeWay = "等额本金";
+                break;
+            case 3:
+                incomeWay = "按月付息，一次还本";
+                break;
+            case 4:
+                incomeWay = "利随本清";
+                break;
+        }
+        productNameShow.setText(incomeWay);
+        projectStartDate.setText(data.getString("pubtime"));
+        projectEndDate.setText(data.getString("endtime"));
+        limitDay.setText(data.getString("issuenum"));
+        if (StringUtils.isEquals(requestMethod, ApiUtils.PROJECTDETAILPER)) {
+
+        } else if (StringUtils.isEquals(requestMethod, ApiUtils.PROJECTDETAILCUST)) {
+
+        }
     }
 }

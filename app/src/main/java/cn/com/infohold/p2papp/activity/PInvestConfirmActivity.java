@@ -9,7 +9,13 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSONObject;
+
+import java.util.HashMap;
+
 import cn.com.infohold.p2papp.R;
+import cn.com.infohold.p2papp.common.ApiUtils;
+import cn.com.infohold.p2papp.common.ResponseResult;
 import cn.com.infohold.p2papp.views.RingView;
 
 public class PInvestConfirmActivity extends BaseActivity implements View.OnClickListener {
@@ -28,6 +34,7 @@ public class PInvestConfirmActivity extends BaseActivity implements View.OnClick
     private LinearLayout balanceArea;
     private Button investBtn;
     private TextView termSheet;
+    private JSONObject data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,12 +44,18 @@ public class PInvestConfirmActivity extends BaseActivity implements View.OnClick
 
     @Override
     protected void initView() {
+        data = JSONObject.parseObject(getIntent().getExtras().getString("data"));
         initialize();
         initTitleGone();
         titleText.setText(getString(R.string.title_activity_pinvest_confirm));
-        yieldCircle.setAngle((int) (0.24 * 360));
+        Double angle = Double.valueOf(data.getString("balance")) / Double.valueOf(data.getString("amount")) * 360;
+        yieldCircle.setAngle(angle.intValue());
         yieldCircle.invalidate();
-        yieldText.setText("24");
+        yieldText.setText(data.getString("rate"));
+        investCount.setText(data.getString("investcount"));
+        params = new HashMap<>();
+        params.put("mobilephone", ApiUtils.getLoginUserPhone(this));
+        addToRequestQueue(ApiUtils.getInstance().getRequestByMethod(this, params, ApiUtils.ACCTBALANCE), ApiUtils.ACCTBALANCE, true);
     }
 
     @Override
@@ -67,5 +80,10 @@ public class PInvestConfirmActivity extends BaseActivity implements View.OnClick
         balanceArea = (LinearLayout) findViewById(R.id.balanceArea);
         investBtn = (Button) findViewById(R.id.investBtn);
         termSheet = (TextView) findViewById(R.id.termSheet);
+    }
+
+    @Override
+    protected void doResponse(ResponseResult response) {
+        balanceMoney.setText(response.getData().getString("available_bal"));
     }
 }

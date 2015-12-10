@@ -109,6 +109,8 @@ public class PQuestFragment extends Fragment {
                 ((PProjectDetailActivity) getActivity()).setViewPagerHeight(investRecord.getHeight());
             }
         });
+
+        investRecord.setFocusable(false);
     }
 
     @Override

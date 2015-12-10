@@ -269,7 +269,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_70"
-                    android:text="车        贷" />
+                    android:text="车        产" />
 
                 <TextView
                     android:id="@+id/car"
@@ -326,6 +326,7 @@
             android:background="@color/p_bg_color" />
 
         <TextView
+            android:id="@+id/loandesc"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_120"
             android:paddingBottom="@dimen/dp_17"
@@ -344,7 +345,8 @@
             android:layout_height="@dimen/dp_40"
             android:onClick="onClick"
             android:paddingLeft="@dimen/dp_20"
-            android:paddingRight="@dimen/dp_20">
+            android:paddingRight="@dimen/dp_20"
+            android:visibility="gone">
 
             <TextView
                 style="@style/text_13_black"
@@ -359,13 +361,15 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_1"
             android:layout_marginLeft="@dimen/dp_20"
-            android:background="@color/p_bg_color" />
+            android:background="@color/p_bg_color"
+            android:visibility="gone" />
 
         <cn.com.infohold.p2papp.views.WrapScrollGridView
             android:id="@+id/reviewGrid"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:numColumns="3">
+            android:numColumns="3"
+            android:visibility="gone">
 
         </cn.com.infohold.p2papp.views.WrapScrollGridView>
 
@@ -379,7 +383,8 @@
             android:layout_height="@dimen/dp_40"
             android:onClick="onClick"
             android:paddingLeft="@dimen/dp_20"
-            android:paddingRight="@dimen/dp_20">
+            android:paddingRight="@dimen/dp_20"
+            android:visibility="gone">
 
             <TextView
                 style="@style/text_13_black"
@@ -394,13 +399,15 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_1"
             android:layout_marginLeft="@dimen/dp_20"
-            android:background="@color/p_bg_color" />
+            android:background="@color/p_bg_color"
+            android:visibility="gone" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_120"
             android:paddingLeft="@dimen/dp_20"
-            android:paddingRight="@dimen/dp_20">
+            android:paddingRight="@dimen/dp_20"
+            android:visibility="gone">
 
             <RelativeLayout
                 android:layout_width="0dp"

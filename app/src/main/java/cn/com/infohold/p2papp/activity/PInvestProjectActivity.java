@@ -53,7 +53,7 @@ public class PInvestProjectActivity extends BaseActivity implements View.OnClick
         switchSelect(colligate);
         params = new HashMap<>();
         params.put("querytype", querytype);
-        params.put("cif_seq", "2");
+        params.put("cif_seq", ApiUtils.CIFSEQ);
         params.put("offset", String.valueOf(offset));
         params.put("qrsize", String.valueOf(qrsize));
         addToRequestQueue(ApiUtils.getInstance().getRequestByMethod(this, params, ApiUtils.PROJECT_LIST), true);
@@ -61,7 +61,10 @@ public class PInvestProjectActivity extends BaseActivity implements View.OnClick
         investProjectList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                toActivity(PProjectDetailActivity.class);
+                InvestProjectBean investProjectBean = (InvestProjectBean) parent.getAdapter().getItem(position);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("investProject", investProjectBean);
+                toActivity(PProjectDetailActivity.class, bundle);
             }
         });
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {

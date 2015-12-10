@@ -1,7 +1,5 @@
 package cn.com.infohold.p2papp.fragment;
 
-import android.app.Activity;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,12 +7,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import cn.com.infohold.p2papp.R;
 import cn.com.infohold.p2papp.activity.PProjectDetailActivity;
+import cn.com.infohold.p2papp.base.BaseFragment;
 import cn.com.infohold.p2papp.bean.InvestRecordBean;
+import cn.com.infohold.p2papp.common.ApiUtils;
+import cn.com.infohold.p2papp.common.ResponseResult;
 import cn.com.infohold.p2papp.views.WrapScrollListView;
 import common.eric.com.ebaselibrary.adapter.EBaseAdapter;
 
@@ -26,7 +31,7 @@ import common.eric.com.ebaselibrary.adapter.EBaseAdapter;
  * Use the {@link PInvestRecordFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PInvestRecordFragment extends Fragment {
+public class PInvestRecordFragment extends BaseFragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -36,10 +41,12 @@ public class PInvestRecordFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private OnFragmentInteractionListener mListener;
     private WrapScrollListView investRecord;
     private List<InvestRecordBean> investRecordBeanList;
     private EBaseAdapter baseAdapter;
+    private boolean isVisibleToUser;
+    private int page = 1;
+    private int pageSize = 30;
 
     public PInvestRecordFragment() {
         // Required empty public constructor
@@ -66,6 +73,7 @@ public class PInvestRecordFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        isCreated = true;
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -79,87 +87,63 @@ public class PInvestRecordFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_pinvest_record, container, false);
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initialize(view);
-        investRecordBeanList = new ArrayList<InvestRecordBean>();
-        investRecordBeanList.add(new InvestRecordBean("01", "PDNF1209389123", "2015-12-11", 12000.00));
-        investRecordBeanList.add(new InvestRecordBean("02", "PDNF1209389234", "2015-12-11", 13000.00));
-        investRecordBeanList.add(new InvestRecordBean("03", "PDNF1209389032", "2015-12-11", 2000.00));
-        investRecordBeanList.add(new InvestRecordBean("04", "PDNF1209389642", "2015-12-11", 4000.00));
-        investRecordBeanList.add(new InvestRecordBean("05", "PDNF1209389012", "2015-12-11", 5000.00));
-        investRecordBeanList.add(new InvestRecordBean("06", "PDNF1209389012", "2015-12-11", 12000.00));
-        investRecordBeanList.add(new InvestRecordBean("07", "PDNF1209389012", "2015-12-11", 12000.00));
-        investRecordBeanList.add(new InvestRecordBean("08", "PDNF1209389012", "2015-12-11", 12000.00));
-        investRecordBeanList.add(new InvestRecordBean("09", "PDNF1209389012", "2015-12-11", 12000.00));
-        investRecordBeanList.add(new InvestRecordBean("010", "PDNF1209389012", "2015-12-11", 12000.00));
-        investRecordBeanList.add(new InvestRecordBean("11", "PDNF1209389012", "2015-12-11", 12000.00));
-        baseAdapter = new EBaseAdapter(getActivity(), investRecordBeanList, R.layout.invest_record_item,
-                new String[]{"index", "projectName", "investDate", "investMoney"},
-                new int[]{R.id.index, R.id.projectName, R.id.investDate, R.id.investMoney});
-        baseAdapter.setViewBinder(new EBaseAdapter.ViewBinder() {
-            @Override
-            public boolean setViewValue(View view, Object o, String s) {
-                if (view instanceof TextView && o instanceof Double) {
-                    TextView tv = (TextView) view;
-                    Double money = (Double) o;
-                    tv.setText(money + "元");
-                    return true;
+        investRecord.setFocusable(false);
+        if (investRecordBeanList != null) {
+            investRecord.post(new Runnable() {
+                @Override
+                public void run() {
+                    ((PProjectDetailActivity) getActivity()).setViewPagerHeight(investRecord.getHeight());
                 }
-                return false;
-            }
-        });
-        investRecord.setAdapter(baseAdapter);
-
-        investRecord.post(new Runnable() {
-            @Override
-            public void run() {
-                ((PProjectDetailActivity) getActivity()).setViewPagerHeight(investRecord.getHeight());
-            }
-        });
-    }
-
-    @Override
-    public void onAttach(Activity context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+            });
         }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
     }
 
     private void initialize(View view) {
         investRecord = (WrapScrollListView) view.findViewById(R.id.investRecord);
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+    @Override
+    protected void doResponse(ResponseResult response) {
+        if (Integer.valueOf(response.getData().getString("total_count")) > 0) {
+            if (Integer.valueOf(response.getData().getString("total_count")) == 1) {
+                investRecordBeanList = new ArrayList<>();
+                investRecordBeanList.add(JSONObject.parseObject(response.getData().getJSONObject("detail").getJSONObject("stage").toJSONString(), InvestRecordBean.class));
+            } else
+                investRecordBeanList = JSONArray.parseArray(response.getData().getJSONObject("detail").getJSONArray("stage").toJSONString(), InvestRecordBean.class);
+            baseAdapter = new EBaseAdapter(getActivity(), investRecordBeanList, R.layout.invest_record_item,
+                    new String[]{"total_count", "userid", "investtime", "investamount"},
+                    new int[]{R.id.index, R.id.projectName, R.id.investDate, R.id.investMoney});
+            baseAdapter.setViewBinder(new EBaseAdapter.ViewBinder() {
+                @Override
+                public boolean setViewValue(View view, Object o, String s) {
+                    if (view instanceof TextView && o instanceof Double) {
+                        TextView tv = (TextView) view;
+                        Double money = (Double) o;
+                        tv.setText(money + "元");
+                        return true;
+                    }
+                    return false;
+                }
+            });
+            investRecord.setAdapter(baseAdapter);
+        }
+    }
+
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        this.isVisibleToUser = isVisibleToUser;
+        if (isVisibleToUser && isCreated) {
+            params = new HashMap<>();
+            params.put("cif_seq", ApiUtils.CIFSEQ);
+            params.put("projectno", mParam1);
+            addToRequestQueue(ApiUtils.getInstance().getRequestByMethod(this, params, ApiUtils.INVESTRECORDS), ApiUtils.INVESTRECORDS, true);
+            isCreated = false;
+        }
     }
 }

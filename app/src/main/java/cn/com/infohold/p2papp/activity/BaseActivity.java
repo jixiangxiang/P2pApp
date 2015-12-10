@@ -295,6 +295,13 @@ public abstract class BaseActivity extends AppCompatActivity implements Response
         ResponseResult result = JSONObject.parseObject(response.toString(), ResponseResult.class);
         if (result.getReturn_code() == ApiUtils.REQUEST_SUCCESS) {
             doResponse(result);
+        } else if (result.getReturn_code() == ApiUtils.NO_RELANAME) {
+            alertDialog(result.getReturn_message(), new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    toActivity(PVerificationActivity.class);
+                }
+            });
         } else
             alertDialog(result.getReturn_message(), null);
     }

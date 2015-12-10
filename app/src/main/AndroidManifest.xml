@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="cn.com.infohold.p2papp">
+
     <!-- 访问网络的权限 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- 访问精确位置的权限 -->
@@ -133,7 +134,19 @@
             android:label="@string/title_activity_pself_bank" />
         <activity
             android:name=".activity.PAddBankActivity"
-            android:label="@string/title_activity_padd_bank"></activity>
+            android:label="@string/title_activity_padd_bank" />
+        <activity
+            android:name=".activity.PBankListActivity"
+            android:label="@string/title_activity_pbank_list"></activity>
+        <activity
+            android:name=".activity.PProvinceListActivity"
+            android:label="@string/title_activity_pprovince_list"></activity>
+        <activity
+            android:name=".activity.PCityListActivity"
+            android:label="@string/title_activity_pcity_list"></activity>
+        <activity
+            android:name=".activity.PDotListActivity"
+            android:label="@string/title_activity_pdot_list"></activity>
     </application>
 
 </manifest>

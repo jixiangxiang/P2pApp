@@ -36,6 +36,7 @@
         android:paddingLeft="@dimen/dp_20">
 
         <EditText
+            android:id="@+id/realName"
             style="@style/text_13_black"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -59,6 +60,7 @@
         android:paddingLeft="@dimen/dp_20">
 
         <EditText
+            android:id="@+id/idNo"
             style="@style/text_13_black"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -75,10 +77,12 @@
     </RelativeLayout>
 
     <ImageButton
+        android:id="@+id/confirmBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/dp_25"
         android:background="@android:color/transparent"
+        android:onClick="onClick"
         android:src="@drawable/p_next_btn_selector" />
 </LinearLayout>

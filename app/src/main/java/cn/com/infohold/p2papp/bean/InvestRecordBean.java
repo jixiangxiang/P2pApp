@@ -6,50 +6,43 @@ import common.eric.com.ebaselibrary.model.EBaseModel;
  * Created by eric on 2015/11/17.
  */
 public class InvestRecordBean extends EBaseModel {
-    private String index;
-    private String projectName;
-    private String investDate;
-    private Double investMoney;
+    private String total_count;
+    private String userid;
+    private String investtime;
+    private Double investamount;
 
     public InvestRecordBean() {
     }
 
-    public InvestRecordBean(String index, String projectName, String investDate, Double investMoney) {
-        this.index = index;
-        this.projectName = projectName;
-        this.investDate = investDate;
-        this.investMoney = investMoney;
+    public String getTotal_count() {
+        return total_count;
     }
 
-    public String getIndex() {
-        return index;
+    public void setTotal_count(String total_count) {
+        this.total_count = total_count;
     }
 
-    public void setIndex(String index) {
-        this.index = index;
+    public String getUserid() {
+        return userid;
     }
 
-    public String getProjectName() {
-        return projectName;
+    public void setUserid(String userid) {
+        this.userid = userid;
     }
 
-    public void setProjectName(String projectName) {
-        this.projectName = projectName;
+    public String getInvesttime() {
+        return investtime;
     }
 
-    public String getInvestDate() {
-        return investDate;
+    public void setInvesttime(String investtime) {
+        this.investtime = investtime;
     }
 
-    public void setInvestDate(String investDate) {
-        this.investDate = investDate;
+    public Double getInvestamount() {
+        return investamount;
     }
 
-    public Double getInvestMoney() {
-        return investMoney;
-    }
-
-    public void setInvestMoney(Double investMoney) {
-        this.investMoney = investMoney;
+    public void setInvestamount(Double investamount) {
+        this.investamount = investamount;
     }
 }

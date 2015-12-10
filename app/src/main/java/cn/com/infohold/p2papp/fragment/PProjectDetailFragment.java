@@ -12,6 +12,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,6 +61,9 @@ public class PProjectDetailFragment extends Fragment implements View.OnClickList
     private TextView nickName;
     private TextView hourseArea;
     private GridView reviewGrid;
+    private TextView loandesc;
+
+    private JSONObject data;
 
     public PProjectDetailFragment() {
         // Required empty public constructor
@@ -87,6 +92,7 @@ public class PProjectDetailFragment extends Fragment implements View.OnClickList
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
+            data = JSONObject.parseObject(mParam1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
@@ -116,6 +122,20 @@ public class PProjectDetailFragment extends Fragment implements View.OnClickList
                 ((PProjectDetailActivity) getActivity()).setViewPagerHeight(loanContract.getHeight());
             }
         });
+
+        nickName.setText(data.getString("userid"));
+        income.setText(data.getString("income"));
+        age.setText(data.getString("age"));
+        property.setText(data.getString("houseorno"));
+        address.setText(data.getString("householdregister"));
+        mortgage.setText(data.getString("houseby"));
+        education.setText(data.getString("education"));
+        car.setText(data.getString("carorno"));
+        marriage.setText(data.getString("marry"));
+        marriage.setText(data.getString("marry"));
+        carLoan.setText(data.getString("carby"));
+        loandesc.setText(data.getString("loandesc"));
+
 
     }
 
@@ -166,6 +186,7 @@ public class PProjectDetailFragment extends Fragment implements View.OnClickList
         nickName = (TextView) view.findViewById(R.id.nickName);
         hourseArea = (TextView) view.findViewById(R.id.hourseArea);
         reviewGrid = (GridView) view.findViewById(R.id.reviewGrid);
+        loandesc = (TextView) view.findViewById(R.id.loandesc);
     }
 
     /**
