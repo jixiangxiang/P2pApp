@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/payPassword"
+        style="@style/text_12_999"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:layout_marginBottom="@dimen/dp_20"
+        android:layout_marginLeft="@dimen/dp_18"
+        android:layout_marginRight="@dimen/dp_18"
+        android:layout_marginTop="@dimen/dp_15"
+        android:background="@drawable/pay_pwd_border_bg"
+        android:hint="请输入手机支付密码"
+        android:inputType="textPassword"
+        android:maxLength="12"
+        android:padding="@dimen/dp_8"
+        android:textCursorDrawable="@color/red_money_color" />
+</LinearLayout>

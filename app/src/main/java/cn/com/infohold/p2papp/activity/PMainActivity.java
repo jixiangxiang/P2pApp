@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import cn.com.infohold.p2papp.R;
 import cn.com.infohold.p2papp.adapter.FragmentPagerAdapter;
 import cn.com.infohold.p2papp.base.BaseFragment;
+import cn.com.infohold.p2papp.common.ApiUtils;
 import cn.com.infohold.p2papp.fragment.PMainFragment;
 import cn.com.infohold.p2papp.fragment.PSelfFragment;
 
@@ -78,6 +79,10 @@ public class PMainActivity extends BaseActivity implements View.OnClickListener,
                 homeBtn.setSelected(false);
             }
         } else if (v == headImage) {
+            if (!ApiUtils.isLogin(this)) {
+                showLogin();
+                return;
+            }
             toActivity(PAccountSetActivity.class);
         }
     }

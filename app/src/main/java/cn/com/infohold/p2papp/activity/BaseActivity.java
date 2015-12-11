@@ -1,5 +1,6 @@
 package cn.com.infohold.p2papp.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -10,7 +11,9 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -233,6 +236,51 @@ public abstract class BaseActivity extends AppCompatActivity implements Response
     }
 
     /**
+     * 弹出确认提示框
+     *
+     * @param message
+     * @param confirmClickListener
+     * @param cancelClickListener
+     */
+    public void alertConfirmDialog(String message, final View.OnClickListener confirmClickListener, final View.OnClickListener cancelClickListener) {
+        dialogBuilder = NiftyDialogBuilder.getInstance(this);
+        dialogBuilder
+                .withTitle("温馨提示")
+                .withDialogColor(getResources().getColor(R.color.p_77_color))
+                .withIcon(R.mipmap.android_iocn)
+                .withButton1Text("是")                                      //def gone
+                .withButton2Text("否")
+                .withDuration(500)
+                .withEffect(Effectstype.SlideBottom);
+
+        dialogBuilder.withMessage(message).setButton1Click(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                confirmClickListener.onClick(v);
+                dialogBuilder.dismiss();
+            }
+        });
+        if (cancelClickListener != null) {
+            dialogBuilder.setButton2Click(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    cancelClickListener.onClick(v);
+                    dialogBuilder.dismiss();
+                }
+            });
+        } else {
+            dialogBuilder.setButton2Click(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialogBuilder.dismiss();
+                }
+            });
+        }
+        dialogBuilder.show();
+
+    }
+
+    /**
      * 弹出信息提示框
      *
      * @param message
@@ -258,6 +306,39 @@ public abstract class BaseActivity extends AppCompatActivity implements Response
             }
         });
         dialogBuilder.show();
+    }
+
+    /**
+     * 弹出信息提示框
+     *
+     * @param okClickListener
+     */
+    public void alertPayPwdDialog(final PayPwdConfirmClickListener okClickListener) {
+        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LinearLayout layout = (LinearLayout) inflater.inflate(R.layout.invest_money_dialog_view, null);
+        final EditText payPwd = (EditText) layout.findViewById(R.id.payPassword);
+        dialogBuilder = NiftyDialogBuilder.getInstance(this);
+        dialogBuilder
+                .withTitle("交易密码")
+                .withDialogColor(getResources().getColor(R.color.p_77_color))
+                .withIcon(R.mipmap.android_iocn)
+                .withButton1Text("确定")                                    //def gone
+                .withDuration(500)
+                .withEffect(Effectstype.SlideBottom);
+        dialogBuilder.withMessage("为保证资金安全，该操作需要验证密码")
+                .setCustomView(layout, this).setButton1Click(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (okClickListener != null)
+                    okClickListener.onClick(v, payPwd);
+                dialogBuilder.dismiss();
+            }
+        });
+        dialogBuilder.show();
+    }
+
+    public interface PayPwdConfirmClickListener {
+        void onClick(View v, EditText payPwd);
     }
 
 

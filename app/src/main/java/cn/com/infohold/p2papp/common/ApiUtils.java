@@ -6,6 +6,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Map;
 
 import cn.com.infohold.p2papp.activity.BaseActivity;
@@ -58,6 +60,13 @@ public class ApiUtils {
     public static final String FETCHPROVINCES = API_BASE + "router.fetchProvinces";
     public static final String FETCHCITIES = API_BASE + "router.fetchCities";
     public static final String APPBOUNDCARD = API_BASE + "router.appBoundCard";
+    public static final String INVESTPROJECT = API_BASE + "router.investproject";
+    public static final String RESETPASSWORD = API_BASE + "router.resetPassword";
+    public static final String TOACCTSET = API_BASE + "router.toacctset";
+    public static final String ACCTSET = API_BASE + "router.acctset";
+    public static final String TOWITHDRAW = API_BASE + "router.towithdraw";
+    public static final String WITHDRAW = API_BASE + "router.withdraw";
+    public static final String SECURITYPASSWORD = API_BASE + "router.security_password";
 
     private ApiUtils() {
 
@@ -68,6 +77,42 @@ public class ApiUtils {
             instance = new ApiUtils();
         }
         return instance;
+    }
+
+    public static String encryptForMD5(String password) {
+        MessageDigest md5;
+        try {
+            md5 = MessageDigest.getInstance("MD5");
+            md5.update(password.getBytes());
+            byte[] m = md5.digest();// 加密
+            return bytesToHex(m);
+        } catch (NoSuchAlgorithmException e) {
+        }
+        return password;
+    }
+
+
+    public static String digesPSW(String password) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-1");
+            byte[] digest = md.digest(password.getBytes());
+            return bytesToHex(digest);
+        } catch (NoSuchAlgorithmException e) {
+        }
+        return password;
+    }
+
+    private static String bytesToHex(final byte[] bytes) {
+        System.out.println(bytes);
+        final StringBuilder buf = new StringBuilder(bytes.length * 2);
+        for (final byte b : bytes) {
+            final String hex = Integer.toHexString(0xff & b);
+            if (hex.length() == 1) {
+                buf.append("0");
+            }
+            buf.append(hex);
+        }
+        return buf.toString();
     }
 
     public static String convert(String inStr, boolean vert) {
@@ -146,6 +191,14 @@ public class ApiUtils {
         user.setUserstatus(userStatus);
         user.setIdno(idNo);
         user.setUsername(username);
+        SharedPreferencesUtils.setParam(context, "userinfo", JSONObject.toJSONString(user));
+
+    }
+
+    public static void updateUserStatus(Context context, String userStatus) {
+        String userinfo = (String) SharedPreferencesUtils.getParam(context, "userinfo", "");
+        UserBean user = JSONObject.parseObject(userinfo, UserBean.class);
+        user.setUserstatus(userStatus);
         SharedPreferencesUtils.setParam(context, "userinfo", JSONObject.toJSONString(user));
 
     }

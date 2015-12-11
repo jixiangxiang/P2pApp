@@ -53,7 +53,7 @@ public class PAccountSafeActivity extends BaseActivity implements View.OnClickLi
         } else if (v == loginPwdArea) {
             toActivity(PLoginPwdSetActivity.class);
         } else if (v == payPwdArea) {
-            toActivity(PPayPwdSetActivity.class);
+            toActivity(PPayPwdUpdateActivity.class);
         } else if (v == setGestureArea) {
             showToastShort("功能正在开发中。");
         } else if (v == displayGestureArea) {

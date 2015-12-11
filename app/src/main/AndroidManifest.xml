@@ -92,6 +92,10 @@
             android:label="@string/title_activity_preset_pwd"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
+            android:name=".activity.PResetPwdConfirmActivity"
+            android:label="@string/title_activity_preset_pwd"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
             android:name=".activity.PGuideActivity"
             android:label="@string/title_activity_pguide"
             android:theme="@style/Start_Theme_Default" />
@@ -137,16 +141,19 @@
             android:label="@string/title_activity_padd_bank" />
         <activity
             android:name=".activity.PBankListActivity"
-            android:label="@string/title_activity_pbank_list"></activity>
+            android:label="@string/title_activity_pbank_list" />
         <activity
             android:name=".activity.PProvinceListActivity"
-            android:label="@string/title_activity_pprovince_list"></activity>
+            android:label="@string/title_activity_pprovince_list" />
         <activity
             android:name=".activity.PCityListActivity"
-            android:label="@string/title_activity_pcity_list"></activity>
+            android:label="@string/title_activity_pcity_list" />
         <activity
             android:name=".activity.PDotListActivity"
-            android:label="@string/title_activity_pdot_list"></activity>
+            android:label="@string/title_activity_pdot_list" />
+        <activity
+            android:name=".activity.PModifyNickActivity"
+            android:label="@string/title_activity_pmodify_nick"></activity>
     </application>
 
 </manifest>

@@ -17,6 +17,7 @@ import cn.com.infohold.p2papp.R;
 import cn.com.infohold.p2papp.common.ApiUtils;
 import cn.com.infohold.p2papp.common.ResponseResult;
 import cn.com.infohold.p2papp.views.RingView;
+import common.eric.com.ebaselibrary.util.StringUtils;
 
 public class PInvestConfirmActivity extends BaseActivity implements View.OnClickListener {
 
@@ -48,7 +49,8 @@ public class PInvestConfirmActivity extends BaseActivity implements View.OnClick
         initialize();
         initTitleGone();
         titleText.setText(getString(R.string.title_activity_pinvest_confirm));
-        Double angle = Double.valueOf(data.getString("balance")) / Double.valueOf(data.getString("amount")) * 360;
+        Double investedMoney = Double.valueOf(data.getString("amount")) - Double.valueOf(data.getString("balance"));
+        Double angle = investedMoney / Double.valueOf(data.getString("amount")) * 360;
         yieldCircle.setAngle(angle.intValue());
         yieldCircle.invalidate();
         yieldText.setText(data.getString("rate"));
@@ -62,6 +64,16 @@ public class PInvestConfirmActivity extends BaseActivity implements View.OnClick
     public void onClick(View v) {
         if (v == backBtn) {
             this.finish();
+        } else if (v == investBtn) {
+            if (StringUtils.isEmpty(investMoeny.getText().toString()) || Double.valueOf(investMoeny.getText().toString()) == 0) {
+                showToastShort("请输入正确的投资金额");
+            }
+            params = new HashMap<>();
+            params.put("projectno", data.getString("projectno"));
+            params.put("mobilephone", ApiUtils.getLoginUserPhone(this));
+            params.put("cif_seq", ApiUtils.CIFSEQ);
+            params.put("amount", investMoeny.getText().toString());
+            addToRequestQueue(ApiUtils.getInstance().getRequestByMethod(this, params, ApiUtils.INVESTPROJECT), ApiUtils.INVESTPROJECT, true);
         }
     }
 
@@ -84,6 +96,15 @@ public class PInvestConfirmActivity extends BaseActivity implements View.OnClick
 
     @Override
     protected void doResponse(ResponseResult response) {
-        balanceMoney.setText(response.getData().getString("available_bal"));
+        if (StringUtils.isEquals(requestMethod, ApiUtils.ACCTBALANCE)) {
+            balanceMoney.setText(response.getData().getString("available_bal"));
+        } else if (StringUtils.isEquals(requestMethod, ApiUtils.INVESTPROJECT)) {
+            alertDialog("投资成功", new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    PInvestConfirmActivity.this.finish();
+                }
+            });
+        }
     }
 }

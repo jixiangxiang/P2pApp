@@ -182,8 +182,7 @@
             android:background="@android:color/transparent"
             android:gravity="center_vertical"
             android:hint="请输入投资金额"
-            android:numeric="decimal"
-            android:text="0.00" />
+            android:numeric="decimal" />
 
         <TextView
             style="@style/text_13_black"

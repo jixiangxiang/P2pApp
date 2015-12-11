@@ -20,12 +20,15 @@ import cn.com.infohold.p2papp.R;
 import cn.com.infohold.p2papp.activity.BaseActivity;
 import cn.com.infohold.p2papp.activity.PAccountActivity;
 import cn.com.infohold.p2papp.activity.PAccountSafeActivity;
+import cn.com.infohold.p2papp.activity.PAddBankActivity;
 import cn.com.infohold.p2papp.activity.PCreditAssigActivity;
+import cn.com.infohold.p2papp.activity.PPayPwdSetActivity;
 import cn.com.infohold.p2papp.activity.PRechargeActivity;
 import cn.com.infohold.p2papp.activity.PSelfBankActivity;
 import cn.com.infohold.p2papp.activity.PSelfInvestActivity;
 import cn.com.infohold.p2papp.activity.PSelfLoanActivity;
 import cn.com.infohold.p2papp.activity.PTradeRecordActivity;
+import cn.com.infohold.p2papp.activity.PVerificationActivity;
 import cn.com.infohold.p2papp.activity.PWithdrawActivity;
 import cn.com.infohold.p2papp.base.BaseFragment;
 import cn.com.infohold.p2papp.common.ApiUtils;
@@ -131,6 +134,11 @@ public class PSelfFragment extends BaseFragment implements View.OnClickListener 
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                if (!ApiUtils.isLogin(getActivity())) {
+                    showLogin();
+                    swipeRefresh.setRefreshing(false);
+                    return;
+                }
                 params = new HashMap<String, String>();
                 params.put("mobilephone", ApiUtils.getLoginUserPhone(getActivity()));
                 addToRequestQueue(ApiUtils.getInstance().getRequestByMethod(PSelfFragment.this, params, ApiUtils.ACCTPREVIEW), false);
@@ -166,16 +174,36 @@ public class PSelfFragment extends BaseFragment implements View.OnClickListener 
 
     @Override
     public void onClick(View v) {
-        if (v == recharge) {
+        if (!ApiUtils.isLogin(getActivity())) {
+            showLogin();
+            return;
+        } else if (v == recharge) {
             ((BaseActivity) getActivity()).toActivity(PRechargeActivity.class);
         } else if (v == withdraw) {
-            ((BaseActivity) getActivity()).toActivity(PWithdrawActivity.class);
+            if (!ApiUtils.isLogin(getActivity())) {
+                showLogin();
+                return;
+            }
+            if (StringUtils.isEquals(ApiUtils.getLoginUserStatus(getActivity()), "00")) {
+                ((BaseActivity) getActivity()).toActivity(PVerificationActivity.class);
+                return;
+            } else if (StringUtils.isEquals(ApiUtils.getLoginUserStatus(getActivity()), "01")) {
+                ((BaseActivity) getActivity()).toActivity(PAddBankActivity.class);
+                return;
+            } else if (StringUtils.isEquals(ApiUtils.getLoginUserStatus(getActivity()), "02")) {
+                ((BaseActivity) getActivity()).toActivity(PPayPwdSetActivity.class);
+                return;
+            }
+            Intent intent = new Intent(getActivity(), PWithdrawActivity.class);
+            startActivityForResult(intent, 111);
         } else if (v == selfLoan) {
             ((BaseActivity) getActivity()).toActivity(PSelfLoanActivity.class);
         } else if (v == selfInvest) {
             ((BaseActivity) getActivity()).toActivity(PSelfInvestActivity.class);
         } else if (v == topArea) {
-            ((BaseActivity) getActivity()).toActivity(PAccountActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("data", data.toJSONString());
+            ((BaseActivity) getActivity()).toActivity(PAccountActivity.class, bundle);
         } else if (v == investRecord) {
             ((BaseActivity) getActivity()).toActivity(PTradeRecordActivity.class);
         } else if (v == accountSafe) {
@@ -190,7 +218,11 @@ public class PSelfFragment extends BaseFragment implements View.OnClickListener 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (this.isVisibleToUser) {
+        if (requestCode == 111 && resultCode == getActivity().RESULT_OK) {
+            params = new HashMap<String, String>();
+            params.put("mobilephone", ApiUtils.getLoginUserPhone(getActivity()));
+            addToRequestQueue(ApiUtils.getInstance().getRequestByMethod(PSelfFragment.this, params, ApiUtils.ACCTPREVIEW), true);
+        } else if (this.isVisibleToUser && requestCode == getActivity().RESULT_FIRST_USER && resultCode == getActivity().RESULT_OK) {
             params = new HashMap<String, String>();
             params.put("mobilephone", ApiUtils.getLoginUserPhone(getActivity()));
             addToRequestQueue(ApiUtils.getInstance().getRequestByMethod(this, params, ApiUtils.ACCTPREVIEW), true);

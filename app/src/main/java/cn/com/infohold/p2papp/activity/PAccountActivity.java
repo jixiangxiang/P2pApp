@@ -9,7 +9,9 @@ import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
+import com.alibaba.fastjson.JSONObject;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
@@ -30,6 +32,12 @@ public class PAccountActivity extends BaseActivity implements View.OnClickListen
     protected String[] mParties = new String[]{
             "我的投资", "可用余额", "待收利息", "冻结金额", "红包"
     };
+    private JSONObject data;
+    private TextView selfInvestMoney;
+    private TextView toInterest;
+    private TextView availMoney;
+    private TextView freezeAmonut;
+    private TextView redPacket;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +47,14 @@ public class PAccountActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     protected void initView() {
+        initialize();
+        data = JSONObject.parseObject(getIntent().getExtras().getString("data"));
         initTitleText(getString(R.string.title_activity_paccount), BaseActivity.TITLE_CENTER, android.R.color.black);
-        mChart = (PieChart) findViewById(R.id.chart1);
+
+        selfInvestMoney.setText(data.getString("all_loan_out_amoun"));
+        availMoney.setText(data.getString("available_bal"));
+        toInterest.setText(data.getString("waiting_profit_amount"));
+        freezeAmonut.setText(data.getString("freeze_bal"));
         mChart.setUsePercentValues(true);
         mChart.setDescription("");
         mChart.setExtraOffsets(5, 10, 5, 5);
@@ -100,12 +114,18 @@ public class PAccountActivity extends BaseActivity implements View.OnClickListen
         // IMPORTANT: In a PieChart, no values (Entry) should have the same
         // xIndex (even if from different DataSets), since no values can be
         // drawn above each other.
-        for (int i = 0; i < count + 1; i++) {
-            yVals1.add(new Entry((float) (Math.random() * mult) + mult / 5, i));
-        }
+        Float all_loan_out_amoun = Float.valueOf(data.getString("all_loan_out_amount"));
+        Float available_bal = Float.valueOf(data.getString("available_bal"));
+        Float waiting_profit_amount = Float.valueOf(data.getString("waiting_profit_amount"));
+        Float freeze_bal = Float.valueOf(data.getString("freeze_bal"));
+        Float total = all_loan_out_amoun + available_bal + waiting_profit_amount + freeze_bal;
+        yVals1.add(new Entry(total == 0 ? 0.25f : all_loan_out_amoun / total, 0));
+        yVals1.add(new Entry(total == 0 ? 0.25f : available_bal / total, 1));
+        yVals1.add(new Entry(total == 0 ? 0.25f : waiting_profit_amount / total, 2));
+        yVals1.add(new Entry(total == 0 ? 0.25f : freeze_bal / total, 3));
+
 
         ArrayList<String> xVals = new ArrayList<String>();
-
         for (int i = 0; i < count + 1; i++)
             xVals.add(mParties[i % mParties.length]);
 
@@ -153,5 +173,14 @@ public class PAccountActivity extends BaseActivity implements View.OnClickListen
         s.setSpan(new StyleSpan(Typeface.ITALIC), s.length() - 3, s.length(), 0);
         s.setSpan(new ForegroundColorSpan(Color.rgb(0, 0, 0)), s.length() - 3, s.length(), 0);
         return s;
+    }
+
+    private void initialize() {
+        mChart = (PieChart) findViewById(R.id.chart1);
+        selfInvestMoney = (TextView) findViewById(R.id.selfInvestMoney);
+        toInterest = (TextView) findViewById(R.id.toInterest);
+        availMoney = (TextView) findViewById(R.id.availMoney);
+        freezeAmonut = (TextView) findViewById(R.id.freezeAmonut);
+        redPacket = (TextView) findViewById(R.id.redPacket);
     }
 }

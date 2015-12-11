@@ -36,13 +36,36 @@
         android:paddingLeft="@dimen/dp_20">
 
         <EditText
-            android:id="@+id/payPwd"
+            android:id="@+id/currentPayPwd"
             style="@style/text_13_black"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:hint="输入支付密码"
-            android:inputType="textPassword" />
+            android:hint="当前支付密码" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="@dimen/dp_18"
+            android:background="@color/p_bg_color" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_45"
+        android:background="@android:color/white"
+        android:onClick="onClick"
+        android:paddingLeft="@dimen/dp_20">
+
+        <EditText
+            android:id="@+id/newPwd"
+            style="@style/text_13_black"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:hint="新密码" />
 
         <View
             android:layout_width="match_parent"
@@ -66,8 +89,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:hint="确认支付密码"
-            android:inputType="textPassword" />
+            android:hint="确认新密码" />
 
         <View
             android:layout_width="match_parent"
@@ -85,6 +107,5 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/dp_25"
         android:background="@android:color/transparent"
-        android:onClick="onClick"
         android:src="@drawable/p_next_btn_selector" />
 </LinearLayout>

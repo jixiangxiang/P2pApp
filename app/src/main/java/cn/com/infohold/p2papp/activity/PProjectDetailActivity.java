@@ -210,7 +210,8 @@ public class PProjectDetailActivity extends BaseActivity implements View.OnClick
     @Override
     protected void doResponse(ResponseResult response) {
         data = response.getData();
-        Double angle = Double.valueOf(data.getString("balance")) / Double.valueOf(data.getString("amount")) * 360;
+        Double investedMoney = Double.valueOf(data.getString("amount")) - Double.valueOf(data.getString("balance"));
+        Double angle = investedMoney / Double.valueOf(data.getString("amount")) * 360;
         yieldCircle.setAngle(angle.intValue());
         yieldCircle.invalidate();
         yieldText.setText(data.getString("rate"));

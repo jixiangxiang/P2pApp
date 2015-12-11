@@ -51,7 +51,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/dp_35"
             android:gravity="center_vertical"
-            android:text="6222 **** **** **** 6433" />
+            android:text="暂无" />
 
         <View
             android:layout_width="match_parent"
@@ -84,7 +84,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/dp_18"
             android:gravity="center_vertical"
-            android:text="中国工商银行" />
+            android:text="暂无" />
 
         <View
             android:layout_width="match_parent"
@@ -132,6 +132,8 @@
             android:background="@android:color/transparent"
             android:gravity="center_vertical"
             android:hint="请输入您要提现的金额"
+            android:inputType="numberDecimal"
+            android:maxLines="1"
             android:text="" />
 
         <TextView
@@ -178,5 +180,6 @@
         android:layout_marginLeft="@dimen/dp_18"
         android:layout_marginRight="@dimen/dp_18"
         android:layout_marginTop="@dimen/dp_27"
+        android:onClick="onClick"
         android:background="@drawable/p_next_btn_selector" />
 </LinearLayout>
