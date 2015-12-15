@@ -23,6 +23,7 @@ public class PBindPhoneActivity extends BaseActivity implements View.OnClickList
     private Button sendCaptchBtn;
     private ImageButton nextBtn;
     private String phoneText;
+    private String userseq;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +33,7 @@ public class PBindPhoneActivity extends BaseActivity implements View.OnClickList
 
     @Override
     protected void initView() {
+        userseq = getIntent().getStringExtra("userseq");
         initialize();
         initTitleText(getString(R.string.title_activity_pbind_phone), BaseActivity.TITLE_CENTER, android.R.color.black);
 
@@ -44,6 +46,7 @@ public class PBindPhoneActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
+        phoneText = phone.getText().toString();
         if (StringUtils.isEmpty(phoneText) && phoneText.length() != 11) {
             showToastShort("请输入正确的手机号码!");
             return;
@@ -53,6 +56,7 @@ public class PBindPhoneActivity extends BaseActivity implements View.OnClickList
             params = new HashMap<String, String>();
             params.put("mobilephone", phoneText);
             params.put("trans_code", "security_mobile_email");
+            params.put("userseq", userseq);
             addToRequestQueue(ApiUtils.getInstance().getRequestByMethod(this, params, ApiUtils.SEND_VALID_CODE), ApiUtils.SEND_VALID_CODE, true);
         } else if (v == nextBtn) {
             String captchText = captch.getText().toString();
@@ -65,6 +69,7 @@ public class PBindPhoneActivity extends BaseActivity implements View.OnClickList
             params.put("mobilephone", ApiUtils.getLoginUserPhone(this));
             params.put("modify_value", phoneText);
             params.put("validate_code", captchText);
+            params.put("userseq", userseq);
             addToRequestQueue(ApiUtils.getInstance().getRequestByMethod(this, params, ApiUtils.SECURITYMOBILEEMAIL), ApiUtils.SECURITYMOBILEEMAIL, true);
         }
     }
@@ -107,6 +112,7 @@ public class PBindPhoneActivity extends BaseActivity implements View.OnClickList
             TimeCount time = TimeCount.getInstance(Integer.valueOf(seconds) * 1000, 1000, sendCaptchBtn, this);
             time.start();
         } else if (StringUtils.isEquals(requestMethod, ApiUtils.SECURITYMOBILEEMAIL)) {
+            ApiUtils.updateUserPhone(this, phoneText);
             alertDialogNoCancel(response.getReturn_message(), new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -116,4 +122,6 @@ public class PBindPhoneActivity extends BaseActivity implements View.OnClickList
             });
         }
     }
+
+
 }

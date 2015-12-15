@@ -204,7 +204,13 @@ public class ApiUtils {
         UserBean user = JSONObject.parseObject(userinfo, UserBean.class);
         user.setUserstatus(userStatus);
         SharedPreferencesUtils.setParam(context, "userinfo", JSONObject.toJSONString(user));
+    }
 
+    public static void updateUserPhone(Context context, String phone) {
+        String userinfo = (String) SharedPreferencesUtils.getParam(context, "userinfo", "");
+        UserBean user = JSONObject.parseObject(userinfo, UserBean.class);
+        user.setMobilephone(phone);
+        SharedPreferencesUtils.setParam(context, "userinfo", JSONObject.toJSONString(user));
     }
 
     public static void updateUseCard(Context context, String userStatus, String bankId, String bankNo) {

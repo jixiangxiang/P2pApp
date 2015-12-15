@@ -40,6 +40,7 @@
             style="@style/text_13_black"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:inputType="textPassword"
             android:gravity="center_vertical"
             android:hint="支付密码" />
 
