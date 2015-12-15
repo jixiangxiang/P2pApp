@@ -126,6 +126,10 @@
             android:label="@string/title_activity_pbind_phone"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
+            android:name=".activity.PPayPwdUpdateActivity"
+            android:label="@string/title_activity_pbind_phone"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
             android:name=".activity.PCreditAssigActivity"
             android:label="@string/title_activity_pbind_phone"
             android:windowSoftInputMode="stateHidden|adjustPan" />

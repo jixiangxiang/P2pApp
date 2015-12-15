@@ -151,6 +151,16 @@ public abstract class BaseActivity extends AppCompatActivity implements Response
     }
 
     /**
+     * 跳转到某一界面
+     *
+     * @param cls
+     */
+    public void toActivityForResult(Class cls, int requestCode) {
+        Intent intent = new Intent(this, cls);
+        startActivityForResult(intent, requestCode);
+    }
+
+    /**
      * 跳转到首页
      */
     public void showHome() {

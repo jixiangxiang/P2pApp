@@ -63,7 +63,7 @@ public class PLoginActivity extends BaseActivity implements View.OnClickListener
             }
             params = new HashMap<String, String>();
             params.put("userid", username);
-            params.put("password", password);
+            params.put("password", ApiUtils.digesPSW(password));
             addToRequestQueue(ApiUtils.getInstance().getRequestByMethod(this, params, ApiUtils.USER_LOGIN), ApiUtils.USER_LOGIN, true);
         } else if (v == closeBtn) {
             this.finish();

@@ -67,6 +67,7 @@ public class PPayPwdSetActivity extends BaseActivity implements View.OnClickList
             @Override
             public void onClick(View v) {
                 ApiUtils.updateUserStatus(PPayPwdSetActivity.this, "03");
+                setResult(RESULT_OK);
                 PPayPwdSetActivity.this.finish();
             }
         });

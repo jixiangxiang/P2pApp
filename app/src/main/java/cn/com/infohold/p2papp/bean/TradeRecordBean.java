@@ -6,50 +6,47 @@ import common.eric.com.ebaselibrary.model.EBaseModel;
  * Created by eric on 2015/11/24.
  */
 public class TradeRecordBean extends EBaseModel {
-    private String tradeType;
-    private String tradeDate;
-    private String tradeMoney;
-    private String balanceMoeny;
+    private int trs_flag;//0为支出，1为收入
+    private String trs_name;
+    private String trs_date;
+    private String amount;
+    private String avai_balance;
 
     public TradeRecordBean() {
     }
 
-    public TradeRecordBean(String tradeType, String tradeDate, String tradeMoney, String balanceMoeny) {
-        this.tradeType = tradeType;
-        this.tradeDate = tradeDate;
-        this.tradeMoney = tradeMoney;
-        this.balanceMoeny = balanceMoeny;
+    public void setTrs_flag(int trs_flag) {
+        this.trs_flag = trs_flag;
     }
 
-    public String getTradeType() {
-        return tradeType;
+    public String getTrs_name() {
+        return trs_name;
     }
 
-    public void setTradeType(String tradeType) {
-        this.tradeType = tradeType;
+    public void setTrs_name(String trs_name) {
+        this.trs_name = trs_name;
     }
 
-    public String getTradeDate() {
-        return tradeDate;
+    public void setTrs_date(String trs_date) {
+        this.trs_date = trs_date;
     }
 
-    public void setTradeDate(String tradeDate) {
-        this.tradeDate = tradeDate;
+    public String getAmount() {
+        if (trs_flag == 0) {
+            return "-" + amount;
+        } else
+            return "+" + amount;
     }
 
-    public String getTradeMoney() {
-        return tradeMoney;
+    public void setAmount(String amount) {
+        this.amount = amount;
     }
 
-    public void setTradeMoney(String tradeMoney) {
-        this.tradeMoney = tradeMoney;
+    public String getAvai_balance() {
+        return avai_balance;
     }
 
-    public String getBalanceMoeny() {
-        return balanceMoeny;
-    }
-
-    public void setBalanceMoeny(String balanceMoeny) {
-        this.balanceMoeny = balanceMoeny;
+    public void setAvai_balance(String avai_balance) {
+        this.avai_balance = avai_balance;
     }
 }

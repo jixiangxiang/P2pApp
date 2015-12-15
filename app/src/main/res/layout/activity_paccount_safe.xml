@@ -39,7 +39,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/dp_35"
             android:gravity="center_vertical"
-            android:text="未设置" />
+            android:text="设置" />
 
         <View
             android:layout_width="match_parent"
@@ -167,7 +167,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/dp_35"
             android:gravity="center_vertical"
-            android:text="未设置" />
+            android:text="设置" />
 
         <View
             android:layout_width="match_parent"
@@ -209,7 +209,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/dp_35"
             android:gravity="center_vertical"
-            android:text="未设置" />
+            android:text="设置" />
 
         <View
             android:layout_width="match_parent"

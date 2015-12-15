@@ -1,9 +1,8 @@
 package cn.com.infohold.p2papp.fragment;
 
-import android.app.Activity;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,13 +10,21 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import cn.com.infohold.p2papp.R;
 import cn.com.infohold.p2papp.activity.BaseActivity;
 import cn.com.infohold.p2papp.activity.PProjectDetailActivity;
+import cn.com.infohold.p2papp.base.BaseFragment;
 import cn.com.infohold.p2papp.bean.InvestProjectBean;
+import cn.com.infohold.p2papp.bean.SelfInvestBean;
+import cn.com.infohold.p2papp.common.ApiUtils;
+import cn.com.infohold.p2papp.common.ResponseResult;
 import common.eric.com.ebaselibrary.adapter.EBaseAdapter;
 
 /**
@@ -28,7 +35,7 @@ import common.eric.com.ebaselibrary.adapter.EBaseAdapter;
  * Use the {@link PInvestListFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PInvestListFragment extends Fragment {
+public class PInvestListFragment extends BaseFragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "status";
@@ -37,11 +44,12 @@ public class PInvestListFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private Integer status;
     private String mParam2;
-
-    private OnFragmentInteractionListener mListener;
     private ListView loanList;
     private EBaseAdapter baseAdapter;
-    private List<InvestProjectBean> investProjectBeans;
+    private List<SelfInvestBean> investProjectBeans;
+
+    private int page = 0;
+    private int pageSize = 30;
 
     public PInvestListFragment() {
         // Required empty public constructor
@@ -68,6 +76,7 @@ public class PInvestListFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        isCreated = true;
         if (getArguments() != null) {
             status = getArguments().getInt(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -85,21 +94,10 @@ public class PInvestListFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initialize(view);
-        investProjectBeans = new ArrayList<InvestProjectBean>();
-        investProjectBeans.add(new InvestProjectBean(9.00, 1000.00, 360, "01"));
-        investProjectBeans.add(new InvestProjectBean(9.00, 1000.00, 360, "01"));
-        investProjectBeans.add(new InvestProjectBean(9.00, 1000.00, 360, "01"));
-        investProjectBeans.add(new InvestProjectBean(9.00, 1000.00, 360, "01"));
-        investProjectBeans.add(new InvestProjectBean(9.00, 1000.00, 360, "01"));
-        investProjectBeans.add(new InvestProjectBean(9.00, 1000.00, 360, "02"));
-        investProjectBeans.add(new InvestProjectBean(9.00, 1000.00, 360, "02"));
-        investProjectBeans.add(new InvestProjectBean(9.00, 1000.00, 360, "02"));
-        investProjectBeans.add(new InvestProjectBean(9.00, 1000.00, 360, "02"));
-        investProjectBeans.add(new InvestProjectBean(9.00, 1000.00, 360, "02"));
-        investProjectBeans.add(new InvestProjectBean(9.00, 1000.00, 360, "02"));
-        baseAdapter = new EBaseAdapter(getActivity(), investProjectBeans, R.layout.p_invest_project_item,
-                new String[]{"rate", "balance", "issuenum", "status"},
-                new int[]{R.id.preIncome, R.id.investableMoney, R.id.loanLimit, R.id.investBtn});
+        investProjectBeans = new ArrayList<>();
+        baseAdapter = new EBaseAdapter(getActivity(), investProjectBeans, R.layout.p_self_invest_item,
+                new String[]{"project_name", "project_rate", "invest_amount", "loan_time_interval", "publish_date", "receivable_amount", "process"},
+                new int[]{R.id.projectName, R.id.preIncome, R.id.holdMoney, R.id.loanLimit, R.id.publicDate, R.id.receivableMoney, R.id.progress});
         baseAdapter.setViewBinder(new EBaseAdapter.ViewBinder() {
             @Override
             public boolean setViewValue(View view, Object o, String s) {
@@ -116,59 +114,70 @@ public class PInvestListFragment extends Fragment {
                 return false;
             }
         });
-
         loanList.setAdapter(baseAdapter);
+
         loanList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Bundle bundle = new Bundle();
                 bundle.putInt("status", 1);
+                SelfInvestBean selfInvestBean = (SelfInvestBean) parent.getAdapter().getItem(position);
+                InvestProjectBean investProjectBean = new InvestProjectBean();
+                investProjectBean.setStatus(selfInvestBean.getProject_status());
+                investProjectBean.setLoanno(selfInvestBean.getLoan_no());
+                investProjectBean.setUsertype(Integer.valueOf(selfInvestBean.getUsertype()));
+                bundle.putSerializable("investProject", investProjectBean);
                 ((BaseActivity) getActivity()).toActivity(PProjectDetailActivity.class, bundle);
+            }
+        });
+
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                page = 0;
+                params = new HashMap<>();
+                params.put("mobilephone", ApiUtils.getLoginUserPhone(getActivity()));
+                params.put("status", String.valueOf(status));
+                params.put("offset", String.valueOf(page));
+                params.put("qrsize", String.valueOf(pageSize));
+                addToRequestQueue(ApiUtils.getInstance().getRequestByMethod(PInvestListFragment.this, params, ApiUtils.MYINVEST), false);
             }
         });
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
-    @Override
-    public void onAttach(Activity context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
     private void initialize(View view) {
-
         loanList = (ListView) view.findViewById(R.id.loanList);
+        swipeRefresh = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefresh);
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            params = new HashMap<>();
+            params.put("mobilephone", ApiUtils.getLoginUserPhone(getActivity()));
+            params.put("status", String.valueOf(status));
+            params.put("offset", String.valueOf(page));
+            params.put("qrsize", String.valueOf(pageSize));
+            addToRequestQueue(ApiUtils.getInstance().getRequestByMethod(this, params, ApiUtils.MYINVEST), true);
+        }
+    }
+
+    @Override
+    protected void doResponse(ResponseResult response) {
+        JSONObject data = response.getData();
+        int itemCount = (data.getInteger("total_count") - page * pageSize);
+
+        if (itemCount > 1) {
+            investProjectBeans = JSONArray.parseArray(data.getJSONObject("detail").getJSONArray("stage").toJSONString(), SelfInvestBean.class);
+        } else if (itemCount == 1) {
+            if (page == 0) {
+                investProjectBeans = new ArrayList<>();
+            }
+            investProjectBeans.add(JSONObject.parseObject(data.getJSONObject("detail").getJSONObject("stage").toJSONString(), SelfInvestBean.class));
+        }
+        baseAdapter.setmData(investProjectBeans);
+        baseAdapter.notifyDataSetChanged();
+
     }
 }

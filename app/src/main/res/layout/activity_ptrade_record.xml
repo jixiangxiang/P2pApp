@@ -6,12 +6,20 @@
     android:background="@color/p_bg_color"
     tools:context="cn.com.infohold.p2papp.activity.PTradeRecordActivity">
 
-    <ListView
-        android:id="@+id/tradeList"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefresh"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_9"
-        android:background="@android:color/white">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/sortArea"
+        android:layout_marginTop="@dimen/dp_8">
 
-    </ListView>
+        <ListView
+            android:id="@+id/tradeList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_9"
+            android:background="@android:color/white">
+
+        </ListView>
+    </android.support.v4.widget.SwipeRefreshLayout>
 </RelativeLayout>

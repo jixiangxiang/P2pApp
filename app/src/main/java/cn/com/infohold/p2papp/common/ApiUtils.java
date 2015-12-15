@@ -67,6 +67,10 @@ public class ApiUtils {
     public static final String TOWITHDRAW = API_BASE + "router.towithdraw";
     public static final String WITHDRAW = API_BASE + "router.withdraw";
     public static final String SECURITYPASSWORD = API_BASE + "router.security_password";
+    public static final String MYINVEST = API_BASE + "router.myinvest";
+    public static final String TRANSQUERY = API_BASE + "router.transquery";
+    public static final String TOSECURITY = API_BASE + "router.tosecurity";
+    public static final String SECURITYMOBILEEMAIL = API_BASE + "router.security_mobile_email";
 
     private ApiUtils() {
 

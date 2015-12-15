@@ -9,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSONObject;
+
 import java.util.ArrayList;
 
 import cn.com.infohold.p2papp.R;
@@ -32,6 +34,7 @@ public class PSelfInvestActivity extends BaseActivity implements View.OnClickLis
     private DotLayout dotLayout;
     ArrayList<View> views;
     private ArrayList<Fragment> fragmentList;
+    private JSONObject data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,13 +47,15 @@ public class PSelfInvestActivity extends BaseActivity implements View.OnClickLis
         initialize();
         getToolbar().setBackgroundColor(getResources().getColor(android.R.color.white));
         initTitleText(getString(R.string.title_activity_pself_invest), BaseActivity.TITLE_CENTER, android.R.color.black);
+        data = JSONObject.parseObject(getIntent().getExtras().getString("moneyData"));
         fragmentList = new ArrayList<Fragment>();
         fragmentList.add(PInvestListFragment.newInstance(1, null));
         fragmentList.add(PInvestListFragment.newInstance(2, null));
         fragmentList.add(PInvestListFragment.newInstance(3, null));
         fragmentList.add(PInvestListFragment.newInstance(4, null));
         views = new ArrayList<View>();
-        initTopMoenyViews(9000.00, 8000.00, 1000.00);
+        initTopMoenyViews(data.getString("all_loan_out_amount"),
+                data.getString("all_profit_amount"), data.getString("waiting_profit_amount"));
         viewAdapter = new ViewPagerAdapter(getSupportFragmentManager(), views);
         investMoneyPager.setAdapter(viewAdapter);
         dotLayout.setSize(views.size());
@@ -152,12 +157,12 @@ public class PSelfInvestActivity extends BaseActivity implements View.OnClickLis
             investListPager.setCurrentItem(status - 1);
     }
 
-    private void initTopMoenyViews(Double d1, Double d2, Double d3) {
+    private void initTopMoenyViews(String d1, String d2, String d3) {
         View view1 = getLayoutInflater().inflate(R.layout.p_loan_top_money, null);
         TextView title = (TextView) view1.findViewById(R.id.title);
         title.setText("投资总额 (元)");
         TextView money = (TextView) view1.findViewById(R.id.money);
-        money.setText(String.valueOf(d1));
+        money.setText(d1);
         ImageView question = (ImageView) view1.findViewById(R.id.question);
         question.setVisibility(View.GONE);
         views.add(view1);
@@ -165,7 +170,7 @@ public class PSelfInvestActivity extends BaseActivity implements View.OnClickLis
         title = (TextView) view2.findViewById(R.id.title);
         title.setText("累计收益 (元)");
         money = (TextView) view2.findViewById(R.id.money);
-        money.setText(String.valueOf(d2));
+        money.setText(d2);
         question = (ImageView) view2.findViewById(R.id.question);
         question.setVisibility(View.GONE);
         views.add(view2);
@@ -173,7 +178,7 @@ public class PSelfInvestActivity extends BaseActivity implements View.OnClickLis
         title = (TextView) view3.findViewById(R.id.title);
         title.setText("待收利息 (元)");
         money = (TextView) view3.findViewById(R.id.money);
-        money.setText(String.valueOf(d3));
+        money.setText(d3);
         question = (ImageView) view3.findViewById(R.id.question);
         question.setVisibility(View.VISIBLE);
         views.add(view3);

@@ -57,7 +57,7 @@ public class PResetPwdConfirmActivity extends BaseActivity implements View.OnCli
             }
             params = new HashMap<>();
             params.put("mobilephone", phone);
-            params.put("password", newPwd.getText().toString());
+            params.put("password", ApiUtils.digesPSW(newPwd.getText().toString()));
             addToRequestQueue(ApiUtils.getInstance().getRequestByMethod(this, params, ApiUtils.RESETPASSWORD), true);
         }
     }

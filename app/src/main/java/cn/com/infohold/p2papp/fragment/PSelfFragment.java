@@ -199,7 +199,9 @@ public class PSelfFragment extends BaseFragment implements View.OnClickListener 
         } else if (v == selfLoan) {
             ((BaseActivity) getActivity()).toActivity(PSelfLoanActivity.class);
         } else if (v == selfInvest) {
-            ((BaseActivity) getActivity()).toActivity(PSelfInvestActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("moneyData", data.toJSONString());
+            ((BaseActivity) getActivity()).toActivity(PSelfInvestActivity.class, bundle);
         } else if (v == topArea) {
             Bundle bundle = new Bundle();
             bundle.putString("data", data.toJSONString());
