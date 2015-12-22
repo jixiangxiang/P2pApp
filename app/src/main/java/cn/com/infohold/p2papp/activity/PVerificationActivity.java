@@ -87,7 +87,7 @@ public class PVerificationActivity extends BaseActivity implements View.OnClickL
         params.put("mobilephone", ApiUtils.getLoginUserPhone(this));
         params.put("idno", idNo.getText().toString());
         params.put("name", realName.getText().toString());
-        addToRequestQueue(ApiUtils.getInstance().getRequestByMethod(this, params, ApiUtils.REALNAMEAUTH), ApiUtils.REALNAMEAUTH, true);
+        addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(this, params, ApiUtils.REALNAMEAUTH), ApiUtils.REALNAMEAUTH, true);
     }
 
     @Override

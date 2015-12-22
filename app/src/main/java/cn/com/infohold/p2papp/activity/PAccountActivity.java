@@ -167,7 +167,7 @@ public class PAccountActivity extends BaseActivity implements View.OnClickListen
 
     private SpannableString generateCenterSpannableText() {
 
-        SpannableString s = new SpannableString("总资产\n\n100,000.00");
+        SpannableString s = new SpannableString("总资产\n\n" + data.getString("asset_amount"));
         s.setSpan(new RelativeSizeSpan(1.5f), 0, 3, 0);
         s.setSpan(new ForegroundColorSpan(Color.GRAY), 0, 3, 0);
         s.setSpan(new StyleSpan(Typeface.ITALIC), s.length() - 3, s.length(), 0);

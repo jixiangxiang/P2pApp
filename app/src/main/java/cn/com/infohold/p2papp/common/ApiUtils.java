@@ -71,12 +71,16 @@ public class ApiUtils {
     public static final String TRANSQUERY = API_BASE + "router.transquery";
     public static final String TOSECURITY = API_BASE + "router.tosecurity";
     public static final String SECURITYMOBILEEMAIL = API_BASE + "router.security_mobile_email";
+    public static final String TRANFER = API_BASE + "router.tranfer";
+    public static final String TRANFERPER = API_BASE + "router.tranferper";
+    public static final String TRANFERPERPROJECT = API_BASE + "router.transferproject";
+
 
     private ApiUtils() {
 
     }
 
-    public static ApiUtils getInstance() {
+    public static ApiUtils newInstance() {
         if (instance == null) {
             instance = new ApiUtils();
         }

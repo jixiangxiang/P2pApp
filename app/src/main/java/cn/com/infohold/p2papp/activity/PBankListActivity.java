@@ -46,7 +46,7 @@ public class PBankListActivity extends BaseActivity {
             }
         });
         params = new HashMap<>();
-        addToRequestQueue(ApiUtils.getInstance().getRequestByMethod(this, params, ApiUtils.FETCHBANKS), true);
+        addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(this, params, ApiUtils.FETCHBANKS), true);
     }
 
     private void initialize() {

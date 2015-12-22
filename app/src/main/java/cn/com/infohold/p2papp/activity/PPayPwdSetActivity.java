@@ -57,7 +57,7 @@ public class PPayPwdSetActivity extends BaseActivity implements View.OnClickList
             params.put("option", "1");
             params.put("modify_type", "1");
             params.put("modify_value", ApiUtils.digesPSW(payPwd.getText().toString()));
-            addToRequestQueue(ApiUtils.getInstance().getRequestByMethod(this, params, ApiUtils.SECURITYPASSWORD), true);
+            addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(this, params, ApiUtils.SECURITYPASSWORD), true);
         }
     }
 

@@ -57,7 +57,7 @@ public class PBindPhoneActivity extends BaseActivity implements View.OnClickList
             params.put("mobilephone", phoneText);
             params.put("trans_code", "security_mobile_email");
             params.put("userseq", userseq);
-            addToRequestQueue(ApiUtils.getInstance().getRequestByMethod(this, params, ApiUtils.SEND_VALID_CODE), ApiUtils.SEND_VALID_CODE, true);
+            addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(this, params, ApiUtils.SEND_VALID_CODE), ApiUtils.SEND_VALID_CODE, true);
         } else if (v == nextBtn) {
             String captchText = captch.getText().toString();
             if (StringUtils.isEmpty(captchText)) {
@@ -70,7 +70,7 @@ public class PBindPhoneActivity extends BaseActivity implements View.OnClickList
             params.put("modify_value", phoneText);
             params.put("validate_code", captchText);
             params.put("userseq", userseq);
-            addToRequestQueue(ApiUtils.getInstance().getRequestByMethod(this, params, ApiUtils.SECURITYMOBILEEMAIL), ApiUtils.SECURITYMOBILEEMAIL, true);
+            addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(this, params, ApiUtils.SECURITYMOBILEEMAIL), ApiUtils.SECURITYMOBILEEMAIL, true);
         }
     }
 

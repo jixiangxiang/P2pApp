@@ -19,6 +19,7 @@ import java.util.List;
 
 import cn.com.infohold.p2papp.R;
 import cn.com.infohold.p2papp.activity.PProjectDetailActivity;
+import cn.com.infohold.p2papp.activity.PTransProjectDetailActivity;
 import cn.com.infohold.p2papp.bean.ReviewBean;
 import common.eric.com.ebaselibrary.adapter.EBaseAdapter;
 
@@ -119,7 +120,11 @@ public class PProjectDetailFragment extends Fragment implements View.OnClickList
         loanContract.post(new Runnable() {
             @Override
             public void run() {
-                ((PProjectDetailActivity) getActivity()).setViewPagerHeight(loanContract.getHeight());
+                if (getActivity() instanceof PProjectDetailActivity) {
+                    ((PProjectDetailActivity) getActivity()).setViewPagerHeight(loanContract.getHeight());
+                } else if (getActivity() instanceof PTransProjectDetailActivity) {
+                    ((PTransProjectDetailActivity) getActivity()).setViewPagerHeight(loanContract.getHeight());
+                }
             }
         });
 
@@ -135,8 +140,6 @@ public class PProjectDetailFragment extends Fragment implements View.OnClickList
         marriage.setText(data.getString("marry"));
         carLoan.setText(data.getString("carby"));
         loandesc.setText(data.getString("loandesc"));
-
-
     }
 
     // TODO: Rename method, update argument and hook method into UI event

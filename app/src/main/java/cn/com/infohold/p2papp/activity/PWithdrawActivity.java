@@ -61,7 +61,7 @@ public class PWithdrawActivity extends BaseActivity implements View.OnClickListe
         });
         params = new HashMap<>();
         params.put("mobilephone", ApiUtils.getLoginUserPhone(this));
-        addToRequestQueue(ApiUtils.getInstance().getRequestByMethod(this, params, ApiUtils.TOWITHDRAW), ApiUtils.TOWITHDRAW, true);
+        addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(this, params, ApiUtils.TOWITHDRAW), ApiUtils.TOWITHDRAW, true);
     }
 
     @Override
@@ -79,7 +79,7 @@ public class PWithdrawActivity extends BaseActivity implements View.OnClickListe
                     params.put("amount", withdrawMoney.getText().toString());
                     params.put("trans_pwd", ApiUtils.digesPSW(payPwd.getText().toString()));
                     params.put("mobilephone", ApiUtils.getLoginUserPhone(PWithdrawActivity.this));
-                    addToRequestQueue(ApiUtils.getInstance().getRequestByMethod(PWithdrawActivity.this, params, ApiUtils.WITHDRAW), ApiUtils.WITHDRAW, true);
+                    addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(PWithdrawActivity.this, params, ApiUtils.WITHDRAW), ApiUtils.WITHDRAW, true);
                 }
             });
         }

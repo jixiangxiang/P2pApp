@@ -19,10 +19,9 @@ import cn.com.infohold.p2papp.common.ResponseResult;
 import cn.com.infohold.p2papp.views.RingView;
 import common.eric.com.ebaselibrary.util.StringUtils;
 
-public class PInvestConfirmActivity extends BaseActivity implements View.OnClickListener {
+public class PTransConfirmActivity extends BaseActivity implements View.OnClickListener {
 
     private RelativeLayout titleBar;
-    private TextView projectStartDate;
     private EditText investMoeny;
     private RelativeLayout investMoenyArea;
     private TextView yieldText;
@@ -35,12 +34,14 @@ public class PInvestConfirmActivity extends BaseActivity implements View.OnClick
     private LinearLayout balanceArea;
     private Button investBtn;
     private TextView termSheet;
+    private TextView assignmentpricevalue;
+    private TextView availInvestMoney;
     private JSONObject data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pinvest_confirm);
+        setContentView(R.layout.activity_ptrans_confirm);
     }
 
     @Override
@@ -49,12 +50,15 @@ public class PInvestConfirmActivity extends BaseActivity implements View.OnClick
         initialize();
         initTitleGone();
         titleText.setText(getString(R.string.title_activity_pinvest_confirm));
-        Double investedMoney = Double.valueOf(data.getString("amount")) - Double.valueOf(data.getString("balance"));
-        Double angle = investedMoney / Double.valueOf(data.getString("amount")) * 360;
+        Double residualterm = Double.valueOf(data.getString("residualterm"));
+        Double angle = residualterm / Double.valueOf(data.getString("issuenum")) * 360;
         yieldCircle.setAngle(angle.intValue());
         yieldCircle.invalidate();
-        yieldText.setText(data.getString("rate"));
+        yieldText.setText(data.getString("loanrate"));
         investCount.setText(data.getString("investcount"));
+        assignmentpricevalue.setText(data.getString("assignmentpricevalue"));
+        availInvestMoney.setText(data.getString("transferprince"));
+
         params = new HashMap<>();
         params.put("mobilephone", ApiUtils.getLoginUserPhone(this));
         addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(this, params, ApiUtils.ACCTBALANCE), ApiUtils.ACCTBALANCE, true);
@@ -67,19 +71,19 @@ public class PInvestConfirmActivity extends BaseActivity implements View.OnClick
         } else if (v == investBtn) {
             if (StringUtils.isEmpty(investMoeny.getText().toString()) || Double.valueOf(investMoeny.getText().toString()) == 0) {
                 showToastShort("请输入正确的投资金额");
+                return;
             }
             params = new HashMap<>();
-            params.put("projectno", data.getString("projectno"));
+            params.put("assignmentseq", data.getString("assignmentseq"));
             params.put("mobilephone", ApiUtils.getLoginUserPhone(this));
             params.put("cif_seq", ApiUtils.CIFSEQ);
             params.put("amount", investMoeny.getText().toString());
-            addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(this, params, ApiUtils.INVESTPROJECT), ApiUtils.INVESTPROJECT, true);
+            addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(this, params, ApiUtils.TRANFERPERPROJECT), ApiUtils.TRANFERPERPROJECT, true);
         }
     }
 
     private void initialize() {
         titleBar = (RelativeLayout) findViewById(R.id.titleBar);
-        projectStartDate = (TextView) findViewById(R.id.projectStartDate);
         investMoeny = (EditText) findViewById(R.id.investMoeny);
         investMoenyArea = (RelativeLayout) findViewById(R.id.investMoenyArea);
         yieldText = (TextView) findViewById(R.id.yieldText);
@@ -92,17 +96,19 @@ public class PInvestConfirmActivity extends BaseActivity implements View.OnClick
         balanceArea = (LinearLayout) findViewById(R.id.balanceArea);
         investBtn = (Button) findViewById(R.id.investBtn);
         termSheet = (TextView) findViewById(R.id.termSheet);
+        availInvestMoney = (TextView) findViewById(R.id.availInvestMoney);
+        assignmentpricevalue = (TextView) findViewById(R.id.assignmentpricevalue);
     }
 
     @Override
     protected void doResponse(ResponseResult response) {
         if (StringUtils.isEquals(requestMethod, ApiUtils.ACCTBALANCE)) {
             balanceMoney.setText(response.getData().getString("available_bal"));
-        } else if (StringUtils.isEquals(requestMethod, ApiUtils.INVESTPROJECT)) {
+        } else if (StringUtils.isEquals(requestMethod, ApiUtils.TRANFERPERPROJECT)) {
             alertDialog("投资成功", new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    PInvestConfirmActivity.this.finish();
+                    PTransConfirmActivity.this.finish();
                 }
             });
         }

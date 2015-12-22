@@ -57,7 +57,7 @@ public class PModifyNickActivity extends BaseActivity implements View.OnClickLis
                 params = new HashMap<>();
                 params.put("userSeq", userSeq);
                 params.put("nickname", nickName.getText().toString());
-                addToRequestQueue(ApiUtils.getInstance().getRequestByMethod(this, params, ApiUtils.ACCTSET), true);
+                addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(this, params, ApiUtils.ACCTSET), true);
                 break;
         }
         return true;

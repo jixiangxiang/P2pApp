@@ -44,7 +44,7 @@ public class PProvinceListActivity extends BaseActivity {
             }
         });
         params = new HashMap<>();
-        addToRequestQueue(ApiUtils.getInstance().getRequestByMethod(this, params, ApiUtils.FETCHPROVINCES), true);
+        addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(this, params, ApiUtils.FETCHPROVINCES), true);
     }
 
     private void initialize() {

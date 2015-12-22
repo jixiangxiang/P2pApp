@@ -140,7 +140,7 @@ public class PInvestListFragment extends BaseFragment {
                 params.put("status", String.valueOf(status));
                 params.put("offset", String.valueOf(page));
                 params.put("qrsize", String.valueOf(pageSize));
-                addToRequestQueue(ApiUtils.getInstance().getRequestByMethod(PInvestListFragment.this, params, ApiUtils.MYINVEST), false);
+                addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(PInvestListFragment.this, params, ApiUtils.MYINVEST), false);
             }
         });
     }
@@ -159,7 +159,7 @@ public class PInvestListFragment extends BaseFragment {
             params.put("status", String.valueOf(status));
             params.put("offset", String.valueOf(page));
             params.put("qrsize", String.valueOf(pageSize));
-            addToRequestQueue(ApiUtils.getInstance().getRequestByMethod(this, params, ApiUtils.MYINVEST), true);
+            addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(this, params, ApiUtils.MYINVEST), true);
         }
     }
 

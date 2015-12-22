@@ -13,6 +13,7 @@ import java.util.List;
 
 import cn.com.infohold.p2papp.R;
 import cn.com.infohold.p2papp.activity.PProjectDetailActivity;
+import cn.com.infohold.p2papp.activity.PTransProjectDetailActivity;
 import cn.com.infohold.p2papp.bean.QuestionBean;
 import cn.com.infohold.p2papp.views.WrapScrollListView;
 import common.eric.com.ebaselibrary.adapter.EBaseAdapter;
@@ -106,7 +107,11 @@ public class PQuestFragment extends Fragment {
         investRecord.post(new Runnable() {
             @Override
             public void run() {
-                ((PProjectDetailActivity) getActivity()).setViewPagerHeight(investRecord.getHeight());
+                if (getActivity() instanceof PProjectDetailActivity) {
+                    ((PProjectDetailActivity) getActivity()).setViewPagerHeight(investRecord.getHeight());
+                } else if (getActivity() instanceof PTransProjectDetailActivity) {
+                    ((PTransProjectDetailActivity) getActivity()).setViewPagerHeight(investRecord.getHeight());
+                }
             }
         });
 

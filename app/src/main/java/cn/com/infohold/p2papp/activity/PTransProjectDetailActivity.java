@@ -18,7 +18,7 @@ import java.util.HashMap;
 
 import cn.com.infohold.p2papp.R;
 import cn.com.infohold.p2papp.adapter.FragmentPagerAdapter;
-import cn.com.infohold.p2papp.bean.InvestProjectBean;
+import cn.com.infohold.p2papp.bean.TransferProjectBean;
 import cn.com.infohold.p2papp.common.ApiUtils;
 import cn.com.infohold.p2papp.common.ResponseResult;
 import cn.com.infohold.p2papp.fragment.PInvestRecordFragment;
@@ -28,14 +28,13 @@ import cn.com.infohold.p2papp.views.RingView;
 import cn.com.infohold.p2papp.views.WrapScrollViewPager;
 import common.eric.com.ebaselibrary.util.StringUtils;
 
-public class PProjectDetailActivity extends BaseActivity implements View.OnClickListener,
+public class PTransProjectDetailActivity extends BaseActivity implements View.OnClickListener,
         PProjectDetailFragment.OnFragmentInteractionListener,
         PInvestRecordFragment.OnFragmentInteractionListener,
         PQuestFragment.OnFragmentInteractionListener {
 
     private ImageButton toInvestBtn;
     private TextView titleText;
-    private TextView projectEndDate;
     private TextView projectStartDate;
     private TextView limitDay;
     private WrapScrollViewPager detailPager;
@@ -50,16 +49,18 @@ public class PProjectDetailActivity extends BaseActivity implements View.OnClick
     private Integer status = 0;
 
     private FragmentPagerAdapter adapter;
-    private InvestProjectBean investProjectBean;
+    private TransferProjectBean transferProjectBean;
     private TextView transDayShow;
     private TextView addAmountShow;
     private TextView productNameShow;
+    private TextView assignmentpricevalue;
+    private TextView availInvestMoney;
     private JSONObject data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pproject_detail);
+        setContentView(R.layout.activity_ptrans_project_detail);
     }
 
     @Override
@@ -68,7 +69,7 @@ public class PProjectDetailActivity extends BaseActivity implements View.OnClick
         initialize();
         if (getIntent().getExtras() != null) {
             status = getIntent().getExtras().getInt("status");
-            investProjectBean = (InvestProjectBean) getIntent().getExtras().getSerializable("investProject");
+            transferProjectBean = (TransferProjectBean) getIntent().getExtras().getSerializable("transferProjectBean");
         }
         switch (status) {
             case 1:
@@ -81,7 +82,7 @@ public class PProjectDetailActivity extends BaseActivity implements View.OnClick
                 toInvestBtn.setBackgroundResource(R.mipmap.p_to_trans_btn);
                 break;
             default:
-                if (investProjectBean.getStatus().equals("01")) {
+                if (transferProjectBean.getAssignmentstatus().equals("01")) {
                     toInvestBtn.setBackgroundResource(R.mipmap.p_invest_btn);
                 } else {
                     //toInvestBtn.setBackgroundResource(R.mipmap.p_invest_btn_default);
@@ -90,17 +91,8 @@ public class PProjectDetailActivity extends BaseActivity implements View.OnClick
                 break;
         }
         params = new HashMap<>();
-        params.put("loanno", investProjectBean.getLoanno());
-        params.put("cif_seq", ApiUtils.CIFSEQ);
-        params.put("status", investProjectBean.getStatus());
-        switch (investProjectBean.getUsertype()) {
-            case 1:
-                addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(this, params, ApiUtils.PROJECTDETAILPER), ApiUtils.PROJECTDETAILPER, true);
-                break;
-            case 2:
-                addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(this, params, ApiUtils.PROJECTDETAILCUST), ApiUtils.PROJECTDETAILCUST, true);
-                break;
-        }
+        params.put("assignmentseq", transferProjectBean.getAssignmentseq());
+        addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(this, params, ApiUtils.TRANFERPER), ApiUtils.TRANFERPER, true);
 
         detailPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -127,7 +119,6 @@ public class PProjectDetailActivity extends BaseActivity implements View.OnClick
     private void initialize() {
         toInvestBtn = (ImageButton) findViewById(R.id.toInvestBtn);
         titleText = (TextView) findViewById(R.id.titleText);
-        projectEndDate = (TextView) findViewById(R.id.projectEndDate);
         projectStartDate = (TextView) findViewById(R.id.projectStartDate);
         limitDay = (TextView) findViewById(R.id.limitDay);
         detailPager = (WrapScrollViewPager) findViewById(R.id.detailPager);
@@ -142,6 +133,8 @@ public class PProjectDetailActivity extends BaseActivity implements View.OnClick
         transDayShow = (TextView) findViewById(R.id.transDayShow);
         addAmountShow = (TextView) findViewById(R.id.addAmountShow);
         productNameShow = (TextView) findViewById(R.id.productNameShow);
+        availInvestMoney = (TextView) findViewById(R.id.availInvestMoney);
+        assignmentpricevalue = (TextView) findViewById(R.id.assignmentpricevalue);
     }
 
     @Override
@@ -164,12 +157,12 @@ public class PProjectDetailActivity extends BaseActivity implements View.OnClick
                 case 0:
                     Bundle bundle = new Bundle();
                     bundle.putString("data", data.toJSONString());
-                    if (investProjectBean.getStatus().equals("01")) {
-                        toActivity(PInvestConfirmActivity.class, bundle);
+                    if (transferProjectBean.getAssignmentstatus().equals("01")) {
+                        toActivity(PTransConfirmActivity.class, bundle);
                     }
                     break;
                 case 1:
-                    toActivity(PInvestConfirmActivity.class);
+                    toActivity(PTransConfirmActivity.class);
                     break;
                 case 2:
                     toActivity(PRepaymentActivity.class);
@@ -210,11 +203,11 @@ public class PProjectDetailActivity extends BaseActivity implements View.OnClick
     @Override
     protected void doResponse(ResponseResult response) {
         data = response.getData();
-        Double investedMoney = Double.valueOf(data.getString("amount")) - Double.valueOf(data.getString("balance"));
-        Double angle = investedMoney / Double.valueOf(data.getString("amount")) * 360;
+        Double residualterm = Double.valueOf(data.getString("residualterm"));
+        Double angle = residualterm / Double.valueOf(data.getString("issuenum")) * 360;
         yieldCircle.setAngle(angle.intValue());
         yieldCircle.invalidate();
-        yieldText.setText(data.getString("rate"));
+        yieldText.setText(String.valueOf(transferProjectBean.getRate()));
         ArrayList<Fragment> fragmentList = new ArrayList<Fragment>();
         fragmentList.add(PProjectDetailFragment.newInstance(data.toJSONString(), null));
         fragmentList.add(PInvestRecordFragment.newInstance(data.getString("projectno"), null));
@@ -222,7 +215,6 @@ public class PProjectDetailActivity extends BaseActivity implements View.OnClick
         adapter = new FragmentPagerAdapter(getSupportFragmentManager(), fragmentList);
         detailPager.setAdapter(adapter);
         detailPager.setCurrentItem(0);
-        addAmountShow.setText(data.getString("addamount") + "元起投");
         String incomeWay = "等额本息";
         String incomeway = data.getString("incomway");
         if (StringUtils.isEmpty(incomeway)) incomeway = "1";
@@ -241,13 +233,9 @@ public class PProjectDetailActivity extends BaseActivity implements View.OnClick
                 break;
         }
         productNameShow.setText(incomeWay);
-        projectStartDate.setText(data.getString("pubtime"));
-        projectEndDate.setText(data.getString("endtime"));
-        limitDay.setText(data.getString("issuenum"));
-        if (StringUtils.isEquals(requestMethod, ApiUtils.PROJECTDETAILPER)) {
-
-        } else if (StringUtils.isEquals(requestMethod, ApiUtils.PROJECTDETAILCUST)) {
-
-        }
+        projectStartDate.setText(data.getString("projectStartDate"));
+        limitDay.setText(data.getString("assigneeinterest"));
+        assignmentpricevalue.setText(data.getString("assignmentpricevalue"));
+        availInvestMoney.setText(data.getString("transferprince"));
     }
 }

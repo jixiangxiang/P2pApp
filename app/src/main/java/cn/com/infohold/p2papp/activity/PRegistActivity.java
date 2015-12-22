@@ -47,7 +47,7 @@ public class PRegistActivity extends BaseActivity implements View.OnClickListene
             params = new HashMap<String, String>();
             params.put("mobilephone", phoneText.getText().toString());
             params.put("trans_code", "userRegist");
-            addToRequestQueue(ApiUtils.getInstance().getRequestByMethod(this, params, ApiUtils.SEND_VALID_CODE), ApiUtils.SEND_VALID_CODE, true);
+            addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(this, params, ApiUtils.SEND_VALID_CODE), ApiUtils.SEND_VALID_CODE, true);
         } else if (v == registBtn) {
             String phone = phoneText.getText().toString();
             if (StringUtils.isEmpty(phone) && phone.length() != 11) {
@@ -62,7 +62,7 @@ public class PRegistActivity extends BaseActivity implements View.OnClickListene
             params = new HashMap<String, String>();
             params.put("mobilephone", phoneText.getText().toString());
             params.put("validatecode", captch);
-            addToRequestQueue(ApiUtils.getInstance().getRequestByMethod(this, params, ApiUtils.CHECK_VALID_CODE), ApiUtils.CHECK_VALID_CODE, true);
+            addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(this, params, ApiUtils.CHECK_VALID_CODE), ApiUtils.CHECK_VALID_CODE, true);
         }
     }
 

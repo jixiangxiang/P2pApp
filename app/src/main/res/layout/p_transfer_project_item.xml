@@ -80,21 +80,21 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="年化收益率(%)" />
+            android:text="预计年化收益率(%)" />
 
         <TextView
             style="@style/text_10_999"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="可投金额" />
+            android:text="可投金额(元)" />
 
         <TextView
             style="@style/text_10_999"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="还款期限(天)" />
+            android:text="原/现还款期限(天)" />
     </LinearLayout>
 
     <LinearLayout
@@ -110,7 +110,7 @@
             android:layout_marginLeft="@dimen/dp_18"
             android:layout_marginRight="@dimen/dp_18"
             android:focusable="false"
-            android:scaleType="fitXY"/>
+            android:scaleType="fitXY" />
     </LinearLayout>
 
 </LinearLayout>

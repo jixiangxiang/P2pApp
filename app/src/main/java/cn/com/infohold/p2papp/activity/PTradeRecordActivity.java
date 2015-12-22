@@ -16,7 +16,6 @@ import cn.com.infohold.p2papp.bean.TradeRecordBean;
 import cn.com.infohold.p2papp.common.ApiUtils;
 import cn.com.infohold.p2papp.common.ResponseResult;
 import common.eric.com.ebaselibrary.adapter.EBaseAdapter;
-import common.eric.com.ebaselibrary.util.StringUtils;
 
 public class PTradeRecordActivity extends BaseActivity {
 
@@ -50,7 +49,7 @@ public class PTradeRecordActivity extends BaseActivity {
                 params.put("mobilephone", ApiUtils.getLoginUserPhone(PTradeRecordActivity.this));
                 params.put("offset", String.valueOf(page));
                 params.put("qrsize", String.valueOf(pageSize));
-                addToRequestQueue(ApiUtils.getInstance().getRequestByMethod(PTradeRecordActivity.this, params, ApiUtils.TRANSQUERY), ApiUtils.TRANSQUERY, false);
+                addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(PTradeRecordActivity.this, params, ApiUtils.TRANSQUERY), ApiUtils.TRANSQUERY, false);
             }
         });
 
@@ -58,7 +57,7 @@ public class PTradeRecordActivity extends BaseActivity {
         params.put("mobilephone", ApiUtils.getLoginUserPhone(PTradeRecordActivity.this));
         params.put("offset", String.valueOf(page));
         params.put("qrsize", String.valueOf(pageSize));
-        addToRequestQueue(ApiUtils.getInstance().getRequestByMethod(PTradeRecordActivity.this, params, ApiUtils.TRANSQUERY), ApiUtils.TRANSQUERY, true);
+        addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(PTradeRecordActivity.this, params, ApiUtils.TRANSQUERY), ApiUtils.TRANSQUERY, true);
     }
 
     private void initialize() {

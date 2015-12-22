@@ -63,7 +63,7 @@ public class PPhoneSetActivity extends BaseActivity implements View.OnClickListe
             params.put("modify_type", "1");
             params.put("trans_pwd", ApiUtils.digesPSW(payPwd.getText().toString()));
             params.put("mobilephone", ApiUtils.getLoginUserPhone(this));
-            addToRequestQueue(ApiUtils.getInstance().getRequestByMethod(this, params, ApiUtils.SECURITYMOBILEEMAIL), ApiUtils.SECURITYMOBILEEMAIL, true);
+            addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(this, params, ApiUtils.SECURITYMOBILEEMAIL), ApiUtils.SECURITYMOBILEEMAIL, true);
         }
     }
 

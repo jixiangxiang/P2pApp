@@ -57,7 +57,7 @@ public class PAccountSetActivity extends BaseActivity implements View.OnClickLis
 
         params = new HashMap<>();
         params.put("mobilephone", ApiUtils.getLoginUserPhone(this));
-        addToRequestQueue(ApiUtils.getInstance().getRequestByMethod(this, params, ApiUtils.TOACCTSET), ApiUtils.TOACCTSET, true);
+        addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(this, params, ApiUtils.TOACCTSET), ApiUtils.TOACCTSET, true);
 
     }
 

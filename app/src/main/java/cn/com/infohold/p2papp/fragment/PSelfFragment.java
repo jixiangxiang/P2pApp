@@ -141,7 +141,7 @@ public class PSelfFragment extends BaseFragment implements View.OnClickListener 
                 }
                 params = new HashMap<String, String>();
                 params.put("mobilephone", ApiUtils.getLoginUserPhone(getActivity()));
-                addToRequestQueue(ApiUtils.getInstance().getRequestByMethod(PSelfFragment.this, params, ApiUtils.ACCTPREVIEW), false);
+                addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(PSelfFragment.this, params, ApiUtils.ACCTPREVIEW), false);
             }
         });
     }
@@ -223,16 +223,16 @@ public class PSelfFragment extends BaseFragment implements View.OnClickListener 
         if (requestCode == 111 && resultCode == getActivity().RESULT_OK) {
             params = new HashMap<String, String>();
             params.put("mobilephone", ApiUtils.getLoginUserPhone(getActivity()));
-            addToRequestQueue(ApiUtils.getInstance().getRequestByMethod(PSelfFragment.this, params, ApiUtils.ACCTPREVIEW), true);
+            addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(PSelfFragment.this, params, ApiUtils.ACCTPREVIEW), true);
         } else if (this.isVisibleToUser && requestCode == getActivity().RESULT_FIRST_USER && resultCode == getActivity().RESULT_OK) {
             params = new HashMap<String, String>();
             params.put("mobilephone", ApiUtils.getLoginUserPhone(getActivity()));
-            addToRequestQueue(ApiUtils.getInstance().getRequestByMethod(this, params, ApiUtils.ACCTPREVIEW), true);
+            addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(this, params, ApiUtils.ACCTPREVIEW), true);
         }
     }
 
     @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
+     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         this.isVisibleToUser = isVisibleToUser;
         if (!isCreated) {
@@ -246,7 +246,7 @@ public class PSelfFragment extends BaseFragment implements View.OnClickListener 
                 if (data == null) {
                     params = new HashMap<String, String>();
                     params.put("mobilephone", ApiUtils.getLoginUserPhone(getActivity()));
-                    addToRequestQueue(ApiUtils.getInstance().getRequestByMethod(this, params, ApiUtils.ACCTPREVIEW), true);
+                    addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(this, params, ApiUtils.ACCTPREVIEW), true);
                 }
             }
         }

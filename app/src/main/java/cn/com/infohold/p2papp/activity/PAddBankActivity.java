@@ -96,7 +96,7 @@ public class PAddBankActivity extends BaseActivity implements View.OnClickListen
             params.put("openingProvince", provinceBean.getOpeningProvince());
             params.put("openingCity", cityBean.getOpeningCity());
             params.put("branchId", dotBean.getBranchId());
-            addToRequestQueue(ApiUtils.getInstance().getRequestByMethod(this, params, ApiUtils.APPBOUNDCARD), true);
+            addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(this, params, ApiUtils.APPBOUNDCARD), true);
         } else if (v == agreement) {
 
         }

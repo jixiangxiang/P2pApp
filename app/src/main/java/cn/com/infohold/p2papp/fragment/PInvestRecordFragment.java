@@ -142,7 +142,7 @@ public class PInvestRecordFragment extends BaseFragment {
             params = new HashMap<>();
             params.put("cif_seq", ApiUtils.CIFSEQ);
             params.put("projectno", mParam1);
-            addToRequestQueue(ApiUtils.getInstance().getRequestByMethod(this, params, ApiUtils.INVESTRECORDS), ApiUtils.INVESTRECORDS, true);
+            addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(this, params, ApiUtils.INVESTRECORDS), ApiUtils.INVESTRECORDS, true);
             isCreated = false;
         }
     }

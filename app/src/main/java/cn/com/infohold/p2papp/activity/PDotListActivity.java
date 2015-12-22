@@ -53,7 +53,7 @@ public class PDotListActivity extends BaseActivity {
         params = new HashMap<>();
         params.put("bankId", bankBean.getBankId());
         params.put("openingCity", cityBean.getOpeningCity());
-        addToRequestQueue(ApiUtils.getInstance().getRequestByMethod(this, params, ApiUtils.FETCHBRANCHES), true);
+        addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(this, params, ApiUtils.FETCHBRANCHES), true);
     }
 
     private void initialize() {

@@ -46,10 +46,19 @@
             android:name=".activity.PInvestProjectActivity"
             android:label="@string/title_activity_pinvest_project" />
         <activity
+            android:name=".activity.PTransferProjectActivity"
+            android:label="@string/title_activity_ptransfer_project" />
+        <activity
             android:name=".activity.PProjectDetailActivity"
             android:label="@string/title_activity_pproject_detail" />
         <activity
+            android:name=".activity.PTransProjectDetailActivity"
+            android:label="@string/title_activity_pproject_detail" />
+        <activity
             android:name=".activity.PInvestConfirmActivity"
+            android:label="@string/title_activity_pinvest_confirm" />
+        <activity
+            android:name=".activity.PTransConfirmActivity"
             android:label="@string/title_activity_pinvest_confirm" />
         <activity
             android:name=".activity.PAccountSetActivity"

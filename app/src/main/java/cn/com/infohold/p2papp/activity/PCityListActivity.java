@@ -51,7 +51,7 @@ public class PCityListActivity extends BaseActivity {
         });
         params = new HashMap<>();
         params.put("openingProvince", provinceBean.getOpeningProvince());
-        addToRequestQueue(ApiUtils.getInstance().getRequestByMethod(this, params, ApiUtils.FETCHCITIES), true);
+        addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(this, params, ApiUtils.FETCHCITIES), true);
     }
 
     private void initialize() {

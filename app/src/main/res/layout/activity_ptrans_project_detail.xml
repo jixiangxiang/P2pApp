@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ringview="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/p_bg_color"
+    tools:context="cn.com.infohold.p2papp.activity.PProjectDetailActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/toInvestBtn">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/topArea"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_210"
+                android:background="@mipmap/p_project_detail_top_bg">
+
+                <RelativeLayout
+                    android:id="@+id/titleBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_45"
+                    android:gravity="center_vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/titleText"
+                            style="@style/text_15_white"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="银行投融资项目" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/backBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/dp_18"
+                        android:onClick="onClick"
+                        android:paddingLeft="@dimen/dp_5"
+                        android:paddingRight="@dimen/dp_5"
+                        android:scaleType="center"
+                        android:src="@mipmap/p_back" />
+
+                    <ImageView
+                        android:id="@+id/shareBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/dp_18"
+                        android:onClick="onClick"
+                        android:paddingLeft="@dimen/dp_5"
+                        android:paddingRight="@dimen/dp_5"
+                        android:scaleType="center"
+                        android:src="@mipmap/p_share" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_103"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="@dimen/dp_25"
+                    android:gravity="center_horizontal">
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/text_12_999"
+                            android:text="可投金额（元）"/>
+                        <TextView
+                            android:id="@+id/availInvestMoney"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp_8"
+                            style="@style/text_12_white"
+                            android:text="0.00"/>
+                    </LinearLayout>
+                    <RelativeLayout
+                        android:layout_width="@dimen/dp_103"
+                        android:layout_height="@dimen/dp_103"
+                        android:layout_gravity="center">
+
+                        <cn.com.infohold.p2papp.views.RingView
+                            android:id="@+id/yieldCircle"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            ringview:bgColor="@color/p_trans_white_color"
+                            ringview:centerColor="@android:color/white"
+                            ringview:isDynamic="true"
+                            ringview:ringViewRadius="@dimen/dp_52"
+                            ringview:ringViewStrokeWidth="@dimen/dp_8" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/yieldText"
+                                style="@style/text_16_white"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="0.00" />
+
+                            <TextView
+                                style="@style/text_11_white"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/dp_8"
+                                android:text="年化收益率(%)" />
+                        </LinearLayout>
+                    </RelativeLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/text_12_999"
+                            android:text="债券价值（元）"/>
+                        <TextView
+                            android:id="@+id/assignmentpricevalue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp_8"
+                            style="@style/text_12_white"
+                            android:text="0.00"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/investDescArea"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_95"
+                android:layout_below="@+id/topArea"
+                android:background="@android:color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:scaleType="fitXY"
+                        android:src="@mipmap/p_trans_day" />
+
+                    <TextView
+                        android:id="@+id/transDayShow"
+                        style="@style/text_12_black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:text="30天可转让" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:scaleType="fitXY"
+                        android:src="@mipmap/p_interst_etc" />
+
+                    <TextView
+                        android:id="@+id/productNameShow"
+                        style="@style/text_12_black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:text="等额本息" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:visibility="invisible"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:scaleType="fitXY"
+                        android:src="@mipmap/p_invest_least" />
+
+                    <TextView
+                        android:id="@+id/addAmountShow"
+                        style="@style/text_12_black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:text="1000元起投" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/cycleArea"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_40"
+                android:layout_below="@+id/investDescArea"
+                android:layout_marginTop="@dimen/dp_1"
+                android:background="@android:color/white"
+                android:gravity="center_vertical">
+
+                <TextView
+                    style="@style/text_12_999"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_18"
+                    android:text="下次汇款日期" />
+
+                <TextView
+                    android:id="@+id/projectStartDate"
+                    style="@style/text_12_red"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_92"
+                    android:text="2015-12-14" />
+
+
+
+                <TextView
+                    style="@style/text_12_999"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/dp_18"
+                    android:text="元" />
+
+                <TextView
+                    android:id="@+id/limitDay"
+                    style="@style/text_12_red"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/dp_32"
+                    android:text="120" />
+
+                <TextView
+                    style="@style/text_12_999"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/dp_54"
+                    android:text="预期收益" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/detailTopArea"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_40"
+                android:layout_below="@+id/cycleArea"
+                android:layout_marginTop="@dimen/dp_8"
+                android:background="@android:color/white">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/projectDetail"
+                        style="@style/text_13_black"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:onClick="onClick"
+                        android:text="项目详情" />
+
+                    <TextView
+                        android:id="@+id/investRecord"
+                        style="@style/text_13_black"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:onClick="onClick"
+                        android:text="投资记录" />
+
+                    <TextView
+                        android:id="@+id/questions"
+                        style="@style/text_13_black"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:onClick="onClick"
+                        android:text="常见问题" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <cn.com.infohold.p2papp.views.WrapScrollViewPager
+                android:id="@+id/detailPager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/detailTopArea"
+                android:layout_marginTop="@dimen/dp_8"
+                android:background="@android:color/white">
+
+            </cn.com.infohold.p2papp.views.WrapScrollViewPager>
+        </RelativeLayout>
+    </ScrollView>
+
+    <ImageButton
+        android:id="@+id/toInvestBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/dp_10"
+        android:layout_marginLeft="@dimen/dp_18"
+        android:layout_marginRight="@dimen/dp_18"
+        android:background="@mipmap/p_invest_btn"
+        android:onClick="onClick" />
+</RelativeLayout>

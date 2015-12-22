@@ -86,7 +86,7 @@ public class PLoginPwdSetActivity extends BaseActivity implements View.OnClickLi
         params.put("modify_type", "2");
         params.put("modify_value", ApiUtils.digesPSW(confirmPwd.getText().toString()));
         params.put("old_pwd", ApiUtils.digesPSW(currentLoginPwd.getText().toString()));
-        addToRequestQueue(ApiUtils.getInstance().getRequestByMethod(this, params, ApiUtils.SECURITYPASSWORD), true);
+        addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(this, params, ApiUtils.SECURITYPASSWORD), true);
     }
 
     @Override

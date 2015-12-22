@@ -43,7 +43,7 @@ public class PAccountSafeActivity extends BaseActivity implements View.OnClickLi
 
         params = new HashMap<>();
         params.put("mobilephone", ApiUtils.getLoginUserPhone(this));
-        addToRequestQueue(ApiUtils.getInstance().getRequestByMethod(this, params, ApiUtils.TOSECURITY), ApiUtils.TOSECURITY, true);
+        addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(this, params, ApiUtils.TOSECURITY), ApiUtils.TOSECURITY, true);
     }
 
     @Override

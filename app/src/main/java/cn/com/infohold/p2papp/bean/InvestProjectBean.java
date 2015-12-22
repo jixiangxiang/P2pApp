@@ -15,6 +15,7 @@ public class InvestProjectBean extends EBaseModel {
     private Integer usertype;
     private String loanno;
     private String cif_seq;
+    private String projectname;
 
     public InvestProjectBean() {
     }
@@ -96,5 +97,13 @@ public class InvestProjectBean extends EBaseModel {
 
     public void setCif_seq(String cif_seq) {
         this.cif_seq = cif_seq;
+    }
+
+    public String getProjectname() {
+        return projectname;
+    }
+
+    public void setProjectname(String projectname) {
+        this.projectname = projectname;
     }
 }
