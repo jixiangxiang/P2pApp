@@ -59,7 +59,7 @@ public class PRegistCommitActivity extends BaseActivity implements View.OnClickL
             params = new HashMap<String, String>();
             params.put("userid", userName.getText().toString());
             params.put("mobilephone", phone);
-            params.put("password", loginpwd);
+            params.put("password", ApiUtils.digesPSW(loginpwd));
             addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(this, params, ApiUtils.USER_REGIST), ApiUtils.USER_REGIST, true);
         } else if (v == backBtn) {
             this.finish();
