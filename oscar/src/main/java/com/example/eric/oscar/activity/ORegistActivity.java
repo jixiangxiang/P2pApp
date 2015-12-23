@@ -10,8 +10,18 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.toolbox.StringRequest;
 import com.example.eric.oscar.R;
+import com.example.eric.oscar.common.ApiUtils;
 import com.example.eric.oscar.common.BaseActivity;
+import com.example.eric.oscar.common.ResponseResult;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import common.eric.com.ebaselibrary.util.StringUtils;
 
 public class ORegistActivity extends BaseActivity implements View.OnClickListener {
 
@@ -25,6 +35,7 @@ public class ORegistActivity extends BaseActivity implements View.OnClickListene
     private EditText captchaText;
     private Button nextStep;
     private ImageButton checkbox;
+    private Request request;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +47,18 @@ public class ORegistActivity extends BaseActivity implements View.OnClickListene
     protected void initView() {
         initialize();
         initTitleText(getString(R.string.title_activity_oregist), BaseActivity.TITLE_CENTER);
-
+        request = new StringRequest(Request.Method.POST, ApiUtils.REGIST, this, this) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> map = new HashMap<String, String>();
+                map.put("acct", phoneText.getText().toString());
+                map.put("pass", pwdText.getText().toString());
+                map.put("sign", ApiUtils.SIGN);
+                map.put("vint", "123456");
+                map.put("vstr", "123456");
+                return map;
+            }
+        };
     }
 
     @Override
@@ -72,6 +94,41 @@ public class ORegistActivity extends BaseActivity implements View.OnClickListene
     public void onClick(View v) {
         if (v == checkbox) {
             checkbox.setSelected(!checkbox.isSelected());
+        } else if (v == nextStep) {
+            String phone = phoneText.getText().toString();
+            String pwd = pwdText.getText().toString();
+            String confirmPwd = confirmPwdText.getText().toString();
+            if (StringUtils.isEmpty(phone) || phone.length() != 11) {
+                showToastShort("请输入正确的手机号码！");
+                return;
+            }
+            if (StringUtils.isEmpty(pwd) || pwd.length() < 6 || pwd.length() > 12) {
+                showToastShort("请输入正确的密码！");
+                return;
+            }
+            if (StringUtils.isEmpty(confirmPwd) || confirmPwd.length() < 6 || confirmPwd.length() > 12) {
+                showToastShort("请输入正确的确认密码！");
+                return;
+            }
+            if (!StringUtils.isEquals(pwd, confirmPwd)) {
+                showToastShort("两次密码输入不一致！");
+                return;
+            }
+            if (!checkbox.isSelected()) {
+                showToastShort("请同意并阅读协议");
+                return;
+            }
+            addToRequestQueue(request, true);
         }
+    }
+
+    @Override
+    protected void doResponse(ResponseResult response) {
+        alertDialogNoCancel(response.getReturn_message(), new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ORegistActivity.this.finish();
+            }
+        });
     }
 }

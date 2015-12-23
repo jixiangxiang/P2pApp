@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
@@ -40,6 +41,9 @@ public class PMainActivity extends BaseActivity implements View.OnClickListener,
         initialize();
         initTitleGone();
         InitViewPager();
+
+        ((ViewGroup) homeBtn.getParent()).setOnClickListener(this);
+        ((ViewGroup) selfBtn.getParent()).setOnClickListener(this);
     }
 
     /*
@@ -66,13 +70,13 @@ public class PMainActivity extends BaseActivity implements View.OnClickListener,
 
     @Override
     public void onClick(View v) {
-        if (v == homeBtn) {
+        if (v == homeBtn.getParent() || v == homeBtn) {
             if (!homeBtn.isSelected()) {
                 homeBtn.setSelected(true);
                 homePager.setCurrentItem(0);
                 selfBtn.setSelected(false);
             }
-        } else if (v == selfBtn) {
+        } else if (v == selfBtn.getParent() || v == selfBtn) {
             if (!selfBtn.isSelected()) {
                 selfBtn.setSelected(true);
                 homePager.setCurrentItem(1);

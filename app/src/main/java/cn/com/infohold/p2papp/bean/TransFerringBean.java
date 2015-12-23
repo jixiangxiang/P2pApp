@@ -5,7 +5,7 @@ import common.eric.com.ebaselibrary.model.EBaseModel;
 /**
  * Created by eric on 2015/11/12.
  */
-public class LoanProjectBean extends EBaseModel {
+public class TransFerringBean extends EBaseModel {
     private Integer id;
     private String projectname;
     private String projectno;
@@ -18,7 +18,7 @@ public class LoanProjectBean extends EBaseModel {
     private String limit;
     private Integer status;
 
-    public LoanProjectBean() {
+    public TransFerringBean() {
     }
 
     public Integer getId() {

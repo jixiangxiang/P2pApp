@@ -74,6 +74,8 @@ public class ApiUtils {
     public static final String TRANFER = API_BASE + "router.tranfer";
     public static final String TRANFERPER = API_BASE + "router.tranferper";
     public static final String TRANFERPERPROJECT = API_BASE + "router.transferproject";
+    public static final String TRANSFERRING_ED = API_BASE + "router.transferring_ed";
+    public static final String CREDITORAVAI = API_BASE + "router.creditoravai";
 
 
     private ApiUtils() {

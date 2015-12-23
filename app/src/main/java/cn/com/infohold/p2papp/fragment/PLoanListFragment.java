@@ -85,17 +85,6 @@ public class PLoanListFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         initialize(view);
         investProjectBeans = new ArrayList<LoanProjectBean>();
-        investProjectBeans.add(new LoanProjectBean(9.00, 1000.00, 360, 1));
-        investProjectBeans.add(new LoanProjectBean(9.00, 1000.00, 360, 1));
-        investProjectBeans.add(new LoanProjectBean(9.00, 1000.00, 360, 1));
-        investProjectBeans.add(new LoanProjectBean(9.00, 1000.00, 360, 1));
-        investProjectBeans.add(new LoanProjectBean(9.00, 1000.00, 360, 1));
-        investProjectBeans.add(new LoanProjectBean(9.00, 1000.00, 360, 0));
-        investProjectBeans.add(new LoanProjectBean(9.00, 1000.00, 360, 0));
-        investProjectBeans.add(new LoanProjectBean(9.00, 1000.00, 360, 0));
-        investProjectBeans.add(new LoanProjectBean(9.00, 1000.00, 360, 0));
-        investProjectBeans.add(new LoanProjectBean(9.00, 1000.00, 360, 0));
-        investProjectBeans.add(new LoanProjectBean(9.00, 1000.00, 360, 0));
         baseAdapter = new EBaseAdapter(getActivity(), investProjectBeans, R.layout.p_loan_project_item,
                 new String[]{"preYield", "investableMoney", "limit"},
                 new int[]{R.id.loanRates, R.id.loanMoney, R.id.loanLimit});

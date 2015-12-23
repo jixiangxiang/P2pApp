@@ -20,7 +20,7 @@ import cn.com.infohold.p2papp.R;
 import cn.com.infohold.p2papp.activity.BaseActivity;
 import cn.com.infohold.p2papp.activity.PProjectDetailActivity;
 import cn.com.infohold.p2papp.base.BaseFragment;
-import cn.com.infohold.p2papp.bean.TransFerringBean;
+import cn.com.infohold.p2papp.bean.LoanProjectBean;
 import cn.com.infohold.p2papp.common.ApiUtils;
 import cn.com.infohold.p2papp.common.ResponseResult;
 import common.eric.com.ebaselibrary.adapter.EBaseAdapter;
@@ -30,10 +30,10 @@ import common.eric.com.ebaselibrary.adapter.EBaseAdapter;
  * Activities that contain this fragment must implement the
  * {@link OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link PTransListFragment#newInstance} factory method to
+ * Use the {@link PToTransListFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PTransListFragment extends BaseFragment {
+public class PToTransListFragment extends BaseFragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "status";
@@ -45,12 +45,12 @@ public class PTransListFragment extends BaseFragment {
 
     private ListView loanList;
     private EBaseAdapter baseAdapter;
-    private List<TransFerringBean> investProjectBeans;
+    private List<LoanProjectBean> investProjectBeans;
+    private JSONObject data;
     private int offset = 0;
     private int qrsize = 30;
-    private boolean isOnCreate = false;
 
-    public PTransListFragment() {
+    public PToTransListFragment() {
         // Required empty public constructor
     }
 
@@ -63,8 +63,8 @@ public class PTransListFragment extends BaseFragment {
      * @return A new instance of fragment PProjectDetailFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static PTransListFragment newInstance(Integer param1, String param2) {
-        PTransListFragment fragment = new PTransListFragment();
+    public static PToTransListFragment newInstance(Integer param1, String param2) {
+        PToTransListFragment fragment = new PToTransListFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -75,10 +75,10 @@ public class PTransListFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        isOnCreate = true;
         if (getArguments() != null) {
             status = getArguments().getInt(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+            data = JSONObject.parseObject(mParam2);
         }
     }
 
@@ -93,10 +93,22 @@ public class PTransListFragment extends BaseFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initialize(view);
-        investProjectBeans = new ArrayList<TransFerringBean>();
-        baseAdapter = new EBaseAdapter(getActivity(), investProjectBeans, R.layout.p_loan_project_item,
-                new String[]{"preYield", "investableMoney", "limit"},
-                new int[]{R.id.loanRates, R.id.loanMoney, R.id.loanLimit});
+        investProjectBeans = new ArrayList<LoanProjectBean>();
+        int itemCount = (data.getInteger("total_count") - offset * qrsize);
+        if (itemCount > 1) {
+            if (offset == 0)
+                investProjectBeans = JSONArray.parseArray(data.getJSONObject("detail").getJSONArray("stage").toJSONString(), LoanProjectBean.class);
+            else
+                investProjectBeans.addAll(JSONArray.parseArray(data.getJSONObject("detail").getJSONArray("stage").toJSONString(), LoanProjectBean.class));
+        } else if (itemCount == 1) {
+            if (offset == 0) {
+                investProjectBeans = new ArrayList<>();
+            }
+            investProjectBeans.add(JSONObject.parseObject(data.getJSONObject("detail").getJSONObject("stage").toJSONString(), LoanProjectBean.class));
+        }
+        baseAdapter = new EBaseAdapter(getActivity(), investProjectBeans, R.layout.p_to_trans_project_item,
+                new String[]{"projectname", "rate", "originvestamt", "limit", "enddate", "repaytype"},
+                new int[]{R.id.projectName, R.id.loanRates, R.id.loanMoney, R.id.loanLimit, R.id.getMoneyDate, R.id.repayWay});
         loanList.setAdapter(baseAdapter);
         loanList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -106,64 +118,42 @@ public class PTransListFragment extends BaseFragment {
                 ((BaseActivity) getActivity()).toActivity(PProjectDetailActivity.class, bundle);
             }
         });
+
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 offset = 0;
                 params = new HashMap<>();
-                if (status == 2) {
-                    params.put("transfer_status", "01");
-                } else if (status == 3) {
-                    params.put("transfer_status", "02");
-                }
                 params.put("mobilephone", ApiUtils.getLoginUserPhone(getActivity()));
                 params.put("offset", String.valueOf(offset));
                 params.put("qrsize", String.valueOf(qrsize));
-                addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(PTransListFragment.this, params, ApiUtils.TRANSFERRING_ED), false);
+                addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(PToTransListFragment.this, params, ApiUtils.CREDITORAVAI), false);
             }
         });
 
     }
 
     private void initialize(View view) {
-        swipeRefresh = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefresh);
         loanList = (ListView) view.findViewById(R.id.loanList);
+        swipeRefresh = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefresh);
     }
 
     @Override
     protected void doResponse(ResponseResult response) {
-        isCreated = false;
         JSONObject data = response.getData();
         int itemCount = (data.getInteger("total_count") - offset * qrsize);
         if (itemCount > 1) {
             if (offset == 0)
-                investProjectBeans = JSONArray.parseArray(data.getJSONObject("detail").getJSONArray("stage").toJSONString(), TransFerringBean.class);
+                investProjectBeans = JSONArray.parseArray(data.getJSONObject("detail").getJSONArray("stage").toJSONString(), LoanProjectBean.class);
             else
-                investProjectBeans.addAll(JSONArray.parseArray(data.getJSONObject("detail").getJSONArray("stage").toJSONString(), TransFerringBean.class));
+                investProjectBeans.addAll(JSONArray.parseArray(data.getJSONObject("detail").getJSONArray("stage").toJSONString(), LoanProjectBean.class));
         } else if (itemCount == 1) {
             if (offset == 0) {
                 investProjectBeans = new ArrayList<>();
             }
-            investProjectBeans.add(JSONObject.parseObject(data.getJSONObject("detail").getJSONObject("stage").toJSONString(), TransFerringBean.class));
+            investProjectBeans.add(JSONObject.parseObject(data.getJSONObject("detail").getJSONObject("stage").toJSONString(), LoanProjectBean.class));
         }
         baseAdapter.setmData(investProjectBeans);
         baseAdapter.notifyDataSetChanged();
-    }
-
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser && isOnCreate) {
-            params = new HashMap<>();
-            if (status == 2) {
-                params.put("transfer_status", "01");
-            } else if (status == 3) {
-                params.put("transfer_status", "02");
-            }
-            params.put("mobilephone", ApiUtils.getLoginUserPhone(getActivity()));
-            params.put("offset", String.valueOf(offset));
-            params.put("qrsize", String.valueOf(qrsize));
-            addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(this, params, ApiUtils.TRANSFERRING_ED), true);
-        }
     }
 }

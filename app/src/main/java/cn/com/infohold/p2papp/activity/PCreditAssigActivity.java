@@ -9,15 +9,22 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import cn.com.infohold.p2papp.R;
 import cn.com.infohold.p2papp.adapter.FragmentPagerAdapter;
 import cn.com.infohold.p2papp.adapter.ViewPagerAdapter;
+import cn.com.infohold.p2papp.base.BaseFragment;
+import cn.com.infohold.p2papp.common.ApiUtils;
+import cn.com.infohold.p2papp.common.ResponseResult;
+import cn.com.infohold.p2papp.fragment.PToTransListFragment;
 import cn.com.infohold.p2papp.fragment.PTransListFragment;
 import cn.com.infohold.p2papp.views.DotLayout;
 
-public class PCreditAssigActivity extends BaseActivity implements View.OnClickListener, PTransListFragment.OnFragmentInteractionListener {
+public class PCreditAssigActivity extends BaseActivity implements View.OnClickListener, BaseFragment.OnFragmentInteractionListener {
 
     private ViewPager creditAssigPager;
     private TextView toSlots;
@@ -31,6 +38,8 @@ public class PCreditAssigActivity extends BaseActivity implements View.OnClickLi
     private DotLayout dotLayout;
     ArrayList<View> views;
     private ArrayList<Fragment> fragmentList;
+    private int offset = 0;
+    private int qrsize = 30;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,51 +52,12 @@ public class PCreditAssigActivity extends BaseActivity implements View.OnClickLi
         initialize();
         getToolbar().setBackgroundColor(getResources().getColor(android.R.color.white));
         initTitleText(getString(R.string.title_activity_pcredit_assig), BaseActivity.TITLE_CENTER, android.R.color.black);
-        fragmentList = new ArrayList<Fragment>();
-        fragmentList.add(PTransListFragment.newInstance(1, null));
-        fragmentList.add(PTransListFragment.newInstance(2, null));
-        fragmentList.add(PTransListFragment.newInstance(3, null));
-        views = new ArrayList<View>();
-        initTopMoenyViews(9000.00, 8000.00, 1000.00);
-        viewAdapter = new ViewPagerAdapter(getSupportFragmentManager(), views);
-        creditAssigPager.setAdapter(viewAdapter);
-        dotLayout.setSize(views.size());
-        creditAssigPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                dotLayout.selectChildViewByIndex(position % views.size());
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
-        adapter = new FragmentPagerAdapter(getSupportFragmentManager(), fragmentList);
-        creditAssigListPager.setAdapter(adapter);
-        creditAssigListPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                selectStatusList(position + 1);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
-        selectStatusList(1);
-
+        params = new HashMap<>();
+        params.put("mobilephone", ApiUtils.getLoginUserPhone(this));
+        params.put("offset", String.valueOf(offset));
+        params.put("qrsize", String.valueOf(qrsize));
+        addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(this, params, ApiUtils.CREDITORAVAI), true);
     }
 
     @Override
@@ -96,7 +66,7 @@ public class PCreditAssigActivity extends BaseActivity implements View.OnClickLi
             selectStatusList(1);
         } else if (v == slotsing) {
             selectStatusList(2);
-        } else if (v == slotsing) {
+        } else if (v == slotsed) {
             selectStatusList(3);
         }
     }
@@ -138,12 +108,12 @@ public class PCreditAssigActivity extends BaseActivity implements View.OnClickLi
             creditAssigListPager.setCurrentItem(status - 1);
     }
 
-    private void initTopMoenyViews(Double d1, Double d2, Double d3) {
+    private void initTopMoenyViews(String d1, String d2) {
         View view1 = getLayoutInflater().inflate(R.layout.p_loan_top_money, null);
         TextView title = (TextView) view1.findViewById(R.id.title);
         title.setText("成功转出金额 (元)");
         TextView money = (TextView) view1.findViewById(R.id.money);
-        money.setText(String.valueOf(d1));
+        money.setText(d1);
         ImageView question = (ImageView) view1.findViewById(R.id.question);
         question.setVisibility(View.GONE);
         views.add(view1);
@@ -151,17 +121,59 @@ public class PCreditAssigActivity extends BaseActivity implements View.OnClickLi
         title = (TextView) view2.findViewById(R.id.title);
         title.setText("折让总金额 (元)");
         money = (TextView) view2.findViewById(R.id.money);
-        money.setText(String.valueOf(d2));
+        money.setText(d2);
         question = (ImageView) view2.findViewById(R.id.question);
         question.setVisibility(View.GONE);
         views.add(view2);
-        View view3 = getLayoutInflater().inflate(R.layout.p_loan_top_money, null);
-        title = (TextView) view3.findViewById(R.id.title);
-        title.setText("成功转出金额 (元)");
-        money = (TextView) view3.findViewById(R.id.money);
-        money.setText(String.valueOf(d3));
-        question = (ImageView) view3.findViewById(R.id.question);
-        question.setVisibility(View.VISIBLE);
-        views.add(view3);
+    }
+
+    @Override
+    protected void doResponse(ResponseResult response) {
+        JSONObject data = response.getData();
+
+        fragmentList = new ArrayList<Fragment>();
+        fragmentList.add(PToTransListFragment.newInstance(1, data.toJSONString()));
+        fragmentList.add(PTransListFragment.newInstance(2, null));
+        fragmentList.add(PTransListFragment.newInstance(3, null));
+        views = new ArrayList<View>();
+        initTopMoenyViews(data.getString("assignedamount"), data.getString("rebateamount"));
+        viewAdapter = new ViewPagerAdapter(getSupportFragmentManager(), views);
+        creditAssigPager.setAdapter(viewAdapter);
+        dotLayout.setSize(views.size());
+        creditAssigPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                dotLayout.selectChildViewByIndex(position % views.size());
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+        adapter = new FragmentPagerAdapter(getSupportFragmentManager(), fragmentList);
+        creditAssigListPager.setAdapter(adapter);
+        creditAssigListPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                selectStatusList(position + 1);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+        selectStatusList(1);
     }
 }

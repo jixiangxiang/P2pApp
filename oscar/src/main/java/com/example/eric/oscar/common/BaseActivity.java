@@ -2,8 +2,10 @@ package com.example.eric.oscar.common;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,15 +14,32 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSONObject;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.example.eric.oscar.R;
 import com.example.eric.oscar.activity.OMainActivity;
+import com.example.eric.oscar.views.CustomProgressDialog;
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.gitonway.lee.niftymodaldialogeffects.lib.Effectstype;
+import com.gitonway.lee.niftymodaldialogeffects.lib.NiftyDialogBuilder;
+
+import java.util.Map;
+
+import common.eric.com.ebaselibrary.common.EBaseApplication;
 
 
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity implements Response.ErrorListener, Response.Listener {
     public static final int TITLE_LEFT = 0;
     public static final int TITLE_CENTER = 1;
     private Toolbar toolbar;
+    private CustomProgressDialog progressDialog;
+    protected String requestMethod = "";
+    private NiftyDialogBuilder dialogBuilder;
+    protected Map<String, String> params;
+    protected SwipeRefreshLayout swipeRefresh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +59,16 @@ public abstract class BaseActivity extends AppCompatActivity {
         initTitle();
         initView();
     }
+
+    public CustomProgressDialog getProgressDialog() {
+        if (progressDialog == null) {
+            progressDialog = ProgressUtil.getProgressDialog(this);
+            progressDialog.setCancelable(false);
+            progressDialog.setCanceledOnTouchOutside(false);
+        }
+        return progressDialog;
+    }
+
 
     private void initTitle() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -162,6 +191,148 @@ public abstract class BaseActivity extends AppCompatActivity {
      */
     public void showToastLong(String message) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+    }
+
+
+    public <T> void addToRequestQueue(Request<T> req, Boolean isShowDialog) {
+        if ((!getProgressDialog().isShowing()) && isShowDialog)
+            getProgressDialog().show();
+        req.setRetryPolicy(new DefaultRetryPolicy(30 * 1000, 1, 1.0f));
+        ((EBaseApplication) getApplication()).addToRequestQueue(req);
+    }
+
+    public <T> void addToRequestQueue(Request<T> req, String tag, Boolean isShowDialog) {
+        requestMethod = tag;
+        if (!getProgressDialog().isShowing() && isShowDialog)
+            getProgressDialog().show();
+        req.setRetryPolicy(new DefaultRetryPolicy(30 * 1000, 1, 1.0f));
+        ((EBaseApplication) getApplication()).addToRequestQueue(req, tag);
+    }
+
+
+    @Override
+    public void onErrorResponse(VolleyError error) {
+        if (getProgressDialog().isShowing())
+            getProgressDialog().dismiss();
+        if (swipeRefresh != null)
+            swipeRefresh.setRefreshing(false);
+        alertDialog(error.toString(), null);
+    }
+
+    @Override
+    public void onResponse(Object response) {
+        Log.i("onResponse", "Response: " + response.toString());
+        getProgressDialog().dismiss();
+        if (swipeRefresh != null)
+            swipeRefresh.setRefreshing(false);
+        ResponseResult result = JSONObject.parseObject(response.toString(), ResponseResult.class);
+        if (result.getReturn_code() == ApiUtils.REQUEST_SUCCESS) {
+            doResponse(result);
+        } else
+            alertDialog(result.getReturn_message(), null);
+    }
+
+    protected void doResponse(ResponseResult response) {
+    }
+
+    /**
+     * 弹出信息提示框
+     *
+     * @param message
+     * @param okClickListener
+     */
+    public void alertDialog(String message, final View.OnClickListener okClickListener) {
+        dialogBuilder = NiftyDialogBuilder.getInstance(this);
+        dialogBuilder
+                .withTitle("温馨提示")
+                .withDialogColor(getResources().getColor(R.color.p_77_color))
+                .withIcon(R.mipmap.ic_launcher)
+                .withButton1Text("确定")                                      //def gone
+                .withDuration(500)
+                .withEffect(Effectstype.SlideBottom);
+
+        dialogBuilder.withMessage(message).setButton1Click(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (okClickListener != null)
+                    okClickListener.onClick(v);
+                dialogBuilder.dismiss();
+            }
+        });
+        dialogBuilder.show();
+    }
+
+    /**
+     * 弹出确认提示框
+     *
+     * @param message
+     * @param confirmClickListener
+     * @param cancelClickListener
+     */
+    public void alertConfirmDialog(String message, final View.OnClickListener confirmClickListener, final View.OnClickListener cancelClickListener) {
+        dialogBuilder = NiftyDialogBuilder.getInstance(this);
+        dialogBuilder
+                .withTitle("温馨提示")
+                .withDialogColor(getResources().getColor(R.color.p_77_color))
+                .withIcon(R.mipmap.ic_launcher)
+                .withButton1Text("是")                                      //def gone
+                .withButton2Text("否")
+                .withDuration(500)
+                .withEffect(Effectstype.SlideBottom);
+
+        dialogBuilder.withMessage(message).setButton1Click(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                confirmClickListener.onClick(v);
+                dialogBuilder.dismiss();
+            }
+        });
+        if (cancelClickListener != null) {
+            dialogBuilder.setButton2Click(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    cancelClickListener.onClick(v);
+                    dialogBuilder.dismiss();
+                }
+            });
+        } else {
+            dialogBuilder.setButton2Click(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialogBuilder.dismiss();
+                }
+            });
+        }
+        dialogBuilder.show();
+
+    }
+
+    /**
+     * 弹出信息提示框
+     *
+     * @param message
+     * @param okClickListener
+     */
+    public void alertDialogNoCancel(String message, final View.OnClickListener okClickListener) {
+        dialogBuilder = NiftyDialogBuilder.getInstance(this);
+        dialogBuilder
+                .withTitle("温馨提示")
+                .withDialogColor(getResources().getColor(R.color.p_77_color))
+                .withIcon(R.mipmap.ic_launcher)
+                .withButton1Text("确定")                                    //def gone
+                .withDuration(500)
+                .withEffect(Effectstype.SlideBottom);
+        dialogBuilder.setCancelable(false);
+        dialogBuilder.isCancelableOnTouchOutside(false);
+        dialogBuilder.withMessage(message).setButton1Click(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (okClickListener != null)
+                    okClickListener.onClick(v);
+                dialogBuilder.dismiss();
+            }
+        });
+        dialogBuilder.show();
     }
 
     @Override
