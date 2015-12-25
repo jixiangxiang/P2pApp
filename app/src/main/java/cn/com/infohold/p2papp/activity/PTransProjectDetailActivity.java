@@ -18,6 +18,7 @@ import java.util.HashMap;
 
 import cn.com.infohold.p2papp.R;
 import cn.com.infohold.p2papp.adapter.FragmentPagerAdapter;
+import cn.com.infohold.p2papp.base.BaseFragment;
 import cn.com.infohold.p2papp.bean.TransferProjectBean;
 import cn.com.infohold.p2papp.common.ApiUtils;
 import cn.com.infohold.p2papp.common.ResponseResult;
@@ -29,8 +30,7 @@ import cn.com.infohold.p2papp.views.WrapScrollViewPager;
 import common.eric.com.ebaselibrary.util.StringUtils;
 
 public class PTransProjectDetailActivity extends BaseActivity implements View.OnClickListener,
-        PProjectDetailFragment.OnFragmentInteractionListener,
-        PInvestRecordFragment.OnFragmentInteractionListener,
+        BaseFragment.OnFragmentInteractionListener,
         PQuestFragment.OnFragmentInteractionListener {
 
     private ImageButton toInvestBtn;
@@ -80,6 +80,9 @@ public class PTransProjectDetailActivity extends BaseActivity implements View.On
                 break;
             case 3:
                 toInvestBtn.setBackgroundResource(R.mipmap.p_to_trans_btn);
+                break;
+            case 4:
+                toInvestBtn.setBackgroundResource(R.mipmap.backout_trans_btn);
                 break;
             default:
                 if (transferProjectBean.getAssignmentstatus().equals("01")) {
@@ -153,9 +156,9 @@ public class PTransProjectDetailActivity extends BaseActivity implements View.On
                 toActivity(PAddBankActivity.class);
                 return;
             }
+            Bundle bundle = new Bundle();
             switch (status) {
                 case 0:
-                    Bundle bundle = new Bundle();
                     bundle.putString("data", data.toJSONString());
                     if (transferProjectBean.getAssignmentstatus().equals("01")) {
                         toActivity(PTransConfirmActivity.class, bundle);
@@ -169,6 +172,11 @@ public class PTransProjectDetailActivity extends BaseActivity implements View.On
                     break;
                 case 3:
                     toActivity(PConfirmTransActivity.class);
+                    break;
+                case 4:
+                    params = new HashMap<>();
+                    params.put("assignmentseq", transferProjectBean.getAssignmentseq());
+                    addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(this, params, ApiUtils.TRANSFERRINGBACKOUT), ApiUtils.TRANSFERRINGBACKOUT, true);
                     break;
             }
         } else if (v == projectDetail) {
@@ -202,40 +210,50 @@ public class PTransProjectDetailActivity extends BaseActivity implements View.On
 
     @Override
     protected void doResponse(ResponseResult response) {
-        data = response.getData();
-        Double residualterm = Double.valueOf(data.getString("residualterm"));
-        Double angle = residualterm / Double.valueOf(data.getString("issuenum")) * 360;
-        yieldCircle.setAngle(angle.intValue());
-        yieldCircle.invalidate();
-        yieldText.setText(String.valueOf(transferProjectBean.getRate()));
-        ArrayList<Fragment> fragmentList = new ArrayList<Fragment>();
-        fragmentList.add(PProjectDetailFragment.newInstance(data.toJSONString(), null));
-        fragmentList.add(PInvestRecordFragment.newInstance(data.getString("projectno"), null));
-        fragmentList.add(PQuestFragment.newInstance(null, null));
-        adapter = new FragmentPagerAdapter(getSupportFragmentManager(), fragmentList);
-        detailPager.setAdapter(adapter);
-        detailPager.setCurrentItem(0);
-        String incomeWay = "等额本息";
-        String incomeway = data.getString("incomway");
-        if (StringUtils.isEmpty(incomeway)) incomeway = "1";
-        switch (Integer.valueOf(incomeway)) {
-            case 1:
-                incomeWay = "等额本息";
-                break;
-            case 2:
-                incomeWay = "等额本金";
-                break;
-            case 3:
-                incomeWay = "按月付息，一次还本";
-                break;
-            case 4:
-                incomeWay = "利随本清";
-                break;
+        if (StringUtils.isEquals(requestMethod, ApiUtils.TRANFERPER)) {
+            data = response.getData();
+            Double residualterm = Double.valueOf(data.getString("residualterm"));
+            Double angle = residualterm / Double.valueOf(data.getString("issuenum")) * 360;
+            yieldCircle.setAngle(angle.intValue());
+            yieldCircle.invalidate();
+            yieldText.setText(String.valueOf(transferProjectBean.getRate()));
+            ArrayList<Fragment> fragmentList = new ArrayList<Fragment>();
+            fragmentList.add(PProjectDetailFragment.newInstance(data.toJSONString(), null));
+            fragmentList.add(PInvestRecordFragment.newInstance(data.getString("projectno"), null));
+            fragmentList.add(PQuestFragment.newInstance(null, null));
+            adapter = new FragmentPagerAdapter(getSupportFragmentManager(), fragmentList);
+            detailPager.setAdapter(adapter);
+            detailPager.setCurrentItem(0);
+            String incomeWay = "等额本息";
+            String incomeway = data.getString("incomway");
+            if (StringUtils.isEmpty(incomeway)) incomeway = "1";
+            switch (Integer.valueOf(incomeway)) {
+                case 1:
+                    incomeWay = "等额本息";
+                    break;
+                case 2:
+                    incomeWay = "等额本金";
+                    break;
+                case 3:
+                    incomeWay = "按月付息，一次还本";
+                    break;
+                case 4:
+                    incomeWay = "利随本清";
+                    break;
+            }
+            productNameShow.setText(incomeWay);
+            projectStartDate.setText(data.getString("projectStartDate"));
+            limitDay.setText(data.getString("assigneeinterest"));
+            assignmentpricevalue.setText(data.getString("assignmentpricevalue"));
+            availInvestMoney.setText(data.getString("transferprince"));
+        } else if (StringUtils.isEquals(requestMethod, ApiUtils.TRANSFERRINGBACKOUT)) {
+            alertDialogNoCancel(response.getReturn_message(), new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    setResult(RESULT_OK);
+                    PTransProjectDetailActivity.this.finish();
+                }
+            });
         }
-        productNameShow.setText(incomeWay);
-        projectStartDate.setText(data.getString("projectStartDate"));
-        limitDay.setText(data.getString("assigneeinterest"));
-        assignmentpricevalue.setText(data.getString("assignmentpricevalue"));
-        availInvestMoney.setText(data.getString("transferprince"));
     }
 }

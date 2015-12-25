@@ -40,4 +40,5 @@
     <string name="title_activity_pdot_list">请选择开户网点</string>
     <string name="title_activity_pmodify_nick">昵称</string>
     <string name="title_activity_ptransfer_project">债权转让</string>
+    <string name="exit_app">确定要退出吗？</string>
 </resources>

@@ -107,7 +107,7 @@
                     style="@style/text_11_white"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="剩余/持有期限  (元)" />
+                    android:text="剩余/持有期限  (天)" />
 
                 <TextView
                     android:id="@+id/surplusLimit"
@@ -132,15 +132,6 @@
             android:gravity="center_vertical"
             android:text="转让设置" />
 
-        <TextView
-            style="@style/text_13_black"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/dp_18"
-            android:gravity="center_vertical"
-            android:text="份" />
-
     </RelativeLayout>
 
     <RelativeLayout
@@ -164,9 +155,10 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/dp_95"
             android:background="@android:color/white"
+            android:enabled="false"
             android:gravity="center_vertical"
-            android:hint="可转让1份"
-            android:numeric="integer" />
+            android:numeric="integer"
+            android:text="1" />
 
         <TextView
             style="@style/text_13_black"
@@ -175,7 +167,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/dp_18"
             android:gravity="center_vertical"
-            android:text="元" />
+            android:text="份" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -201,8 +193,7 @@
             android:layout_marginLeft="@dimen/dp_95"
             android:background="@android:color/white"
             android:gravity="center_vertical"
-            android:hint="最大折让金额：90.00元"
-            android:numeric="integer" />
+            android:numeric="decimal" />
 
         <TextView
             style="@style/text_13_black"
@@ -237,6 +228,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/dp_30"
-        android:background="@mipmap/p_repay_btn"
+        android:background="@mipmap/p_confirm_trans_btn"
         android:onClick="onClick" />
 </LinearLayout>

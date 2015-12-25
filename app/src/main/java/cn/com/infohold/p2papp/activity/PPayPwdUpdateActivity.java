@@ -23,7 +23,7 @@ public class PPayPwdUpdateActivity extends BaseActivity implements View.OnClickL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ppay_pwd_set);
+        setContentView(R.layout.activity_ppay_pwd_update);
     }
 
     @Override

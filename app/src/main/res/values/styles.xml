@@ -74,6 +74,11 @@
         <item name="android:textColor">@android:color/white</item>
     </style>
 
+    <style name="text_10_red">
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">@android:color/holo_red_dark</item>
+    </style>
+
     <style name="text_11_black">
         <item name="android:textSize">11sp</item>
         <item name="android:textColor">@android:color/black</item>

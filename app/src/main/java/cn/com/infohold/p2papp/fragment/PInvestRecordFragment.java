@@ -46,7 +46,7 @@ public class PInvestRecordFragment extends BaseFragment {
     private EBaseAdapter baseAdapter;
     private boolean isVisibleToUser;
     private int page = 1;
-    private int pageSize = 30;
+    private int pageSize = 10;
 
     public PInvestRecordFragment() {
         // Required empty public constructor

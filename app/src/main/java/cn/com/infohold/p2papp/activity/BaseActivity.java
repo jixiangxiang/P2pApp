@@ -29,6 +29,7 @@ import com.gitonway.lee.niftymodaldialogeffects.lib.NiftyDialogBuilder;
 import java.util.Map;
 
 import cn.com.infohold.p2papp.R;
+import cn.com.infohold.p2papp.base.BaseApplication;
 import cn.com.infohold.p2papp.common.ApiUtils;
 import cn.com.infohold.p2papp.common.ProgressUtil;
 import cn.com.infohold.p2papp.common.ResponseResult;
@@ -50,6 +51,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Response
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.activity_base);
+        ((BaseApplication) BaseApplication.getInstance()).addActivity(this);
     }
 
     public void setContentView(int layoutId) {
@@ -187,6 +189,18 @@ public abstract class BaseActivity extends AppCompatActivity implements Response
         startActivityForResult(intent, 999);//为返回是否登录的状态
     }
 
+
+    /**
+     * 带参数跳转到某一个页面
+     *
+     * @param cls
+     * @param bundle
+     */
+    public void toActivityForResult(Class cls, Bundle bundle, int requestCode) {
+        Intent intent = new Intent(this, cls);
+        intent.putExtras(bundle);
+        startActivityForResult(intent, requestCode);
+    }
 
     /**
      * 带参数跳转到某一个页面

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.Menu;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -18,7 +19,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import cn.com.infohold.p2papp.R;
-import cn.com.infohold.p2papp.bean.InvestProjectBean;
 import cn.com.infohold.p2papp.bean.TransferProjectBean;
 import cn.com.infohold.p2papp.common.ApiUtils;
 import cn.com.infohold.p2papp.common.ResponseResult;
@@ -36,7 +36,9 @@ public class PTransferProjectActivity extends BaseActivity implements View.OnCli
     private ListView investProjectList;
     private String querytype = "0";
     private int offset = 0;
-    private int qrsize = 20;
+    private int qrsize = 10;
+    private View footView;
+    private Boolean isLoadMore = false;
 
     private EBaseAdapter baseAdapter;
     private List<TransferProjectBean> transferProjectBeans;
@@ -54,13 +56,8 @@ public class PTransferProjectActivity extends BaseActivity implements View.OnCli
         initTitleText(getString(R.string.title_activity_ptransfer_project), BaseActivity.TITLE_CENTER);
         initialize();
         switchSelect(colligate);
+        investProjectList.addFooterView(footView);
         transferProjectBeans = new ArrayList<>();
-        params = new HashMap<>();
-        params.put("querytype", querytype);
-        params.put("cif_seq", ApiUtils.CIFSEQ);
-        params.put("offset", String.valueOf(offset));
-        params.put("qrsize", String.valueOf(qrsize));
-        addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(this, params, ApiUtils.TRANFER), true);
         investProjectList.setAdapter(baseAdapter);
         investProjectList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -78,9 +75,31 @@ public class PTransferProjectActivity extends BaseActivity implements View.OnCli
                 params = new HashMap<>();
                 params.put("querytype", querytype);
                 params.put("cif_seq", ApiUtils.CIFSEQ);
-                params.put("offset", String.valueOf(offset));
+                params.put("offset", String.valueOf(offset * qrsize));
                 params.put("qrsize", String.valueOf(qrsize));
                 addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(PTransferProjectActivity.this, params, ApiUtils.TRANFER), false);
+            }
+        });
+
+        investProjectList.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                if (view.getLastVisiblePosition() == view.getCount() - 1 && footView.getVisibility() == View.VISIBLE && !isLoadMore) {
+                    offset++;
+                    params = new HashMap<>();
+                    params = new HashMap<>();
+                    params.put("querytype", querytype);
+                    params.put("cif_seq", ApiUtils.CIFSEQ);
+                    params.put("offset", String.valueOf(offset * qrsize));
+                    params.put("qrsize", String.valueOf(qrsize));
+                    addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(PTransferProjectActivity.this, params, ApiUtils.TRANFER), false);
+                    isLoadMore = true;
+                }
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
             }
         });
 
@@ -104,6 +123,12 @@ public class PTransferProjectActivity extends BaseActivity implements View.OnCli
             }
         });
         investProjectList.setAdapter(baseAdapter);
+        params = new HashMap<>();
+        params.put("querytype", querytype);
+        params.put("cif_seq", ApiUtils.CIFSEQ);
+        params.put("offset", String.valueOf(offset * qrsize));
+        params.put("qrsize", String.valueOf(qrsize));
+        addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(this, params, ApiUtils.TRANFER), true);
     }
 
     private void initialize() {
@@ -116,6 +141,8 @@ public class PTransferProjectActivity extends BaseActivity implements View.OnCli
         sortArea = (LinearLayout) findViewById(R.id.sortArea);
         investProjectList = (ListView) findViewById(R.id.investProjectList);
         swipeRefresh = (SwipeRefreshLayout) findViewById(R.id.swipeRefresh);
+        footView = getLayoutInflater().inflate(R.layout.listview_footview, null);
+        footView.setVisibility(View.GONE);
     }
 
     @Override
@@ -136,7 +163,7 @@ public class PTransferProjectActivity extends BaseActivity implements View.OnCli
         params = new HashMap<>();
         params.put("querytype", querytype);
         params.put("cif_seq", ApiUtils.CIFSEQ);
-        params.put("offset", String.valueOf(offset));
+        params.put("offset", String.valueOf(offset * qrsize));
         params.put("qrsize", String.valueOf(qrsize));
         addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(this, params, ApiUtils.TRANFER), true);
     }
@@ -153,13 +180,20 @@ public class PTransferProjectActivity extends BaseActivity implements View.OnCli
         int itemCount = (data.getInteger("total_count") - offset * qrsize);
 
         if (itemCount > 1) {
-            transferProjectBeans = JSONArray.parseArray(data.getJSONObject("detail").getJSONArray("stage").toJSONString(), TransferProjectBean.class);
+            if (offset == 0)
+                transferProjectBeans = JSONArray.parseArray(data.getJSONObject("detail").getJSONArray("stage").toJSONString(), TransferProjectBean.class);
+            else
+                transferProjectBeans.addAll(JSONArray.parseArray(data.getJSONObject("detail").getJSONArray("stage").toJSONString(), TransferProjectBean.class));
         } else if (itemCount == 1) {
             if (offset == 0) {
                 transferProjectBeans = new ArrayList<>();
             }
             transferProjectBeans.add(JSONObject.parseObject(data.getJSONObject("detail").getJSONObject("stage").toJSONString(), TransferProjectBean.class));
         }
+        if (transferProjectBeans.size() >= data.getInteger("total_count"))
+            footView.setVisibility(View.GONE);
+        else
+            footView.setVisibility(View.VISIBLE);
         baseAdapter.setmData(transferProjectBeans);
         baseAdapter.notifyDataSetChanged();
     }

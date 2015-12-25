@@ -16,6 +16,7 @@ import java.util.ArrayList;
 
 import cn.com.infohold.p2papp.R;
 import cn.com.infohold.p2papp.adapter.FragmentPagerAdapter;
+import cn.com.infohold.p2papp.base.BaseApplication;
 import cn.com.infohold.p2papp.base.BaseFragment;
 import cn.com.infohold.p2papp.common.ApiUtils;
 import cn.com.infohold.p2papp.fragment.PMainFragment;
@@ -128,5 +129,17 @@ public class PMainActivity extends BaseActivity implements View.OnClickListener,
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onBackPressed() {
+        alertConfirmDialog(getString(R.string.exit_app), new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                ((BaseApplication) BaseApplication.getInstance()).AppExit(PMainActivity.this);
+                System.exit(0);
+            }
+        }, null);
     }
 }

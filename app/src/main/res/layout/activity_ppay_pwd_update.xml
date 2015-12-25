@@ -36,7 +36,7 @@
         android:paddingLeft="@dimen/dp_20">
 
         <EditText
-            android:id="@+id/currentPayPwd"
+            android:id="@+id/oldPayPwd"
             style="@style/text_13_black"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

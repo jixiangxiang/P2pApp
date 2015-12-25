@@ -38,7 +38,6 @@ public class ApiUtils {
     public static final int NEED_LOGIN = -112004;
     public static final int NO_RELANAME = 100009;
     public static final String CIFSEQ = "2";
-
     /**
      * ***************************************
      * 接口列表服务
@@ -76,6 +75,13 @@ public class ApiUtils {
     public static final String TRANFERPERPROJECT = API_BASE + "router.transferproject";
     public static final String TRANSFERRING_ED = API_BASE + "router.transferring_ed";
     public static final String CREDITORAVAI = API_BASE + "router.creditoravai";
+    public static final String MYLOANQR = API_BASE + "router.myloanqr";
+    public static final String PRECREDITORASSIGN = API_BASE + "router.precreditorassign";
+    public static final String ASSIGNCONFIRM = API_BASE + "router.assignconfirm";
+    public static final String TRANSFERRINGBACKOUT = API_BASE + "router.transferring_backout";
+    public static final String PRENORMALRP = API_BASE + "router.prenormalrp";
+    public static final String REPAYPLAN = API_BASE + "router.repayplan";
+    public static final String REPAYSETTLE = API_BASE + "router.repaysettle";
 
 
     private ApiUtils() {
@@ -122,7 +128,7 @@ public class ApiUtils {
             }
             buf.append(hex);
         }
-        return buf.toString();
+        return buf.toString().toUpperCase();
     }
 
     public static String convert(String inStr, boolean vert) {
@@ -177,6 +183,11 @@ public class ApiUtils {
     public static String getLoginUserPhone(Context context) {
         String userinfo = (String) SharedPreferencesUtils.getParam(context, "userinfo", "");
         return JSONObject.parseObject(userinfo).getString("mobilephone");
+    }
+
+    public static Integer getLoginUserType(Context context) {
+        String userinfo = (String) SharedPreferencesUtils.getParam(context, "userinfo", "");
+        return JSONObject.parseObject(userinfo).getInteger("usertype");
     }
 
     public static boolean isLogin(Context context) {

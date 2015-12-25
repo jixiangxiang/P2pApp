@@ -1,5 +1,6 @@
 package cn.com.infohold.p2papp.activity;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -175,5 +176,10 @@ public class PCreditAssigActivity extends BaseActivity implements View.OnClickLi
             }
         });
         selectStatusList(1);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

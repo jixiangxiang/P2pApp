@@ -7,16 +7,17 @@ import common.eric.com.ebaselibrary.model.EBaseModel;
  */
 public class TransFerringBean extends EBaseModel {
     private Integer id;
-    private String projectname;
-    private String projectno;
-    private String acno;
-    private String rate;
-    private String originvestamt;
-    private String begindate;
-    private String enddate;
-    private String repaytype;
-    private String limit;
-    private Integer status;
+    private String transfer_price;
+    private String predict_profit;
+    private String loan_due_date;
+    private String begin_transfer_date;
+    private String transfer_principal;
+    private String assignmentseq;
+    private String project_name;
+    private String loan_no;
+    private String cif_seq;
+    private String project_status;
+    private String usertype;
 
     public TransFerringBean() {
     }
@@ -29,100 +30,91 @@ public class TransFerringBean extends EBaseModel {
         this.id = id;
     }
 
-    public String getProjectname() {
-        return projectname;
+    public String getPredict_profit() {
+        return predict_profit;
     }
 
-    public void setProjectname(String projectname) {
-        this.projectname = projectname;
+    public void setPredict_profit(String predict_profit) {
+        this.predict_profit = predict_profit;
     }
 
-    public String getProjectno() {
-        return projectno;
+    public String getLoan_due_date() {
+        return loan_due_date;
     }
 
-    public void setProjectno(String projectno) {
-        this.projectno = projectno;
+    public void setLoan_due_date(String loan_due_date) {
+        this.loan_due_date = loan_due_date;
     }
 
-    public String getAcno() {
-        return acno;
+    public String getBegin_transfer_date() {
+        return begin_transfer_date;
     }
 
-    public void setAcno(String acno) {
-        this.acno = acno;
+    public void setBegin_transfer_date(String begin_transfer_date) {
+        this.begin_transfer_date = begin_transfer_date;
     }
 
-    public String getRate() {
-        return rate;
+    public String getTransfer_principal() {
+        return transfer_principal;
     }
 
-    public void setRate(String rate) {
-        this.rate = rate;
+    public void setTransfer_principal(String transfer_principal) {
+        this.transfer_principal = transfer_principal;
     }
 
-    public String getOriginvestamt() {
-        return originvestamt;
+    public String getAssignmentseq() {
+        return assignmentseq;
     }
 
-    public void setOriginvestamt(String originvestamt) {
-        this.originvestamt = originvestamt;
+    public void setAssignmentseq(String assignmentseq) {
+        this.assignmentseq = assignmentseq;
     }
 
-    public String getBegindate() {
-        return begindate;
+    public String getProject_name() {
+        return project_name;
     }
 
-    public void setBegindate(String begindate) {
-        this.begindate = begindate;
+    public void setProject_name(String project_name) {
+        this.project_name = project_name;
     }
 
-    public String getEnddate() {
-        return enddate;
+    public String getLoan_no() {
+        return loan_no;
     }
 
-    public void setEnddate(String enddate) {
-        this.enddate = enddate;
+    public void setLoan_no(String loan_no) {
+        this.loan_no = loan_no;
     }
 
-    public String getRepaytype() {
-        switch (Integer.valueOf(repaytype)) {
-            case 1:
-                repaytype = "等额本息";
-                break;
-            case 2:
-                repaytype = "等额本金";
-                break;
-            case 3:
-                repaytype = "按月付息，一次还本";
-                break;
-            case 4:
-                repaytype = "利随本清";
-                break;
-            default:
-                repaytype = "等额本金";
-                break;
-        }
-        return repaytype;
+    public String getCif_seq() {
+        return cif_seq;
     }
 
-    public void setRepaytype(String repaytype) {
-        this.repaytype = repaytype;
+    public void setCif_seq(String cif_seq) {
+        this.cif_seq = cif_seq;
     }
 
-    public String getLimit() {
-        return String.valueOf(Double.valueOf(enddate) - Double.valueOf(begindate));
+    public String getProject_status() {
+        return project_status;
     }
 
-    public void setLimit(String limit) {
-        this.limit = limit;
+    public void setProject_status(String project_status) {
+        this.project_status = project_status;
     }
 
-    public Integer getStatus() {
-        return status;
+    public String getUsertype() {
+        return usertype;
     }
 
-    public void setStatus(Integer status) {
-        this.status = status;
+    public void setUsertype(String usertype) {
+        this.usertype = usertype;
+    }
+
+    public String getTransfer_price() {
+        return transfer_price;
+    }
+
+    public void setTransfer_price(String transfer_price) {
+        this.transfer_price = transfer_price;
     }
 }

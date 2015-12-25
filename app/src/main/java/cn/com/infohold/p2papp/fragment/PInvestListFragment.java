@@ -6,6 +6,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -49,7 +50,9 @@ public class PInvestListFragment extends BaseFragment {
     private List<SelfInvestBean> investProjectBeans;
 
     private int page = 0;
-    private int pageSize = 30;
+    private int pageSize = 10;
+    private View footView;
+    private Boolean isLoadMore = false;
 
     public PInvestListFragment() {
         // Required empty public constructor
@@ -94,6 +97,7 @@ public class PInvestListFragment extends BaseFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initialize(view);
+        loanList.addFooterView(footView);
         investProjectBeans = new ArrayList<>();
         baseAdapter = new EBaseAdapter(getActivity(), investProjectBeans, R.layout.p_self_invest_item,
                 new String[]{"project_name", "project_rate", "invest_amount", "loan_time_interval", "publish_date", "receivable_amount", "process"},
@@ -138,9 +142,30 @@ public class PInvestListFragment extends BaseFragment {
                 params = new HashMap<>();
                 params.put("mobilephone", ApiUtils.getLoginUserPhone(getActivity()));
                 params.put("status", String.valueOf(status));
-                params.put("offset", String.valueOf(page));
+                params.put("offset", String.valueOf(page * pageSize));
                 params.put("qrsize", String.valueOf(pageSize));
                 addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(PInvestListFragment.this, params, ApiUtils.MYINVEST), false);
+            }
+        });
+
+        loanList.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                if (view.getLastVisiblePosition() == view.getCount() - 1 && footView.getVisibility() == View.VISIBLE && !isLoadMore) {
+                    page++;
+                    params = new HashMap<>();
+                    params.put("mobilephone", ApiUtils.getLoginUserPhone(getActivity()));
+                    params.put("status", String.valueOf(status));
+                    params.put("offset", String.valueOf(page * pageSize));
+                    params.put("qrsize", String.valueOf(pageSize));
+                    addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(PInvestListFragment.this, params, ApiUtils.MYINVEST), false);
+                    isLoadMore = true;
+                }
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
             }
         });
     }
@@ -148,6 +173,8 @@ public class PInvestListFragment extends BaseFragment {
     private void initialize(View view) {
         loanList = (ListView) view.findViewById(R.id.loanList);
         swipeRefresh = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefresh);
+        footView = getActivity().getLayoutInflater().inflate(R.layout.listview_footview, null);
+        footView.setVisibility(View.GONE);
     }
 
     @Override
@@ -157,7 +184,7 @@ public class PInvestListFragment extends BaseFragment {
             params = new HashMap<>();
             params.put("mobilephone", ApiUtils.getLoginUserPhone(getActivity()));
             params.put("status", String.valueOf(status));
-            params.put("offset", String.valueOf(page));
+            params.put("offset", String.valueOf(page * pageSize));
             params.put("qrsize", String.valueOf(pageSize));
             addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(this, params, ApiUtils.MYINVEST), true);
         }
@@ -165,17 +192,26 @@ public class PInvestListFragment extends BaseFragment {
 
     @Override
     protected void doResponse(ResponseResult response) {
+        isLoadMore = false;
         JSONObject data = response.getData();
         int itemCount = (data.getInteger("total_count") - page * pageSize);
-
         if (itemCount > 1) {
-            investProjectBeans = JSONArray.parseArray(data.getJSONObject("detail").getJSONArray("stage").toJSONString(), SelfInvestBean.class);
+            if (page == 0)
+                investProjectBeans = JSONArray.parseArray(data.getJSONObject("detail").getJSONArray("stage").toJSONString(), SelfInvestBean.class);
+            else
+                investProjectBeans.addAll(JSONArray.parseArray(data.getJSONObject("detail").getJSONArray("stage").toJSONString(), SelfInvestBean.class));
         } else if (itemCount == 1) {
             if (page == 0) {
                 investProjectBeans = new ArrayList<>();
             }
             investProjectBeans.add(JSONObject.parseObject(data.getJSONObject("detail").getJSONObject("stage").toJSONString(), SelfInvestBean.class));
+        } else {
+            investProjectBeans = new ArrayList<>();
         }
+        if (investProjectBeans.size() >= data.getInteger("total_count"))
+            footView.setVisibility(View.GONE);
+        else
+            footView.setVisibility(View.VISIBLE);
         baseAdapter.setmData(investProjectBeans);
         baseAdapter.notifyDataSetChanged();
 

@@ -1,5 +1,6 @@
 package cn.com.infohold.p2papp.activity;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -18,19 +19,20 @@ import java.util.HashMap;
 
 import cn.com.infohold.p2papp.R;
 import cn.com.infohold.p2papp.adapter.FragmentPagerAdapter;
+import cn.com.infohold.p2papp.base.BaseFragment;
 import cn.com.infohold.p2papp.bean.InvestProjectBean;
 import cn.com.infohold.p2papp.common.ApiUtils;
 import cn.com.infohold.p2papp.common.ResponseResult;
 import cn.com.infohold.p2papp.fragment.PInvestRecordFragment;
 import cn.com.infohold.p2papp.fragment.PProjectDetailFragment;
 import cn.com.infohold.p2papp.fragment.PQuestFragment;
+import cn.com.infohold.p2papp.fragment.PRepayPlanFragment;
 import cn.com.infohold.p2papp.views.RingView;
 import cn.com.infohold.p2papp.views.WrapScrollViewPager;
 import common.eric.com.ebaselibrary.util.StringUtils;
 
 public class PProjectDetailActivity extends BaseActivity implements View.OnClickListener,
-        PProjectDetailFragment.OnFragmentInteractionListener,
-        PInvestRecordFragment.OnFragmentInteractionListener,
+        BaseFragment.OnFragmentInteractionListener,
         PQuestFragment.OnFragmentInteractionListener {
 
     private ImageButton toInvestBtn;
@@ -55,6 +57,7 @@ public class PProjectDetailActivity extends BaseActivity implements View.OnClick
     private TextView addAmountShow;
     private TextView productNameShow;
     private JSONObject data;
+    private Boolean isUpdate = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,9 +78,11 @@ public class PProjectDetailActivity extends BaseActivity implements View.OnClick
                 toInvestBtn.setVisibility(View.GONE);
                 break;
             case 2:
+                questions.setText("还款计划");
                 toInvestBtn.setBackgroundResource(R.mipmap.p_repay_btn);
                 break;
             case 3:
+                questions.setText("还款计划");
                 toInvestBtn.setBackgroundResource(R.mipmap.p_to_trans_btn);
                 break;
             default:
@@ -147,6 +152,8 @@ public class PProjectDetailActivity extends BaseActivity implements View.OnClick
     @Override
     public void onClick(View v) {
         if (v == backBtn) {
+            if (isUpdate)
+                setResult(RESULT_OK);
             this.finish();
         } else if (v == toInvestBtn) {
             if (!ApiUtils.isLogin(this)) {
@@ -160,9 +167,9 @@ public class PProjectDetailActivity extends BaseActivity implements View.OnClick
                 toActivity(PAddBankActivity.class);
                 return;
             }
+            Bundle bundle = new Bundle();
             switch (status) {
                 case 0:
-                    Bundle bundle = new Bundle();
                     bundle.putString("data", data.toJSONString());
                     if (investProjectBean.getStatus().equals("01")) {
                         toActivity(PInvestConfirmActivity.class, bundle);
@@ -172,10 +179,13 @@ public class PProjectDetailActivity extends BaseActivity implements View.OnClick
                     toActivity(PInvestConfirmActivity.class);
                     break;
                 case 2:
-                    toActivity(PRepaymentActivity.class);
+                    bundle.putString("loanno", investProjectBean.getLoanno());
+                    toActivityForResult(PRepaymentActivity.class, bundle, 111);
                     break;
                 case 3:
-                    toActivity(PConfirmTransActivity.class);
+                    bundle.putString("projectno", getIntent().getExtras().getString("projectno"));
+                    bundle.putString("acno", getIntent().getExtras().getString("acno"));
+                    toActivityForResult(PConfirmTransActivity.class, bundle, 111);
                     break;
             }
         } else if (v == projectDetail) {
@@ -218,7 +228,10 @@ public class PProjectDetailActivity extends BaseActivity implements View.OnClick
         ArrayList<Fragment> fragmentList = new ArrayList<Fragment>();
         fragmentList.add(PProjectDetailFragment.newInstance(data.toJSONString(), null));
         fragmentList.add(PInvestRecordFragment.newInstance(data.getString("projectno"), null));
-        fragmentList.add(PQuestFragment.newInstance(null, null));
+        if (status == 2 || status == 3)
+            fragmentList.add(PRepayPlanFragment.newInstance(null, investProjectBean.getLoanno()));
+        else
+            fragmentList.add(PQuestFragment.newInstance(null, null));
         adapter = new FragmentPagerAdapter(getSupportFragmentManager(), fragmentList);
         detailPager.setAdapter(adapter);
         detailPager.setCurrentItem(0);
@@ -249,5 +262,21 @@ public class PProjectDetailActivity extends BaseActivity implements View.OnClick
         } else if (StringUtils.isEquals(requestMethod, ApiUtils.PROJECTDETAILCUST)) {
 
         }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == BaseActivity.RESULT_OK) {
+            isUpdate = true;
+            toInvestBtn.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (isUpdate)
+            setResult(RESULT_OK);
+        super.onBackPressed();
     }
 }

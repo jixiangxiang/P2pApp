@@ -1,11 +1,13 @@
 package cn.com.infohold.p2papp.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
@@ -17,10 +19,10 @@ import java.util.HashMap;
 import java.util.List;
 
 import cn.com.infohold.p2papp.R;
-import cn.com.infohold.p2papp.activity.BaseActivity;
-import cn.com.infohold.p2papp.activity.PProjectDetailActivity;
+import cn.com.infohold.p2papp.activity.PTransProjectDetailActivity;
 import cn.com.infohold.p2papp.base.BaseFragment;
 import cn.com.infohold.p2papp.bean.TransFerringBean;
+import cn.com.infohold.p2papp.bean.TransferProjectBean;
 import cn.com.infohold.p2papp.common.ApiUtils;
 import cn.com.infohold.p2papp.common.ResponseResult;
 import common.eric.com.ebaselibrary.adapter.EBaseAdapter;
@@ -47,8 +49,10 @@ public class PTransListFragment extends BaseFragment {
     private EBaseAdapter baseAdapter;
     private List<TransFerringBean> investProjectBeans;
     private int offset = 0;
-    private int qrsize = 30;
+    private int qrsize = 10;
     private boolean isOnCreate = false;
+    private boolean isLoadMore = false;
+    private View footView;
 
     public PTransListFragment() {
         // Required empty public constructor
@@ -93,6 +97,7 @@ public class PTransListFragment extends BaseFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initialize(view);
+        loanList.addFooterView(footView);
         investProjectBeans = new ArrayList<TransFerringBean>();
         baseAdapter = new EBaseAdapter(getActivity(), investProjectBeans, R.layout.p_loan_project_item,
                 new String[]{"preYield", "investableMoney", "limit"},
@@ -101,9 +106,20 @@ public class PTransListFragment extends BaseFragment {
         loanList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                TransFerringBean transFerringBean = (TransFerringBean) parent.getAdapter().getItem(position);
                 Bundle bundle = new Bundle();
-                bundle.putInt("status", 3);
-                ((BaseActivity) getActivity()).toActivity(PProjectDetailActivity.class, bundle);
+                if (status == 2)
+                    bundle.putInt("status", 4);
+                else
+                    bundle.putInt("status", 1);
+                TransferProjectBean transferProjectBean = new TransferProjectBean();
+                transferProjectBean.setAssignmentseq(transFerringBean.getAssignmentseq());
+                transferProjectBean.setAssignmentstatus(transFerringBean.getProject_status());
+                transferProjectBean.setRate(Double.valueOf(transFerringBean.getPredict_profit()));
+                bundle.putSerializable("transferProjectBean", transferProjectBean);
+                Intent intent = new Intent(getActivity(), PTransProjectDetailActivity.class);
+                intent.putExtras(bundle);
+                startActivityForResult(intent, 111);
             }
         });
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -117,9 +133,35 @@ public class PTransListFragment extends BaseFragment {
                     params.put("transfer_status", "02");
                 }
                 params.put("mobilephone", ApiUtils.getLoginUserPhone(getActivity()));
-                params.put("offset", String.valueOf(offset));
+                params.put("offset", String.valueOf(offset * qrsize));
                 params.put("qrsize", String.valueOf(qrsize));
                 addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(PTransListFragment.this, params, ApiUtils.TRANSFERRING_ED), false);
+            }
+        });
+
+        loanList.setOnScrollListener(new AbsListView.OnScrollListener() {
+
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                if (view.getLastVisiblePosition() == view.getCount() - 1 && footView.getVisibility() == View.VISIBLE && !isLoadMore) {
+                    offset++;
+                    params = new HashMap<>();
+                    if (status == 2) {
+                        params.put("transfer_status", "01");
+                    } else if (status == 3) {
+                        params.put("transfer_status", "02");
+                    }
+                    params.put("mobilephone", ApiUtils.getLoginUserPhone(getActivity()));
+                    params.put("offset", String.valueOf(offset * qrsize));
+                    params.put("qrsize", String.valueOf(qrsize));
+                    addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(PTransListFragment.this, params, ApiUtils.TRANSFERRING_ED), false);
+                    isLoadMore = true;
+                }
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
             }
         });
 
@@ -128,11 +170,14 @@ public class PTransListFragment extends BaseFragment {
     private void initialize(View view) {
         swipeRefresh = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefresh);
         loanList = (ListView) view.findViewById(R.id.loanList);
+        footView = getActivity().getLayoutInflater().inflate(R.layout.listview_footview, null);
+        footView.setVisibility(View.GONE);
     }
 
     @Override
     protected void doResponse(ResponseResult response) {
         isCreated = false;
+        isLoadMore = false;
         JSONObject data = response.getData();
         int itemCount = (data.getInteger("total_count") - offset * qrsize);
         if (itemCount > 1) {
@@ -145,9 +190,33 @@ public class PTransListFragment extends BaseFragment {
                 investProjectBeans = new ArrayList<>();
             }
             investProjectBeans.add(JSONObject.parseObject(data.getJSONObject("detail").getJSONObject("stage").toJSONString(), TransFerringBean.class));
+        } else {
+            investProjectBeans = new ArrayList<>();
         }
+        if (investProjectBeans.size() >= data.getInteger("total_count"))
+            footView.setVisibility(View.GONE);
+        else
+            footView.setVisibility(View.VISIBLE);
         baseAdapter.setmData(investProjectBeans);
         baseAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == getActivity().RESULT_OK) {
+            offset = 0;
+            params = new HashMap<>();
+            if (status == 2) {
+                params.put("transfer_status", "01");
+            } else if (status == 3) {
+                params.put("transfer_status", "02");
+            }
+            params.put("mobilephone", ApiUtils.getLoginUserPhone(getActivity()));
+            params.put("offset", String.valueOf(offset * qrsize));
+            params.put("qrsize", String.valueOf(qrsize));
+            addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(PTransListFragment.this, params, ApiUtils.TRANSFERRING_ED), false);
+        }
     }
 
     @Override
@@ -161,7 +230,7 @@ public class PTransListFragment extends BaseFragment {
                 params.put("transfer_status", "02");
             }
             params.put("mobilephone", ApiUtils.getLoginUserPhone(getActivity()));
-            params.put("offset", String.valueOf(offset));
+            params.put("offset", String.valueOf(offset * qrsize));
             params.put("qrsize", String.valueOf(qrsize));
             addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(this, params, ApiUtils.TRANSFERRING_ED), true);
         }

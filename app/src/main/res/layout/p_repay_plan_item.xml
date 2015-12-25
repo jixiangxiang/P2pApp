@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp_45"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/stageno"
+        style="@style/text_10_black"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="0" />
+
+    <TextView
+        android:id="@+id/repaydate"
+        style="@style/text_10_black"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="0000-00-00" />
+
+    <TextView
+        android:id="@+id/totalMoney"
+        style="@style/text_10_black"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="0.00" />
+
+    <TextView
+        android:id="@+id/repayprincipal"
+        style="@style/text_10_black"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="0.00" />
+
+    <TextView
+        android:id="@+id/repayinterest"
+        style="@style/text_10_black"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="0.00" />
+</LinearLayout>

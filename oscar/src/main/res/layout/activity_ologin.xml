@@ -41,6 +41,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/dp_15"
+            android:inputType="phone"
+            android:maxLength="11"
             android:background="@android:color/transparent"
             android:gravity="center_vertical"
             android:hint="请输入手机号" />
@@ -81,6 +83,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/dp_15"
+            android:inputType="textPassword"
             android:background="@android:color/transparent"
             android:gravity="center_vertical"
             android:hint="请输入密码" />

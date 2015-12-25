@@ -7,16 +7,23 @@ import common.eric.com.ebaselibrary.model.EBaseModel;
  */
 public class LoanProjectBean extends EBaseModel {
     private Integer id;
+    private String loan_no;
     private String projectname;
-    private String projectno;
-    private String acno;
-    private String rate;
-    private String originvestamt;
-    private String begindate;
-    private String enddate;
-    private String repaytype;
-    private String limit;
+    private String applydate;
+    private String loanstdate;
+    private String paid_pi;
+    private String unpaid_pi;
+    private String unpaidperiod;
+    private String debtdate;
+    private String loanamt;
+    private String repayway;
+    private String loanrate;
+    private String nextrepaydate;
+    private String remainperiod;
+    private String totalperiod;
+    private String repayamtperiodly;
     private Integer status;
+    private Integer usertype;
 
     public LoanProjectBean() {
     }
@@ -29,6 +36,14 @@ public class LoanProjectBean extends EBaseModel {
         this.id = id;
     }
 
+    public String getLoan_no() {
+        return loan_no;
+    }
+
+    public void setLoan_no(String loan_no) {
+        this.loan_no = loan_no;
+    }
+
     public String getProjectname() {
         return projectname;
     }
@@ -37,85 +52,125 @@ public class LoanProjectBean extends EBaseModel {
         this.projectname = projectname;
     }
 
-    public String getProjectno() {
-        return projectno;
+    public String getApplydate() {
+        return applydate;
     }
 
-    public void setProjectno(String projectno) {
-        this.projectno = projectno;
+    public void setApplydate(String applydate) {
+        this.applydate = applydate;
     }
 
-    public String getAcno() {
-        return acno;
+    public String getLoanstdate() {
+        return loanstdate;
     }
 
-    public void setAcno(String acno) {
-        this.acno = acno;
+    public void setLoanstdate(String loanstdate) {
+        this.loanstdate = loanstdate;
     }
 
-    public String getRate() {
-        return rate;
+    public String getPaid_pi() {
+        return paid_pi;
     }
 
-    public void setRate(String rate) {
-        this.rate = rate;
+    public void setPaid_pi(String paid_pi) {
+        this.paid_pi = paid_pi;
     }
 
-    public String getOriginvestamt() {
-        return originvestamt;
+    public String getUnpaid_pi() {
+        return unpaid_pi;
     }
 
-    public void setOriginvestamt(String originvestamt) {
-        this.originvestamt = originvestamt;
+    public void setUnpaid_pi(String unpaid_pi) {
+        this.unpaid_pi = unpaid_pi;
     }
 
-    public String getBegindate() {
-        return begindate;
+    public String getUnpaidperiod() {
+        return unpaidperiod;
     }
 
-    public void setBegindate(String begindate) {
-        this.begindate = begindate;
+    public void setUnpaidperiod(String unpaidperiod) {
+        this.unpaidperiod = unpaidperiod;
     }
 
-    public String getEnddate() {
-        return enddate;
+    public String getDebtdate() {
+        return debtdate;
     }
 
-    public void setEnddate(String enddate) {
-        this.enddate = enddate;
+    public void setDebtdate(String debtdate) {
+        this.debtdate = debtdate;
     }
 
-    public String getRepaytype() {
-        switch (Integer.valueOf(repaytype)) {
+    public String getLoanamt() {
+        return loanamt;
+    }
+
+    public void setLoanamt(String loanamt) {
+        this.loanamt = loanamt;
+    }
+
+    public String getRepayway() {
+        switch (Integer.valueOf(repayway)) {
             case 1:
-                repaytype = "等额本息";
+                repayway = "等额本息";
                 break;
             case 2:
-                repaytype = "等额本金";
+                repayway = "等额本金";
                 break;
             case 3:
-                repaytype = "按月付息，一次还本";
+                repayway = "按月付息，一次还本";
                 break;
             case 4:
-                repaytype = "利随本清";
+                repayway = "利随本清";
                 break;
             default:
-                repaytype = "等额本金";
+                repayway = "等额本金";
                 break;
         }
-        return repaytype;
+        return repayway;
     }
 
-    public void setRepaytype(String repaytype) {
-        this.repaytype = repaytype;
+    public void setRepayway(String repayway) {
+        this.repayway = repayway;
     }
 
-    public String getLimit() {
-        return String.valueOf(Double.valueOf(enddate) - Double.valueOf(begindate));
+    public String getLoanrate() {
+        return loanrate;
     }
 
-    public void setLimit(String limit) {
-        this.limit = limit;
+    public void setLoanrate(String loanrate) {
+        this.loanrate = loanrate;
+    }
+
+    public String getNextrepaydate() {
+        return nextrepaydate;
+    }
+
+    public void setNextrepaydate(String nextrepaydate) {
+        this.nextrepaydate = nextrepaydate;
+    }
+
+    public String getRemainperiod() {
+        return remainperiod;
+    }
+
+    public void setRemainperiod(String remainperiod) {
+        this.remainperiod = remainperiod;
+    }
+
+    public String getTotalperiod() {
+        return totalperiod;
+    }
+
+    public void setTotalperiod(String totalperiod) {
+        this.totalperiod = totalperiod;
+    }
+
+    public String getRepayamtperiodly() {
+        return repayamtperiodly;
+    }
+
+    public void setRepayamtperiodly(String repayamtperiodly) {
+        this.repayamtperiodly = repayamtperiodly;
     }
 
     public Integer getStatus() {
@@ -124,5 +179,13 @@ public class LoanProjectBean extends EBaseModel {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public Integer getUsertype() {
+        return usertype;
+    }
+
+    public void setUsertype(Integer usertype) {
+        this.usertype = usertype;
     }
 }
