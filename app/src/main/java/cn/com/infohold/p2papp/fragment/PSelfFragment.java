@@ -177,6 +177,10 @@ public class PSelfFragment extends BaseFragment implements View.OnClickListener 
         if (!ApiUtils.isLogin(getActivity())) {
             showLogin();
             return;
+        }
+        if (data == null) {
+            alertDialog("无相关数据，请尝试下拉刷新获取账户数据!", null);
+            return;
         } else if (v == recharge) {
             ((BaseActivity) getActivity()).toActivity(PRechargeActivity.class);
         } else if (v == withdraw) {
@@ -185,13 +189,30 @@ public class PSelfFragment extends BaseFragment implements View.OnClickListener 
                 return;
             }
             if (StringUtils.isEquals(ApiUtils.getLoginUserStatus(getActivity()), "00")) {
-                ((BaseActivity) getActivity()).toActivity(PVerificationActivity.class);
+                alertDialog("您必须通过实名认证后才能取现", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ((BaseActivity) getActivity()).toActivity(PVerificationActivity.class);
+                    }
+                });
+
                 return;
             } else if (StringUtils.isEquals(ApiUtils.getLoginUserStatus(getActivity()), "01")) {
-                ((BaseActivity) getActivity()).toActivity(PAddBankActivity.class);
+                alertDialog("您必须通过绑定银行卡后才能取现", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ((BaseActivity) getActivity()).toActivity(PAddBankActivity.class);
+                    }
+                });
                 return;
             } else if (StringUtils.isEquals(ApiUtils.getLoginUserStatus(getActivity()), "02")) {
-                ((BaseActivity) getActivity()).toActivity(PPayPwdSetActivity.class);
+                alertDialog("您必须设定支付密码后才能取现", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ((BaseActivity) getActivity()).toActivity(PPayPwdSetActivity.class);
+                    }
+                });
+
                 return;
             }
             Intent intent = new Intent(getActivity(), PWithdrawActivity.class);
@@ -232,7 +253,7 @@ public class PSelfFragment extends BaseFragment implements View.OnClickListener 
     }
 
     @Override
-     public void setUserVisibleHint(boolean isVisibleToUser) {
+    public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         this.isVisibleToUser = isVisibleToUser;
         if (!isCreated) {

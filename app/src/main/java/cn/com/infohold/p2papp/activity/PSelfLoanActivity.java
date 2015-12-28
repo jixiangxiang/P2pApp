@@ -97,19 +97,19 @@ public class PSelfLoanActivity extends BaseActivity implements View.OnClickListe
                 finish.setSelected(false);
                 loaning.setSelected(false);
                 break;
+//            case 2:
+//                repaying.setSelected(false);
+//                applying.setSelected(true);
+//                finish.setSelected(false);
+//                loaning.setSelected(false);
+//                break;
             case 2:
-                repaying.setSelected(false);
-                applying.setSelected(true);
-                finish.setSelected(false);
-                loaning.setSelected(false);
-                break;
-            case 3:
                 repaying.setSelected(false);
                 applying.setSelected(false);
                 finish.setSelected(true);
                 loaning.setSelected(false);
                 break;
-            case 4:
+            case 3:
                 repaying.setSelected(false);
                 applying.setSelected(false);
                 finish.setSelected(false);
@@ -152,7 +152,7 @@ public class PSelfLoanActivity extends BaseActivity implements View.OnClickListe
         JSONObject data = response.getData();
         fragmentList = new ArrayList<Fragment>();
         fragmentList.add(PLoanListFragment.newInstance(0, data.toJSONString()));
-        fragmentList.add(PLoanListFragment.newInstance(3, null));
+        //fragmentList.add(PLoanListFragment.newInstance(3, null));
         fragmentList.add(PLoanListFragment.newInstance(1, null));
         fragmentList.add(PLoanListFragment.newInstance(2, null));
         views = new ArrayList<View>();
@@ -187,7 +187,6 @@ public class PSelfLoanActivity extends BaseActivity implements View.OnClickListe
             @Override
             public void onPageSelected(int position) {
                 selectStatusList(position + 1);
-                dotLayout.selectChildViewByIndex(position % views.size());
             }
 
             @Override

@@ -43,7 +43,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="@dimen/dp_13"
                     android:gravity="center_vertical"
-                    android:text="手机尾号8832" />
+                    android:text="" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -57,7 +57,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="@dimen/dp_13"
                     android:gravity="center_vertical"
-                    android:text="6222    ****    ****    8832" />
+                    android:text="" />
 
                 <TextView
                     style="@style/text_13_blue"

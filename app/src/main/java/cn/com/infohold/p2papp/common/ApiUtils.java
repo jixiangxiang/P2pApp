@@ -82,6 +82,8 @@ public class ApiUtils {
     public static final String PRENORMALRP = API_BASE + "router.prenormalrp";
     public static final String REPAYPLAN = API_BASE + "router.repayplan";
     public static final String REPAYSETTLE = API_BASE + "router.repaysettle";
+    public static final String TORECHARGE = API_BASE + "router.torecharge";
+    public static final String BANKCARDQUERY = API_BASE + "router.bankcardQuery";
 
 
     private ApiUtils() {

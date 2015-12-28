@@ -123,7 +123,8 @@ public class PAccountSetActivity extends BaseActivity implements View.OnClickLis
             nickName.setText(data.getString("nickname"));
             phone.setText(data.getString("mobilephone"));
             email.setText(data.getString("email"));
-            sex.setText(Integer.valueOf(data.getString("sex")) % 2 == 0 ? "女" : "男");
+            if (data.getString("sex") != null)
+                sex.setText(Integer.valueOf(data.getString("sex")) % 2 == 0 ? "女" : "男");
             birthday.setText(data.getString("birthday"));
             email.setText(data.getString("email"));
             userseq = data.getString("userseq");

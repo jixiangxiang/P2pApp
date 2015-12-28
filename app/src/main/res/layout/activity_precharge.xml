@@ -51,7 +51,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/dp_35"
             android:gravity="center_vertical"
-            android:text="6222 **** **** **** 6433" />
+            android:text="" />
 
         <View
             android:layout_width="match_parent"
@@ -84,7 +84,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/dp_18"
             android:gravity="center_vertical"
-            android:text="中国工商银行" />
+            android:text="" />
 
         <View
             android:layout_width="match_parent"

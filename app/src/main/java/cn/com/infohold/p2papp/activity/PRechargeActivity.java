@@ -8,7 +8,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSONObject;
+
+import java.util.HashMap;
+
 import cn.com.infohold.p2papp.R;
+import cn.com.infohold.p2papp.common.ApiUtils;
+import cn.com.infohold.p2papp.common.ResponseResult;
+import common.eric.com.ebaselibrary.util.StringUtils;
 
 public class PRechargeActivity extends BaseActivity implements View.OnClickListener {
 
@@ -17,6 +24,7 @@ public class PRechargeActivity extends BaseActivity implements View.OnClickListe
     private EditText rechargeMoney;
     private TextView actualMoney;
     private Button nextStep;
+    private JSONObject data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +41,11 @@ public class PRechargeActivity extends BaseActivity implements View.OnClickListe
         rechargeMoney.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() > 0) {
                     nextStep.setSelected(true);
                 } else {
@@ -41,16 +54,14 @@ public class PRechargeActivity extends BaseActivity implements View.OnClickListe
             }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
             public void afterTextChanged(Editable s) {
 
             }
         });
 
+        params = new HashMap<>();
+        params.put("mobilephone", ApiUtils.getLoginUserPhone(this));
+        addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(this, params, ApiUtils.TORECHARGE), ApiUtils.TORECHARGE, true);
     }
 
     @Override
@@ -65,5 +76,14 @@ public class PRechargeActivity extends BaseActivity implements View.OnClickListe
         rechargeMoney = (EditText) findViewById(R.id.rechargeMoney);
         actualMoney = (TextView) findViewById(R.id.actualMoney);
         nextStep = (Button) findViewById(R.id.nextStep);
+    }
+
+    @Override
+    protected void doResponse(ResponseResult response) {
+        if (StringUtils.isEquals(requestMethod, ApiUtils.TORECHARGE)) {
+            data = response.getData();
+            cardNo.setText(data.getString("bank_card_no"));
+            bankName.setText(data.getString("bank_name"));
+        }
     }
 }

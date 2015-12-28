@@ -80,7 +80,7 @@ public class PPayPwdUpdateActivity extends BaseActivity implements View.OnClickL
     };
 
     private void initialize() {
-        payPwd = (EditText) findViewById(R.id.payPwd);
+        payPwd = (EditText) findViewById(R.id.newPwd);
         confirmPwd = (EditText) findViewById(R.id.confirmPwd);
         oldPayPwd = (EditText) findViewById(R.id.oldPayPwd);
         nextBtn = (ImageButton) findViewById(R.id.nextBtn);
