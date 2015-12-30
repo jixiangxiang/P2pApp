@@ -61,6 +61,7 @@ public class PProjectDetailFragment extends BaseFragment implements View.OnClick
     private TextView hourseArea;
     private GridView reviewGrid;
     private TextView loandesc;
+    private TextView safedesc;
 
     private JSONObject data;
 
@@ -138,6 +139,7 @@ public class PProjectDetailFragment extends BaseFragment implements View.OnClick
         marriage.setText(data.getString("marry"));
         carLoan.setText(data.getString("carby"));
         loandesc.setText(data.getString("loandesc"));
+        safedesc.setText(data.getString("safedesc"));
     }
 
     private void initialize(View view) {
@@ -164,6 +166,7 @@ public class PProjectDetailFragment extends BaseFragment implements View.OnClick
         hourseArea = (TextView) view.findViewById(R.id.hourseArea);
         reviewGrid = (GridView) view.findViewById(R.id.reviewGrid);
         loandesc = (TextView) view.findViewById(R.id.loandesc);
+        safedesc = (TextView) view.findViewById(R.id.safedesc);
     }
 
     @Override

@@ -33,6 +33,7 @@ import cn.com.infohold.p2papp.base.BaseApplication;
 import cn.com.infohold.p2papp.common.ApiUtils;
 import cn.com.infohold.p2papp.common.ProgressUtil;
 import cn.com.infohold.p2papp.common.ResponseResult;
+import cn.com.infohold.p2papp.common.VolleyErrorHelper;
 import cn.com.infohold.p2papp.views.CustomProgressDialog;
 import common.eric.com.ebaselibrary.common.EBaseApplication;
 
@@ -388,7 +389,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Response
             getProgressDialog().dismiss();
         if (swipeRefresh != null)
             swipeRefresh.setRefreshing(false);
-        alertDialog(error.toString(), null);
+        alertDialog(VolleyErrorHelper.getMessage(error, this), null);
     }
 
     @Override

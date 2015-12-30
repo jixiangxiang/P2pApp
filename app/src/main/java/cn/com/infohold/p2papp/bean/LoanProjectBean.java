@@ -21,6 +21,7 @@ public class LoanProjectBean extends EBaseModel {
     private String nextrepaydate;
     private String remainperiod;
     private String totalperiod;
+    private String limitPeriod;
     private String repayamtperiodly;
     private Integer status;
     private Integer usertype;
@@ -127,6 +128,14 @@ public class LoanProjectBean extends EBaseModel {
                 break;
         }
         return repayway;
+    }
+
+    public String getLimitPeriod() {
+        return remainperiod + "/" + totalperiod;
+    }
+
+    public void setLimitPeriod(String limitPeriod) {
+        this.limitPeriod = limitPeriod;
     }
 
     public void setRepayway(String repayway) {

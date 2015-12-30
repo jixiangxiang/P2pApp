@@ -113,9 +113,19 @@ public class PLoanListFragment extends BaseFragment {
                 investProjectBeans.add(JSONObject.parseObject(data.getJSONObject("detail").getJSONObject("stage").toJSONString(), LoanProjectBean.class));
             }
         }
-        baseAdapter = new EBaseAdapter(getActivity(), investProjectBeans, R.layout.p_loan_project_item,
-                new String[]{"projectname", "loanrate", "loanamt", "totalperiod", "loanstdate", "paid_pi", "repayway"},
-                new int[]{R.id.projectName, R.id.loanRates, R.id.loanMoney, R.id.loanLimit, R.id.getMoneyDate, R.id.repayMoney, R.id.repayWay});
+        if (status == 0) {
+            baseAdapter = new EBaseAdapter(getActivity(), investProjectBeans, R.layout.p_loan_repaying_project_item,
+                    new String[]{"projectname", "loanrate", "loanamt", "nextrepaydate", "limitPeriod", "repayamtperiodly", "repayway"},
+                    new int[]{R.id.projectName, R.id.loanRates, R.id.loanMoney, R.id.loanLimit, R.id.getMoneyDate, R.id.repayMoney, R.id.repayWay});
+        } else if (status == 1) {
+            baseAdapter = new EBaseAdapter(getActivity(), investProjectBeans, R.layout.p_loan_project_item,
+                    new String[]{"projectname", "loanrate", "loanamt", "totalperiod", "loanstdate", "paid_pi", "repayway"},
+                    new int[]{R.id.projectName, R.id.loanRates, R.id.loanMoney, R.id.loanLimit, R.id.getMoneyDate, R.id.repayMoney, R.id.repayWay});
+        } else if (status == 2) {
+            baseAdapter = new EBaseAdapter(getActivity(), investProjectBeans, R.layout.p_loaned_project_item,
+                    new String[]{"projectname", "loanrate", "loanamt", "debtdate", "unpaidperiod", "unpaid_pi", "repayway"},
+                    new int[]{R.id.projectName, R.id.loanRates, R.id.loanMoney, R.id.loanLimit, R.id.getMoneyDate, R.id.repayMoney, R.id.repayWay});
+        }
         loanList.setAdapter(baseAdapter);
         loanList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

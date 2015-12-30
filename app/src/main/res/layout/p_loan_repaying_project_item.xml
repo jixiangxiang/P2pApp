@@ -64,7 +64,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="0" />
+            android:text="0.00" />
     </LinearLayout>
 
     <LinearLayout
@@ -80,21 +80,21 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="借款年化利率(%)" />
+            android:text="预计年化利率(%)" />
 
         <TextView
             style="@style/text_10_999"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="借款金额(元)" />
+            android:text="借款金额" />
 
         <TextView
             style="@style/text_10_999"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="总期数" />
+            android:text="下个还款日" />
     </LinearLayout>
 
     <LinearLayout
@@ -110,7 +110,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="2015-12-21" />
+            android:text="/" />
 
         <TextView
             android:id="@+id/repayMoney"
@@ -142,14 +142,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="放款日" />
+            android:text="剩余期数/总期数" />
 
         <TextView
             style="@style/text_10_999"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="已还本息(元)" />
+            android:text="本期应还金额(元)" />
 
         <TextView
             style="@style/text_10_999"

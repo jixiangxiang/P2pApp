@@ -50,6 +50,8 @@ public class PProjectDetailActivity extends BaseActivity implements View.OnClick
     private ImageView backBtn;
     private TextView questions;
     private Integer status = 0;
+    private TextView availInvestMoney;
+    private TextView pricevalue;
 
     private FragmentPagerAdapter adapter;
     private InvestProjectBean investProjectBean;
@@ -147,6 +149,11 @@ public class PProjectDetailActivity extends BaseActivity implements View.OnClick
         transDayShow = (TextView) findViewById(R.id.transDayShow);
         addAmountShow = (TextView) findViewById(R.id.addAmountShow);
         productNameShow = (TextView) findViewById(R.id.productNameShow);
+        availInvestMoney = (TextView) findViewById(R.id.availInvestMoney);
+        pricevalue = (TextView) findViewById(R.id.pricevalue);
+        investRecord.setOnClickListener(this);
+        projectDetail.setOnClickListener(this);
+        questions.setOnClickListener(this);
     }
 
     @Override
@@ -257,6 +264,8 @@ public class PProjectDetailActivity extends BaseActivity implements View.OnClick
         projectStartDate.setText(data.getString("pubtime"));
         projectEndDate.setText(data.getString("endtime"));
         limitDay.setText(data.getString("issuenum"));
+        availInvestMoney.setText(data.getString("balance"));
+        pricevalue.setText(data.getString("amount"));
         if (StringUtils.isEquals(requestMethod, ApiUtils.PROJECTDETAILPER)) {
 
         } else if (StringUtils.isEquals(requestMethod, ApiUtils.PROJECTDETAILCUST)) {

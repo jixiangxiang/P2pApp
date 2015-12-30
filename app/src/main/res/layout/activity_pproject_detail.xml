@@ -73,6 +73,28 @@
                     android:layout_marginBottom="@dimen/dp_25"
                     android:gravity="center_horizontal">
 
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/text_12_999"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="可投金额（元）" />
+
+                        <TextView
+                            android:id="@+id/availInvestMoney"
+                            style="@style/text_12_white"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp_8"
+                            android:text="0.00" />
+                    </LinearLayout>
+
                     <RelativeLayout
                         android:layout_width="@dimen/dp_103"
                         android:layout_height="@dimen/dp_103"
@@ -109,6 +131,27 @@
                                 android:text="年化收益率(%)" />
                         </LinearLayout>
                     </RelativeLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/text_12_999"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="标的总额（元）" />
+
+                        <TextView
+                            android:id="@+id/pricevalue"
+                            style="@style/text_12_white"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp_8"
+                            android:text="0.00" />
+                    </LinearLayout>
                 </LinearLayout>
             </RelativeLayout>
 

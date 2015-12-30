@@ -22,6 +22,7 @@ public class SelfInvestBean extends EBaseModel {
     private String loan_no;
     private String cif_seq;
     private String project_status;
+    private String periodRate;
     private String usertype;
 
     public String getProject_name() {
@@ -158,5 +159,13 @@ public class SelfInvestBean extends EBaseModel {
 
     public void setUsertype(String usertype) {
         this.usertype = usertype;
+    }
+
+    public String getPeriodRate() {
+        return due_period + "/" + total_period;
+    }
+
+    public void setPeriodRate(String periodRate) {
+        this.periodRate = periodRate;
     }
 }

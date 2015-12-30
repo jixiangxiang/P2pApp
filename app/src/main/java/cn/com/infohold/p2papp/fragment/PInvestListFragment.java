@@ -8,8 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -99,25 +99,71 @@ public class PInvestListFragment extends BaseFragment {
         initialize(view);
         loanList.addFooterView(footView);
         investProjectBeans = new ArrayList<>();
-        baseAdapter = new EBaseAdapter(getActivity(), investProjectBeans, R.layout.p_self_invest_item,
-                new String[]{"project_name", "project_rate", "invest_amount", "loan_time_interval", "publish_date", "receivable_amount", "process"},
-                new int[]{R.id.projectName, R.id.preIncome, R.id.holdMoney, R.id.loanLimit, R.id.publicDate, R.id.receivableMoney, R.id.progress});
-        baseAdapter.setViewBinder(new EBaseAdapter.ViewBinder() {
-            @Override
-            public boolean setViewValue(View view, Object o, String s) {
-                if (view instanceof ImageView && o instanceof String) {
-                    ImageView iv = (ImageView) view;
-                    String status = (String) o;
-                    if (status.equals("01")) {
-                        iv.setSelected(false);
-                    } else if (status.equals("02")) {
-                        iv.setSelected(true);
+        if (status == 1 || status == 3) {
+            baseAdapter = new EBaseAdapter(getActivity(), investProjectBeans, R.layout.p_self_having_invest_item,
+                    new String[]{"project_name", "project_rate", "invest_amount", "loan_time_interval", "begin_date", "receivable_amount", "repay_way"},
+                    new int[]{R.id.projectName, R.id.preIncome, R.id.holdMoney, R.id.loanLimit, R.id.publicDate, R.id.receivableMoney, R.id.progress});
+            baseAdapter.setViewBinder(new EBaseAdapter.ViewBinder() {
+                @Override
+                public boolean setViewValue(View view, Object o, String s) {
+                    if (view instanceof TextView && o instanceof Integer) {
+                        TextView tv = (TextView) view;
+                        String incomeWay = "等额本息";
+                        switch (Integer.valueOf((Integer) o)) {
+                            case 1:
+                                incomeWay = "等额本息";
+                                break;
+                            case 2:
+                                incomeWay = "等额本金";
+                                break;
+                            case 3:
+                                incomeWay = "按月付息，一次还本";
+                                break;
+                            case 4:
+                                incomeWay = "利随本清";
+                                break;
+                        }
+                        tv.setText(incomeWay);
+                        return true;
                     }
-                    return true;
+                    return false;
                 }
-                return false;
-            }
-        });
+            });
+        } else if (status == 4) {
+            baseAdapter = new EBaseAdapter(getActivity(), investProjectBeans, R.layout.p_self_overdue_invest_item,
+                    new String[]{"project_name", "project_rate", "invest_amount", "loan_time_interval", "due_date", "periodRate", "repay_way"},
+                    new int[]{R.id.projectName, R.id.preIncome, R.id.holdMoney, R.id.loanLimit, R.id.publicDate, R.id.receivableMoney, R.id.progress});
+            baseAdapter.setViewBinder(new EBaseAdapter.ViewBinder() {
+                @Override
+                public boolean setViewValue(View view, Object o, String s) {
+                    if (view instanceof TextView && o instanceof Integer) {
+                        TextView tv = (TextView) view;
+                        String incomeWay = "等额本息";
+                        switch (Integer.valueOf((Integer) o)) {
+                            case 1:
+                                incomeWay = "等额本息";
+                                break;
+                            case 2:
+                                incomeWay = "等额本金";
+                                break;
+                            case 3:
+                                incomeWay = "按月付息，一次还本";
+                                break;
+                            case 4:
+                                incomeWay = "利随本清";
+                                break;
+                        }
+                        tv.setText(incomeWay);
+                        return true;
+                    }
+                    return false;
+                }
+            });
+        } else {
+            baseAdapter = new EBaseAdapter(getActivity(), investProjectBeans, R.layout.p_self_invest_item,
+                    new String[]{"project_name", "project_rate", "invest_amount", "loan_time_interval", "publish_date", "receivable_amount", "process"},
+                    new int[]{R.id.projectName, R.id.preIncome, R.id.holdMoney, R.id.loanLimit, R.id.publicDate, R.id.receivableMoney, R.id.progress});
+        }
         loanList.setAdapter(baseAdapter);
 
         loanList.setOnItemClickListener(new AdapterView.OnItemClickListener() {

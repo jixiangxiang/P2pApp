@@ -376,6 +376,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_10"
+            android:visibility="gone"
             android:background="@color/p_bg_color" />
 
         <RelativeLayout
@@ -383,8 +384,7 @@
             android:layout_height="@dimen/dp_40"
             android:onClick="onClick"
             android:paddingLeft="@dimen/dp_20"
-            android:paddingRight="@dimen/dp_20"
-            android:visibility="gone">
+            android:paddingRight="@dimen/dp_20">
 
             <TextView
                 style="@style/text_13_black"
@@ -399,15 +399,22 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_1"
             android:layout_marginLeft="@dimen/dp_20"
-            android:background="@color/p_bg_color"
-            android:visibility="gone" />
-
+            android:background="@color/p_bg_color"/>
+        <TextView
+            android:id="@+id/safedesc"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_120"
+            android:paddingBottom="@dimen/dp_17"
+            android:paddingLeft="@dimen/dp_20"
+            android:paddingRight="@dimen/dp_20"
+            android:paddingTop="@dimen/dp_17"
+            android:text="11111111111111111111111111111111111111111111111111111111111111111111111111111111111" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_120"
             android:paddingLeft="@dimen/dp_20"
-            android:paddingRight="@dimen/dp_20"
-            android:visibility="gone">
+            android:visibility="gone"
+            android:paddingRight="@dimen/dp_20">
 
             <RelativeLayout
                 android:layout_width="0dp"

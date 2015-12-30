@@ -127,6 +127,14 @@
             android:label="@string/title_activity_ppay_pwd_set"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
+            android:name=".activity.PResetPayPwdActivity"
+            android:label="@string/title_activity_ppay_pwd_find"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".activity.PPayPwdFindActivity"
+            android:label="@string/title_activity_ppay_pwd_find"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
             android:name=".activity.PPhoneSetActivity"
             android:label="@string/title_activity_pphone_set"
             android:windowSoftInputMode="stateHidden|adjustPan" />
@@ -166,7 +174,10 @@
             android:label="@string/title_activity_pdot_list" />
         <activity
             android:name=".activity.PModifyNickActivity"
-            android:label="@string/title_activity_pmodify_nick"></activity>
+            android:label="@string/title_activity_pmodify_nick" />
+        <activity
+            android:name=".activity.PRechargeStaticActivity"
+            android:label="@string/title_activity_precharge_static"></activity>
     </application>
 
 </manifest>

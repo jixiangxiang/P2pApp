@@ -23,7 +23,7 @@ import cn.com.infohold.p2papp.activity.PAccountSafeActivity;
 import cn.com.infohold.p2papp.activity.PAddBankActivity;
 import cn.com.infohold.p2papp.activity.PCreditAssigActivity;
 import cn.com.infohold.p2papp.activity.PPayPwdSetActivity;
-import cn.com.infohold.p2papp.activity.PRechargeActivity;
+import cn.com.infohold.p2papp.activity.PRechargeStaticActivity;
 import cn.com.infohold.p2papp.activity.PSelfBankActivity;
 import cn.com.infohold.p2papp.activity.PSelfInvestActivity;
 import cn.com.infohold.p2papp.activity.PSelfLoanActivity;
@@ -182,7 +182,7 @@ public class PSelfFragment extends BaseFragment implements View.OnClickListener 
             alertDialog("无相关数据，请尝试下拉刷新获取账户数据!", null);
             return;
         } else if (v == recharge) {
-            ((BaseActivity) getActivity()).toActivity(PRechargeActivity.class);
+            ((BaseActivity) getActivity()).toActivity(PRechargeStaticActivity.class);
         } else if (v == withdraw) {
             if (!ApiUtils.isLogin(getActivity())) {
                 showLogin();

@@ -18,6 +18,14 @@ android {
         }
     }
     sourceSets { main { assets.srcDirs = ['src/main/assets', 'src/main/assets/'] } }
+
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def apk = output.outputFile;
+            def newName = apk.path.replace(".apk", "-" + getDate() + getVersionCodeFromManifest() + ".apk");
+            output.outputFile = new File(newName);
+        }
+    }
 }
 
 repositories {
@@ -34,4 +42,16 @@ dependencies {
     compile 'com.github.sd6352051.niftydialogeffects:niftydialogeffects:1.0.0@aar'
     compile 'com.alibaba:fastjson:1.1.43.android'
     compile 'com.github.PhilJay:MPAndroidChart:v2.1.6'
+}
+
+//获取时间戳
+def getDate() {
+    def date = new Date()
+    def formattedDate = date.format('yyyy-MM-dd')
+    return formattedDate
+}
+//从androidManifest.xml中获取版本号
+def getVersionCodeFromManifest() {
+    def manifestParser = new com.android.builder.core.DefaultManifestParser()
+    return manifestParser.getVersionCode(android.sourceSets.main.manifest.srcFile)
 }

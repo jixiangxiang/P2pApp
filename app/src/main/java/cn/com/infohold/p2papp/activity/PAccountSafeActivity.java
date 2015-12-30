@@ -1,9 +1,13 @@
 package cn.com.infohold.p2papp.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
+import android.view.Window;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -29,6 +33,8 @@ public class PAccountSafeActivity extends BaseActivity implements View.OnClickLi
     private RelativeLayout setGestureArea;
     private RelativeLayout displayGestureArea;
     private RelativeLayout fingerprintArea;
+    private AlertDialog selectDialog;
+    private String[] items = new String[]{"修改密码", "找回密码", "取消"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,7 +100,30 @@ public class PAccountSafeActivity extends BaseActivity implements View.OnClickLi
                 toActivityForResult(PPayPwdSetActivity.class, 000);
                 return;
             }
-            toActivityForResult(PPayPwdUpdateActivity.class, 333);
+            selectDialog = new AlertDialog.Builder(this)
+                    .setTitle("您可对银行卡进行操作")
+                    .setCancelable(true)
+                    .setItems(items, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            switch (which) {
+                                case 0:
+                                    toActivityForResult(PPayPwdUpdateActivity.class, 333);
+                                    break;
+                                case 1:
+                                    toActivity(PResetPayPwdActivity.class);
+                                    break;
+                                default:
+                                    break;
+                            }
+                            selectDialog.dismiss();
+                        }
+                    })
+                    .create();
+            Window window = selectDialog.getWindow();
+            window.setGravity(Gravity.BOTTOM);
+            window.setWindowAnimations(R.style.dialog_animations);
+            selectDialog.show();
         } else if (v == setGestureArea) {
             showToastShort("功能正在开发中。");
         } else if (v == displayGestureArea) {

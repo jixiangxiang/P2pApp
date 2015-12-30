@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    tools:context="cn.com.infohold.p2papp.activity.PRechargeStaticActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_45">
+
+        <TextView
+            style="@style/text_13_black"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dp_18"
+            android:gravity="center_vertical"
+            android:text="收款方全称" />
+
+        <TextView
+            style="@style/text_13_99"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/dp_18"
+            android:gravity="center_vertical"
+            android:text="内蒙古小草金融服务有限公司" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_45">
+
+        <TextView
+            style="@style/text_13_black"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dp_18"
+            android:gravity="center_vertical"
+            android:text="收款银行" />
+
+        <TextView
+            style="@style/text_13_99"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/dp_18"
+            android:gravity="center_vertical"
+            android:text="中信银行乌兰察布西街支行" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_45">
+
+        <TextView
+            style="@style/text_13_black"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dp_18"
+            android:gravity="center_vertical"
+            android:text="收款帐号" />
+
+        <TextView
+            style="@style/text_13_99"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/dp_18"
+            android:gravity="center_vertical"
+            android:text="8115601012800001910" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_45">
+
+        <TextView
+            style="@style/text_13_black"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dp_18"
+            android:gravity="center_vertical"
+            android:text="温馨提示:" />
+
+    </RelativeLayout>
+
+    <TextView
+        style="@style/text_13_99"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="@dimen/dp_18"
+        android:layout_marginRight="@dimen/dp_18"
+        android:padding="@dimen/dp_5"
+        android:text="1、为了保证您的资金信息安全，节约投、融资客户的成本，小草金服采取线下转账汇款的方式进行资金充值。
+2、请通过您在本平台绑定的银行卡通过开户银行的网银、手机银行或柜台转账的方式进行充值，将您所要投资的资金按提示转账至小草金服账户，资金转入后会自动充值到您在小草金服平台的账户中。
+3、请勿以现金存入的方式进行充值。同时，您的银行转账交易流水也将成为您在小草金服办理投资业务的证明之一。
+4、由于银行资金清算等原因，资金到账可能需要一定时间，充值成功后，您即可进行投资操作。" />
+</LinearLayout>

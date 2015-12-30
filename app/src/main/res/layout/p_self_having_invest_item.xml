@@ -37,21 +37,21 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_30"
+        android:layout_height="@dimen/dp_40"
         android:layout_marginLeft="@dimen/dp_18"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/loanRates"
+            android:id="@+id/preIncome"
             style="@style/text_22_red"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="10.00" />
+            android:text="0.00" />
 
         <TextView
-            android:id="@+id/loanMoney"
+            android:id="@+id/holdMoney"
             style="@style/text_10_777"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -70,7 +70,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/dp_10"
+        android:layout_marginBottom="@dimen/dp_5"
         android:layout_marginLeft="@dimen/dp_18"
         android:gravity="center_vertical"
         android:orientation="horizontal">
@@ -80,40 +80,32 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="借款年化利率(%)" />
+            android:text="预计年化收益率(%)" />
 
         <TextView
             style="@style/text_10_999"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="借款金额(元)" />
+            android:text="持有金额(元)" />
 
         <TextView
             style="@style/text_10_999"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="总期数" />
+            android:text="借款期限(天)" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_30"
+        android:layout_height="@dimen/dp_40"
         android:layout_marginLeft="@dimen/dp_18"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/getMoneyDate"
-            style="@style/text_10_777"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="2015-12-21" />
-
-        <TextView
-            android:id="@+id/repayMoney"
+            android:id="@+id/publicDate"
             style="@style/text_10_777"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -121,12 +113,20 @@
             android:text="0.00" />
 
         <TextView
-            android:id="@+id/repayWay"
+            android:id="@+id/receivableMoney"
             style="@style/text_10_777"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="按月付息" />
+            android:text="0.00" />
+
+        <TextView
+            android:id="@+id/progress"
+            style="@style/text_10_777"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="0" />
     </LinearLayout>
 
     <LinearLayout
@@ -142,14 +142,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="放款日" />
+            android:text="起息日" />
 
         <TextView
             style="@style/text_10_999"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="已还本息(元)" />
+            android:text="应收本息(元)" />
 
         <TextView
             style="@style/text_10_999"

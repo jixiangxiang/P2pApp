@@ -80,6 +80,9 @@ public class PCreditAssigActivity extends BaseActivity implements View.OnClickLi
         tabView = (LinearLayout) findViewById(R.id.tabView);
         creditAssigListPager = (ViewPager) findViewById(R.id.creditAssigListPager);
         dotLayout = (DotLayout) findViewById(R.id.dotLayout);
+        toSlots.setOnClickListener(this);
+        slotsing.setOnClickListener(this);
+        slotsed.setOnClickListener(this);
     }
 
     @Override

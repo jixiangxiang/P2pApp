@@ -67,9 +67,9 @@ public class PSelfLoanActivity extends BaseActivity implements View.OnClickListe
         } else if (v == applying) {
             selectStatusList(2);
         } else if (v == finish) {
-            selectStatusList(3);
+            selectStatusList(2);
         } else if (v == loaning) {
-            selectStatusList(4);
+            selectStatusList(3);
         }
     }
 
@@ -82,6 +82,10 @@ public class PSelfLoanActivity extends BaseActivity implements View.OnClickListe
         tabView = (LinearLayout) findViewById(R.id.tabView);
         loanListPager = (ViewPager) findViewById(R.id.loanListPager);
         dotLayout = (DotLayout) findViewById(R.id.dotLayout);
+        repaying.setOnClickListener(this);
+        applying.setOnClickListener(this);
+        finish.setOnClickListener(this);
+        loaning.setOnClickListener(this);
     }
 
     @Override

@@ -25,6 +25,7 @@ import cn.com.infohold.p2papp.activity.PLoginActivity;
 import cn.com.infohold.p2papp.common.ApiUtils;
 import cn.com.infohold.p2papp.common.ProgressUtil;
 import cn.com.infohold.p2papp.common.ResponseResult;
+import cn.com.infohold.p2papp.common.VolleyErrorHelper;
 import cn.com.infohold.p2papp.views.CustomProgressDialog;
 import common.eric.com.ebaselibrary.common.EBaseApplication;
 
@@ -144,7 +145,7 @@ public class BaseFragment extends Fragment implements Response.Listener, Respons
             getProgressDialog().dismiss();
         if (swipeRefresh != null)
             swipeRefresh.setRefreshing(false);
-        alertDialog(error.toString(), null);
+        alertDialog(VolleyErrorHelper.getMessage(error, getActivity()), null);
     }
 
     @Override

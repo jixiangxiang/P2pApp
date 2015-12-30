@@ -119,6 +119,10 @@ public class PSelfInvestActivity extends BaseActivity implements View.OnClickLis
         tabView = (LinearLayout) findViewById(R.id.tabView);
         investListPager = (ViewPager) findViewById(R.id.investListPager);
         dotLayout = (DotLayout) findViewById(R.id.dotLayout);
+        repaying.setOnClickListener(this);
+        applying.setOnClickListener(this);
+        finish.setOnClickListener(this);
+        loaning.setOnClickListener(this);
     }
 
     @Override

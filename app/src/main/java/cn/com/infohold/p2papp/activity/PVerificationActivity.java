@@ -92,7 +92,7 @@ public class PVerificationActivity extends BaseActivity implements View.OnClickL
 
     @Override
     protected void doResponse(ResponseResult response) {
-        ApiUtils.updateUserStatus(this, "02", realName.getText().toString(), idNo.getText().toString());
+        ApiUtils.updateUserStatus(this, "01", realName.getText().toString(), idNo.getText().toString());
         showToastShort("实名认证成功！");
         setResult(RESULT_OK);
         this.finish();

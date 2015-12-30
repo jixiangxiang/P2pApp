@@ -1,8 +1,12 @@
 package cn.com.infohold.p2papp.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
+import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -24,6 +28,8 @@ public class PSelfBankActivity extends BaseActivity implements View.OnClickListe
     private TextView bankNo;
     private LinearLayout bankCardArea;
     private JSONObject data;
+    private AlertDialog selectDialog;
+    private String[] items = new String[]{"删除", "修改", "取消"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +65,30 @@ public class PSelfBankActivity extends BaseActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if (v == bankCardArea) {
-
+            selectDialog = new AlertDialog.Builder(this)
+                    .setTitle("您可对银行卡进行操作")
+                    .setCancelable(true)
+                    .setItems(items, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            switch (which) {
+                                case 1:
+                                    toActivityForResult(PAddBankActivity.class, ADD_BANK_CARD_CODE);
+                                    break;
+                                case 2:
+                                    break;
+                                default:
+                                    showToastShort("功能正在研发中。。");
+                                    break;
+                            }
+                            selectDialog.dismiss();
+                        }
+                    })
+                    .create();
+            Window window = selectDialog.getWindow();
+            window.setGravity(Gravity.BOTTOM);
+            window.setWindowAnimations(R.style.dialog_animations);
+            selectDialog.show();
         } else if (v == addBankBtn) {
             if (StringUtils.isEquals(ApiUtils.getLoginUserStatus(this), "00")) {
                 alertDialog("您必须通过实名认证后才能绑定银行卡", new View.OnClickListener() {

@@ -64,7 +64,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="0" />
+            android:text="1970-01-01" />
     </LinearLayout>
 
     <LinearLayout
@@ -94,7 +94,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="总期数" />
+            android:text="欠款日期" />
     </LinearLayout>
 
     <LinearLayout
@@ -142,14 +142,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="放款日" />
+            android:text="欠款期数" />
 
         <TextView
             style="@style/text_10_999"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="已还本息(元)" />
+            android:text="拖欠本息(元)" />
 
         <TextView
             style="@style/text_10_999"
