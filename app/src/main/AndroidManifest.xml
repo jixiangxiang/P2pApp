@@ -177,7 +177,10 @@
             android:label="@string/title_activity_pmodify_nick" />
         <activity
             android:name=".activity.PRechargeStaticActivity"
-            android:label="@string/title_activity_precharge_static"></activity>
+            android:label="@string/title_activity_precharge_static" />
+        <activity
+            android:name=".activity.PAboutActivity"
+            android:label="@string/title_activity_pabout"></activity>
     </application>
 
 </manifest>

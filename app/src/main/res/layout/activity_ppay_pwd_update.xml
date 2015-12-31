@@ -107,5 +107,6 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/dp_25"
         android:background="@android:color/transparent"
+        android:onClick="onClick"
         android:src="@drawable/p_next_btn_selector" />
 </LinearLayout>

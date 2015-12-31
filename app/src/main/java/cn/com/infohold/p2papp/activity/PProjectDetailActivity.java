@@ -74,6 +74,7 @@ public class PProjectDetailActivity extends BaseActivity implements View.OnClick
         if (getIntent().getExtras() != null) {
             status = getIntent().getExtras().getInt("status");
             investProjectBean = (InvestProjectBean) getIntent().getExtras().getSerializable("investProject");
+            titleText.setText(investProjectBean.getProjectname());
         }
         switch (status) {
             case 1:

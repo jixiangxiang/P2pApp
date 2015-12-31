@@ -70,6 +70,7 @@ public class PTransProjectDetailActivity extends BaseActivity implements View.On
         if (getIntent().getExtras() != null) {
             status = getIntent().getExtras().getInt("status");
             transferProjectBean = (TransferProjectBean) getIntent().getExtras().getSerializable("transferProjectBean");
+            titleText.setText(transferProjectBean.getProjectname());
         }
         switch (status) {
             case 1:

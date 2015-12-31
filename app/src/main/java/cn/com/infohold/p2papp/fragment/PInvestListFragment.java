@@ -176,6 +176,7 @@ public class PInvestListFragment extends BaseFragment {
                 investProjectBean.setStatus(selfInvestBean.getProject_status());
                 investProjectBean.setLoanno(selfInvestBean.getLoan_no());
                 investProjectBean.setUsertype(Integer.valueOf(selfInvestBean.getUsertype()));
+                investProjectBean.setProjectname(selfInvestBean.getProject_name());
                 bundle.putSerializable("investProject", investProjectBean);
                 ((BaseActivity) getActivity()).toActivity(PProjectDetailActivity.class, bundle);
             }

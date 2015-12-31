@@ -50,4 +50,5 @@
     <string name="exit_app">确定要退出吗？</string>
     <string name="title_activity_precharge_static">充值</string>
     <string name="title_activity_ppay_pwd_find">找回支付密码</string>
+    <string name="title_activity_pabout">关于</string>
 </resources>

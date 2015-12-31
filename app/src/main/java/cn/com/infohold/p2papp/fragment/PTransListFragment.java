@@ -116,6 +116,7 @@ public class PTransListFragment extends BaseFragment {
                 transferProjectBean.setAssignmentseq(transFerringBean.getAssignmentseq());
                 transferProjectBean.setAssignmentstatus(transFerringBean.getProject_status());
                 transferProjectBean.setRate(Double.valueOf(transFerringBean.getPredict_profit()));
+                transferProjectBean.setProjectname(transferProjectBean.getProjectname());
                 bundle.putSerializable("transferProjectBean", transferProjectBean);
                 Intent intent = new Intent(getActivity(), PTransProjectDetailActivity.class);
                 intent.putExtras(bundle);

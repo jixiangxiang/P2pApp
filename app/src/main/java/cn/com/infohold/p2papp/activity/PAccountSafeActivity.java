@@ -66,24 +66,30 @@ public class PAccountSafeActivity extends BaseActivity implements View.OnClickLi
         } else if (v == phoneArea) {
             if (StringUtils.isEquals(ApiUtils.getLoginUserStatus(this), "00")) {
                 toActivityForResult(PVerificationActivity.class, 000);
+                showToastShort("此操作需验证支付密码，请实名认证、绑定银行卡后设置支付密码");
                 return;
             } else if (StringUtils.isEquals(ApiUtils.getLoginUserStatus(this), "01")) {
                 toActivityForResult(PAddBankActivity.class, 000);
+                showToastShort("此操作需验证支付密码，请绑定银行卡后设置支付密码");
                 return;
             } else if (StringUtils.isEquals(ApiUtils.getLoginUserStatus(this), "02")) {
                 toActivityForResult(PPayPwdSetActivity.class, 000);
+                showToastShort("此操作需验证支付密码，请设置支付密码");
                 return;
             }
             toActivityForResult(PPhoneSetActivity.class, 111);
         } else if (v == mailArea) {
             if (StringUtils.isEquals(ApiUtils.getLoginUserStatus(this), "00")) {
                 toActivityForResult(PVerificationActivity.class, 000);
+                showToastShort("此操作需验证支付密码，请实名认证、绑定银行卡后设置支付密码");
                 return;
             } else if (StringUtils.isEquals(ApiUtils.getLoginUserStatus(this), "01")) {
                 toActivityForResult(PAddBankActivity.class, 000);
+                showToastShort("此操作需验证支付密码，请绑定银行卡后设置支付密码");
                 return;
             } else if (StringUtils.isEquals(ApiUtils.getLoginUserStatus(this), "02")) {
                 toActivityForResult(PPayPwdSetActivity.class, 000);
+                showToastShort("此操作需验证支付密码，请设置支付密码");
                 return;
             }
             toActivityForResult(PMailSetActivity.class, 222);
@@ -92,12 +98,15 @@ public class PAccountSafeActivity extends BaseActivity implements View.OnClickLi
         } else if (v == payPwdArea) {
             if (StringUtils.isEquals(ApiUtils.getLoginUserStatus(this), "00")) {
                 toActivityForResult(PVerificationActivity.class, 000);
+                showToastShort("此操作需验证支付密码，请实名认证、绑定银行卡后设置支付密码");
                 return;
             } else if (StringUtils.isEquals(ApiUtils.getLoginUserStatus(this), "01")) {
                 toActivityForResult(PAddBankActivity.class, 000);
+                showToastShort("此操作需验证支付密码，请绑定银行卡后设置支付密码");
                 return;
             } else if (StringUtils.isEquals(ApiUtils.getLoginUserStatus(this), "02")) {
                 toActivityForResult(PPayPwdSetActivity.class, 000);
+                showToastShort("此操作需验证支付密码，请设置支付密码");
                 return;
             }
             selectDialog = new AlertDialog.Builder(this)

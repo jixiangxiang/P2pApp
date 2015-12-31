@@ -79,6 +79,8 @@ public class PAccountSetActivity extends BaseActivity implements View.OnClickLis
                     System.exit(0);
                 }
             }, null);
+        } else if (v == aboutArea) {
+            toActivity(PAboutActivity.class);
         }
     }
 
