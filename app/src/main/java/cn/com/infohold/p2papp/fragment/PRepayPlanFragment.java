@@ -6,6 +6,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -50,6 +51,8 @@ public class PRepayPlanFragment extends BaseFragment {
     private boolean isOnCreate = false;
     private int offset = 0;
     private int qrsize = 10;
+    private View footView;
+    private boolean isLoadMore = false;
 
     public PRepayPlanFragment() {
         // Required empty public constructor
@@ -94,6 +97,7 @@ public class PRepayPlanFragment extends BaseFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initialize(view);
+        repayPlan.addFooterView(footView);
         repayPlanBeas = new ArrayList<RepayPlanBean>();
         baseAdapter = new EBaseAdapter(getActivity(), repayPlanBeas, R.layout.p_repay_plan_item,
                 new String[]{"stageno", "repaydate", "repayprincipal", "repayinterest", "totalMoney"},
@@ -111,6 +115,26 @@ public class PRepayPlanFragment extends BaseFragment {
                 addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(PRepayPlanFragment.this, params, ApiUtils.REPAYPLAN), false);
             }
         });
+        repayPlan.setOnScrollListener(new AbsListView.OnScrollListener() {
+
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                if (view.getLastVisiblePosition() == view.getCount() - 1 && footView.getVisibility() == View.VISIBLE && !isLoadMore) {
+                    offset++;
+                    params = new HashMap<>();
+                    params.put("loan_no", mParam2);
+                    params.put("offset", String.valueOf(offset));
+                    params.put("qrsize", String.valueOf(qrsize));
+                    addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(PRepayPlanFragment.this, params, ApiUtils.REPAYPLAN), false);
+                    isLoadMore = true;
+                }
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+            }
+        });
     }
 
     private void initialize(View view) {
@@ -118,6 +142,8 @@ public class PRepayPlanFragment extends BaseFragment {
         interest = (TextView) view.findViewById(R.id.interest);
         repayPlan = (ListView) view.findViewById(R.id.repayPlan);
         swipeRefresh = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefresh);
+        footView = getActivity().getLayoutInflater().inflate(R.layout.listview_footview, null);
+        footView.setVisibility(View.GONE);
     }
 
     @Override
@@ -134,6 +160,7 @@ public class PRepayPlanFragment extends BaseFragment {
 
     @Override
     protected void doResponse(ResponseResult response) {
+        isOnCreate = false;
         JSONObject data = response.getData();
         principle.setText(data.getString("principle"));
         interest.setText(data.getString("interest"));

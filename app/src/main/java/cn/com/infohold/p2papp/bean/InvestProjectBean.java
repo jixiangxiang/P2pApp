@@ -12,6 +12,7 @@ public class InvestProjectBean extends EBaseModel {
     private Integer issuenum;
     private String descript;
     private String status;
+    private String nowstatus;
     private Integer usertype;
     private String loanno;
     private String cif_seq;
@@ -73,6 +74,14 @@ public class InvestProjectBean extends EBaseModel {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getNowstatus() {
+        return nowstatus;
+    }
+
+    public void setNowstatus(String nowstatus) {
+        this.nowstatus = nowstatus;
     }
 
     public Integer getUsertype() {

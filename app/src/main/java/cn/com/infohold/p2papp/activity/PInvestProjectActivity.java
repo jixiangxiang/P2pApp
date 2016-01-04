@@ -65,7 +65,7 @@ public class PInvestProjectActivity extends BaseActivity implements View.OnClick
         investProjectList.addFooterView(footView);
         investProjectBeans = new ArrayList<>();
         baseAdapter = new EBaseAdapter(this, investProjectBeans, R.layout.p_invest_project_item,
-                new String[]{"rate", "balance", "issuenum", "status", "projectname"},
+                new String[]{"rate", "balance", "issuenum", "nowstatus", "projectname"},
                 new int[]{R.id.preIncome, R.id.investableMoney, R.id.loanLimit, R.id.investBtn, R.id.projectname});
         baseAdapter.setViewBinder(new EBaseAdapter.ViewBinder() {
             @Override
@@ -75,8 +75,18 @@ public class PInvestProjectActivity extends BaseActivity implements View.OnClick
                     String status = (String) o;
                     if (status.equals("01")) {
                         iv.setBackgroundResource(R.mipmap.p_invest_btn);
-                    } else {
+                    }
+                    if (status.equals("02")) {//已满标
+                        iv.setBackgroundResource(R.mipmap.p_invest_full);
+                    }
+                    if (status.equals("03")) {//已放款
                         iv.setBackgroundResource(R.mipmap.p_invest_btn_default);
+                    }
+                    if (status.equals("04")) {//还款中
+                        iv.setBackgroundResource(R.mipmap.p_invest_btn_default);
+                    }
+                    if (status.equals("07")) {//已结清
+                        iv.setBackgroundResource(R.mipmap.p_invest_settle);
                     }
                     return true;
                 }

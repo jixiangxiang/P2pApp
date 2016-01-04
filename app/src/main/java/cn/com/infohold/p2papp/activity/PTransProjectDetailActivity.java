@@ -25,6 +25,7 @@ import cn.com.infohold.p2papp.common.ResponseResult;
 import cn.com.infohold.p2papp.fragment.PInvestRecordFragment;
 import cn.com.infohold.p2papp.fragment.PProjectDetailFragment;
 import cn.com.infohold.p2papp.fragment.PQuestFragment;
+import cn.com.infohold.p2papp.fragment.PRepayPlanFragment;
 import cn.com.infohold.p2papp.views.RingView;
 import cn.com.infohold.p2papp.views.WrapScrollViewPager;
 import common.eric.com.ebaselibrary.util.StringUtils;
@@ -221,7 +222,7 @@ public class PTransProjectDetailActivity extends BaseActivity implements View.On
             ArrayList<Fragment> fragmentList = new ArrayList<Fragment>();
             fragmentList.add(PProjectDetailFragment.newInstance(data.toJSONString(), null));
             fragmentList.add(PInvestRecordFragment.newInstance(data.getString("projectno"), null));
-            fragmentList.add(PQuestFragment.newInstance(null, null));
+            fragmentList.add(PRepayPlanFragment.newInstance(null, transferProjectBean.getLoan_no()));
             adapter = new FragmentPagerAdapter(getSupportFragmentManager(), fragmentList);
             detailPager.setAdapter(adapter);
             detailPager.setCurrentItem(0);

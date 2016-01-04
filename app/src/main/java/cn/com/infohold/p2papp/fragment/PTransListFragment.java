@@ -100,8 +100,8 @@ public class PTransListFragment extends BaseFragment {
         loanList.addFooterView(footView);
         investProjectBeans = new ArrayList<TransFerringBean>();
         baseAdapter = new EBaseAdapter(getActivity(), investProjectBeans, R.layout.p_trans_project_item,
-                new String[]{"project_name","predict_profit", "transfer_price", "loan_due_date","begin_transfer_date","transfer_principal"},
-                new int[]{R.id.projectName,R.id.loanRates, R.id.loanMoney, R.id.loanLimit,R.id.getMoneyDate,R.id.repayWay});
+                new String[]{"project_name", "predict_profit", "transfer_price", "loan_due_date", "begin_transfer_date", "transfer_principal"},
+                new int[]{R.id.projectName, R.id.loanRates, R.id.loanMoney, R.id.loanLimit, R.id.getMoneyDate, R.id.repayWay});
         loanList.setAdapter(baseAdapter);
         loanList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -116,7 +116,8 @@ public class PTransListFragment extends BaseFragment {
                 transferProjectBean.setAssignmentseq(transFerringBean.getAssignmentseq());
                 transferProjectBean.setAssignmentstatus(transFerringBean.getProject_status());
                 transferProjectBean.setRate(Double.valueOf(transFerringBean.getPredict_profit()));
-                transferProjectBean.setProjectname(transferProjectBean.getProjectname());
+                transferProjectBean.setProjectname(transFerringBean.getProject_name());
+                transferProjectBean.setLoan_no(transFerringBean.getLoan_no());
                 bundle.putSerializable("transferProjectBean", transferProjectBean);
                 Intent intent = new Intent(getActivity(), PTransProjectDetailActivity.class);
                 intent.putExtras(bundle);

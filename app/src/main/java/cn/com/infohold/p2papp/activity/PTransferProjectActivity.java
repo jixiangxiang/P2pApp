@@ -112,10 +112,11 @@ public class PTransferProjectActivity extends BaseActivity implements View.OnCli
                 if (view instanceof ImageView && o instanceof String) {
                     ImageView iv = (ImageView) view;
                     String status = (String) o;
-                    if (status.equals("01")) {
+                    if (status.equals("00")) {
                         iv.setBackgroundResource(R.mipmap.p_invest_btn);
-                    } else {
-                        iv.setBackgroundResource(R.mipmap.p_invest_btn_default);
+                    }
+                    if (status.equals("01")) {//已满标
+                        iv.setBackgroundResource(R.mipmap.p_trans_transed);
                     }
                     return true;
                 }

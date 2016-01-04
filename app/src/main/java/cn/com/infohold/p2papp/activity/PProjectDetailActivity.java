@@ -81,11 +81,9 @@ public class PProjectDetailActivity extends BaseActivity implements View.OnClick
                 toInvestBtn.setVisibility(View.GONE);
                 break;
             case 2:
-                questions.setText("还款计划");
                 toInvestBtn.setBackgroundResource(R.mipmap.p_repay_btn);
                 break;
             case 3:
-                questions.setText("还款计划");
                 toInvestBtn.setBackgroundResource(R.mipmap.p_to_trans_btn);
                 break;
             default:
@@ -236,10 +234,7 @@ public class PProjectDetailActivity extends BaseActivity implements View.OnClick
         ArrayList<Fragment> fragmentList = new ArrayList<Fragment>();
         fragmentList.add(PProjectDetailFragment.newInstance(data.toJSONString(), null));
         fragmentList.add(PInvestRecordFragment.newInstance(data.getString("projectno"), null));
-        if (status == 2 || status == 3)
-            fragmentList.add(PRepayPlanFragment.newInstance(null, investProjectBean.getLoanno()));
-        else
-            fragmentList.add(PQuestFragment.newInstance(null, null));
+        fragmentList.add(PRepayPlanFragment.newInstance(null, investProjectBean.getLoanno()));
         adapter = new FragmentPagerAdapter(getSupportFragmentManager(), fragmentList);
         detailPager.setAdapter(adapter);
         detailPager.setCurrentItem(0);
