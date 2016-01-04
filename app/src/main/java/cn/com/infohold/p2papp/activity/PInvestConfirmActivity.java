@@ -67,6 +67,7 @@ public class PInvestConfirmActivity extends BaseActivity implements View.OnClick
         } else if (v == investBtn) {
             if (StringUtils.isEmpty(investMoeny.getText().toString()) || Double.valueOf(investMoeny.getText().toString()) == 0) {
                 showToastShort("请输入正确的投资金额");
+                return;
             }
             params = new HashMap<>();
             params.put("projectno", data.getString("projectno"));
