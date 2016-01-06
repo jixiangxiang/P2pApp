@@ -36,6 +36,8 @@ public class PInvestConfirmActivity extends BaseActivity implements View.OnClick
     private Button investBtn;
     private TextView termSheet;
     private JSONObject data;
+    private TextView availInvestMoney;
+    private TextView pricevalue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +57,8 @@ public class PInvestConfirmActivity extends BaseActivity implements View.OnClick
         yieldCircle.invalidate();
         yieldText.setText(data.getString("rate"));
         investCount.setText(data.getString("investcount"));
+        availInvestMoney.setText(data.getString("balance"));
+        pricevalue.setText(data.getString("amount"));
         params = new HashMap<>();
         params.put("mobilephone", ApiUtils.getLoginUserPhone(this));
         addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(this, params, ApiUtils.ACCTBALANCE), ApiUtils.ACCTBALANCE, true);
@@ -93,6 +97,8 @@ public class PInvestConfirmActivity extends BaseActivity implements View.OnClick
         balanceArea = (LinearLayout) findViewById(R.id.balanceArea);
         investBtn = (Button) findViewById(R.id.investBtn);
         termSheet = (TextView) findViewById(R.id.termSheet);
+        availInvestMoney = (TextView) findViewById(R.id.availInvestMoney);
+        pricevalue = (TextView) findViewById(R.id.pricevalue);
     }
 
     @Override

@@ -10,7 +10,7 @@ public class TransferProjectBean extends EBaseModel {
     private String assignmentseq;
     private String projectname;
     private Double rate;
-    private String loan_no;
+    private String loanno;
     private String residualterm;
     private String transferprince;
     private String incomeway;
@@ -57,12 +57,12 @@ public class TransferProjectBean extends EBaseModel {
         this.rate = rate;
     }
 
-    public String getLoan_no() {
-        return loan_no;
+    public String getLoanno() {
+        return loanno;
     }
 
-    public void setLoan_no(String loan_no) {
-        this.loan_no = loan_no;
+    public void setLoanno(String loanno) {
+        this.loanno = loanno;
     }
 
     public String getResidualterm() {

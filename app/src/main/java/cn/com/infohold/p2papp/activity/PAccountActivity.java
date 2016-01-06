@@ -51,7 +51,7 @@ public class PAccountActivity extends BaseActivity implements View.OnClickListen
         data = JSONObject.parseObject(getIntent().getExtras().getString("data"));
         initTitleText(getString(R.string.title_activity_paccount), BaseActivity.TITLE_CENTER, android.R.color.black);
 
-        selfInvestMoney.setText(data.getString("all_loan_out_amoun"));
+        selfInvestMoney.setText(data.getString("loan_out_amount"));
         availMoney.setText(data.getString("available_bal"));
         toInterest.setText(data.getString("waiting_profit_amount"));
         freezeAmonut.setText(data.getString("freeze_bal"));
@@ -114,7 +114,7 @@ public class PAccountActivity extends BaseActivity implements View.OnClickListen
         // IMPORTANT: In a PieChart, no values (Entry) should have the same
         // xIndex (even if from different DataSets), since no values can be
         // drawn above each other.
-        Float all_loan_out_amoun = Float.valueOf(data.getString("all_loan_out_amount"));
+        Float all_loan_out_amoun = Float.valueOf(data.getString("loan_out_amount"));
         Float available_bal = Float.valueOf(data.getString("available_bal"));
         Float waiting_profit_amount = Float.valueOf(data.getString("waiting_profit_amount"));
         Float freeze_bal = Float.valueOf(data.getString("freeze_bal"));

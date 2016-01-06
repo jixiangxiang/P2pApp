@@ -275,8 +275,7 @@
                     style="@style/text_12_999"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="@dimen/dp_54"
+                    android:layout_toLeftOf="@id/limitDay"
                     android:text="预期收益" />
 
             </RelativeLayout>

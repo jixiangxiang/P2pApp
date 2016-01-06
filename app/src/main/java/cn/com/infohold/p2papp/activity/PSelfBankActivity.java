@@ -127,6 +127,6 @@ public class PSelfBankActivity extends BaseActivity implements View.OnClickListe
         data = response.getData();
         bankName.setText(data.getString("bankname"));
         bankNo.setText(data.getString("bankcardno"));
-        phoneNum.setText("手机尾号" + ApiUtils.getLoginUserPhone(this).substring(7, 10));
+        phoneNum.setText("手机尾号" + ApiUtils.getLoginUserPhone(this).substring(7, 11));
     }
 }

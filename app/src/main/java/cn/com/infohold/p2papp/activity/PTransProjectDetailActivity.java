@@ -87,7 +87,7 @@ public class PTransProjectDetailActivity extends BaseActivity implements View.On
                 toInvestBtn.setBackgroundResource(R.mipmap.backout_trans_btn);
                 break;
             default:
-                if (transferProjectBean.getAssignmentstatus().equals("01")) {
+                if (transferProjectBean.getAssignmentstatus().equals("00")) {
                     toInvestBtn.setBackgroundResource(R.mipmap.p_invest_btn);
                 } else {
                     //toInvestBtn.setBackgroundResource(R.mipmap.p_invest_btn_default);
@@ -222,7 +222,7 @@ public class PTransProjectDetailActivity extends BaseActivity implements View.On
             ArrayList<Fragment> fragmentList = new ArrayList<Fragment>();
             fragmentList.add(PProjectDetailFragment.newInstance(data.toJSONString(), null));
             fragmentList.add(PInvestRecordFragment.newInstance(data.getString("projectno"), null));
-            fragmentList.add(PRepayPlanFragment.newInstance(null, transferProjectBean.getLoan_no()));
+            fragmentList.add(PRepayPlanFragment.newInstance(null, transferProjectBean.getLoanno()));
             adapter = new FragmentPagerAdapter(getSupportFragmentManager(), fragmentList);
             detailPager.setAdapter(adapter);
             detailPager.setCurrentItem(0);

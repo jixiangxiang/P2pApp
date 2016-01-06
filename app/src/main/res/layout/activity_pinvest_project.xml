@@ -48,6 +48,7 @@
                 android:text="按收益率" />
 
             <ImageView
+                android:id="@+id/yieldSort"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="@dimen/dp_5"
@@ -72,6 +73,7 @@
                 android:text="按期限" />
 
             <ImageView
+                android:id="@+id/limitSort"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="@dimen/dp_5"

@@ -23,6 +23,7 @@ import cn.com.infohold.p2papp.bean.InvestProjectBean;
 import cn.com.infohold.p2papp.common.ApiUtils;
 import cn.com.infohold.p2papp.common.ResponseResult;
 import common.eric.com.ebaselibrary.adapter.EBaseAdapter;
+import common.eric.com.ebaselibrary.util.StringUtils;
 
 public class PInvestProjectActivity extends BaseActivity implements View.OnClickListener {
 
@@ -34,6 +35,9 @@ public class PInvestProjectActivity extends BaseActivity implements View.OnClick
     private LinearLayout limitArea;
     private LinearLayout sortArea;
     private ListView investProjectList;
+    private ImageView yieldSort;
+    private ImageView limitSort;
+    private String typemethod = null;
     private String querytype = "0";
     private int offset = 0;
     private int qrsize = 10;
@@ -139,6 +143,10 @@ public class PInvestProjectActivity extends BaseActivity implements View.OnClick
 
     private void initialize() {
         newInvest = (ImageView) findViewById(R.id.newInvest);
+        yieldSort = (ImageView) findViewById(R.id.yieldSort);
+        yieldSort.setTag(R.mipmap.p_sort_default);
+        limitSort = (ImageView) findViewById(R.id.limitSort);
+        limitSort.setTag(R.mipmap.p_sort_default);
         colligate = (TextView) findViewById(R.id.colligate);
         yieldText = (TextView) findViewById(R.id.yieldText);
         yieldArea = (LinearLayout) findViewById(R.id.yieldArea);
@@ -161,12 +169,62 @@ public class PInvestProjectActivity extends BaseActivity implements View.OnClick
         if (v == colligate) {
             querytype = "0";
             offset = 0;
+            typemethod = null;
         } else if (v == yieldArea) {
             querytype = "1";
             offset = 0;
+            limitSort.setImageResource(R.mipmap.p_sort_default);
+            limitSort.setTag(R.mipmap.p_sort_default);
+
+            switch ((int) yieldSort.getTag()) {
+                case R.mipmap.p_sort_default:
+                    yieldSort.setImageResource(R.mipmap.p_sort_up);
+                    yieldSort.setTag(R.mipmap.p_sort_up);
+                    typemethod = "2";
+                    break;
+                case R.mipmap.p_sort_up:
+                    yieldSort.setImageResource(R.mipmap.p_sort_down);
+                    yieldSort.setTag(R.mipmap.p_sort_down);
+                    typemethod = "1";
+                    break;
+                case R.mipmap.p_sort_down:
+                    yieldSort.setImageResource(R.mipmap.p_sort_default);
+                    yieldSort.setTag(R.mipmap.p_sort_default);
+                    typemethod = null;
+                    break;
+                default:
+                    yieldSort.setImageResource(R.mipmap.p_sort_default);
+                    yieldSort.setTag(R.mipmap.p_sort_default);
+                    typemethod = null;
+                    break;
+            }
         } else if (v == limitArea) {
             querytype = "2";
             offset = 0;
+            yieldSort.setImageResource(R.mipmap.p_sort_default);
+            yieldSort.setTag(R.mipmap.p_sort_default);
+            switch ((int) limitSort.getTag()) {
+                case R.mipmap.p_sort_default:
+                    limitSort.setImageResource(R.mipmap.p_sort_up);
+                    limitSort.setTag(R.mipmap.p_sort_up);
+                    typemethod = "2";
+                    break;
+                case R.mipmap.p_sort_up:
+                    limitSort.setImageResource(R.mipmap.p_sort_down);
+                    limitSort.setTag(R.mipmap.p_sort_down);
+                    typemethod = "1";
+                    break;
+                case R.mipmap.p_sort_down:
+                    limitSort.setImageResource(R.mipmap.p_sort_default);
+                    limitSort.setTag(R.mipmap.p_sort_default);
+                    typemethod = null;
+                    break;
+                default:
+                    limitSort.setImageResource(R.mipmap.p_sort_default);
+                    limitSort.setTag(R.mipmap.p_sort_default);
+                    typemethod = null;
+                    break;
+            }
         }
         switchSelect(v);
         params = new HashMap<>();
@@ -174,6 +232,8 @@ public class PInvestProjectActivity extends BaseActivity implements View.OnClick
         params.put("cif_seq", "2");
         params.put("offset", String.valueOf(offset * qrsize));
         params.put("qrsize", String.valueOf(qrsize));
+        if (!StringUtils.isEmpty(typemethod))
+            params.put("typemethod", typemethod);
         addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(this, params, ApiUtils.PROJECT_LIST), true);
     }
 

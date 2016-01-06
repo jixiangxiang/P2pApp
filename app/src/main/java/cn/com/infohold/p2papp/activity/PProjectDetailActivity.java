@@ -76,6 +76,8 @@ public class PProjectDetailActivity extends BaseActivity implements View.OnClick
             investProjectBean = (InvestProjectBean) getIntent().getExtras().getSerializable("investProject");
             titleText.setText(investProjectBean.getProjectname());
         }
+        if (!StringUtils.isEmpty(investProjectBean.getNowstatus()) && (investProjectBean.getNowstatus().equals("01") || investProjectBean.getNowstatus().equals("02")))
+            questions.setVisibility(View.GONE);
         switch (status) {
             case 1:
                 toInvestBtn.setVisibility(View.GONE);
@@ -153,6 +155,7 @@ public class PProjectDetailActivity extends BaseActivity implements View.OnClick
         investRecord.setOnClickListener(this);
         projectDetail.setOnClickListener(this);
         questions.setOnClickListener(this);
+
     }
 
     @Override
@@ -234,7 +237,8 @@ public class PProjectDetailActivity extends BaseActivity implements View.OnClick
         ArrayList<Fragment> fragmentList = new ArrayList<Fragment>();
         fragmentList.add(PProjectDetailFragment.newInstance(data.toJSONString(), null));
         fragmentList.add(PInvestRecordFragment.newInstance(data.getString("projectno"), null));
-        fragmentList.add(PRepayPlanFragment.newInstance(null, investProjectBean.getLoanno()));
+        if (StringUtils.isEmpty(investProjectBean.getNowstatus()) || (!investProjectBean.getNowstatus().equals("01") && !investProjectBean.getNowstatus().equals("02")))
+            fragmentList.add(PRepayPlanFragment.newInstance(null, investProjectBean.getLoanno()));
         adapter = new FragmentPagerAdapter(getSupportFragmentManager(), fragmentList);
         detailPager.setAdapter(adapter);
         detailPager.setCurrentItem(0);
