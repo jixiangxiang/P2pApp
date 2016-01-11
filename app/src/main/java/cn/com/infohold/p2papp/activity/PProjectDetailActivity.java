@@ -52,6 +52,7 @@ public class PProjectDetailActivity extends BaseActivity implements View.OnClick
     private Integer status = 0;
     private TextView availInvestMoney;
     private TextView pricevalue;
+    private TextView limitType;
 
     private FragmentPagerAdapter adapter;
     private InvestProjectBean investProjectBean;
@@ -152,6 +153,8 @@ public class PProjectDetailActivity extends BaseActivity implements View.OnClick
         productNameShow = (TextView) findViewById(R.id.productNameShow);
         availInvestMoney = (TextView) findViewById(R.id.availInvestMoney);
         pricevalue = (TextView) findViewById(R.id.pricevalue);
+        limitType = (TextView) findViewById(R.id.limitType);
+
         investRecord.setOnClickListener(this);
         projectDetail.setOnClickListener(this);
         questions.setOnClickListener(this);
@@ -181,7 +184,7 @@ public class PProjectDetailActivity extends BaseActivity implements View.OnClick
                 case 0:
                     bundle.putString("data", data.toJSONString());
                     if (investProjectBean.getStatus().equals("01")) {
-                        toActivity(PInvestConfirmActivity.class, bundle);
+                        toActivityForResult(PInvestConfirmActivity.class, bundle, 999);
                     }
                     break;
                 case 1:
@@ -244,7 +247,7 @@ public class PProjectDetailActivity extends BaseActivity implements View.OnClick
         detailPager.setCurrentItem(0);
         addAmountShow.setText(data.getString("addamount") + "元起投");
         String incomeWay = "等额本息";
-        String incomeway = data.getString("incomway");
+        String incomeway = data.getString("incomeway");
         if (StringUtils.isEmpty(incomeway)) incomeway = "1";
         switch (Integer.valueOf(incomeway)) {
             case 1:
@@ -260,9 +263,16 @@ public class PProjectDetailActivity extends BaseActivity implements View.OnClick
                 incomeWay = "利随本清";
                 break;
         }
+        if (data.getString("issuetype").equals("Y")) {
+            limitType.setText("年");
+        } else if (data.getString("issuetype").equals("M")) {
+            limitType.setText("月");
+        } else if (data.getString("issuetype").equals("D")) {
+            limitType.setText("天");
+        }
         productNameShow.setText(incomeWay);
-        projectStartDate.setText(data.getString("pubtime"));
-        projectEndDate.setText(data.getString("endtime"));
+        projectStartDate.setText(data.getString("begindate"));
+        projectEndDate.setText(data.getString("enddate"));
         limitDay.setText(data.getString("issuenum"));
         availInvestMoney.setText(data.getString("balance"));
         pricevalue.setText(data.getString("amount"));
@@ -276,7 +286,20 @@ public class PProjectDetailActivity extends BaseActivity implements View.OnClick
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == BaseActivity.RESULT_OK) {
+        if (requestCode == 999 && resultCode == BaseActivity.RESULT_OK) {
+            params = new HashMap<>();
+            params.put("loanno", investProjectBean.getLoanno());
+            params.put("cif_seq", ApiUtils.CIFSEQ);
+            params.put("status", investProjectBean.getStatus());
+            switch (investProjectBean.getUsertype()) {
+                case 1:
+                    addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(this, params, ApiUtils.PROJECTDETAILPER), ApiUtils.PROJECTDETAILPER, true);
+                    break;
+                case 2:
+                    addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(this, params, ApiUtils.PROJECTDETAILCUST), ApiUtils.PROJECTDETAILCUST, true);
+                    break;
+            }
+        } else if (resultCode == BaseActivity.RESULT_OK) {
             isUpdate = true;
             toInvestBtn.setVisibility(View.GONE);
         }

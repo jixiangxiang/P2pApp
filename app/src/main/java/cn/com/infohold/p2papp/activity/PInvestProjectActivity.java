@@ -69,8 +69,8 @@ public class PInvestProjectActivity extends BaseActivity implements View.OnClick
         investProjectList.addFooterView(footView);
         investProjectBeans = new ArrayList<>();
         baseAdapter = new EBaseAdapter(this, investProjectBeans, R.layout.p_invest_project_item,
-                new String[]{"rate", "balance", "issuenum", "nowstatus", "projectname"},
-                new int[]{R.id.preIncome, R.id.investableMoney, R.id.loanLimit, R.id.investBtn, R.id.projectname});
+                new String[]{"rate", "balance", "issuenum", "nowstatus", "projectname","issuetype"},
+                new int[]{R.id.preIncome, R.id.investableMoney, R.id.loanLimit, R.id.investBtn, R.id.projectname,R.id.limitType});
         baseAdapter.setViewBinder(new EBaseAdapter.ViewBinder() {
             @Override
             public boolean setViewValue(View view, Object o, String s) {

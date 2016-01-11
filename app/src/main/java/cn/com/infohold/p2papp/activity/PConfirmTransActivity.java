@@ -97,7 +97,7 @@ public class PConfirmTransActivity extends BaseActivity implements View.OnClickL
             totalMoney.setText(data.getString("originvestamt"));
             principal.setText(data.getString("remain_principal"));
             interest.setText(data.getString("accrued_interest"));
-            surplusLimit.setText(data.getString("holdingDuration") + "/" + data.getString("leftDuration"));
+            surplusLimit.setText(data.getString("leftDuration") + "/" + data.getString("holdingDuration"));
             maxTransMoney.setHint("最大折让金额：" + data.getString("interest"));
         } else if (requestMethod.equals(ApiUtils.ASSIGNCONFIRM)) {
             alertDialogNoCancel(response.getReturn_message(), new View.OnClickListener() {

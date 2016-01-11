@@ -10,9 +10,9 @@ import cn.com.infohold.p2papp.activity.PTransferProjectActivity;
 public enum FunctionEnum {
     FUNCTION_INVEST("直投项目", "实物抵押安全可靠", R.mipmap.p_invest_icon, PInvestProjectActivity.class),
     FUNCTION_TRANSFER("债权转让", "流动性高", R.mipmap.p_transfer_icon, PTransferProjectActivity.class),
-    FUNCTION_FINANCING("融资借款", "无抵押贷款", R.mipmap.p_invest_finaning, null),
+    FUNCTION_FINANCING("融资借款", "门槛低放款快", R.mipmap.p_invest_finaning, null),
     FUNCTION_SAFETY("安全保障", "银行级别保障", R.mipmap.p_safe_icon, null),
-    FUNCTION_GUIDE("新手指引", "新手投资投资通道", R.mipmap.p_guide_icon, null),
+    FUNCTION_GUIDE("新手指引", "新手投资专享通道", R.mipmap.p_guide_icon, null),
     FUNCTION_MORE(null, null, R.mipmap.p_dot_more, null);
 
     private String functionDetailed;

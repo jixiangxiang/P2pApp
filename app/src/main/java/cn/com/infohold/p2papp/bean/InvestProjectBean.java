@@ -8,7 +8,7 @@ import common.eric.com.ebaselibrary.model.EBaseModel;
 public class InvestProjectBean extends EBaseModel {
     private Integer id;
     private Double rate;
-    private Double balance;
+    private String balance;
     private Integer issuenum;
     private String descript;
     private String status;
@@ -17,16 +17,11 @@ public class InvestProjectBean extends EBaseModel {
     private String loanno;
     private String cif_seq;
     private String projectname;
+    private String issuetype;
 
     public InvestProjectBean() {
     }
 
-    public InvestProjectBean(Double preYield, Double investableMoney, Integer limit, String status) {
-        this.rate = preYield;
-        this.balance = investableMoney;
-        this.issuenum = limit;
-        this.status = status;
-    }
 
     public Integer getId() {
         return id;
@@ -44,11 +39,11 @@ public class InvestProjectBean extends EBaseModel {
         this.rate = rate;
     }
 
-    public Double getBalance() {
+    public String getBalance() {
         return balance;
     }
 
-    public void setBalance(Double balance) {
+    public void setBalance(String balance) {
         this.balance = balance;
     }
 
@@ -114,5 +109,20 @@ public class InvestProjectBean extends EBaseModel {
 
     public void setProjectname(String projectname) {
         this.projectname = projectname;
+    }
+
+    public String getIssuetype() {
+        if (issuetype.equals("Y")) {
+            issuetype = "还款期限   (  年  )";
+        } else if (issuetype.equals("M")) {
+            issuetype = "还款期限   (  月  )";
+        } else if (issuetype.equals("D")) {
+            issuetype = "还款期限   (  天  )";
+        }
+        return issuetype;
+    }
+
+    public void setIssuetype(String issuetype) {
+        this.issuetype = issuetype;
     }
 }

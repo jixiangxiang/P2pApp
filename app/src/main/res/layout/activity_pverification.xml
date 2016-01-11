@@ -85,4 +85,14 @@
         android:background="@android:color/transparent"
         android:onClick="onClick"
         android:src="@drawable/p_next_btn_selector" />
+
+    <TextView
+        style="@style/text_11_99"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/dp_20"
+        android:paddingRight="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginLeft="@dimen/dp_5"
+        android:text="完成实名认证后，您的账户将得到更完整的保护，投资更安全 " />
 </LinearLayout>

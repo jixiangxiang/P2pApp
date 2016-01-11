@@ -1,6 +1,10 @@
 package cn.com.infohold.p2papp.activity;
 
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.SpannedString;
+import android.text.style.AbsoluteSizeSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -59,6 +63,13 @@ public class PInvestConfirmActivity extends BaseActivity implements View.OnClick
         investCount.setText(data.getString("investcount"));
         availInvestMoney.setText(data.getString("balance"));
         pricevalue.setText(data.getString("amount"));
+        projectStartDate.setText(data.getString("begindate"));
+        projectEndDate.setText(data.getString("enddate"));
+        String beginMoney = data.getString("investbegin") == null ? data.getString("beginamount") : data.getString("investbegin");
+        SpannableString ss = new SpannableString("起投金额:  " + beginMoney + "元" + "    递增金额:  " + data.getString("addamount") + "元");
+        AbsoluteSizeSpan ass = new AbsoluteSizeSpan(12, true);
+        ss.setSpan(ass, 0, ss.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        investMoeny.setHint(new SpannedString(ss));
         params = new HashMap<>();
         params.put("mobilephone", ApiUtils.getLoginUserPhone(this));
         addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(this, params, ApiUtils.ACCTBALANCE), ApiUtils.ACCTBALANCE, true);
@@ -109,6 +120,7 @@ public class PInvestConfirmActivity extends BaseActivity implements View.OnClick
             alertDialog("投资成功", new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    setResult(RESULT_OK);
                     PInvestConfirmActivity.this.finish();
                 }
             });

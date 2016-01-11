@@ -28,6 +28,7 @@ public class PAccountSetActivity extends BaseActivity implements View.OnClickLis
     private TextView nickName;
     private RelativeLayout nickNameArea;
     private RelativeLayout userNameArea;
+    private TextView userName;
     private TextView phone;
     private RelativeLayout phoneArea;
     private TextView email;
@@ -91,6 +92,7 @@ public class PAccountSetActivity extends BaseActivity implements View.OnClickLis
         nickName = (TextView) findViewById(R.id.nickName);
         nickNameArea = (RelativeLayout) findViewById(R.id.nickNameArea);
         userNameArea = (RelativeLayout) findViewById(R.id.userNameArea);
+        userName = (TextView) findViewById(R.id.userName);
         phone = (TextView) findViewById(R.id.phone);
         phoneArea = (RelativeLayout) findViewById(R.id.phoneArea);
         email = (TextView) findViewById(R.id.email);
@@ -130,6 +132,7 @@ public class PAccountSetActivity extends BaseActivity implements View.OnClickLis
             birthday.setText(data.getString("birthday"));
             email.setText(data.getString("email"));
             userseq = data.getString("userseq");
+            userName.setText(data.getString("username"));
             nickname = data.getString("nickname");
         }
     }

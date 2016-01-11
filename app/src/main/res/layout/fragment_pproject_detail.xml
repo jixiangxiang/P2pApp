@@ -328,7 +328,7 @@
         <TextView
             android:id="@+id/loandesc"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_120"
+            android:layout_height="wrap_content"
             android:paddingBottom="@dimen/dp_17"
             android:paddingLeft="@dimen/dp_20"
             android:paddingRight="@dimen/dp_20"
@@ -403,7 +403,7 @@
         <TextView
             android:id="@+id/safedesc"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_120"
+            android:layout_height="wrap_content"
             android:paddingBottom="@dimen/dp_17"
             android:paddingLeft="@dimen/dp_20"
             android:paddingRight="@dimen/dp_20"

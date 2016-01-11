@@ -227,7 +227,7 @@ public class PTransProjectDetailActivity extends BaseActivity implements View.On
             detailPager.setAdapter(adapter);
             detailPager.setCurrentItem(0);
             String incomeWay = "等额本息";
-            String incomeway = data.getString("incomway");
+            String incomeway = data.getString("incomeway");
             if (StringUtils.isEmpty(incomeway)) incomeway = "1";
             switch (Integer.valueOf(incomeway)) {
                 case 1:

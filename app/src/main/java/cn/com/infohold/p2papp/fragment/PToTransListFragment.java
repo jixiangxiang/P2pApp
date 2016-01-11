@@ -125,7 +125,7 @@ public class PToTransListFragment extends BaseFragment {
                 bundle.putInt("status", 3);
                 InvestProjectBean investProjectBean = new InvestProjectBean();
                 investProjectBean.setLoanno(toTransProjectBean.getLoanno());
-                investProjectBean.setStatus(toTransProjectBean.getProjectno());
+                investProjectBean.setStatus(toTransProjectBean.getProjstatus());
                 investProjectBean.setUsertype(toTransProjectBean.getUsertype());
                 investProjectBean.setProjectname(toTransProjectBean.getProjectname());
                 bundle.putSerializable("investProject", investProjectBean);

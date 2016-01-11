@@ -223,6 +223,7 @@
             android:background="@android:color/transparent"
             android:gravity="center_vertical"
             android:hint="请输入投资金额"
+
             android:numeric="decimal" />
 
         <TextView

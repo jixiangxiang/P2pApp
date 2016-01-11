@@ -1,5 +1,7 @@
 package cn.com.infohold.p2papp.bean;
 
+import java.text.DecimalFormat;
+
 import common.eric.com.ebaselibrary.model.EBaseModel;
 
 /**
@@ -10,6 +12,7 @@ public class RepayPlanBean extends EBaseModel {
     private String repaydate;
     private String repayprincipal;
     private String repayinterest;
+    private String totalMoney;
 
     public String getStageno() {
         return stageno;
@@ -41,5 +44,14 @@ public class RepayPlanBean extends EBaseModel {
 
     public void setRepayinterest(String repayinterest) {
         this.repayinterest = repayinterest;
+    }
+
+    public String getTotalMoney() {
+        DecimalFormat df = new DecimalFormat("0.00");
+        return df.format(Double.valueOf(repayprincipal) + Double.valueOf(repayinterest)).toString();
+    }
+
+    public void setTotalMoney(String totalMoney) {
+        this.totalMoney = totalMoney;
     }
 }

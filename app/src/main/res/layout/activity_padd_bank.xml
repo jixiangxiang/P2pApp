@@ -194,7 +194,7 @@
         android:layout_marginTop="@dimen/dp_30"
         android:background="@android:color/transparent"
         android:onClick="onClick"
-        android:src="@drawable/p_agree_selector" />
+        android:src="@drawable/p_confirm_selector" />
 
     <TextView
         android:id="@+id/agreement"
@@ -205,5 +205,6 @@
         android:gravity="center"
         android:onClick="onClick"
         android:padding="@dimen/dp_5"
-        android:text="《小草金服快捷支付服务协议》" />
+        android:text="《小草金服快捷支付服务协议》"
+        android:visibility="gone" />
 </LinearLayout>

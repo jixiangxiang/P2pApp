@@ -87,9 +87,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="可投金额" />
+            android:text="可投金额 ( 元 )" />
 
         <TextView
+            android:id="@+id/limitType"
             style="@style/text_10_999"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
