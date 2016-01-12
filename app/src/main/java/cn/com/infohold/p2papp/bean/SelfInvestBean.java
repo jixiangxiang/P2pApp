@@ -58,6 +58,13 @@ public class SelfInvestBean extends EBaseModel {
     }
 
     public String getLoan_time_interval_type() {
+        if (loan_time_interval_type.equals("Y")) {
+            loan_time_interval_type = "还款期限   (  年  )";
+        } else if (loan_time_interval_type.equals("M")) {
+            loan_time_interval_type = "还款期限   (  月  )";
+        } else if (loan_time_interval_type.equals("D")) {
+            loan_time_interval_type = "还款期限   (  天  )";
+        }
         return loan_time_interval_type;
     }
 

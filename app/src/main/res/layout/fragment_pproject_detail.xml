@@ -73,7 +73,6 @@
             android:id="@+id/riskWarn"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_40"
-            android:onClick="onClick"
             android:paddingLeft="@dimen/dp_20"
             android:paddingRight="@dimen/dp_20">
 
@@ -147,7 +146,6 @@
                     android:text="雪山2220" />
 
                 <TextView
-                    android:id="@+id/age"
                     style="@style/text_10_777"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -155,6 +153,7 @@
                     android:text="年    龄" />
 
                 <TextView
+                    android:id="@+id/age"
                     style="@style/text_10_black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

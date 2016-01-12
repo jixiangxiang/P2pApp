@@ -21,7 +21,7 @@
     <string name="title_activity_precharge">充值</string>
     <string name="title_activity_pwithdraw">提现</string>
     <string name="title_activity_pself_loan">借款总额</string>
-    <string name="title_activity_pself_invest">投资总额</string>
+    <string name="title_activity_pself_invest">我的投资</string>
     <string name="title_activity_prepayment">还款</string>
     <string name="title_activity_paccount">账户资产</string>
     <string name="title_activity_ptrade_record">交易记录</string>
@@ -51,4 +51,5 @@
     <string name="title_activity_precharge_static">充值</string>
     <string name="title_activity_ppay_pwd_find">找回支付密码</string>
     <string name="title_activity_pabout">关于</string>
+    <string name="title_activity_prisk_warn">风险提示</string>
 </resources>

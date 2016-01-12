@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="cn.com.infohold.p2papp.activity.PRiskWarnActivity">
+
+    <TextView
+        android:id="@+id/riskInfo"
+        style="@style/text_12_999"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="@android:color/white"
+        android:paddingBottom="@dimen/dp_25"
+        android:paddingLeft="@dimen/dp_20"
+        android:paddingRight="@dimen/dp_20"
+        android:paddingTop="@dimen/dp_25"
+        android:text="111" />
+</RelativeLayout>

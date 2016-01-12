@@ -19,10 +19,10 @@ import java.util.HashMap;
 import java.util.List;
 
 import cn.com.infohold.p2papp.R;
-import cn.com.infohold.p2papp.activity.PTransProjectDetailActivity;
+import cn.com.infohold.p2papp.activity.PProjectDetailActivity;
 import cn.com.infohold.p2papp.base.BaseFragment;
+import cn.com.infohold.p2papp.bean.InvestProjectBean;
 import cn.com.infohold.p2papp.bean.TransFerringBean;
-import cn.com.infohold.p2papp.bean.TransferProjectBean;
 import cn.com.infohold.p2papp.common.ApiUtils;
 import cn.com.infohold.p2papp.common.ResponseResult;
 import common.eric.com.ebaselibrary.adapter.EBaseAdapter;
@@ -112,14 +112,22 @@ public class PTransListFragment extends BaseFragment {
                     bundle.putInt("status", 4);
                 else
                     bundle.putInt("status", 1);
-                TransferProjectBean transferProjectBean = new TransferProjectBean();
-                transferProjectBean.setAssignmentseq(transFerringBean.getAssignmentseq());
-                transferProjectBean.setAssignmentstatus(transFerringBean.getProject_status());
-                transferProjectBean.setRate(Double.valueOf(transFerringBean.getPredict_profit()));
-                transferProjectBean.setProjectname(transFerringBean.getProject_name());
-                transferProjectBean.setLoanno(transFerringBean.getLoan_no());
-                bundle.putSerializable("transferProjectBean", transferProjectBean);
-                Intent intent = new Intent(getActivity(), PTransProjectDetailActivity.class);
+//                TransferProjectBean transferProjectBean = new TransferProjectBean();
+//                transferProjectBean.setAssignmentseq(transFerringBean.getAssignmentseq());
+//                transferProjectBean.setAssignmentstatus();
+//                transferProjectBean.setRate(Double.valueOf(transFerringBean.getPredict_profit()));
+//                transferProjectBean.setProjectname(transFerringBean.getProject_name());
+//                transferProjectBean.setLoanno();
+//                bundle.putSerializable("transferProjectBean", transferProjectBean);
+
+                InvestProjectBean investProjectBean = new InvestProjectBean();
+                investProjectBean.setStatus(transFerringBean.getProject_status());
+                investProjectBean.setLoanno(transFerringBean.getLoan_no());
+                investProjectBean.setUsertype(Integer.valueOf(transFerringBean.getUsertype()));
+                investProjectBean.setProjectname(transFerringBean.getProject_name());
+                investProjectBean.setAssignmentseq(transFerringBean.getAssignmentseq());
+                bundle.putSerializable("investProject", investProjectBean);
+                Intent intent = new Intent(getActivity(), PProjectDetailActivity.class);
                 intent.putExtras(bundle);
                 startActivityForResult(intent, 111);
             }

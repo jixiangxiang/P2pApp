@@ -9,7 +9,7 @@ public class InvestRecordBean extends EBaseModel {
     private String total_count;
     private String userid;
     private String investtime;
-    private Double investamount;
+    private String investamount;
 
     public InvestRecordBean() {
     }
@@ -38,11 +38,11 @@ public class InvestRecordBean extends EBaseModel {
         this.investtime = investtime;
     }
 
-    public Double getInvestamount() {
+    public String getInvestamount() {
         return investamount;
     }
 
-    public void setInvestamount(Double investamount) {
+    public void setInvestamount(String investamount) {
         this.investamount = investamount;
     }
 }

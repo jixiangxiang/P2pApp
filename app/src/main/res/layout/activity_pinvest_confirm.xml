@@ -193,7 +193,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_18"
             android:layout_marginRight="@dimen/dp_54"
-            android:text="还款期限" />
+            android:text="投资金额" />
 
     </RelativeLayout>
 

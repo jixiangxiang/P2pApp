@@ -1,5 +1,6 @@
 package cn.com.infohold.p2papp.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import java.util.List;
 
 import cn.com.infohold.p2papp.R;
 import cn.com.infohold.p2papp.activity.PProjectDetailActivity;
+import cn.com.infohold.p2papp.activity.PRiskWarnActivity;
 import cn.com.infohold.p2papp.activity.PTransProjectDetailActivity;
 import cn.com.infohold.p2papp.base.BaseFragment;
 import cn.com.infohold.p2papp.bean.ReviewBean;
@@ -167,11 +169,26 @@ public class PProjectDetailFragment extends BaseFragment implements View.OnClick
         reviewGrid = (GridView) view.findViewById(R.id.reviewGrid);
         loandesc = (TextView) view.findViewById(R.id.loandesc);
         safedesc = (TextView) view.findViewById(R.id.safedesc);
+
+        riskWarn.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
+        if (v == riskWarn) {
+            Intent intent = new Intent(getActivity(), PRiskWarnActivity.class);
+            intent.putExtra("riskdesc", data.getString("riskdesc"));
+            startActivity(intent);
+        }
+    }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser && isCreated) {
+            if (loanContract != null)
+                ((PProjectDetailActivity) getActivity()).setViewPagerHeight(this.loanContract.getHeight());
+        }
     }
 
 }

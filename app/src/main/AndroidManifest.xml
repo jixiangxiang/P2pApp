@@ -180,7 +180,10 @@
             android:label="@string/title_activity_precharge_static" />
         <activity
             android:name=".activity.PAboutActivity"
-            android:label="@string/title_activity_pabout"></activity>
+            android:label="@string/title_activity_pabout" />
+        <activity
+            android:name=".activity.PRiskWarnActivity"
+            android:label="@string/title_activity_prisk_warn"></activity>
     </application>
 
 </manifest>

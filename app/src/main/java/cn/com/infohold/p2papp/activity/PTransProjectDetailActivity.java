@@ -162,7 +162,7 @@ public class PTransProjectDetailActivity extends BaseActivity implements View.On
             switch (status) {
                 case 0:
                     bundle.putString("data", data.toJSONString());
-                    if (transferProjectBean.getAssignmentstatus().equals("01")) {
+                    if (transferProjectBean.getAssignmentstatus().equals("00")) {
                         toActivity(PTransConfirmActivity.class, bundle);
                     }
                     break;
@@ -244,10 +244,9 @@ public class PTransProjectDetailActivity extends BaseActivity implements View.On
                     break;
             }
             productNameShow.setText(incomeWay);
-            projectStartDate.setText(data.getString("projectStartDate"));
+            projectStartDate.setText(data.getString("paymentdate"));
             limitDay.setText(data.getString("assigneeinterest"));
             assignmentpricevalue.setText(data.getString("assignmentpricevalue"));
-            availInvestMoney.setText(data.getString("transferprince"));
         } else if (StringUtils.isEquals(requestMethod, ApiUtils.TRANSFERRINGBACKOUT)) {
             alertDialogNoCancel(response.getReturn_message(), new View.OnClickListener() {
                 @Override

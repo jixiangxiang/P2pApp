@@ -89,6 +89,9 @@ public class PProjectDetailActivity extends BaseActivity implements View.OnClick
             case 3:
                 toInvestBtn.setBackgroundResource(R.mipmap.p_to_trans_btn);
                 break;
+            case 4:
+                toInvestBtn.setBackgroundResource(R.mipmap.backout_trans_btn);
+                break;
             default:
                 if (investProjectBean.getStatus().equals("01")) {
                     toInvestBtn.setBackgroundResource(R.mipmap.p_invest_btn);
@@ -199,6 +202,11 @@ public class PProjectDetailActivity extends BaseActivity implements View.OnClick
                     bundle.putString("acno", getIntent().getExtras().getString("acno"));
                     toActivityForResult(PConfirmTransActivity.class, bundle, 111);
                     break;
+                case 4:
+                    params = new HashMap<>();
+                    params.put("assignmentseq", investProjectBean.getAssignmentseq());
+                    addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(this, params, ApiUtils.TRANSFERRINGBACKOUT), ApiUtils.TRANSFERRINGBACKOUT, true);
+                    break;
             }
         } else if (v == projectDetail) {
             questions.setSelected(v == questions);
@@ -232,54 +240,64 @@ public class PProjectDetailActivity extends BaseActivity implements View.OnClick
     @Override
     protected void doResponse(ResponseResult response) {
         data = response.getData();
-        Double investedMoney = Double.valueOf(data.getString("amount")) - Double.valueOf(data.getString("balance"));
-        Double angle = investedMoney / Double.valueOf(data.getString("amount")) * 360;
-        yieldCircle.setAngle(angle.intValue());
-        yieldCircle.invalidate();
-        yieldText.setText(data.getString("rate"));
-        ArrayList<Fragment> fragmentList = new ArrayList<Fragment>();
-        fragmentList.add(PProjectDetailFragment.newInstance(data.toJSONString(), null));
-        fragmentList.add(PInvestRecordFragment.newInstance(data.getString("projectno"), null));
-        if (StringUtils.isEmpty(investProjectBean.getNowstatus()) || (!investProjectBean.getNowstatus().equals("01") && !investProjectBean.getNowstatus().equals("02")))
-            fragmentList.add(PRepayPlanFragment.newInstance(null, investProjectBean.getLoanno()));
-        adapter = new FragmentPagerAdapter(getSupportFragmentManager(), fragmentList);
-        detailPager.setAdapter(adapter);
-        detailPager.setCurrentItem(0);
-        addAmountShow.setText(data.getString("addamount") + "元起投");
-        String incomeWay = "等额本息";
-        String incomeway = data.getString("incomeway");
-        if (StringUtils.isEmpty(incomeway)) incomeway = "1";
-        switch (Integer.valueOf(incomeway)) {
-            case 1:
-                incomeWay = "等额本息";
-                break;
-            case 2:
-                incomeWay = "等额本金";
-                break;
-            case 3:
-                incomeWay = "按月付息，一次还本";
-                break;
-            case 4:
-                incomeWay = "利随本清";
-                break;
-        }
-        if (data.getString("issuetype").equals("Y")) {
-            limitType.setText("年");
-        } else if (data.getString("issuetype").equals("M")) {
-            limitType.setText("月");
-        } else if (data.getString("issuetype").equals("D")) {
-            limitType.setText("天");
-        }
-        productNameShow.setText(incomeWay);
-        projectStartDate.setText(data.getString("begindate"));
-        projectEndDate.setText(data.getString("enddate"));
-        limitDay.setText(data.getString("issuenum"));
-        availInvestMoney.setText(data.getString("balance"));
-        pricevalue.setText(data.getString("amount"));
-        if (StringUtils.isEquals(requestMethod, ApiUtils.PROJECTDETAILPER)) {
+        if (StringUtils.isEquals(requestMethod, ApiUtils.TRANSFERRINGBACKOUT)) {
+            alertDialogNoCancel(response.getReturn_message(), new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    setResult(RESULT_OK);
+                    PProjectDetailActivity.this.finish();
+                }
+            });
+        } else {
+            Double investedMoney = Double.valueOf(data.getString("amount")) - Double.valueOf(data.getString("balance"));
+            Double angle = investedMoney / Double.valueOf(data.getString("amount")) * 360;
+            yieldCircle.setAngle(angle.intValue());
+            yieldCircle.invalidate();
+            yieldText.setText(data.getString("rate"));
+            ArrayList<Fragment> fragmentList = new ArrayList<Fragment>();
+            fragmentList.add(PProjectDetailFragment.newInstance(data.toJSONString(), null));
+            fragmentList.add(PInvestRecordFragment.newInstance(data.getString("projectno"), null));
+            if (StringUtils.isEmpty(investProjectBean.getNowstatus()) || (!investProjectBean.getNowstatus().equals("01") && !investProjectBean.getNowstatus().equals("02")))
+                fragmentList.add(PRepayPlanFragment.newInstance(null, investProjectBean.getLoanno()));
+            adapter = new FragmentPagerAdapter(getSupportFragmentManager(), fragmentList);
+            detailPager.setAdapter(adapter);
+            detailPager.setCurrentItem(0);
+            addAmountShow.setText(data.getString("addamount") + "元起投");
+            String incomeWay = "等额本息";
+            String incomeway = data.getString("incomeway");
+            if (StringUtils.isEmpty(incomeway)) incomeway = "1";
+            switch (Integer.valueOf(incomeway)) {
+                case 1:
+                    incomeWay = "等额本息";
+                    break;
+                case 2:
+                    incomeWay = "等额本金";
+                    break;
+                case 3:
+                    incomeWay = "按月付息，一次还本";
+                    break;
+                case 4:
+                    incomeWay = "利随本清";
+                    break;
+            }
+            if (data.getString("issuetype").equals("Y")) {
+                limitType.setText("年");
+            } else if (data.getString("issuetype").equals("M")) {
+                limitType.setText("月");
+            } else if (data.getString("issuetype").equals("D")) {
+                limitType.setText("天");
+            }
+            productNameShow.setText(incomeWay);
+            projectStartDate.setText(data.getString("begindate"));
+            projectEndDate.setText(data.getString("enddate"));
+            limitDay.setText(data.getString("issuenum"));
+            availInvestMoney.setText(data.getString("balance"));
+            pricevalue.setText(data.getString("amount"));
+            if (StringUtils.isEquals(requestMethod, ApiUtils.PROJECTDETAILPER)) {
 
-        } else if (StringUtils.isEquals(requestMethod, ApiUtils.PROJECTDETAILCUST)) {
+            } else if (StringUtils.isEquals(requestMethod, ApiUtils.PROJECTDETAILCUST)) {
 
+            }
         }
     }
 

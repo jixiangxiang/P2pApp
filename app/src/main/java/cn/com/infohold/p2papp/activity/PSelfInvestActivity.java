@@ -184,7 +184,7 @@ public class PSelfInvestActivity extends BaseActivity implements View.OnClickLis
         money = (TextView) view3.findViewById(R.id.money);
         money.setText(d3);
         question = (ImageView) view3.findViewById(R.id.question);
-        question.setVisibility(View.VISIBLE);
+        question.setVisibility(View.GONE);
         views.add(view3);
     }
 }

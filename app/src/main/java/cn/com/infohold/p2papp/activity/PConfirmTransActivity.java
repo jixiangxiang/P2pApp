@@ -1,6 +1,8 @@
 package cn.com.infohold.p2papp.activity;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -8,6 +10,7 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
 
+import java.text.DecimalFormat;
 import java.util.HashMap;
 
 import cn.com.infohold.p2papp.R;
@@ -21,6 +24,7 @@ public class PConfirmTransActivity extends BaseActivity implements View.OnClickL
     private TextView principal;
     private TextView interest;
     private TextView surplusLimit;
+    private TextView actualTransMoney;
     private EditText transShare;
     private EditText maxTransMoney;//剩余本金+剩余利息-折让金额
     private ImageButton confirmTransBtn;
@@ -85,6 +89,7 @@ public class PConfirmTransActivity extends BaseActivity implements View.OnClickL
         principal = (TextView) findViewById(R.id.principal);
         interest = (TextView) findViewById(R.id.interest);
         surplusLimit = (TextView) findViewById(R.id.surplusLimit);
+        actualTransMoney = (TextView) findViewById(R.id.actualTransMoney);
         transShare = (EditText) findViewById(R.id.transShare);
         maxTransMoney = (EditText) findViewById(R.id.maxTransMoney);
         confirmTransBtn = (ImageButton) findViewById(R.id.confirmTransBtn);
@@ -99,6 +104,24 @@ public class PConfirmTransActivity extends BaseActivity implements View.OnClickL
             interest.setText(data.getString("accrued_interest"));
             surplusLimit.setText(data.getString("leftDuration") + "/" + data.getString("holdingDuration"));
             maxTransMoney.setHint("最大折让金额：" + data.getString("interest"));
+            final DecimalFormat df = new DecimalFormat("0.00");
+            maxTransMoney.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    double actualtransmoney = data.getDouble("remain_principal") + data.getDouble("accrued_interest") - Double.valueOf(s.toString());
+                    actualTransMoney.setText("实际转让金额：" + df.format(actualtransmoney).toString() + "元");
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                }
+            });
         } else if (requestMethod.equals(ApiUtils.ASSIGNCONFIRM)) {
             alertDialogNoCancel(response.getReturn_message(), new View.OnClickListener() {
                 @Override

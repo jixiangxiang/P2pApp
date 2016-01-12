@@ -18,6 +18,7 @@ public class InvestProjectBean extends EBaseModel {
     private String cif_seq;
     private String projectname;
     private String issuetype;
+    private String assignmentseq;
 
     public InvestProjectBean() {
     }
@@ -124,5 +125,13 @@ public class InvestProjectBean extends EBaseModel {
 
     public void setIssuetype(String issuetype) {
         this.issuetype = issuetype;
+    }
+
+    public String getAssignmentseq() {
+        return assignmentseq;
+    }
+
+    public void setAssignmentseq(String assignmentseq) {
+        this.assignmentseq = assignmentseq;
     }
 }

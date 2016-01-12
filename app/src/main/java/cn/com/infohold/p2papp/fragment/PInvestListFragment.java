@@ -101,8 +101,8 @@ public class PInvestListFragment extends BaseFragment {
         investProjectBeans = new ArrayList<>();
         if (status == 1 || status == 3) {
             baseAdapter = new EBaseAdapter(getActivity(), investProjectBeans, R.layout.p_self_having_invest_item,
-                    new String[]{"project_name", "project_rate", "invest_amount", "loan_time_interval", "begin_date", "receivable_amount", "repay_way"},
-                    new int[]{R.id.projectName, R.id.preIncome, R.id.holdMoney, R.id.loanLimit, R.id.publicDate, R.id.receivableMoney, R.id.progress});
+                    new String[]{"project_name", "project_rate", "invest_amount", "loan_time_interval", "begin_date", "receivable_amount", "repay_way", "loan_time_interval_type"},
+                    new int[]{R.id.projectName, R.id.preIncome, R.id.holdMoney, R.id.loanLimit, R.id.publicDate, R.id.receivableMoney, R.id.progress, R.id.issuetype});
             baseAdapter.setViewBinder(new EBaseAdapter.ViewBinder() {
                 @Override
                 public boolean setViewValue(View view, Object o, String s) {

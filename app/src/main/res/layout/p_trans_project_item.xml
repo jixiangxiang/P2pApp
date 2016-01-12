@@ -87,7 +87,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="转让价格" />
+            android:text="转让价格  (元)" />
 
         <TextView
             style="@style/text_10_999"
@@ -151,7 +151,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="转让本金" />
+            android:text="转让本金  (元)" />
 
         <TextView
             style="@style/text_10_999"

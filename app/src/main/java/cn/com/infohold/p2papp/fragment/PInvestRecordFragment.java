@@ -19,6 +19,7 @@ import cn.com.infohold.p2papp.activity.PProjectDetailActivity;
 import cn.com.infohold.p2papp.base.BaseFragment;
 import cn.com.infohold.p2papp.bean.InvestRecordBean;
 import cn.com.infohold.p2papp.common.ApiUtils;
+import cn.com.infohold.p2papp.common.DensityUtils;
 import cn.com.infohold.p2papp.common.ResponseResult;
 import cn.com.infohold.p2papp.views.WrapScrollListView;
 import common.eric.com.ebaselibrary.adapter.EBaseAdapter;
@@ -46,7 +47,7 @@ public class PInvestRecordFragment extends BaseFragment {
     private EBaseAdapter baseAdapter;
     private boolean isVisibleToUser;
     private int page = 1;
-    private int pageSize = 10;
+    private int pageSize = 100;
 
     public PInvestRecordFragment() {
         // Required empty public constructor
@@ -92,14 +93,6 @@ public class PInvestRecordFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
         initialize(view);
         investRecord.setFocusable(false);
-        if (investRecordBeanList != null) {
-            investRecord.post(new Runnable() {
-                @Override
-                public void run() {
-                    ((PProjectDetailActivity) getActivity()).setViewPagerHeight(investRecord.getHeight());
-                }
-            });
-        }
     }
 
     private void initialize(View view) {
@@ -130,6 +123,12 @@ public class PInvestRecordFragment extends BaseFragment {
                 }
             });
             investRecord.setAdapter(baseAdapter);
+            investRecord.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    ((PProjectDetailActivity) getActivity()).setViewPagerHeight(investRecord.getHeight() + DensityUtils.dip2px(getActivity(), 10));
+                }
+            }, 500);
         }
     }
 
@@ -144,6 +143,9 @@ public class PInvestRecordFragment extends BaseFragment {
             params.put("projectno", mParam1);
             addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(this, params, ApiUtils.INVESTRECORDS), ApiUtils.INVESTRECORDS, true);
             isCreated = false;
+        } else {
+            if (investRecordBeanList != null && investRecordBeanList.size() > 0)
+                ((PProjectDetailActivity) getActivity()).setViewPagerHeight(investRecord.getHeight() + DensityUtils.dip2px(getActivity(), 10));
         }
     }
 }

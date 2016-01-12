@@ -132,6 +132,15 @@
             android:gravity="center_vertical"
             android:text="转让设置" />
 
+        <TextView
+            style="@style/text_11_red"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/dp_18"
+            android:gravity="center_vertical"
+            android:text="两天内未成交系统将自动下架" />
+
     </RelativeLayout>
 
     <RelativeLayout
@@ -213,6 +222,7 @@
         android:gravity="center_vertical">
 
         <TextView
+            android:id="@+id/actualTransMoney"
             style="@style/text_13_red"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -230,4 +240,28 @@
         android:layout_marginTop="@dimen/dp_30"
         android:background="@mipmap/p_confirm_trans_btn"
         android:onClick="onClick" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/investBtn"
+        android:layout_marginBottom="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_20"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/text_12_999"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_18"
+            android:text="点击“确认转让”按钮，即表示您同意" />
+
+        <TextView
+            android:id="@+id/termSheet"
+            style="@style/text_12_blue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="《小草金服债权转让协议》" />
+    </LinearLayout>
 </LinearLayout>
