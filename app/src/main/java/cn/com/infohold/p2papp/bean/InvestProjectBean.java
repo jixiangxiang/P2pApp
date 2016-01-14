@@ -19,6 +19,7 @@ public class InvestProjectBean extends EBaseModel {
     private String projectname;
     private String issuetype;
     private String assignmentseq;
+    private String projectno;
 
     public InvestProjectBean() {
     }
@@ -133,5 +134,13 @@ public class InvestProjectBean extends EBaseModel {
 
     public void setAssignmentseq(String assignmentseq) {
         this.assignmentseq = assignmentseq;
+    }
+
+    public String getProjectno() {
+        return projectno;
+    }
+
+    public void setProjectno(String projectno) {
+        this.projectno = projectno;
     }
 }

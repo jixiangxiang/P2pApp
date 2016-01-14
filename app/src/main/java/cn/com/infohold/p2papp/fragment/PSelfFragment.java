@@ -280,9 +280,11 @@ public class PSelfFragment extends BaseFragment implements View.OnClickListener 
         income.setText(data.getString("yesterday_profit"));
         interest.setText(data.getString("all_profit_amount"));
         investMoney.setText(data.getString("all_loan_out_amount"));
+        if (data.getInteger("transfer_num") > 0) {
+            creditoTrans.setText("转让" + data.getString("transfer_num") + "笔");
+        }
         loanMoney.setText(data.getString("my_loan_amount"));
-        transRecord.setText(data.getString("transfer_num"));
-        creditoTrans.setText(data.getString("transfer_num"));
+
         bankCount.setText(data.getString("bank_card_num") + " 张");
         userName.setText(data.getString("nickname"));
     }

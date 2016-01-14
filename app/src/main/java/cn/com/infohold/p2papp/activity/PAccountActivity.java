@@ -170,7 +170,7 @@ public class PAccountActivity extends BaseActivity implements View.OnClickListen
         SpannableString s = new SpannableString("总资产\n\n" + data.getString("asset_amount"));
         s.setSpan(new RelativeSizeSpan(1.5f), 0, 3, 0);
         s.setSpan(new ForegroundColorSpan(Color.GRAY), 0, 3, 0);
-        s.setSpan(new StyleSpan(Typeface.ITALIC), s.length() - 3, s.length(), 0);
+        s.setSpan(new StyleSpan(Typeface.NORMAL), s.length() - 3, s.length(), 0);
         s.setSpan(new ForegroundColorSpan(Color.rgb(0, 0, 0)), s.length() - 3, s.length(), 0);
         return s;
     }

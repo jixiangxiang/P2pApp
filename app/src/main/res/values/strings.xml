@@ -20,7 +20,7 @@
     <string name="title_activity_paccount_set">账户设置</string>
     <string name="title_activity_precharge">充值</string>
     <string name="title_activity_pwithdraw">提现</string>
-    <string name="title_activity_pself_loan">借款总额</string>
+    <string name="title_activity_pself_loan">我的借款</string>
     <string name="title_activity_pself_invest">我的投资</string>
     <string name="title_activity_prepayment">还款</string>
     <string name="title_activity_paccount">账户资产</string>

@@ -137,6 +137,7 @@ public class PLoanListFragment extends BaseFragment {
                 investProjectBean.setLoanno(loanProjectBean.getLoan_no());
                 investProjectBean.setStatus(String.valueOf(loanProjectBean.getStatus()));
                 investProjectBean.setUsertype(ApiUtils.getLoginUserType(getActivity()));
+                investProjectBean.setProjectno(loanProjectBean.getProjectno());
                 bundle.putSerializable("investProject", investProjectBean);
                 ((BaseActivity) getActivity()).toActivityForResult(PProjectDetailActivity.class, bundle, 111);
             }

@@ -23,6 +23,7 @@ public class LoanProjectBean extends EBaseModel {
     private String totalperiod;
     private String limitPeriod;
     private String repayamtperiodly;
+    private String projectno;
     private Integer status;
     private Integer usertype;
 
@@ -180,6 +181,14 @@ public class LoanProjectBean extends EBaseModel {
 
     public void setRepayamtperiodly(String repayamtperiodly) {
         this.repayamtperiodly = repayamtperiodly;
+    }
+
+    public String getProjectno() {
+        return projectno;
+    }
+
+    public void setProjectno(String projectno) {
+        this.projectno = projectno;
     }
 
     public Integer getStatus() {

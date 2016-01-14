@@ -54,7 +54,7 @@ public class OLoginActivity extends BaseActivity implements View.OnClickListener
                 Map<String, String> map = new HashMap<String, String>();
                 map.put("acct", loginPhoneText.getText().toString());
                 map.put("pass", loginPwdText.getText().toString());
-                map.put("sign", ApiUtils.SIGN);
+                //map.put("sign", ApiUtils.SIGN);
                 return map;
             }
         };
