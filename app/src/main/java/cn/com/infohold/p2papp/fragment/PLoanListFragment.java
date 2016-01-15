@@ -124,7 +124,7 @@ public class PLoanListFragment extends BaseFragment {
         } else if (status == 2) {
             baseAdapter = new EBaseAdapter(getActivity(), investProjectBeans, R.layout.p_loaned_project_item,
                     new String[]{"projectname", "loanrate", "loanamt", "debtdate", "unpaidperiod", "unpaid_pi", "repayway"},
-                    new int[]{R.id.projectName, R.id.loanRates, R.id.loanMoney, R.id.loanLimit, R.id.getMoneyDate, R.id.repayMoney, R.id.repayWay});
+                    new int[]{R.id.projectName, R.id.loanRates, R.id.loanMoney, R.id.loanLimit, R.id.getMoneyDate, R.id.repayMoney, R.id.repayway});
         }
         loanList.setAdapter(baseAdapter);
         loanList.setOnItemClickListener(new AdapterView.OnItemClickListener() {

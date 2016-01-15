@@ -138,11 +138,12 @@ public class OOscarFragment extends BaseFragment implements View.OnClickListener
     public void onClick(View v) {
         if (v == messageBtn) {
             ((BaseActivity) getActivity()).toActivity(OHelpActivity.class);
+        } else if (v == giftArea) {
+            ((BaseActivity) getActivity()).toActivity(OTransCardsActivity.class);
         }
     }
 
     private void initialize(View view) {
-
         messageBtn = (ImageView) view.findViewById(R.id.messageBtn);
         topBar = (RelativeLayout) view.findViewById(R.id.topBar);
         rechargePhoneArea = (LinearLayout) view.findViewById(R.id.rechargePhoneArea);
@@ -150,5 +151,7 @@ public class OOscarFragment extends BaseFragment implements View.OnClickListener
         rechargeOilArea = (LinearLayout) view.findViewById(R.id.rechargeOilArea);
         giftArea = (LinearLayout) view.findViewById(R.id.giftArea);
         oscarServiceList = (WrapScrollListView) view.findViewById(R.id.oscarServiceList);
+
+        giftArea.setOnClickListener(this);
     }
 }

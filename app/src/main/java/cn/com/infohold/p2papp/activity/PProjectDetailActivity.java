@@ -266,7 +266,7 @@ public class PProjectDetailActivity extends BaseActivity implements View.OnClick
             adapter = new FragmentPagerAdapter(getSupportFragmentManager(), fragmentList);
             detailPager.setAdapter(adapter);
             detailPager.setCurrentItem(0);
-            addAmountShow.setText(data.getString("addamount") + "元起投");
+            addAmountShow.setText(data.getString("beginamount") + "元起投");
             String incomeWay = "等额本息";
             String incomeway = data.getString("incomeway");
             if (StringUtils.isEmpty(incomeway)) incomeway = "1";

@@ -69,8 +69,8 @@ public class PInvestProjectActivity extends BaseActivity implements View.OnClick
         investProjectList.addFooterView(footView);
         investProjectBeans = new ArrayList<>();
         baseAdapter = new EBaseAdapter(this, investProjectBeans, R.layout.p_invest_project_item,
-                new String[]{"rate", "balance", "issuenum", "nowstatus", "projectname","issuetype"},
-                new int[]{R.id.preIncome, R.id.investableMoney, R.id.loanLimit, R.id.investBtn, R.id.projectname,R.id.limitType});
+                new String[]{"rate", "balance", "issuenum", "nowstatus", "projectname", "issuetype"},
+                new int[]{R.id.preIncome, R.id.investableMoney, R.id.loanLimit, R.id.investBtn, R.id.projectname, R.id.limitType});
         baseAdapter.setViewBinder(new EBaseAdapter.ViewBinder() {
             @Override
             public boolean setViewValue(View view, Object o, String s) {
@@ -117,6 +117,8 @@ public class PInvestProjectActivity extends BaseActivity implements View.OnClick
                     params.put("cif_seq", "2");
                     params.put("offset", String.valueOf(offset * qrsize));
                     params.put("qrsize", String.valueOf(qrsize));
+                    if (!StringUtils.isEmpty(typemethod))
+                        params.put("typemethod", typemethod);
                     addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(PInvestProjectActivity.this, params, ApiUtils.PROJECT_LIST), false);
                     isLoadMore = true;
                 }
@@ -136,6 +138,8 @@ public class PInvestProjectActivity extends BaseActivity implements View.OnClick
                 params.put("cif_seq", "2");
                 params.put("offset", String.valueOf(offset * qrsize));
                 params.put("qrsize", String.valueOf(qrsize));
+                if (!StringUtils.isEmpty(typemethod))
+                    params.put("typemethod", typemethod);
                 addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(PInvestProjectActivity.this, params, ApiUtils.PROJECT_LIST), false);
             }
         });

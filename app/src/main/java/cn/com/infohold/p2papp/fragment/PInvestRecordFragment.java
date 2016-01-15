@@ -16,6 +16,7 @@ import java.util.List;
 
 import cn.com.infohold.p2papp.R;
 import cn.com.infohold.p2papp.activity.PProjectDetailActivity;
+import cn.com.infohold.p2papp.activity.PTransProjectDetailActivity;
 import cn.com.infohold.p2papp.base.BaseFragment;
 import cn.com.infohold.p2papp.bean.InvestRecordBean;
 import cn.com.infohold.p2papp.common.ApiUtils;
@@ -126,7 +127,11 @@ public class PInvestRecordFragment extends BaseFragment {
             investRecord.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    ((PProjectDetailActivity) getActivity()).setViewPagerHeight(investRecord.getHeight() + DensityUtils.dip2px(getActivity(), 10));
+                    if (getActivity() instanceof PProjectDetailActivity)
+                        ((PProjectDetailActivity) getActivity()).setViewPagerHeight(investRecord.getHeight() + DensityUtils.dip2px(getActivity(), 10));
+                    else if (getActivity() instanceof PTransProjectDetailActivity)
+                        ((PTransProjectDetailActivity) getActivity()).setViewPagerHeight(investRecord.getHeight() + DensityUtils.dip2px(getActivity(), 10));
+
                 }
             }, 500);
         }
@@ -144,8 +149,12 @@ public class PInvestRecordFragment extends BaseFragment {
             addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(this, params, ApiUtils.INVESTRECORDS), ApiUtils.INVESTRECORDS, true);
             isCreated = false;
         } else {
-            if (investRecordBeanList != null && investRecordBeanList.size() > 0)
-                ((PProjectDetailActivity) getActivity()).setViewPagerHeight(investRecord.getHeight() + DensityUtils.dip2px(getActivity(), 10));
+            if (investRecordBeanList != null && investRecordBeanList.size() > 0) {
+                if (getActivity() instanceof PProjectDetailActivity)
+                    ((PProjectDetailActivity) getActivity()).setViewPagerHeight(investRecord.getHeight() + DensityUtils.dip2px(getActivity(), 10));
+                else if (getActivity() instanceof PTransProjectDetailActivity)
+                    ((PTransProjectDetailActivity) getActivity()).setViewPagerHeight(investRecord.getHeight() + DensityUtils.dip2px(getActivity(), 10));
+            }
         }
     }
 }

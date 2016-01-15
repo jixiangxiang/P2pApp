@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:text="注册手机：" />
+            android:text="新手机号码：" />
 
         <TextView
             android:id="@+id/phoneText"

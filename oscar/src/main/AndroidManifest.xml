@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.eric.oscar">
+
     <!-- 访问网络的权限 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- 访问网络状态的权限 -->
@@ -11,7 +12,7 @@
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
 
     <application
-        android:name="common.eric.com.ebaselibrary.common.EBaseApplication"
+        android:name=".common.BaseApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -83,7 +84,13 @@
             android:label="@string/title_activity_otrans_cards" />
         <activity
             android:name=".activity.OTransListActivity"
-            android:label="@string/title_activity_otrans_list"></activity>
+            android:label="@string/title_activity_otrans_list" />
+        <activity
+            android:name=".activity.OTransConfirmActivity"
+            android:label="@string/title_activity_otrans_list" />
+        <activity
+            android:name=".activity.OBankListActivity"
+            android:label="@string/title_activity_obank_list"></activity>
     </application>
 
 </manifest>

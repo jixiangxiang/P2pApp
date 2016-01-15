@@ -38,6 +38,14 @@ public class TradeRecordBean extends EBaseModel {
             return "+" + amount;
     }
 
+    public int getTrs_flag() {
+        return trs_flag;
+    }
+
+    public String getTrs_date() {
+        return trs_date;
+    }
+
     public void setAmount(String amount) {
         this.amount = amount;
     }

@@ -48,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_125"
                 android:layout_marginTop="@dimen/dp_50"
-                android:text="￥1025.00" />
+                android:text="0.00" />
 
             <ImageView
                 android:id="@+id/arrowRight"
@@ -126,7 +126,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="@dimen/dp_60"
                 android:gravity="center_vertical"
-                android:text="张三" />
+                android:text="" />
 
             <View
                 android:layout_width="match_parent"
@@ -165,13 +165,14 @@
                 android:src="@mipmap/o_arrow_right_gray" />
 
             <TextView
+                android:id="@+id/idCard"
                 style="@style/text_13_55"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="@dimen/dp_60"
                 android:gravity="center_vertical"
-                android:text="110102230123198902281101" />
+                android:text="" />
 
             <View
                 android:layout_width="match_parent"

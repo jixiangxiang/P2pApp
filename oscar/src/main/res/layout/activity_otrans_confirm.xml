@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context="com.example.eric.oscar.activity.OTransListActivity">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_165"
+            android:layout_marginTop="@dimen/dp_10"
+            android:background="@android:color/white"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/dp_20"
+            android:paddingRight="@dimen/dp_20">
+
+            <TextView
+                style="@style/text_14_55"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_25"
+                android:text="兑换订单：" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_line"
+                android:layout_marginTop="@dimen/dp_10"
+                android:background="@color/o_55_color" />
+
+            <TextView
+                android:id="@+id/orderFrom"
+                style="@style/text_14_55"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:text="来自亚马逊礼品卡兑换的订单交易" />
+
+            <TextView
+                android:id="@+id/orderNo"
+                style="@style/text_14_55"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_5"
+                android:text="订单编号：" />
+
+            <TextView
+                android:id="@+id/phone"
+                style="@style/text_14_55"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_5"
+                android:text="接收手机号：" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10">
+                <TextView
+                    style="@style/text_14_55"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@id/money"
+                    android:text="应付金额：" />
+                <TextView
+                    android:id="@+id/money"
+                    style="@style/text_14_400"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/dp_20"
+                    android:text="0" />
+                <TextView
+                    style="@style/text_14_55"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="元" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <TextView
+            style="@style/text_12_white"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_20"
+            android:background="@color/o_home_top_bgcolor"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/dp_20"
+            android:text="已绑定奥斯卡" />
+
+        <RelativeLayout
+            android:id="@+id/topArea"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            android:background="@android:color/white"
+            android:gravity="center_vertical">
+
+            <TextView
+                style="@style/text_13_55"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_30"
+                android:text="卡号"
+                android:textStyle="bold" />
+
+            <TextView
+                style="@style/text_13_55"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_30"
+                android:text="卡号"
+                android:textStyle="bold" />
+
+            <TextView
+                style="@style/text_13_55"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_170"
+                android:text="绑定日期"
+                android:textStyle="bold" />
+
+            <TextView
+                style="@style/text_13_55"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_270"
+                android:text="余额（元）"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <com.example.eric.oscar.views.WrapScrollListView
+            android:id="@+id/oscarList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/topArea"
+            android:background="@android:color/white"
+            android:divider="@color/o_line_bg"
+            android:dividerHeight="@dimen/dp_line"
+            android:paddingLeft="@dimen/dp_20"
+            android:paddingRight="@dimen/dp_20">
+
+        </com.example.eric.oscar.views.WrapScrollListView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_55"
+            android:layout_gravity="center_horizontal"
+            android:background="@android:color/white"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/text_14_55"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="个人账户支付密码：" />
+
+            <EditText
+                android:id="@+id/payPwd"
+                android:layout_width="@dimen/dp_155"
+                android:layout_height="@dimen/dp_42"
+                android:background="@drawable/edittext_border_conner"
+                android:inputType="phone" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/confirmBtn"
+            style="@style/text_16_white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/dp_18"
+            android:layout_marginTop="@dimen/dp_18"
+            android:background="@mipmap/o_login_btn"
+            android:onClick="onClick"
+            android:text="确认付款" />
+    </LinearLayout>
+</ScrollView>

@@ -65,7 +65,7 @@ public class PTradeRecordActivity extends BaseActivity {
                     page++;
                     params = new HashMap<>();
                     params.put("mobilephone", ApiUtils.getLoginUserPhone(PTradeRecordActivity.this));
-                    params.put("offset", String.valueOf(page));
+                    params.put("offset", String.valueOf(page * pageSize));
                     params.put("qrsize", String.valueOf(pageSize));
                     addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(PTradeRecordActivity.this, params, ApiUtils.TRANSQUERY), ApiUtils.TRANSQUERY, false);
                     isLoadMore = true;

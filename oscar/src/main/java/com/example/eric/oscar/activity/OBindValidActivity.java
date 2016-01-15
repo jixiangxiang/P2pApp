@@ -7,14 +7,24 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.toolbox.StringRequest;
 import com.example.eric.oscar.R;
+import com.example.eric.oscar.common.ApiUtils;
 import com.example.eric.oscar.common.BaseActivity;
+import com.example.eric.oscar.common.ResponseResult;
+import com.example.eric.oscar.common.SPUtils;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class OBindValidActivity extends BaseActivity implements View.OnClickListener {
 
     private TextView oscarNo;
     private TextView oscarPayPwd;
     private Button confirmBindBtn;
+    private StringRequest request;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,11 +36,27 @@ public class OBindValidActivity extends BaseActivity implements View.OnClickList
     protected void initView() {
         initialize();
         initTitleText(getString(R.string.title_activity_obind_valid), BaseActivity.TITLE_CENTER);
+        initHandler();
+    }
+
+    private void initHandler() {
+        request = new StringRequest(Request.Method.POST, ApiUtils.BIND, this, this) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> map = new HashMap<String, String>();
+                map.put("card", oscarNo.getText().toString());
+                map.put("acct", SPUtils.getString(OBindValidActivity.this, "acct"));
+                map.put("pass", oscarPayPwd.getText().toString());
+                return map;
+            }
+        };
     }
 
     @Override
     public void onClick(View v) {
-
+        if (v == confirmBindBtn) {
+            addToRequestQueue(request, true);
+        }
     }
 
     @Override
@@ -54,5 +80,16 @@ public class OBindValidActivity extends BaseActivity implements View.OnClickList
         oscarNo = (TextView) findViewById(R.id.oscarNo);
         oscarPayPwd = (TextView) findViewById(R.id.oscarPayPwd);
         confirmBindBtn = (Button) findViewById(R.id.confirmBindBtn);
+    }
+
+    @Override
+    protected void doResponse(ResponseResult response) {
+        alertDialogNoCancel(response.getReturn_message(), new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setResult(RESULT_OK);
+                OBindValidActivity.this.finish();
+            }
+        });
     }
 }

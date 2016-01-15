@@ -45,6 +45,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Response
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.activity_base);
+        ((BaseApplication) BaseApplication.getInstance()).addActivity(this);
     }
 
     public void setContentView(int layoutId) {

@@ -121,7 +121,7 @@
             android:text="0.00" />
 
         <TextView
-            android:id="@+id/repayWay"
+            android:id="@+id/repayway"
             style="@style/text_10_777"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

@@ -1,14 +1,21 @@
 package com.example.eric.oscar.fragment;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.NumberPicker;
 
+import com.alibaba.fastjson.JSONArray;
 import com.example.eric.oscar.R;
 import com.example.eric.oscar.activity.OTransListActivity;
 import com.example.eric.oscar.bean.CardBean;
@@ -44,6 +51,9 @@ public class OCardTransFragment extends BaseFragment implements View.OnClickList
     private EditText totalMoney;
     private Button transBtn;
     private List<CardBean> cardBeans;
+    private NumberPicker numberPicker;
+    private AlertDialog numberAlert;
+    private int position = 0;
 
     public OCardTransFragment() {
         // Required empty public constructor
@@ -88,15 +98,22 @@ public class OCardTransFragment extends BaseFragment implements View.OnClickList
         super.onViewCreated(view, savedInstanceState);
         initialize(view);
         cardBeans = new ArrayList<>();
-        cardBeans.add(new CardBean(50.00, 1));
-        cardBeans.add(new CardBean(100.00, 1));
-        cardBeans.add(new CardBean(200.00, 1));
-        cardBeans.add(new CardBean(300.00, 1));
-        cardBeans.add(new CardBean(500.00, 1));
-        cardBeans.add(new CardBean(1000.00, 1));
+        cardBeans.add(new CardBean(50.00, 0));
+        cardBeans.add(new CardBean(100.00, 0));
+        cardBeans.add(new CardBean(200.00, 0));
+        cardBeans.add(new CardBean(300.00, 0));
+        cardBeans.add(new CardBean(500.00, 0));
+        cardBeans.add(new CardBean(1000.00, 0));
         baseAdapter = new EBaseAdapter(getActivity(), cardBeans, R.layout.list_card_bar_item,
                 new String[]{"bar", "count"}, new int[]{R.id.bar, R.id.count});
         cardBarList.setAdapter(baseAdapter);
+        cardBarList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                OCardTransFragment.this.position = position;
+                initAlertDialog();
+            }
+        });
 
         transBtn.setOnClickListener(this);
 
@@ -105,7 +122,10 @@ public class OCardTransFragment extends BaseFragment implements View.OnClickList
     @Override
     public void onClick(View v) {
         if (v == transBtn) {
-            ((BaseActivity) getActivity()).toActivity(OTransListActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("cardBeans", JSONArray.toJSONString(cardBeans));
+            bundle.putString("totalMoney", totalMoney.getText().toString());
+            ((BaseActivity) getActivity()).toActivity(OTransListActivity.class, bundle);
         }
     }
 
@@ -114,5 +134,39 @@ public class OCardTransFragment extends BaseFragment implements View.OnClickList
         cardBarList = (WrapScrollListView) view.findViewById(R.id.cardBarList);
         totalMoney = (EditText) view.findViewById(R.id.totalMoney);
         transBtn = (Button) view.findViewById(R.id.transBtn);
+
+        numberPicker = new NumberPicker(getActivity());
+        numberPicker.setMinValue(0);
+        numberPicker.setMaxValue(100);
+        numberPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
+
+        numberAlert = new AlertDialog.Builder(getActivity())
+                .setMessage("请选择张数").setCancelable(true)
+                .setView(numberPicker)
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        cardBeans.get(position).setCount(numberPicker.getValue());
+                        baseAdapter.setmData(cardBeans);
+                        baseAdapter.notifyDataSetChanged();
+                        Double money = 0.0;
+                        for (CardBean cardBean : cardBeans) {
+                            money = money + cardBean.getCount() * cardBean.getBar();
+                        }
+                        totalMoney.setText(String.valueOf(money));
+                        numberPicker.setValue(0);
+                    }
+                }).create();
+
+    }
+
+    private void initAlertDialog() {
+        if (numberAlert != null && numberAlert.isShowing()) {
+            numberAlert.dismiss();
+        }
+        Window window = numberAlert.getWindow();
+        window.setGravity(Gravity.BOTTOM);
+        window.setWindowAnimations(R.style.dialog_animations);
+        numberAlert.show();
     }
 }

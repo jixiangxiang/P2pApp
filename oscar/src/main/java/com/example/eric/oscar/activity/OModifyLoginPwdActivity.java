@@ -4,11 +4,33 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.toolbox.StringRequest;
 import com.example.eric.oscar.R;
+import com.example.eric.oscar.common.ApiUtils;
 import com.example.eric.oscar.common.BaseActivity;
+import com.example.eric.oscar.common.ResponseResult;
+import com.example.eric.oscar.common.SPUtils;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import common.eric.com.ebaselibrary.util.StringUtils;
 
 public class OModifyLoginPwdActivity extends BaseActivity implements View.OnClickListener {
+
+    private TextView phoneText;
+    private EditText oldLoginPwd;
+    private EditText newLoginPwd;
+    private EditText confirmPwdText;
+    private Button nextStepBtn;
+
+    private StringRequest request;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,13 +40,48 @@ public class OModifyLoginPwdActivity extends BaseActivity implements View.OnClic
 
     @Override
     protected void initView() {
+        initialize();
         initTitleText(getString(R.string.title_activity_omodify_login_pwd), BaseActivity.TITLE_CENTER);
+        initHandler();
+        phoneText.setText(SPUtils.getString(this, "acct"));
 
+    }
+
+    private void initHandler() {
+        request = new StringRequest(Request.Method.POST, ApiUtils.EDITLP, this, this) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> map = new HashMap<>();
+                map.put("opass", oldLoginPwd.getText().toString());
+                map.put("pass", newLoginPwd.getText().toString());
+                map.put("sign", SPUtils.getString(OModifyLoginPwdActivity.this, "sign"));
+                return map;
+            }
+        };
     }
 
     @Override
     public void onClick(View v) {
+        if (v == nextStepBtn) {
+            if (StringUtils.isEmpty(oldLoginPwd.getText().toString())) {
+                showToastShort("请输入旧登录密码");
+                return;
+            }
+            if (StringUtils.isEmpty(newLoginPwd.getText().toString())) {
+                showToastShort("请输入新登录密码");
+                return;
+            }
+            if (StringUtils.isEmpty(confirmPwdText.getText().toString())) {
+                showToastShort("请输入确认新登录密码");
+                return;
+            }
+            if (!StringUtils.isEquals(confirmPwdText.getText().toString(), newLoginPwd.getText().toString())) {
+                showToastShort("请确认两次新登录密码输入一致");
+                return;
+            }
 
+            addToRequestQueue(request, true);
+        }
     }
 
     @Override
@@ -41,5 +98,23 @@ public class OModifyLoginPwdActivity extends BaseActivity implements View.OnClic
                 break;
         }
         return true;
+    }
+
+    private void initialize() {
+        phoneText = (TextView) findViewById(R.id.phoneText);
+        oldLoginPwd = (EditText) findViewById(R.id.oldLoginPwd);
+        newLoginPwd = (EditText) findViewById(R.id.newLoginPwd);
+        confirmPwdText = (EditText) findViewById(R.id.confirmPwdText);
+        nextStepBtn = (Button) findViewById(R.id.nextStepBtn);
+    }
+
+    @Override
+    protected void doResponse(ResponseResult response) {
+        alertDialogNoCancel(response.getReturn_message(), new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                OModifyLoginPwdActivity.this.finish();
+            }
+        });
     }
 }

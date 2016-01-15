@@ -1,5 +1,6 @@
 package com.example.eric.oscar.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -10,13 +11,22 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.toolbox.StringRequest;
 import com.example.eric.oscar.R;
 import com.example.eric.oscar.activity.OAccountActivity;
 import com.example.eric.oscar.activity.OAuthenticationActivity;
 import com.example.eric.oscar.activity.OChangePhoneActivity;
 import com.example.eric.oscar.activity.OModifyLoginPwdActivity;
 import com.example.eric.oscar.activity.OSetPayPwdActivity;
+import com.example.eric.oscar.common.ApiUtils;
 import com.example.eric.oscar.common.BaseActivity;
+import com.example.eric.oscar.common.ResponseResult;
+import com.example.eric.oscar.common.SPUtils;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -49,6 +59,10 @@ public class OSelfFragment extends BaseFragment implements View.OnClickListener 
     private RelativeLayout payPwdArea;
     private RelativeLayout registPhoneArea;
     private Button loginOutBtn;
+    private Boolean isOncreate = false;
+
+    private StringRequest request;
+    private TextView idCard;
 
     public OSelfFragment() {
         // Required empty public constructor
@@ -79,6 +93,8 @@ public class OSelfFragment extends BaseFragment implements View.OnClickListener 
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        isOncreate = true;
+        initHandler();
     }
 
     @Override
@@ -99,6 +115,17 @@ public class OSelfFragment extends BaseFragment implements View.OnClickListener 
         ((ViewGroup) arrowRight.getParent()).setOnClickListener(this);
     }
 
+    private void initHandler() {
+        request = new StringRequest(Request.Method.POST, ApiUtils.ACCTINFO, this, this) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> map = new HashMap<>();
+                map.put("sign", SPUtils.getString(getActivity(), "sign"));
+                return map;
+            }
+        };
+    }
+
     @Override
     public void onClick(View v) {
         if (v == loginPwdArea) {
@@ -111,6 +138,10 @@ public class OSelfFragment extends BaseFragment implements View.OnClickListener 
             ((BaseActivity) getActivity()).toActivity(OAccountActivity.class);
         } else if (v == validateArea) {
             ((BaseActivity) getActivity()).toActivity(OAuthenticationActivity.class);
+        } else if (v == loginOutBtn) {
+            SPUtils.setString(getActivity(), "isLogin", "false");
+            SPUtils.setString(getActivity(), "acct", "");
+            showLogin();
         }
     }
 
@@ -119,6 +150,7 @@ public class OSelfFragment extends BaseFragment implements View.OnClickListener 
         username = (TextView) view.findViewById(R.id.username);
         usernameText = (TextView) view.findViewById(R.id.usernameText);
         totalMoney = (TextView) view.findViewById(R.id.totalMoney);
+        idCard = (TextView) view.findViewById(R.id.idCard);
         arrowRight = (ImageView) view.findViewById(R.id.arrowRight);
         headImgArea = (RelativeLayout) view.findViewById(R.id.headImgArea);
         nameArea = (RelativeLayout) view.findViewById(R.id.nameArea);
@@ -129,5 +161,36 @@ public class OSelfFragment extends BaseFragment implements View.OnClickListener 
         payPwdArea = (RelativeLayout) view.findViewById(R.id.payPwdArea);
         registPhoneArea = (RelativeLayout) view.findViewById(R.id.registPhoneArea);
         loginOutBtn = (Button) view.findViewById(R.id.loginOutBtn);
+        loginOutBtn.setOnClickListener(this);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == getActivity().RESULT_FIRST_USER && resultCode == getActivity().RESULT_OK) {
+            addToRequestQueue(request, true);
+        }
+    }
+
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isOncreate && isVisibleToUser) {
+            isOncreate = false;
+            if (!SPUtils.getString(getActivity(), "isLogin").equals("true")) {
+                showLogin();
+                return;
+            }
+            addToRequestQueue(request, true);
+        }
+    }
+
+    @Override
+    protected void doResponse(ResponseResult response) {
+        totalMoney.setText(response.getData().getString("assets"));
+        username.setText(response.getData().getString("userName"));
+        usernameText.setText(response.getData().getString("realName"));
+        idCard.setText(response.getData().getString("idCard"));
     }
 }

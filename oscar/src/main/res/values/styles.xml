@@ -189,6 +189,11 @@
         <item name="android:textColor">@color/o_55_color</item>
     </style>
 
+    <style name="text_14_400">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/p_400_color</item>
+    </style>
+
     <style name="text_15_black">
         <item name="android:textSize">15sp</item>
         <item name="android:textColor">@android:color/black</item>

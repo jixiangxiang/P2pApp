@@ -14,6 +14,7 @@ import com.example.eric.oscar.R;
 import com.example.eric.oscar.common.ApiUtils;
 import com.example.eric.oscar.common.BaseActivity;
 import com.example.eric.oscar.common.ResponseResult;
+import com.example.eric.oscar.common.SPUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -97,11 +98,11 @@ public class OLoginActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     protected void doResponse(ResponseResult response) {
-        alertDialogNoCancel(response.getReturn_message(), new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                OLoginActivity.this.finish();
-            }
-        });
+        SPUtils.setString(this, "isLogin", "true");
+        SPUtils.setString(this, "acct", loginPhoneText.getText().toString());
+        if (response.getData() != null)
+            SPUtils.setString(this, "sign", response.getData().getString("sign"));
+        setResult(RESULT_OK);
+        OLoginActivity.this.finish();
     }
 }

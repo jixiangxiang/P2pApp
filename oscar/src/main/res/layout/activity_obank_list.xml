@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.eric.oscar.activity.OBankListActivity">
+
+    <ListView
+        android:id="@+id/bankList"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:background="@android:color/white"
+        android:divider="@android:color/white"
+        android:dividerHeight="@dimen/dp_10">
+
+    </ListView>
+
+    <Button
+        android:id="@+id/addBankBtn"
+        style="@style/text_16_white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bankList"
+        android:layout_marginLeft="@dimen/dp_8"
+        android:layout_marginRight="@dimen/dp_8"
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="@mipmap/o_login_btn"
+        android:text="添加银行卡" />
+</RelativeLayout>

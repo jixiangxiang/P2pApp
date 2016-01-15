@@ -11,7 +11,10 @@ import android.widget.LinearLayout;
 import com.example.eric.oscar.R;
 import com.example.eric.oscar.adapter.FragmentPagerAdapter;
 import com.example.eric.oscar.common.BaseActivity;
+import com.example.eric.oscar.common.BaseApplication;
+import com.example.eric.oscar.common.SPUtils;
 import com.example.eric.oscar.fragment.BaseFragment;
+import com.example.eric.oscar.fragment.OFnancialFragment;
 import com.example.eric.oscar.fragment.OHomeFragment;
 import com.example.eric.oscar.fragment.OOscarFragment;
 import com.example.eric.oscar.fragment.OSelfFragment;
@@ -43,7 +46,7 @@ public class OMainActivity extends BaseActivity implements View.OnClickListener,
         fragmentList = new ArrayList<Fragment>();
         fragmentList.add(OHomeFragment.newInstance(null, null));
         fragmentList.add(OOscarFragment.newInstance(null, null));
-        fragmentList.add(OSelfFragment.newInstance(null, null));
+        fragmentList.add(OFnancialFragment.newInstance(null, null));
         fragmentList.add(OSelfFragment.newInstance(null, null));
         homePagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager(), fragmentList);
         fragmentPager.setAdapter(homePagerAdapter);
@@ -60,9 +63,7 @@ public class OMainActivity extends BaseActivity implements View.OnClickListener,
         } else if (v == investArea) {
             fragmentPager.setCurrentItem(2);
         } else if (v == selfArea) {
-            toActivity(OLoginActivity.class);
-            return;
-            //fragmentPager.setCurrentItem(3);
+            fragmentPager.setCurrentItem(3);
         }
     }
 
@@ -102,4 +103,17 @@ public class OMainActivity extends BaseActivity implements View.OnClickListener,
 
     }
 
+    @Override
+    public void onBackPressed() {
+        alertConfirmDialog("确定要退出吗？", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                ((BaseApplication) BaseApplication.getInstance()).AppExit(OMainActivity.this);
+                SPUtils.setString(OMainActivity.this, "isLogin", "false");
+                SPUtils.setString(OMainActivity.this, "acct", "");
+                System.exit(0);
+            }
+        }, null);
+    }
 }

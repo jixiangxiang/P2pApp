@@ -1,5 +1,6 @@
 package com.example.eric.oscar.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -9,14 +10,23 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
+import com.alibaba.fastjson.JSONArray;
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.toolbox.StringRequest;
 import com.example.eric.oscar.R;
 import com.example.eric.oscar.bean.OscarBean;
+import com.example.eric.oscar.common.ApiUtils;
 import com.example.eric.oscar.common.BaseActivity;
+import com.example.eric.oscar.common.ResponseResult;
+import com.example.eric.oscar.common.SPUtils;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import common.eric.com.ebaselibrary.adapter.EBaseAdapter;
+import common.eric.com.ebaselibrary.util.StringUtils;
 
 public class OBindOscarActivity extends BaseActivity implements View.OnClickListener {
 
@@ -26,6 +36,8 @@ public class OBindOscarActivity extends BaseActivity implements View.OnClickList
     private RelativeLayout topArea;
     private ListView oscarList;
     private EBaseAdapter adapter;
+    private StringRequest request;
+    private ArrayList<OscarBean> oscarBeanList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,26 +48,49 @@ public class OBindOscarActivity extends BaseActivity implements View.OnClickList
     @Override
     protected void initView() {
         initialize();
+        initHandler();
         initTitleText(getString(R.string.title_activity_obind_oscar), BaseActivity.TITLE_CENTER);
-        List<OscarBean> oscarBeanList = new ArrayList<OscarBean>();
-        oscarBeanList.add(new OscarBean("888888886666", "2015-11-29", 1024.00));
-        oscarBeanList.add(new OscarBean("888888886666", "2015-11-29", 1024.00));
-        oscarBeanList.add(new OscarBean("888888886666", "2015-11-29", 1024.00));
-        oscarBeanList.add(new OscarBean("888888886666", "2015-11-29", 1024.00));
-        oscarBeanList.add(new OscarBean("888888886666", "2015-11-29", 1024.00));
-        oscarBeanList.add(new OscarBean("888888886666", "2015-11-29", 1024.00));
-        oscarBeanList.add(new OscarBean("888888886666", "2015-11-29", 1024.00));
-        oscarBeanList.add(new OscarBean("888888886666", "2015-11-29", 1024.00));
+        oscarBeanList = new ArrayList<OscarBean>();
         adapter = new EBaseAdapter(this, oscarBeanList, R.layout.list_self_oscar_item,
-                new String[]{"cardNo", "bindDate", "balance"},
+                new String[]{"authAcct", "bindDate", "balance"},
                 new int[]{R.id.cardNo, R.id.bindDate, R.id.balance});
         oscarList.setAdapter(adapter);
+    }
+
+    private void initHandler() {
+        request = new StringRequest(Request.Method.POST, ApiUtils.BINDLIST, this, this) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> map = new HashMap<String, String>();
+                map.put("acct", SPUtils.getString(OBindOscarActivity.this, "acct"));
+                return map;
+            }
+        };
+        addToRequestQueue(request, ApiUtils.BINDLIST, true);
     }
 
     @Override
     public void onClick(View v) {
         if (v == confirmBindBtn) {
-            toActivity(OBindValidActivity.class);
+            if (StringUtils.isEmpty(oscarNo.getText().toString())) {
+                showToastShort("请输入正确的奥斯卡卡号");
+                return;
+            }
+            if (StringUtils.isEmpty(oscarPwd.getText().toString())) {
+                showToastShort("请输入正确的登录密码");
+                return;
+            }
+            request = new StringRequest(Request.Method.POST, ApiUtils.PREBIND, this, this) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> map = new HashMap<String, String>();
+                    map.put("card", oscarNo.getText().toString());
+                    map.put("pass", oscarPwd.getText().toString());
+                    return map;
+                }
+            };
+            addToRequestQueue(request, ApiUtils.PREBIND, true);
+
         }
     }
 
@@ -82,5 +117,35 @@ public class OBindOscarActivity extends BaseActivity implements View.OnClickList
                 break;
         }
         return true;
+    }
+
+    @Override
+    protected void doResponse(ResponseResult response) {
+        if (requestMethod.equals(ApiUtils.BINDLIST)) {
+            JSONArray list = response.getData().getJSONArray("list");
+            oscarBeanList = (ArrayList<OscarBean>) JSONArray.parseArray(list.toJSONString(), OscarBean.class);
+            adapter.setmData(oscarBeanList);
+            adapter.notifyDataSetChanged();
+        } else if (requestMethod.equals(ApiUtils.PREBIND)) {
+            Intent intent = new Intent(this, OBindValidActivity.class);
+            intent.putExtra("cardNo", oscarNo.getText().toString());
+            startActivityForResult(intent, 111);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 111 && resultCode == RESULT_OK) {
+            request = new StringRequest(Request.Method.POST, ApiUtils.BINDLIST, this, this) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> map = new HashMap<String, String>();
+                    map.put("acct", SPUtils.getString(OBindOscarActivity.this, "acct"));
+                    return map;
+                }
+            };
+            addToRequestQueue(request, ApiUtils.BINDLIST, true);
+        }
     }
 }

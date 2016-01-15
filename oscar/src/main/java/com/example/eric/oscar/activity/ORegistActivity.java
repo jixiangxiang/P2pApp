@@ -17,6 +17,7 @@ import com.example.eric.oscar.R;
 import com.example.eric.oscar.common.ApiUtils;
 import com.example.eric.oscar.common.BaseActivity;
 import com.example.eric.oscar.common.ResponseResult;
+import com.example.eric.oscar.common.TimeCount;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -47,18 +48,6 @@ public class ORegistActivity extends BaseActivity implements View.OnClickListene
     protected void initView() {
         initialize();
         initTitleText(getString(R.string.title_activity_oregist), BaseActivity.TITLE_CENTER);
-        request = new StringRequest(Request.Method.POST, ApiUtils.REGIST, this, this) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> map = new HashMap<String, String>();
-                map.put("acct", phoneText.getText().toString());
-                map.put("pass", pwdText.getText().toString());
-                map.put("sign", ApiUtils.SIGN);
-                map.put("vint", "123456");
-                map.put("vstr", "123456");
-                return map;
-            }
-        };
     }
 
     @Override
@@ -114,21 +103,56 @@ public class ORegistActivity extends BaseActivity implements View.OnClickListene
                 showToastShort("两次密码输入不一致！");
                 return;
             }
+            if (StringUtils.isEmpty(captchaText.getText().toString())) {
+                showToastShort("请输入验证码");
+                return;
+            }
             if (!checkbox.isSelected()) {
                 showToastShort("请同意并阅读协议");
                 return;
             }
-            addToRequestQueue(request, true);
+            request = new StringRequest(Request.Method.POST, ApiUtils.REGIST, this, this) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> map = new HashMap<String, String>();
+                    map.put("acct", phoneText.getText().toString());
+                    map.put("pass", pwdText.getText().toString());
+                    map.put("sign", ApiUtils.SIGN);
+                    map.put("vstr", captchaText.getText().toString());
+                    return map;
+                }
+            };
+            addToRequestQueue(request, ApiUtils.REGIST, true);
+        } else if (v == captchaBtn) {
+            if (!StringUtils.isEmpty(phoneText.getText().toString()) && phoneText.getText().toString().length() != 11) {
+                showToastShort("请输入正确的手机号码");
+                return;
+            }
+            request = new StringRequest(Request.Method.POST, ApiUtils.SMS, this, this) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> map = new HashMap<>();
+                    map.put("phone", phoneText.getText().toString());
+                    return map;
+                }
+            };
+            addToRequestQueue(request, ApiUtils.SMS, true);
+            TimeCount time = TimeCount.getInstance(Integer.valueOf(60) * 1000, 1000, captchaBtn, this);
+            time.start();
         }
     }
 
     @Override
     protected void doResponse(ResponseResult response) {
-        alertDialogNoCancel(response.getReturn_message(), new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ORegistActivity.this.finish();
-            }
-        });
+        if (requestMethod.equals(ApiUtils.REGIST)) {
+            alertDialogNoCancel(response.getReturn_message(), new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ORegistActivity.this.finish();
+                }
+            });
+        } else if (requestMethod.equals(ApiUtils.SMS)) {
+            showToastShort("验证码已发送");
+        }
     }
 }

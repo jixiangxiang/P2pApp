@@ -9,13 +9,21 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSONArray;
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.toolbox.StringRequest;
 import com.example.eric.oscar.R;
 import com.example.eric.oscar.bean.CardBean;
+import com.example.eric.oscar.common.ApiUtils;
 import com.example.eric.oscar.common.BaseActivity;
+import com.example.eric.oscar.common.ResponseResult;
 import com.example.eric.oscar.views.WrapScrollListView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import common.eric.com.ebaselibrary.adapter.EBaseAdapter;
 
@@ -26,8 +34,11 @@ public class OTransListActivity extends BaseActivity implements View.OnClickList
     private EditText phone;
     private EditText confirmPhone;
     private Button confirmBtn;
+    private TextView totalMoeny;
     private EBaseAdapter baseAdapter;
     private List<CardBean> cardBeans;
+
+    private StringRequest request;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,12 +50,15 @@ public class OTransListActivity extends BaseActivity implements View.OnClickList
     protected void initView() {
         initialize();
         initTitleText(getString(R.string.title_activity_otrans_list), BaseActivity.TITLE_CENTER);
-        cardBeans = new ArrayList<>();
-        cardBeans.add(new CardBean(50.00, 3));
-        cardBeans.add(new CardBean(100.00, 3));
-        cardBeans.add(new CardBean(1000.00, 3));
-        cardBeans.add(new CardBean(2000.00, 3));
-        baseAdapter = new EBaseAdapter(this, cardBeans, R.layout.list_trans_card_list_item,
+        initHandler();
+        cardBeans = JSONArray.parseArray(getIntent().getExtras().getString("cardBeans"), CardBean.class);
+        List<CardBean> cbs = new ArrayList<CardBean>();
+        for (CardBean cardBean : cardBeans) {
+            if (cardBean.getCount() != 0)
+                cbs.add(cardBean);
+        }
+        totalMoeny.setText("共计￥ " + getIntent().getExtras().getString("totalMoney") + "元");
+        baseAdapter = new EBaseAdapter(this, cbs, R.layout.list_trans_card_list_item,
                 new String[]{"bar", "count"}, new int[]{R.id.denomination, R.id.count});
         baseAdapter.setViewBinder(new EBaseAdapter.ViewBinder() {
             @Override
@@ -65,9 +79,24 @@ public class OTransListActivity extends BaseActivity implements View.OnClickList
 
     }
 
+    private void initHandler() {
+        request = new StringRequest(Request.Method.POST, ApiUtils.CRAMZ, this, this) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> map = new HashMap<>();
+                map.put("amt", getIntent().getExtras().getString("totalMoney"));
+                map.put("phone", phone.getText().toString());
+                map.put("sign", "");
+                return map;
+            }
+        };
+    }
+
     @Override
     public void onClick(View v) {
-
+        if (v == confirmBtn) {
+            addToRequestQueue(request, true);
+        }
     }
 
     @Override
@@ -92,5 +121,16 @@ public class OTransListActivity extends BaseActivity implements View.OnClickList
         phone = (EditText) findViewById(R.id.phone);
         confirmPhone = (EditText) findViewById(R.id.confirmPhone);
         confirmBtn = (Button) findViewById(R.id.confirmBtn);
+        totalMoeny = (TextView) findViewById(R.id.totalMoney);
+
+    }
+
+    @Override
+    protected void doResponse(ResponseResult response) {
+        Bundle bundle = new Bundle();
+        bundle.putString("order", response.getData().getString("order"));
+        bundle.putString("totalMoney", getIntent().getExtras().getString("totalMoney"));
+        toActivity(OTransConfirmActivity.class, bundle);
+        OTransListActivity.this.finish();
     }
 }

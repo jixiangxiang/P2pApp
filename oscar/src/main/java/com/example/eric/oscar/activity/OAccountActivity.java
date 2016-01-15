@@ -8,8 +8,18 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSONObject;
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.toolbox.StringRequest;
 import com.example.eric.oscar.R;
+import com.example.eric.oscar.common.ApiUtils;
 import com.example.eric.oscar.common.BaseActivity;
+import com.example.eric.oscar.common.ResponseResult;
+import com.example.eric.oscar.common.SPUtils;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class OAccountActivity extends BaseActivity implements View.OnClickListener {
 
@@ -29,6 +39,8 @@ public class OAccountActivity extends BaseActivity implements View.OnClickListen
     private RelativeLayout recharge;
     private RelativeLayout withdraw;
 
+    private StringRequest request;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +51,16 @@ public class OAccountActivity extends BaseActivity implements View.OnClickListen
     protected void initView() {
         initialize();
         initTitleText(getString(R.string.title_activity_oaccount), BaseActivity.TITLE_CENTER);
+
+        request = new StringRequest(Request.Method.POST, ApiUtils.ASSETS, this, this) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> map = new HashMap<>();
+                map.put("sign", SPUtils.getString(OAccountActivity.this, "sign"));
+                return map;
+            }
+        };
+        addToRequestQueue(request, ApiUtils.ASSETS, true);
     }
 
     @Override
@@ -96,5 +118,19 @@ public class OAccountActivity extends BaseActivity implements View.OnClickListen
         frozen = (RelativeLayout) findViewById(R.id.frozen);
         recharge = (RelativeLayout) findViewById(R.id.recharge);
         withdraw = (RelativeLayout) findViewById(R.id.withdraw);
+    }
+
+    @Override
+    protected void doResponse(ResponseResult response) {
+        JSONObject data = response.getData();
+        if (requestMethod.equals(ApiUtils.ASSETS)) {
+            walletBalance.setText(data.getString("wal"));
+            oacarBalance.setText(data.getString("oscar"));
+            totalInvestMoeny.setText(data.getString("invest"));
+            dueInterestProfit.setText(data.getString("profit"));
+            duePrincipal.setText(data.getString("principal"));
+            dueInterestProfit.setText(data.getString("recInvest"));
+            frozenFund.setText(data.getString("frozen"));
+        }
     }
 }
