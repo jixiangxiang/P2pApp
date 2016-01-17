@@ -84,9 +84,9 @@ public class ORegistActivity extends BaseActivity implements View.OnClickListene
         if (v == checkbox) {
             checkbox.setSelected(!checkbox.isSelected());
         } else if (v == nextStep) {
-            String phone = phoneText.getText().toString();
+            final String phone = phoneText.getText().toString();
             String pwd = pwdText.getText().toString();
-            String confirmPwd = confirmPwdText.getText().toString();
+            final String confirmPwd = confirmPwdText.getText().toString();
             if (StringUtils.isEmpty(phone) || phone.length() != 11) {
                 showToastShort("请输入正确的手机号码！");
                 return;
@@ -115,9 +115,9 @@ public class ORegistActivity extends BaseActivity implements View.OnClickListene
                 @Override
                 protected Map<String, String> getParams() throws AuthFailureError {
                     Map<String, String> map = new HashMap<String, String>();
-                    map.put("acct", phoneText.getText().toString());
-                    map.put("pass", pwdText.getText().toString());
-                    map.put("sign", ApiUtils.SIGN);
+                    map.put("acct", phone);
+                    map.put("pass", confirmPwd);
+                    map.put("avatar", "");
                     map.put("vstr", captchaText.getText().toString());
                     return map;
                 }
@@ -137,8 +137,6 @@ public class ORegistActivity extends BaseActivity implements View.OnClickListene
                 }
             };
             addToRequestQueue(request, ApiUtils.SMS, true);
-            TimeCount time = TimeCount.getInstance(Integer.valueOf(60) * 1000, 1000, captchaBtn, this);
-            time.start();
         }
     }
 
@@ -153,6 +151,9 @@ public class ORegistActivity extends BaseActivity implements View.OnClickListene
             });
         } else if (requestMethod.equals(ApiUtils.SMS)) {
             showToastShort("验证码已发送");
+            TimeCount time = TimeCount.getInstance(Integer.valueOf(60) * 1000, 1000, captchaBtn, this);
+            time.start();
+
         }
     }
 }

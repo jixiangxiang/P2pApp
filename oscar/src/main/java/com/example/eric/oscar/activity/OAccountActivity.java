@@ -70,7 +70,7 @@ public class OAccountActivity extends BaseActivity implements View.OnClickListen
             bundle.putString("title", "资金记录");
             toActivity(OFundsRecordActivity.class, bundle);
         } else if (v == bankCard) {
-
+            toActivity(OBankListActivity.class);
         } else if (v == frozen) {
             bundle.putString("title", "冻结记录");
             toActivity(OFundsRecordActivity.class, bundle);
@@ -124,13 +124,15 @@ public class OAccountActivity extends BaseActivity implements View.OnClickListen
     protected void doResponse(ResponseResult response) {
         JSONObject data = response.getData();
         if (requestMethod.equals(ApiUtils.ASSETS)) {
-            walletBalance.setText(data.getString("wal"));
-            oacarBalance.setText(data.getString("oscar"));
-            totalInvestMoeny.setText(data.getString("invest"));
-            dueInterestProfit.setText(data.getString("profit"));
-            duePrincipal.setText(data.getString("principal"));
-            dueInterestProfit.setText(data.getString("recInvest"));
-            frozenFund.setText(data.getString("frozen"));
+            if (data != null) {
+                walletBalance.setText(data.getString("wal"));
+                oacarBalance.setText(data.getString("oscar"));
+                totalInvestMoeny.setText(data.getString("invest"));
+                dueInterestProfit.setText(data.getString("profit"));
+                duePrincipal.setText(data.getString("principal"));
+                dueInterestProfit.setText(data.getString("recInvest"));
+                frozenFund.setText(data.getString("frozen"));
+            }
         }
     }
 }

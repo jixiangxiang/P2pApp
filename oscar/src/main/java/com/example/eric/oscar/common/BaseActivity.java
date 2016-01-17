@@ -20,6 +20,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.example.eric.oscar.R;
+import com.example.eric.oscar.activity.OLoginActivity;
 import com.example.eric.oscar.activity.OMainActivity;
 import com.example.eric.oscar.views.CustomProgressDialog;
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -158,9 +159,9 @@ public abstract class BaseActivity extends AppCompatActivity implements Response
      * 跳转到登录页面
      */
     public void showLogin() {
-//        Intent intent = new Intent(this, QLoginActivity.class);
-//        intent.putExtra("fromCode", true);
-//        startActivityForResult(intent, 999);//为返回是否登录的状态
+        Intent intent = new Intent(this, OLoginActivity.class);
+        intent.putExtra("fromCode", true);
+        startActivityForResult(intent, 999);//为返回是否登录的状态
     }
 
 
@@ -229,6 +230,8 @@ public abstract class BaseActivity extends AppCompatActivity implements Response
         ResponseResult result = JSONObject.parseObject(response.toString(), ResponseResult.class);
         if (result.getReturn_code() == ApiUtils.REQUEST_SUCCESS) {
             doResponse(result);
+        } else if (result.getReturn_code() == ApiUtils.NEED_LOGIN) {
+            showLogin();
         } else
             alertDialog(result.getReturn_message(), null);
     }

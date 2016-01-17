@@ -42,7 +42,7 @@ public class OFindLoginPwdActivity extends BaseActivity implements View.OnClickL
         initialize();
         initTitleText(getString(R.string.title_activity_ofind_login_pwd), BaseActivity.TITLE_CENTER);
         initHandler();
-        phoneText.setText(SPUtils.getString(this, "acct"));
+        phoneText.setText(getIntent().getExtras().getString("phone"));
 
     }
 

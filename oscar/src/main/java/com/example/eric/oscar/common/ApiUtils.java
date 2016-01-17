@@ -8,7 +8,7 @@ public class ApiUtils {
     public static final Integer REQUEST_SUCCESS = 0;
     public static final String BASE_URL = "http://211.157.145.67:6081/app/";
     public static final String SIGN = "111111";
-    public static int NEED_LOGIN = 111;
+    public static int NEED_LOGIN = 10012;
 
     public static final String REGIST = BASE_URL + "ac/registration";
     public static final String LOGIN = BASE_URL + "ac/login";
@@ -34,4 +34,7 @@ public class ApiUtils {
     public static final String ASSETS = BASE_URL + "ac/assets";//
     public static final String OSCAR = BASE_URL + "ac/oscar";//
     public static final String BANKCARD = BASE_URL + "ac/bankcard";//
+    public static final String WALREC = BASE_URL + "ac/walrec";//资金记录
+    public static final String BCINFO = BASE_URL + "ac/bcinfo";//
+    public static final String ADDBC = BASE_URL + "ac/addbc";//
 }

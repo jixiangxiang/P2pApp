@@ -90,7 +90,16 @@
             android:label="@string/title_activity_otrans_list" />
         <activity
             android:name=".activity.OBankListActivity"
-            android:label="@string/title_activity_obank_list"></activity>
+            android:label="@string/title_activity_obank_list" />
+        <activity
+            android:name=".activity.OFindLoginPwdActivity"
+            android:label="@string/title_activity_ofind_login_pwd" />
+        <activity
+            android:name=".activity.OAddBankActivity"
+            android:label="@string/title_activity_oadd_bank" />
+        <activity
+            android:name=".activity.OBindBankActivity"
+            android:label="@string/title_activity_obind_bank"></activity>
     </application>
 
 </manifest>

@@ -32,4 +32,6 @@
     <string name="title_activity_otrans_list">兑换专区</string>
     <string name="title_activity_ofind_login_pwd">忘记登录密码</string>
     <string name="title_activity_obank_list">我的银行卡</string>
+    <string name="title_activity_oadd_bank">添加银行卡</string>
+    <string name="title_activity_obind_bank">绑定银行卡</string>
 </resources>

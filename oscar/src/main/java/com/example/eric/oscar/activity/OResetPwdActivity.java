@@ -64,8 +64,6 @@ public class OResetPwdActivity extends BaseActivity implements View.OnClickListe
                 }
             };
             addToRequestQueue(request, ApiUtils.SMS, true);
-            TimeCount time = TimeCount.getInstance(Integer.valueOf(60) * 1000, 1000, captchaSendBtn, this);
-            time.start();
         } else if (v == nextStepBtn) {
             if (!StringUtils.isEmpty(phoneText.getText().toString()) && phoneText.getText().toString().length() != 11) {
                 showToastShort("请输入正确的手机号码");
@@ -116,8 +114,12 @@ public class OResetPwdActivity extends BaseActivity implements View.OnClickListe
     protected void doResponse(ResponseResult response) {
         if (requestMethod.equals(ApiUtils.SMS)) {
             showToastShort("验证码已发送");
+            TimeCount time = TimeCount.getInstance(Integer.valueOf(60) * 1000, 1000, captchaSendBtn, this);
+            time.start();
         } else if (requestMethod.equals(ApiUtils.FOGLP)) {
-            toActivity(OFindLoginPwdActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("phone", phoneText.getText().toString());
+            toActivity(OFindLoginPwdActivity.class, bundle);
             OResetPwdActivity.this.finish();
         }
     }

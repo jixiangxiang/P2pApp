@@ -31,7 +31,7 @@
                 android:layout_below="@+id/headImg"
                 android:layout_marginLeft="@dimen/dp_28"
                 android:layout_marginTop="@dimen/dp_8"
-                android:text="AC_150214" />
+                android:text="" />
 
             <TextView
                 style="@style/text_12_white"

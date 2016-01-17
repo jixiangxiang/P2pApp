@@ -188,9 +188,11 @@ public class OSelfFragment extends BaseFragment implements View.OnClickListener 
 
     @Override
     protected void doResponse(ResponseResult response) {
-        totalMoney.setText(response.getData().getString("assets"));
-        username.setText(response.getData().getString("userName"));
-        usernameText.setText(response.getData().getString("realName"));
-        idCard.setText(response.getData().getString("idCard"));
+        if (response.getData() != null) {
+            totalMoney.setText(response.getData().getString("assets"));
+            username.setText(response.getData().getString("userName"));
+            usernameText.setText(response.getData().getString("realName"));
+            idCard.setText(response.getData().getString("idCard"));
+        }
     }
 }

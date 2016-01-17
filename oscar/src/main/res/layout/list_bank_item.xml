@@ -15,4 +15,20 @@
         android:layout_marginLeft="@dimen/dp_95"
         android:layout_marginTop="@dimen/dp_20"
         android:text="建设银行" />
+    <TextView
+        android:id="@+id/cardType"
+        style="@style/text_18_white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_95"
+        android:layout_marginTop="@dimen/dp_55"
+        android:text="储蓄卡" />
+    <TextView
+        android:id="@+id/cardNo"
+        style="@style/text_18_white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_180"
+        android:layout_marginTop="@dimen/dp_55"
+        android:text="0000 0000 0000 0000" />
 </RelativeLayout>
