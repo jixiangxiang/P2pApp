@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSONObject;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
@@ -101,7 +102,7 @@ public class OLoginActivity extends BaseActivity implements View.OnClickListener
         SPUtils.setString(this, "isLogin", "true");
         SPUtils.setString(this, "acct", loginPhoneText.getText().toString());
         if (response.getData() != null)
-            SPUtils.setString(this, "sign", response.getData().getString("sign"));
+            SPUtils.setString(this, "sign", ((JSONObject) response.getData()).getString("sign"));
         setResult(RESULT_OK);
         OLoginActivity.this.finish();
     }

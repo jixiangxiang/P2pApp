@@ -3,11 +3,11 @@ package com.example.eric.oscar.activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 
 import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
@@ -25,7 +25,7 @@ import java.util.Map;
 
 import common.eric.com.ebaselibrary.adapter.EBaseAdapter;
 
-public class OBankListActivity extends BaseActivity {
+public class OBankListActivity extends BaseActivity implements View.OnClickListener {
 
     private ListView bankList;
     private Button addBankBtn;
@@ -85,11 +85,18 @@ public class OBankListActivity extends BaseActivity {
 
     @Override
     protected void doResponse(ResponseResult response) {
-        JSONObject data = response.getData();
+        JSONArray data = (JSONArray) response.getData();
         if (data != null) {
             bankInfoList = JSONArray.parseArray(data.toJSONString(), BankInfo.class);
             baseAdapter.setmData(bankInfoList);
             baseAdapter.notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v == addBankBtn) {
+            toActivity(OAddBankActivity.class);
         }
     }
 }

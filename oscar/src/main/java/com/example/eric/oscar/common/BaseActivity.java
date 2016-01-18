@@ -231,7 +231,12 @@ public abstract class BaseActivity extends AppCompatActivity implements Response
         if (result.getReturn_code() == ApiUtils.REQUEST_SUCCESS) {
             doResponse(result);
         } else if (result.getReturn_code() == ApiUtils.NEED_LOGIN) {
-            showLogin();
+            alertDialogNoCancel(result.getReturn_message(), new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showLogin();
+                }
+            });
         } else
             alertDialog(result.getReturn_message(), null);
     }
@@ -342,5 +347,10 @@ public abstract class BaseActivity extends AppCompatActivity implements Response
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

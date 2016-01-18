@@ -1,5 +1,6 @@
 package com.example.eric.oscar.activity;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -115,5 +116,10 @@ public class OMainActivity extends BaseActivity implements View.OnClickListener,
                 System.exit(0);
             }
         }, null);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

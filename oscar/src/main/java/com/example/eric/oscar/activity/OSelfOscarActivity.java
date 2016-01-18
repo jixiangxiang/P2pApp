@@ -58,6 +58,7 @@ public class OSelfOscarActivity extends BaseActivity {
                 return map;
             }
         };
+        addToRequestQueue(request, true);
     }
 
     private void initialize() {
@@ -83,7 +84,7 @@ public class OSelfOscarActivity extends BaseActivity {
 
     @Override
     protected void doResponse(ResponseResult response) {
-        oscarBeanList = JSONArray.parseArray(response.getData().toJSONString(), OscarBean.class);
+        oscarBeanList = JSONArray.parseArray(((JSONArray) response.getData()).toJSONString(), OscarBean.class);
         adapter.setmData(oscarBeanList);
         adapter.notifyDataSetChanged();
     }

@@ -37,4 +37,5 @@ public class ApiUtils {
     public static final String WALREC = BASE_URL + "ac/walrec";//资金记录
     public static final String BCINFO = BASE_URL + "ac/bcinfo";//
     public static final String ADDBC = BASE_URL + "ac/addbc";//
+    public static final String AUTHEN = BASE_URL + "ac/authen";//
 }

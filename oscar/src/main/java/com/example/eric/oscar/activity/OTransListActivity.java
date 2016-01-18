@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
@@ -128,7 +129,7 @@ public class OTransListActivity extends BaseActivity implements View.OnClickList
     @Override
     protected void doResponse(ResponseResult response) {
         Bundle bundle = new Bundle();
-        bundle.putString("order", response.getData().getString("order"));
+        bundle.putString("order", ((JSONObject) response.getData()).getString("order"));
         bundle.putString("totalMoney", getIntent().getExtras().getString("totalMoney"));
         toActivity(OTransConfirmActivity.class, bundle);
         OTransListActivity.this.finish();

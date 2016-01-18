@@ -20,10 +20,12 @@
             android:layout_width="@dimen/dp_90"
             android:layout_height="@dimen/dp_28"
             android:background="@drawable/edittext_border_conner"
+            android:onClick="onClick"
             android:paddingLeft="@dimen/dp_10"
             android:paddingRight="@dimen/dp_10">
 
             <TextView
+                android:id="@+id/typeText"
                 style="@style/text_13_55"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -38,20 +40,20 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:layout_width="@dimen/dp_130"
+            android:layout_width="@dimen/dp_150"
             android:layout_height="@dimen/dp_28"
             android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/dp_80"
             android:background="@drawable/edittext_border_conner"
+            android:onClick="onClick"
             android:paddingLeft="@dimen/dp_10"
             android:paddingRight="@dimen/dp_10">
 
             <TextView
                 android:id="@+id/dateSelect"
                 style="@style/text_13_55"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginRight="@dimen/dp_25"
                 android:gravity="center"
                 android:text="最近一个月" />
 
@@ -70,6 +72,7 @@
             android:layout_alignParentRight="true"
             android:background="@mipmap/o_select_bg"
             android:gravity="center"
+            android:onClick="onClick"
             android:text="查询" />
 
     </RelativeLayout>

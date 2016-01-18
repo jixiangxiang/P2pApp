@@ -65,21 +65,16 @@ public class OAccountActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void onClick(View v) {
-        Bundle bundle = new Bundle();
         if (v == money) {
-            bundle.putString("title", "资金记录");
-            toActivity(OFundsRecordActivity.class, bundle);
+            toActivity(OFundsRecordActivity.class);
         } else if (v == bankCard) {
             toActivity(OBankListActivity.class);
         } else if (v == frozen) {
-            bundle.putString("title", "冻结记录");
-            toActivity(OFundsRecordActivity.class, bundle);
+            toActivity(OFundsRecordActivity.class);
         } else if (v == recharge) {
-            bundle.putString("title", "充值记录");
-            toActivity(OFundsRecordActivity.class, bundle);
+            toActivity(OFundsRecordActivity.class);
         } else if (v == withdraw) {
-            bundle.putString("title", "提现记录");
-            toActivity(OFundsRecordActivity.class, bundle);
+            toActivity(OFundsRecordActivity.class);
         } else if (v == socar) {
             toActivity(OSelfOscarActivity.class);
         }
@@ -122,7 +117,7 @@ public class OAccountActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     protected void doResponse(ResponseResult response) {
-        JSONObject data = response.getData();
+        JSONObject data = (JSONObject) response.getData();
         if (requestMethod.equals(ApiUtils.ASSETS)) {
             if (data != null) {
                 walletBalance.setText(data.getString("wal"));

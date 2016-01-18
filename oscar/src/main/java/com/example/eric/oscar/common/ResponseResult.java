@@ -1,7 +1,5 @@
 package com.example.eric.oscar.common;
 
-import com.alibaba.fastjson.JSONObject;
-
 import common.eric.com.ebaselibrary.model.EBaseModel;
 
 /**
@@ -10,7 +8,7 @@ import common.eric.com.ebaselibrary.model.EBaseModel;
 public class ResponseResult extends EBaseModel {
     private String return_message;
     private Integer return_code;
-    private JSONObject data;
+    private Object data;
 
     public String getReturn_message() {
         return return_message;
@@ -28,11 +26,11 @@ public class ResponseResult extends EBaseModel {
         this.return_code = return_code;
     }
 
-    public JSONObject getData() {
+    public Object getData() {
         return data;
     }
 
-    public void setData(JSONObject data) {
+    public void setData(Object data) {
         this.data = data;
     }
 }

@@ -71,6 +71,7 @@
         android:layout_marginLeft="@dimen/dp_8"
         android:layout_marginRight="@dimen/dp_8"
         android:layout_marginTop="@dimen/dp_42"
+        android:onClick="onClick"
         android:background="@mipmap/o_login_btn"
         android:text="去验证" />
 

@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSONObject;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
@@ -189,10 +190,10 @@ public class OSelfFragment extends BaseFragment implements View.OnClickListener 
     @Override
     protected void doResponse(ResponseResult response) {
         if (response.getData() != null) {
-            totalMoney.setText(response.getData().getString("assets"));
-            username.setText(response.getData().getString("userName"));
-            usernameText.setText(response.getData().getString("realName"));
-            idCard.setText(response.getData().getString("idCard"));
+            totalMoney.setText(((JSONObject) response.getData()).getString("assets"));
+            username.setText(((JSONObject) response.getData()).getString("userName"));
+            usernameText.setText(((JSONObject) response.getData()).getString("realName"));
+            idCard.setText(((JSONObject) response.getData()).getString("idCard"));
         }
     }
 }

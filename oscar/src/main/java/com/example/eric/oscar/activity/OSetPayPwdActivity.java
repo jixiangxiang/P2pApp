@@ -51,7 +51,7 @@ public class OSetPayPwdActivity extends BaseActivity implements View.OnClickList
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> map = new HashMap<>();
-                map.put("acct", SPUtils.getString(OSetPayPwdActivity.this, "acct"));
+                map.put("sign", SPUtils.getString(OSetPayPwdActivity.this, "sign"));
                 map.put("pass", confirmPwdText.getText().toString());
                 return map;
             }

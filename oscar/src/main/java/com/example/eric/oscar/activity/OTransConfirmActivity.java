@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
@@ -100,7 +101,7 @@ public class OTransConfirmActivity extends BaseActivity implements View.OnClickL
     @Override
     protected void doResponse(ResponseResult response) {
         if (requestMethod.equals(ApiUtils.BINDLIST)) {
-            JSONArray list = response.getData().getJSONArray("list");
+            JSONArray list = ((JSONObject) response.getData()).getJSONArray("list");
             oscarBeanList = (ArrayList<OscarBean>) JSONArray.parseArray(list.toJSONString(), OscarBean.class);
             adapter.setmData(oscarBeanList);
             adapter.notifyDataSetChanged();

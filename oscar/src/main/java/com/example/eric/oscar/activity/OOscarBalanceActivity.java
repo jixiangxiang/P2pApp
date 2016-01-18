@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSONObject;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
@@ -94,8 +95,8 @@ public class OOscarBalanceActivity extends BaseActivity implements View.OnClickL
 
     @Override
     protected void doResponse(ResponseResult response) {
-        balance.setText(response.getData().getString("cardNo"));
-        cardNo.setText(response.getData().getString("cardBalAmt"));
+        balance.setText(((JSONObject) response.getData()).getString("cardNo"));
+        cardNo.setText(((JSONObject) response.getData()).getString("cardBalAmt"));
         balanceArea.setVisibility(View.VISIBLE);
     }
 }
