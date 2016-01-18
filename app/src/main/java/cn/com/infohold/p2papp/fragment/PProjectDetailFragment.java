@@ -186,8 +186,13 @@ public class PProjectDetailFragment extends BaseFragment implements View.OnClick
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser && isCreated) {
-            if (loanContract != null)
-                ((PProjectDetailActivity) getActivity()).setViewPagerHeight(this.loanContract.getHeight());
+            if (loanContract != null) {
+                if (getActivity() instanceof PProjectDetailActivity) {
+                    ((PProjectDetailActivity) getActivity()).setViewPagerHeight(loanContract.getHeight());
+                } else if (getActivity() instanceof PTransProjectDetailActivity) {
+                    ((PTransProjectDetailActivity) getActivity()).setViewPagerHeight(loanContract.getHeight());
+                }
+            }
         }
     }
 

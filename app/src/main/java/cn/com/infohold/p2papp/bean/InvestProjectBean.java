@@ -114,14 +114,15 @@ public class InvestProjectBean extends EBaseModel {
     }
 
     public String getIssuetype() {
+        String typeText = "";
         if (issuetype.equals("Y")) {
-            issuetype = "还款期限   (  年  )";
+            typeText = "还款期限   (  年  )";
         } else if (issuetype.equals("M")) {
-            issuetype = "还款期限   (  月  )";
+            typeText = "还款期限   (  月  )";
         } else if (issuetype.equals("D")) {
-            issuetype = "还款期限   (  天  )";
+            typeText = "还款期限   (  天  )";
         }
-        return issuetype;
+        return typeText;
     }
 
     public void setIssuetype(String issuetype) {

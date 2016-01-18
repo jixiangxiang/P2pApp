@@ -58,6 +58,9 @@ public class PTransConfirmActivity extends BaseActivity implements View.OnClickL
         investCount.setText(data.getString("investcount"));
         assignmentpricevalue.setText(data.getString("assignmentpricevalue"));
         availInvestMoney.setText(data.getString("transferprince"));
+        investMoeny.setText(data.getString("transferprince"));
+        projectEndDate.setText(data.getString("paymentdate"));
+        investMoeny.setEnabled(false);
 
         params = new HashMap<>();
         params.put("mobilephone", ApiUtils.getLoginUserPhone(this));

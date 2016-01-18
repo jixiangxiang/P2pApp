@@ -111,24 +111,25 @@ public class LoanProjectBean extends EBaseModel {
     }
 
     public String getRepayway() {
+        String repaywayText = "";
         switch (Integer.valueOf(repayway)) {
             case 1:
-                repayway = "等额本息";
+                repaywayText = "等额本息";
                 break;
             case 2:
-                repayway = "等额本金";
+                repaywayText = "等额本金";
                 break;
             case 3:
-                repayway = "按月付息，一次还本";
+                repaywayText = "按月付息，一次还本";
                 break;
             case 4:
-                repayway = "利随本清";
+                repaywayText = "利随本清";
                 break;
             default:
-                repayway = "等额本金";
+                repaywayText = "等额本金";
                 break;
         }
-        return repayway;
+        return repaywayText;
     }
 
     public String getLimitPeriod() {

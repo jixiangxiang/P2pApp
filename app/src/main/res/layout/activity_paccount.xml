@@ -78,7 +78,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="@dimen/dp_18"
                 android:gravity="center_vertical"
-                android:text="可用金额" />
+                android:text="可用余额" />
 
             <TextView
                 android:id="@+id/availMoney"
@@ -169,7 +169,8 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_45"
             android:background="@android:color/white"
-            android:onClick="onClick">
+            android:onClick="onClick"
+            android:visibility="gone">
 
             <TextView
                 style="@style/text_13_black"

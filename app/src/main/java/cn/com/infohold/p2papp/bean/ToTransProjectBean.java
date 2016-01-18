@@ -16,6 +16,7 @@ public class ToTransProjectBean extends EBaseModel {
     private String enddate;
     private String repaytype;
     private String limit;
+    private String issuenum;
     private String projstatus;
     private Integer usertype;
     private String loanno;
@@ -121,6 +122,14 @@ public class ToTransProjectBean extends EBaseModel {
         this.limit = limit;
     }
 
+    public String getIssuenum() {
+        return issuenum;
+    }
+
+    public void setIssuenum(String issuenum) {
+        this.issuenum = issuenum;
+    }
+
     public String getProjstatus() {
         return projstatus;
     }
@@ -146,14 +155,15 @@ public class ToTransProjectBean extends EBaseModel {
     }
 
     public String getIssuetype() {
+        String issuetypeText = "";
         if (issuetype.equals("Y")) {
-            issuetype = "还款期限   (  年  )";
+            issuetypeText = "还款期限   (  年  )";
         } else if (issuetype.equals("M")) {
-            issuetype = "还款期限   (  月  )";
+            issuetypeText = "还款期限   (  月  )";
         } else if (issuetype.equals("D")) {
-            issuetype = "还款期限   (  天  )";
+            issuetypeText = "还款期限   (  天  )";
         }
-        return issuetype;
+        return issuetypeText;
     }
 
     public void setIssuetype(String issuetype) {

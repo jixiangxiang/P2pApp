@@ -114,7 +114,7 @@ public class PToTransListFragment extends BaseFragment {
             investProjectBeans.add(JSONObject.parseObject(data.getJSONObject("detail").getJSONObject("stage").toJSONString(), ToTransProjectBean.class));
         }
         baseAdapter = new EBaseAdapter(getActivity(), investProjectBeans, R.layout.p_to_trans_project_item,
-                new String[]{"projectname", "rate", "originvestamt", "limit", "enddate", "repaytype", "issuetype"},
+                new String[]{"projectname", "rate", "originvestamt", "issuenum", "enddate", "repaytype", "issuetype"},
                 new int[]{R.id.projectName, R.id.loanRates, R.id.loanMoney, R.id.loanLimit, R.id.getMoneyDate, R.id.repayWay, R.id.issuetype});
         loanList.setAdapter(baseAdapter);
         loanList.setOnItemClickListener(new AdapterView.OnItemClickListener() {

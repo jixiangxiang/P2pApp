@@ -131,8 +131,8 @@ public class PInvestListFragment extends BaseFragment {
             });
         } else if (status == 4) {
             baseAdapter = new EBaseAdapter(getActivity(), investProjectBeans, R.layout.p_self_overdue_invest_item,
-                    new String[]{"project_name", "project_rate", "invest_amount", "loan_time_interval", "due_date", "periodRate", "repay_way"},
-                    new int[]{R.id.projectName, R.id.preIncome, R.id.holdMoney, R.id.loanLimit, R.id.publicDate, R.id.receivableMoney, R.id.progress});
+                    new String[]{"project_name", "project_rate", "invest_amount", "loan_time_interval", "due_date", "periodRate", "repay_way", "loan_time_interval_type"},
+                    new int[]{R.id.projectName, R.id.preIncome, R.id.holdMoney, R.id.loanLimit, R.id.publicDate, R.id.receivableMoney, R.id.progress, R.id.issuetype});
             baseAdapter.setViewBinder(new EBaseAdapter.ViewBinder() {
                 @Override
                 public boolean setViewValue(View view, Object o, String s) {
@@ -161,8 +161,8 @@ public class PInvestListFragment extends BaseFragment {
             });
         } else {
             baseAdapter = new EBaseAdapter(getActivity(), investProjectBeans, R.layout.p_self_invest_item,
-                    new String[]{"project_name", "project_rate", "invest_amount", "loan_time_interval", "publish_date", "receivable_amount", "process"},
-                    new int[]{R.id.projectName, R.id.preIncome, R.id.holdMoney, R.id.loanLimit, R.id.publicDate, R.id.receivableMoney, R.id.progress});
+                    new String[]{"project_name", "project_rate", "invest_amount", "loan_time_interval", "publish_date", "receivable_amount", "process", "loan_time_interval_type"},
+                    new int[]{R.id.projectName, R.id.preIncome, R.id.holdMoney, R.id.loanLimit, R.id.publicDate, R.id.receivableMoney, R.id.progress, R.id.issuetype});
         }
         loanList.setAdapter(baseAdapter);
 

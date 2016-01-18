@@ -154,6 +154,7 @@ public class PTransferProjectActivity extends BaseActivity implements View.OnCli
         swipeRefresh = (SwipeRefreshLayout) findViewById(R.id.swipeRefresh);
         footView = getLayoutInflater().inflate(R.layout.listview_footview, null);
         footView.setVisibility(View.GONE);
+
     }
 
     @Override
@@ -165,9 +166,11 @@ public class PTransferProjectActivity extends BaseActivity implements View.OnCli
     public void onClick(View v) {
         if (v == colligate) {
             querytype = "0";
+            offset = 0;
             typemethod = null;
         } else if (v == yieldArea) {
             querytype = "1";
+            offset = 0;
             limitSort.setImageResource(R.mipmap.p_sort_default);
             limitSort.setTag(R.mipmap.p_sort_default);
             switch ((int) yieldSort.getTag()) {
@@ -194,6 +197,7 @@ public class PTransferProjectActivity extends BaseActivity implements View.OnCli
             }
         } else if (v == limitArea) {
             querytype = "2";
+            offset = 0;
             yieldSort.setImageResource(R.mipmap.p_sort_default);
             yieldSort.setTag(R.mipmap.p_sort_default);
             switch ((int) limitSort.getTag()) {

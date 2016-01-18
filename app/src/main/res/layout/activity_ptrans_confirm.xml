@@ -134,7 +134,7 @@
                     style="@style/text_12_999"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="债券价值（元）" />
+                    android:text="债权价值（元）" />
 
                 <TextView
                     android:id="@+id/assignmentpricevalue"
@@ -210,7 +210,7 @@
             android:background="@android:color/transparent"
             android:gravity="center_vertical"
             android:hint="请输入投资金额"
-            android:numeric="decimal" />
+            android:inputType="numberDecimal" />
 
         <TextView
             style="@style/text_13_black"
@@ -301,6 +301,6 @@
             style="@style/text_12_blue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="《小草金服投资协议》" />
+            android:text="《小草金服债权转让协议》" />
     </LinearLayout>
 </RelativeLayout>
