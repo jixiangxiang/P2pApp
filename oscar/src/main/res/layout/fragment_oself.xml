@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -15,13 +17,16 @@
             android:layout_height="@dimen/dp_100"
             android:background="@mipmap/o_login_banner">
 
-            <ImageView
-                android:id="@+id/headImg"
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/headImage"
                 android:layout_width="@dimen/dp_60"
                 android:layout_height="@dimen/dp_60"
                 android:layout_marginLeft="@dimen/dp_28"
                 android:layout_marginTop="@dimen/dp_12"
-                android:src="@mipmap/o_mine" />
+                android:onClick="onClick"
+                android:scaleType="fitXY"
+                app:placeholderImageScaleType="fitXY"
+                fresco:placeholderImage="@mipmap/o_mine" />
 
             <TextView
                 android:id="@+id/username"

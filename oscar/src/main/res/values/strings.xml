@@ -34,4 +34,9 @@
     <string name="title_activity_obank_list">我的银行卡</string>
     <string name="title_activity_oadd_bank">添加银行卡</string>
     <string name="title_activity_obind_bank">绑定银行卡</string>
+    <string name="title_activity_ofrozen_record">冻结记录</string>
+    <string name="title_activity_orecharge_record">充值记录</string>
+    <string name="title_activity_owithdrawn_record">提现记录</string>
+    <string name="title_activity_otrans_fuel_card">我的奥斯卡-兑换专区</string>
+    <string name="title_activity_otrans_fuel_card_confirm">我的奥斯卡-兑换专区</string>
 </resources>

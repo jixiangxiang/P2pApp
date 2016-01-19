@@ -6,50 +6,44 @@ import common.eric.com.ebaselibrary.model.EBaseModel;
  * Created by eric on 2015/11/25.
  */
 public class FundsRecordBean extends EBaseModel {
-    private String fundsType;
-    private String addFunds;
-    private String deleteFunds;
-    private String fundsTime;
+    private String type;
+    private String amt;
+    private String date;
+    private String status;
 
     public FundsRecordBean() {
     }
 
-    public FundsRecordBean(String fundsType, String addFunds, String deleteFunds, String fundsTime) {
-        this.fundsType = fundsType;
-        this.addFunds = addFunds;
-        this.deleteFunds = deleteFunds;
-        this.fundsTime = fundsTime;
+
+    public String getType() {
+        return type;
     }
 
-    public String getFundsType() {
-        return fundsType;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public void setFundsType(String fundsType) {
-        this.fundsType = fundsType;
+    public String getAmt() {
+        return amt;
     }
 
-    public String getAddFunds() {
-        return addFunds;
+    public void setAmt(String amt) {
+        this.amt = amt;
     }
 
-    public void setAddFunds(String addFunds) {
-        this.addFunds = addFunds;
+    public String getDate() {
+        return date;
     }
 
-    public String getDeleteFunds() {
-        return deleteFunds;
+    public void setDate(String date) {
+        this.date = date;
     }
 
-    public void setDeleteFunds(String deleteFunds) {
-        this.deleteFunds = deleteFunds;
+    public String getStatus() {
+        return status;
     }
 
-    public String getFundsTime() {
-        return fundsTime;
-    }
-
-    public void setFundsTime(String fundsTime) {
-        this.fundsTime = fundsTime;
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

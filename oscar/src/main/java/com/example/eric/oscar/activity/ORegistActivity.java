@@ -1,6 +1,9 @@
 package com.example.eric.oscar.activity;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,9 +19,18 @@ import com.android.volley.toolbox.StringRequest;
 import com.example.eric.oscar.R;
 import com.example.eric.oscar.common.ApiUtils;
 import com.example.eric.oscar.common.BaseActivity;
+import com.example.eric.oscar.common.ImageUtils;
 import com.example.eric.oscar.common.ResponseResult;
 import com.example.eric.oscar.common.TimeCount;
+import com.qiniu.android.http.ResponseInfo;
+import com.qiniu.android.storage.UpCompletionHandler;
 
+import org.json.JSONObject;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -137,6 +149,9 @@ public class ORegistActivity extends BaseActivity implements View.OnClickListene
                 }
             };
             addToRequestQueue(request, ApiUtils.SMS, true);
+        } else if (v == headImgArea) {
+            Intent intent = new Intent(this, OSelectPicActivity.class);
+            startActivityForResult(intent, TO_SELECT_PHOTO);
         }
     }
 
@@ -154,6 +169,37 @@ public class ORegistActivity extends BaseActivity implements View.OnClickListene
             TimeCount time = TimeCount.getInstance(Integer.valueOf(60) * 1000, 1000, captchaBtn, this);
             time.start();
 
+        }
+    }
+
+    @Override
+    protected void onActivityResult(final int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == TO_SELECT_PHOTO) {
+            final String picPath = data.getStringExtra(OSelectPicActivity.KEY_PHOTO_PATH);
+            final Bitmap bitmap = ImageUtils.getSmallBitmap(picPath, headImg.getWidth(), headImg.getHeight());
+            headImg.setImageBitmap(bitmap);
+            new Thread() {
+                @Override
+                public void run() {
+                    super.run();
+                    try {
+//                          float scale=300000f/bitmapSize;
+                        FileOutputStream out = new FileOutputStream(new File(picPath));
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 40, out);
+                        File cert = new File(picPath);
+                        getUploadManager().put(cert, "oscar" + Calendar.getInstance().getTimeInMillis(), getToken(),
+                                new UpCompletionHandler() {
+                                    @Override
+                                    public void complete(String key, ResponseInfo info, JSONObject response) {
+                                        Log.e("reponse", response.toString());
+                                    }
+                                }, null);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }.start();
         }
     }
 }

@@ -28,4 +28,5 @@ dependencies {
     compile 'com.lsjwzh:materialloadingprogressbar:0.5.6-RELEASE'
     compile 'com.github.sd6352051.niftydialogeffects:niftydialogeffects:1.0.0@aar'
     compile 'com.alibaba:fastjson:1.1.43.android'
+    compile 'com.qiniu:qiniu-android-sdk:7.0.+'
 }

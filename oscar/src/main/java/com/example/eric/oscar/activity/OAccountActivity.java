@@ -70,11 +70,11 @@ public class OAccountActivity extends BaseActivity implements View.OnClickListen
         } else if (v == bankCard) {
             toActivity(OBankListActivity.class);
         } else if (v == frozen) {
-            toActivity(OFundsRecordActivity.class);
+            toActivity(OFrozenRecordActivity.class);
         } else if (v == recharge) {
-            toActivity(OFundsRecordActivity.class);
+            toActivity(ORechargeRecordActivity.class);
         } else if (v == withdraw) {
-            toActivity(OFundsRecordActivity.class);
+            toActivity(OWithdrawRecordActivity.class);
         } else if (v == socar) {
             toActivity(OSelfOscarActivity.class);
         }

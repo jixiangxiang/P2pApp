@@ -16,6 +16,7 @@ import com.example.eric.oscar.activity.OHelpActivity;
 import com.example.eric.oscar.activity.OMerchantListActivity;
 import com.example.eric.oscar.activity.OOscarBalanceActivity;
 import com.example.eric.oscar.activity.OTransCardsActivity;
+import com.example.eric.oscar.activity.OTransFuelCardActivity;
 import com.example.eric.oscar.bean.OscarServiceBean;
 import com.example.eric.oscar.common.BaseActivity;
 import com.example.eric.oscar.views.WrapScrollListView;
@@ -140,6 +141,8 @@ public class OOscarFragment extends BaseFragment implements View.OnClickListener
             ((BaseActivity) getActivity()).toActivity(OHelpActivity.class);
         } else if (v == giftArea) {
             ((BaseActivity) getActivity()).toActivity(OTransCardsActivity.class);
+        } else if (v == rechargeOilArea) {
+            ((BaseActivity) getActivity()).toActivity(OTransFuelCardActivity.class);
         }
     }
 
@@ -153,5 +156,6 @@ public class OOscarFragment extends BaseFragment implements View.OnClickListener
         oscarServiceList = (WrapScrollListView) view.findViewById(R.id.oscarServiceList);
 
         giftArea.setOnClickListener(this);
+        rechargeOilArea.setOnClickListener(this);
     }
 }

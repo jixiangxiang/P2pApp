@@ -312,7 +312,7 @@ public class PProjectDetailActivity extends BaseActivity implements View.OnClick
             params = new HashMap<>();
             params.put("loanno", investProjectBean.getLoanno());
             params.put("cif_seq", ApiUtils.CIFSEQ);
-            params.put("status", investProjectBean.getStatus());
+            params.put("status", data.getStringExtra("nowstatus"));
             switch (investProjectBean.getUsertype()) {
                 case 1:
                     addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(this, params, ApiUtils.PROJECTDETAILPER), ApiUtils.PROJECTDETAILPER, true);

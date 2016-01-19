@@ -26,8 +26,14 @@ import com.example.eric.oscar.views.CustomProgressDialog;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.gitonway.lee.niftymodaldialogeffects.lib.Effectstype;
 import com.gitonway.lee.niftymodaldialogeffects.lib.NiftyDialogBuilder;
+import com.qiniu.android.storage.Configuration;
+import com.qiniu.android.storage.UploadManager;
+import com.qiniu.android.utils.UrlSafeBase64;
 
 import java.util.Map;
+
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
 
 import common.eric.com.ebaselibrary.common.EBaseApplication;
 
@@ -35,12 +41,18 @@ import common.eric.com.ebaselibrary.common.EBaseApplication;
 public abstract class BaseActivity extends AppCompatActivity implements Response.ErrorListener, Response.Listener {
     public static final int TITLE_LEFT = 0;
     public static final int TITLE_CENTER = 1;
+    public static final int TO_SELECT_PHOTO = 103;
     private Toolbar toolbar;
     private CustomProgressDialog progressDialog;
     protected String requestMethod = "";
     private NiftyDialogBuilder dialogBuilder;
     protected Map<String, String> params;
     protected SwipeRefreshLayout swipeRefresh;
+    private UploadManager uploadManager;
+    private static final String MAC_NAME = "HmacSHA1";
+    private static final String ENCODING = "UTF-8";
+    String AccessKey = "qdQJyEx5i6GiVdBF0zLLyIQxLTKDLxwkwox4rSRL";
+    String SecretKey = "BzuhZKfEBJj_mkuYNoeZ_i82j9bTjxM8Ojdl03NV";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,6 +121,22 @@ public abstract class BaseActivity extends AppCompatActivity implements Response
 
     protected void initTitleGone() {
         toolbar.setVisibility(View.GONE);
+    }
+
+    protected UploadManager getUploadManager() {
+        if (uploadManager == null) {
+            Configuration config = new Configuration.Builder()
+                    .chunkSize(256 * 1024)  //分片上传时，每片的大小。 默认 256K
+                    .putThreshhold(512 * 1024)  // 启用分片上传阀值。默认 512K
+                    .connectTimeout(10) // 链接超时。默认 10秒
+                    .responseTimeout(60) // 服务器响应超时。默认 60秒
+                    .recorder(null)  // recorder 分片上传时，已上传片记录器。默认 null
+                    //.recorder(recorder, keyGen)  // keyGen 分片上传时，生成标识符，用于片记录器区分是那个文件的上传记录
+                    //.zone(Zone.zone0) // 设置区域，指定不同区域的上传域名、备用域名、备用IP。默认 Zone.zone0
+                    .build();
+            uploadManager = new UploadManager(config);
+        }
+        return uploadManager;
     }
 
     protected void initTitleText(String title, int gravity, View.OnClickListener onClickListener) {
@@ -352,5 +380,52 @@ public abstract class BaseActivity extends AppCompatActivity implements Response
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    /**
+     * 获取token 本地生成
+     *
+     * @return
+     */
+    protected String getToken() {
+        try {
+            // 1 构造上传策略
+            JSONObject _json = new JSONObject();
+            long _dataline = System.currentTimeMillis() / 1000 + 3600;
+            _json.put("deadline", _dataline);// 有效时间为一个小时
+            _json.put("scope", "oscarapp");
+            String _encodedPutPolicy = UrlSafeBase64.encodeToString(_json
+                    .toString().getBytes());
+            byte[] _sign = HmacSHA1Encrypt(_encodedPutPolicy, SecretKey);
+            String _encodedSign = UrlSafeBase64.encodeToString(_sign);
+            String _uploadToken = AccessKey + ':' + _encodedSign + ':'
+                    + _encodedPutPolicy;
+            return _uploadToken;
+        } catch (Exception e) {
+            Log.e("getToken for qiniu", e.getLocalizedMessage());
+            return null;
+        }
+    }
+
+    /**
+     * 这个签名方法找了半天 一个个对出来的、、、、程序猿辛苦啊、、、 使用 HMAC-SHA1 签名方法对对encryptText进行签名
+     *
+     * @param encryptText 被签名的字符串
+     * @param encryptKey  密钥
+     * @return
+     * @throws Exception
+     */
+    public static byte[] HmacSHA1Encrypt(String encryptText, String encryptKey)
+            throws Exception {
+        byte[] data = encryptKey.getBytes(ENCODING);
+        // 根据给定的字节数组构造一个密钥,第二参数指定一个密钥算法的名称
+        javax.crypto.SecretKey secretKey = new SecretKeySpec(data, MAC_NAME);
+        // 生成一个指定 Mac 算法 的 Mac 对象
+        Mac mac = Mac.getInstance(MAC_NAME);
+        // 用给定密钥初始化 Mac 对象
+        mac.init(secretKey);
+        byte[] text = encryptText.getBytes(ENCODING);
+        // 完成 Mac 操作
+        return mac.doFinal(text);
     }
 }

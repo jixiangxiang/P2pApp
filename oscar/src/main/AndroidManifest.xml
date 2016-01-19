@@ -10,6 +10,9 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <!-- 改变WIFI网络状态的权限 -->
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
 
     <application
         android:name=".common.BaseApplication"
@@ -99,7 +102,23 @@
             android:label="@string/title_activity_oadd_bank" />
         <activity
             android:name=".activity.OBindBankActivity"
-            android:label="@string/title_activity_obind_bank"></activity>
+            android:label="@string/title_activity_obind_bank" />
+        <activity
+            android:name=".activity.ORechargeRecordActivity"
+            android:label="@string/title_activity_orecharge_record" />
+        <activity
+            android:name=".activity.OWithdrawRecordActivity"
+            android:label="@string/title_activity_owithdrawn_record" />
+        <activity
+            android:name=".activity.OFrozenRecordActivity"
+            android:label="@string/title_activity_ofrozen_record" />
+        <activity
+            android:name=".activity.OTransFuelCardActivity"
+            android:label="@string/title_activity_otrans_fuel_card" />
+        <activity
+            android:name=".activity.OSelectPicActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/DialogStyleBottom" />
     </application>
 
 </manifest>

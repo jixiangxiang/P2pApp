@@ -1,6 +1,7 @@
 package com.example.eric.oscar.fragment;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -25,6 +26,8 @@ import com.example.eric.oscar.common.ApiUtils;
 import com.example.eric.oscar.common.BaseActivity;
 import com.example.eric.oscar.common.ResponseResult;
 import com.example.eric.oscar.common.SPUtils;
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -46,7 +49,7 @@ public class OSelfFragment extends BaseFragment implements View.OnClickListener 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private ImageView headImg;
+    private SimpleDraweeView headImg;
     private TextView username;
     private TextView totalMoney;
     private ImageView arrowRight;
@@ -89,6 +92,7 @@ public class OSelfFragment extends BaseFragment implements View.OnClickListener 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        Fresco.initialize(getActivity());
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
@@ -147,7 +151,7 @@ public class OSelfFragment extends BaseFragment implements View.OnClickListener 
     }
 
     private void initialize(View view) {
-        headImg = (ImageView) view.findViewById(R.id.headImg);
+        headImg = (SimpleDraweeView) view.findViewById(R.id.headImg);
         username = (TextView) view.findViewById(R.id.username);
         usernameText = (TextView) view.findViewById(R.id.usernameText);
         totalMoney = (TextView) view.findViewById(R.id.totalMoney);
@@ -194,6 +198,8 @@ public class OSelfFragment extends BaseFragment implements View.OnClickListener 
             username.setText(((JSONObject) response.getData()).getString("userName"));
             usernameText.setText(((JSONObject) response.getData()).getString("realName"));
             idCard.setText(((JSONObject) response.getData()).getString("idCard"));
+            Uri uri = Uri.parse(((JSONObject) response.getData()).getString("avatar"));
+            headImg.setImageURI(uri);
         }
     }
 }

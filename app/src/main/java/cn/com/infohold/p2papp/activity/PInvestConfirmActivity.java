@@ -1,5 +1,6 @@
 package cn.com.infohold.p2papp.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -113,14 +114,16 @@ public class PInvestConfirmActivity extends BaseActivity implements View.OnClick
     }
 
     @Override
-    protected void doResponse(ResponseResult response) {
+    protected void doResponse(final ResponseResult response) {
         if (StringUtils.isEquals(requestMethod, ApiUtils.ACCTBALANCE)) {
             balanceMoney.setText(response.getData().getString("available_bal"));
         } else if (StringUtils.isEquals(requestMethod, ApiUtils.INVESTPROJECT)) {
             alertDialog("投资成功", new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    setResult(RESULT_OK);
+                    Intent intent = new Intent();
+                    intent.putExtra("nowstatus", response.getData().getString("nowstatus"));
+                    setResult(RESULT_OK, intent);
                     PInvestConfirmActivity.this.finish();
                 }
             });

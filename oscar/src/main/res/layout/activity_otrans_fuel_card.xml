@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.eric.oscar.activity.OTransFuelCardActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_290"
+            android:layout_marginTop="@dimen/dp_10"
+            android:background="@android:color/white"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/dp_30"
+            android:paddingRight="@dimen/dp_20">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/dp_23"
+                android:src="@mipmap/o_fuel_card" />
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_55"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/dp_18"
+                android:background="@android:color/white"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/text_14_55"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:gravity="center_vertical"
+                    android:text="兑换金额：" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_42"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="@dimen/dp_70"
+                    android:layout_marginRight="@dimen/dp_37"
+                    android:layout_marginTop="@dimen/dp_5"
+                    android:background="@drawable/edittext_border_conner"
+                    android:onClick="onClick">
+
+                    <TextView
+                        android:id="@+id/transMoney"
+                        style="@style/text_13_55"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/dp_10"
+                        android:gravity="center"
+                        android:text="0.00" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/dp_10"
+                        android:src="@mipmap/o_down_icon" />
+                </RelativeLayout>
+
+                <TextView
+                    style="@style/text_13_55"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center"
+                    android:text="元" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_55"
+                android:layout_gravity="center_horizontal"
+                android:background="@android:color/white"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/text_14_55"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:gravity="center_vertical"
+                    android:text="兑换码接收手机：" />
+
+                <EditText
+                    android:id="@+id/phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_42"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="@dimen/dp_110"
+                    android:layout_marginTop="@dimen/dp_5"
+                    android:background="@drawable/edittext_border_conner"
+                    android:inputType="phone" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_55"
+                android:layout_gravity="center_horizontal"
+                android:background="@android:color/white"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/text_14_55"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:gravity="center_vertical"
+                    android:text="再次输入手机号：" />
+
+                <EditText
+                    android:id="@+id/confirmPhone"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_42"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="@dimen/dp_110"
+                    android:layout_marginTop="@dimen/dp_5"
+                    android:background="@drawable/edittext_border_conner"
+                    android:inputType="phone" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/confirmBtn"
+            style="@style/text_16_white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dp_10"
+            android:background="@mipmap/o_login_btn"
+            android:onClick="onClick"
+            android:text="确认兑换" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_marginRight="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_8"
+            android:text="兑换说明
+1：兑换后系统向用户预留的手机号发送二维码电子券，用户凭该券到相关商户兑换相应的商品或服务。
+2：中石化二维码兑换业务每笔需要支付2%的手续费；如若用户主动撤销交易，手续费不退还。
+3：如手机在二维码发送后十分钟内还未收到短信或彩信，可以拨打客服电话400-620-7575请客服人员重新发送
+4：成功购买中石化二维码兑换券后，有效期90天，自购买当日生效。
+5：中石化加油站兑换时间为8：00到17：00，兑换地点为加油站柜台二维码兑换处，或咨询加油站工作人员，此二维码只能在中石化使用。" />
+
+    </LinearLayout>
+</ScrollView>
