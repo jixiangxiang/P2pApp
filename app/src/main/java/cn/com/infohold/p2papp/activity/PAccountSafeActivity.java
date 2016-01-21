@@ -110,7 +110,7 @@ public class PAccountSafeActivity extends BaseActivity implements View.OnClickLi
                 return;
             }
             selectDialog = new AlertDialog.Builder(this)
-                    .setTitle("您可对银行卡进行操作")
+                    .setTitle("您可对交易密码进行操作")
                     .setCancelable(true)
                     .setItems(items, new DialogInterface.OnClickListener() {
                         @Override

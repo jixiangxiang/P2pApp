@@ -22,7 +22,7 @@
             android:background="@android:color/transparent"
             android:gravity="left|center_vertical"
             android:hint="用户名"
-            android:inputType="text"
+            android:inputType="textPersonName"
             android:padding="@dimen/dp_5"
             android:textColorHint="@color/p_bg_color" />
 

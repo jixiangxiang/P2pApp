@@ -6,6 +6,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import java.util.HashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import cn.com.infohold.p2papp.R;
 import cn.com.infohold.p2papp.common.ApiUtils;
@@ -40,10 +42,18 @@ public class PRegistCommitActivity extends BaseActivity implements View.OnClickL
             String username = userName.getText().toString();
             String loginpwd = loginPwd.getText().toString();
             String confirmpwd = confirmPwd.getText().toString();
+            //验证标识符必须由字母、数字、下划线组成
+            Pattern p = Pattern.compile("^([a-zA-Z])[a-zA-Z0-9_—-]{3,19}$");
+            Matcher m = p.matcher(username);
+            if (!m.matches()) {
+                showToastShort("用户名必须以字母开头，4~20位，只能是字母、数字、_、—和-");
+                return;
+            }
             if (StringUtils.isEmpty(username)) {
                 showToastShort("用户名为空!");
                 return;
             }
+
             if (StringUtils.isEmpty(loginpwd)) {
                 showToastShort("密码不能为空!");
                 return;

@@ -51,7 +51,7 @@ public class TradeRecordBean extends EBaseModel {
     }
 
     public String getAvai_balance() {
-        return avai_balance;
+        return "可用余额（元）:" + avai_balance;
     }
 
     public void setAvai_balance(String avai_balance) {

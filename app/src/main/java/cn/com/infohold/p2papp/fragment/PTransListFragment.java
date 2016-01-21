@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 
 import com.alibaba.fastjson.JSONArray;
@@ -24,6 +25,7 @@ import cn.com.infohold.p2papp.base.BaseFragment;
 import cn.com.infohold.p2papp.bean.InvestProjectBean;
 import cn.com.infohold.p2papp.bean.TransFerringBean;
 import cn.com.infohold.p2papp.common.ApiUtils;
+import cn.com.infohold.p2papp.common.EmptyListViewUtil;
 import cn.com.infohold.p2papp.common.ResponseResult;
 import common.eric.com.ebaselibrary.adapter.EBaseAdapter;
 
@@ -98,6 +100,11 @@ public class PTransListFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
         initialize(view);
         loanList.addFooterView(footView);
+        View emptyView = EmptyListViewUtil.newInstance().getEmptyView(getActivity());
+        emptyView.setLayoutParams(new ViewGroup.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
+        ((FrameLayout) loanList.getParent()).addView(emptyView);
+        loanList.setEmptyView(emptyView);
+
         investProjectBeans = new ArrayList<TransFerringBean>();
         baseAdapter = new EBaseAdapter(getActivity(), investProjectBeans, R.layout.p_trans_project_item,
                 new String[]{"project_name", "predict_profit", "transfer_price", "loan_due_date", "begin_transfer_date", "transfer_principal"},
@@ -112,14 +119,6 @@ public class PTransListFragment extends BaseFragment {
                     bundle.putInt("status", 4);
                 else
                     bundle.putInt("status", 1);
-//                TransferProjectBean transferProjectBean = new TransferProjectBean();
-//                transferProjectBean.setAssignmentseq(transFerringBean.getAssignmentseq());
-//                transferProjectBean.setAssignmentstatus();
-//                transferProjectBean.setRate(Double.valueOf(transFerringBean.getPredict_profit()));
-//                transferProjectBean.setProjectname(transFerringBean.getProject_name());
-//                transferProjectBean.setLoanno();
-//                bundle.putSerializable("transferProjectBean", transferProjectBean);
-
                 InvestProjectBean investProjectBean = new InvestProjectBean();
                 investProjectBean.setStatus(transFerringBean.getProject_status());
                 investProjectBean.setLoanno(transFerringBean.getLoan_no());
@@ -171,7 +170,10 @@ public class PTransListFragment extends BaseFragment {
 
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-
+                if (firstVisibleItem == 0  && totalItemCount > 0)
+                    swipeRefresh.setEnabled(true);
+                else
+                    swipeRefresh.setEnabled(false);
             }
         });
 

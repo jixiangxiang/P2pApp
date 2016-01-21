@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
 import java.util.HashMap;
 
 import cn.com.infohold.p2papp.R;
@@ -21,6 +22,7 @@ public class PWithdrawActivity extends BaseActivity implements View.OnClickListe
     private TextView bankName;
     private EditText withdrawMoney;
     private TextView actualMoney;
+    private TextView balance;
     private Button nextStep;
     private String ac_no;
 
@@ -67,7 +69,42 @@ public class PWithdrawActivity extends BaseActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if (v == nextStep) {
-            alertPayPwdDialog(new PayPwdConfirmClickListener() {
+            params = new HashMap<>();
+            params.put("currency", "CNY");
+            params.put("amount", withdrawMoney.getText().toString());
+            params.put("fee_type", "3");
+            addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(this, params, ApiUtils.FEETRIAL), ApiUtils.FEETRIAL, true);
+        }
+    }
+
+    private void initialize() {
+        cardNo = (TextView) findViewById(R.id.cardNo);
+        bankName = (TextView) findViewById(R.id.bankName);
+        withdrawMoney = (EditText) findViewById(R.id.withdrawMoney);
+        actualMoney = (TextView) findViewById(R.id.actualMoney);
+        balance = (TextView) findViewById(R.id.balance);
+        nextStep = (Button) findViewById(R.id.nextStep);
+    }
+
+    @Override
+    protected void doResponse(ResponseResult response) {
+        if (requestMethod.equals(ApiUtils.TOWITHDRAW)) {
+            cardNo.setText(response.getData().getString("bank_card_no"));
+            bankName.setText(response.getData().getString("bank_name"));
+            ac_no = response.getData().getString("ac_no");
+            balance.setText(response.getData().getString("available_bal"));
+        } else if (requestMethod.equals(ApiUtils.WITHDRAW)) {
+            alertDialogNoCancel(response.getReturn_message(), new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    setResult(RESULT_OK);
+                    PWithdrawActivity.this.finish();
+                }
+            });
+        } else if (requestMethod.equals(ApiUtils.FEETRIAL)) {
+            DecimalFormat sdf = new DecimalFormat("#.00");
+            Double actualMoney = Double.valueOf(withdrawMoney.getText().toString()) - Double.valueOf(response.getData().getString("fee"));
+            alertPayPwdDialogCust(new PayPwdConfirmClickListener() {
                 @Override
                 public void onClick(View v, EditText payPwd) {
                     if (StringUtils.isEmpty(payPwd.getText().toString())) {
@@ -81,32 +118,7 @@ public class PWithdrawActivity extends BaseActivity implements View.OnClickListe
                     params.put("mobilephone", ApiUtils.getLoginUserPhone(PWithdrawActivity.this));
                     addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(PWithdrawActivity.this, params, ApiUtils.WITHDRAW), ApiUtils.WITHDRAW, true);
                 }
-            });
-        }
-    }
-
-    private void initialize() {
-        cardNo = (TextView) findViewById(R.id.cardNo);
-        bankName = (TextView) findViewById(R.id.bankName);
-        withdrawMoney = (EditText) findViewById(R.id.withdrawMoney);
-        actualMoney = (TextView) findViewById(R.id.actualMoney);
-        nextStep = (Button) findViewById(R.id.nextStep);
-    }
-
-    @Override
-    protected void doResponse(ResponseResult response) {
-        if (requestMethod.equals(ApiUtils.TOWITHDRAW)) {
-            cardNo.setText(response.getData().getString("bank_card_no"));
-            bankName.setText(response.getData().getString("bank_name"));
-            ac_no = response.getData().getString("ac_no");
-        } else if (requestMethod.equals(ApiUtils.WITHDRAW)) {
-            alertDialogNoCancel(response.getReturn_message(), new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    setResult(RESULT_OK);
-                    PWithdrawActivity.this.finish();
-                }
-            });
+            }, sdf.format(actualMoney));
         }
     }
 }

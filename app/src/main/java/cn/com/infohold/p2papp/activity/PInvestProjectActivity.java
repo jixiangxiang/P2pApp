@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.Menu;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -21,6 +22,7 @@ import java.util.List;
 import cn.com.infohold.p2papp.R;
 import cn.com.infohold.p2papp.bean.InvestProjectBean;
 import cn.com.infohold.p2papp.common.ApiUtils;
+import cn.com.infohold.p2papp.common.EmptyListViewUtil;
 import cn.com.infohold.p2papp.common.ResponseResult;
 import common.eric.com.ebaselibrary.adapter.EBaseAdapter;
 import common.eric.com.ebaselibrary.util.StringUtils;
@@ -67,6 +69,10 @@ public class PInvestProjectActivity extends BaseActivity implements View.OnClick
         params.put("qrsize", String.valueOf(qrsize));
         addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(this, params, ApiUtils.PROJECT_LIST), true);
         investProjectList.addFooterView(footView);
+        View emptyView = EmptyListViewUtil.newInstance().getEmptyView(this);
+        ((ViewGroup) investProjectList.getParent()).addView(emptyView);
+        investProjectList.setEmptyView(emptyView);
+
         investProjectBeans = new ArrayList<>();
         baseAdapter = new EBaseAdapter(this, investProjectBeans, R.layout.p_invest_project_item,
                 new String[]{"rate", "balance", "issuenum", "nowstatus", "projectname", "issuetype"},
@@ -126,7 +132,10 @@ public class PInvestProjectActivity extends BaseActivity implements View.OnClick
 
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-
+                if (firstVisibleItem == 0 && totalItemCount > 0)
+                    swipeRefresh.setEnabled(true);
+                else
+                    swipeRefresh.setEnabled(false);
             }
         });
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {

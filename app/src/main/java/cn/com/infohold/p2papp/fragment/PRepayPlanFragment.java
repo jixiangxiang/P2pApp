@@ -2,7 +2,6 @@ package cn.com.infohold.p2papp.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,9 +17,12 @@ import java.util.HashMap;
 import java.util.List;
 
 import cn.com.infohold.p2papp.R;
+import cn.com.infohold.p2papp.activity.PProjectDetailActivity;
+import cn.com.infohold.p2papp.activity.PTransProjectDetailActivity;
 import cn.com.infohold.p2papp.base.BaseFragment;
 import cn.com.infohold.p2papp.bean.RepayPlanBean;
 import cn.com.infohold.p2papp.common.ApiUtils;
+import cn.com.infohold.p2papp.common.DensityUtils;
 import cn.com.infohold.p2papp.common.ResponseResult;
 import common.eric.com.ebaselibrary.adapter.EBaseAdapter;
 
@@ -104,17 +106,6 @@ public class PRepayPlanFragment extends BaseFragment {
                 new int[]{R.id.stageno, R.id.repaydate, R.id.repayprincipal, R.id.repayinterest, R.id.totalMoney});
         repayPlan.setAdapter(baseAdapter);
 
-        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                offset = 0;
-                params = new HashMap<>();
-                params.put("loan_no", mParam2);
-                params.put("offset", String.valueOf(offset));
-                params.put("qrsize", String.valueOf(qrsize));
-                addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(PRepayPlanFragment.this, params, ApiUtils.REPAYPLAN), false);
-            }
-        });
         repayPlan.setOnScrollListener(new AbsListView.OnScrollListener() {
 
             @Override
@@ -141,7 +132,6 @@ public class PRepayPlanFragment extends BaseFragment {
         principle = (TextView) view.findViewById(R.id.principle);
         interest = (TextView) view.findViewById(R.id.interest);
         repayPlan = (ListView) view.findViewById(R.id.repayPlan);
-        swipeRefresh = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefresh);
         footView = getActivity().getLayoutInflater().inflate(R.layout.listview_footview, null);
         footView.setVisibility(View.GONE);
     }
@@ -149,18 +139,19 @@ public class PRepayPlanFragment extends BaseFragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser && isOnCreate) {
+        if (isVisibleToUser) {
             params = new HashMap<>();
             params.put("loan_no", mParam2);
             params.put("offset", String.valueOf(offset));
             params.put("qrsize", String.valueOf(qrsize));
             addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(PRepayPlanFragment.this, params, ApiUtils.REPAYPLAN), true);
+            isOnCreate = false;
         }
     }
 
+
     @Override
     protected void doResponse(ResponseResult response) {
-        isOnCreate = false;
         JSONObject data = response.getData();
         principle.setText(data.getString("principle"));
         interest.setText(data.getString("interest"));
@@ -180,5 +171,15 @@ public class PRepayPlanFragment extends BaseFragment {
         }
         baseAdapter.setmData(repayPlanBeas);
         baseAdapter.notifyDataSetChanged();
+        repayPlan.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (getActivity() instanceof PProjectDetailActivity)
+                    ((PProjectDetailActivity) getActivity()).setViewPagerHeight(repayPlan.getHeight() + DensityUtils.dip2px(getActivity(), 95));
+                else if (getActivity() instanceof PTransProjectDetailActivity)
+                    ((PTransProjectDetailActivity) getActivity()).setViewPagerHeight(repayPlan.getHeight() + DensityUtils.dip2px(getActivity(), 95));
+
+            }
+        }, 500);
     }
 }

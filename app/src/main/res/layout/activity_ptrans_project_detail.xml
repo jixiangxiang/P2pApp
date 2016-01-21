@@ -84,7 +84,7 @@
                             style="@style/text_12_999"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="可投金额（元）" />
+                            android:text="转让价格（元）" />
 
                         <TextView
                             android:id="@+id/availInvestMoney"

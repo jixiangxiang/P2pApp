@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.Menu;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -21,6 +22,7 @@ import java.util.List;
 import cn.com.infohold.p2papp.R;
 import cn.com.infohold.p2papp.bean.TransferProjectBean;
 import cn.com.infohold.p2papp.common.ApiUtils;
+import cn.com.infohold.p2papp.common.EmptyListViewUtil;
 import cn.com.infohold.p2papp.common.ResponseResult;
 import common.eric.com.ebaselibrary.adapter.EBaseAdapter;
 import common.eric.com.ebaselibrary.util.StringUtils;
@@ -62,6 +64,10 @@ public class PTransferProjectActivity extends BaseActivity implements View.OnCli
         initialize();
         switchSelect(colligate);
         investProjectList.addFooterView(footView);
+        View emptyView = EmptyListViewUtil.newInstance().getEmptyView(this);
+        ((ViewGroup) investProjectList.getParent()).addView(emptyView);
+        investProjectList.setEmptyView(emptyView);
+
         transferProjectBeans = new ArrayList<>();
         investProjectList.setAdapter(baseAdapter);
         investProjectList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -104,7 +110,10 @@ public class PTransferProjectActivity extends BaseActivity implements View.OnCli
 
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-
+                if (firstVisibleItem == 0)
+                    swipeRefresh.setEnabled(true);
+                else
+                    swipeRefresh.setEnabled(false);
             }
         });
 

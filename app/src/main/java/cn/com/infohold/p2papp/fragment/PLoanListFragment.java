@@ -6,7 +6,9 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 
 import com.alibaba.fastjson.JSONArray;
@@ -23,6 +25,7 @@ import cn.com.infohold.p2papp.base.BaseFragment;
 import cn.com.infohold.p2papp.bean.InvestProjectBean;
 import cn.com.infohold.p2papp.bean.LoanProjectBean;
 import cn.com.infohold.p2papp.common.ApiUtils;
+import cn.com.infohold.p2papp.common.EmptyListViewUtil;
 import cn.com.infohold.p2papp.common.ResponseResult;
 import common.eric.com.ebaselibrary.adapter.EBaseAdapter;
 
@@ -51,6 +54,8 @@ public class PLoanListFragment extends BaseFragment {
     private boolean isOnCreate = false;
     private int offset = 0;
     private int qrsize = 10;
+    private View footView;
+    private Boolean isLoadMore = false;
 
     public PLoanListFragment() {
         // Required empty public constructor
@@ -98,6 +103,12 @@ public class PLoanListFragment extends BaseFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initialize(view);
+        loanList.addFooterView(footView);
+        View emptyView = EmptyListViewUtil.newInstance().getEmptyView(getActivity());
+        emptyView.setLayoutParams(new ViewGroup.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
+        ((FrameLayout) loanList.getParent()).addView(emptyView);
+        loanList.setEmptyView(emptyView);
+
         investProjectBeans = new ArrayList<LoanProjectBean>();
         if (data != null) {
             int itemCount = (data.getInteger("total_count") - offset * qrsize);
@@ -135,7 +146,7 @@ public class PLoanListFragment extends BaseFragment {
                 bundle.putInt("status", 2);
                 InvestProjectBean investProjectBean = new InvestProjectBean();
                 investProjectBean.setLoanno(loanProjectBean.getLoan_no());
-                investProjectBean.setStatus(String.valueOf(loanProjectBean.getStatus()));
+                investProjectBean.setStatus(String.valueOf(status));
                 investProjectBean.setUsertype(ApiUtils.getLoginUserType(getActivity()));
                 investProjectBean.setProjectno(loanProjectBean.getProjectno());
                 investProjectBean.setProjectname(loanProjectBean.getProjectname());
@@ -156,11 +167,37 @@ public class PLoanListFragment extends BaseFragment {
                 addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(PLoanListFragment.this, params, ApiUtils.MYLOANQR), false);
             }
         });
+
+        loanList.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                if (view.getLastVisiblePosition() == view.getCount() - 1 && footView.getVisibility() == View.VISIBLE && !isLoadMore) {
+                    offset++;
+                    params = new HashMap<>();
+                    params.put("mobilephone", ApiUtils.getLoginUserPhone(getActivity()));
+                    params.put("offset", String.valueOf(offset));
+                    params.put("qrsize", String.valueOf(qrsize));
+                    params.put("flag", String.valueOf(status));
+                    addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(PLoanListFragment.this, params, ApiUtils.MYLOANQR), false);
+                    isLoadMore = true;
+                }
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                if (firstVisibleItem == 0 && totalItemCount > 0)
+                    swipeRefresh.setEnabled(true);
+                else
+                    swipeRefresh.setEnabled(false);
+            }
+        });
     }
 
     private void initialize(View view) {
         loanList = (ListView) view.findViewById(R.id.loanList);
         swipeRefresh = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefresh);
+        footView = getActivity().getLayoutInflater().inflate(R.layout.listview_footview, null);
+        footView.setVisibility(View.GONE);
     }
 
     @Override

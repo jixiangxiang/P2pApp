@@ -25,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_5"
-            android:text="密码需要6-16位，建议使用字母加数字或符号的组合" />
+            android:text="请关联本人银行卡完成实名认证，平台将严格保密您的信息" />
     </LinearLayout>
 
     <RelativeLayout

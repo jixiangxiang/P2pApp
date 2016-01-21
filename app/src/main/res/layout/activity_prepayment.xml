@@ -39,7 +39,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_12"
-                    android:text="1,6000.00" />
+                    android:text="0.00" />
             </LinearLayout>
 
             <LinearLayout
@@ -62,7 +62,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_12"
-                    android:text="1,000.00" />
+                    android:text="0.00" />
             </LinearLayout>
         </LinearLayout>
 
@@ -92,7 +92,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_12"
-                    android:text="1000.00" />
+                    android:text="0.00" />
             </LinearLayout>
 
             <LinearLayout
@@ -115,7 +115,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_12"
-                    android:text="228.00" />
+                    android:text="0.00" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

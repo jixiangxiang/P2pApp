@@ -2,22 +2,25 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
     android:orientation="vertical">
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/dp_8">
+        android:layout_height="match_parent">
 
-        <ListView
-            android:id="@+id/loanList"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:divider="@color/p_bg_color"
-            android:dividerHeight="@dimen/dp_10">
+            android:layout_height="match_parent">
 
-        </ListView>
+            <ListView
+                android:id="@+id/loanList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="@color/p_bg_color"
+                android:dividerHeight="@dimen/dp_10">
+
+            </ListView>
+        </FrameLayout>
     </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

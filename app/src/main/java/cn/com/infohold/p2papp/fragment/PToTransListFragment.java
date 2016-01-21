@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 
 import com.alibaba.fastjson.JSONArray;
@@ -25,6 +26,7 @@ import cn.com.infohold.p2papp.base.BaseFragment;
 import cn.com.infohold.p2papp.bean.InvestProjectBean;
 import cn.com.infohold.p2papp.bean.ToTransProjectBean;
 import cn.com.infohold.p2papp.common.ApiUtils;
+import cn.com.infohold.p2papp.common.EmptyListViewUtil;
 import cn.com.infohold.p2papp.common.ResponseResult;
 import common.eric.com.ebaselibrary.adapter.EBaseAdapter;
 
@@ -100,6 +102,12 @@ public class PToTransListFragment extends BaseFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initialize(view);
+        loanList.addFooterView(footView);
+        View emptyView = EmptyListViewUtil.newInstance().getEmptyView(getActivity());
+        emptyView.setLayoutParams(new ViewGroup.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
+        ((FrameLayout) loanList.getParent()).addView(emptyView);
+        loanList.setEmptyView(emptyView);
+
         investProjectBeans = new ArrayList<ToTransProjectBean>();
         int itemCount = (data.getInteger("total_count") - offset * qrsize);
         if (itemCount > 1) {
@@ -165,7 +173,10 @@ public class PToTransListFragment extends BaseFragment {
 
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-
+                if (firstVisibleItem == 0   && totalItemCount > 0)
+                    swipeRefresh.setEnabled(true);
+                else
+                    swipeRefresh.setEnabled(false);
             }
         });
     }

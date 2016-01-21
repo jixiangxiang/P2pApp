@@ -84,7 +84,11 @@ public class PProjectDetailActivity extends BaseActivity implements View.OnClick
                 toInvestBtn.setVisibility(View.GONE);
                 break;
             case 2:
-                toInvestBtn.setBackgroundResource(R.mipmap.p_repay_btn);
+                if (investProjectBean.getStatus() != null && investProjectBean.getStatus().equals("07")) {
+                    toInvestBtn.setVisibility(View.GONE);
+                } else {
+                    toInvestBtn.setBackgroundResource(R.mipmap.p_repay_btn);
+                }
                 break;
             case 3:
                 toInvestBtn.setBackgroundResource(R.mipmap.p_to_trans_btn);

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -25,6 +26,7 @@ import cn.com.infohold.p2papp.base.BaseFragment;
 import cn.com.infohold.p2papp.bean.InvestProjectBean;
 import cn.com.infohold.p2papp.bean.SelfInvestBean;
 import cn.com.infohold.p2papp.common.ApiUtils;
+import cn.com.infohold.p2papp.common.EmptyListViewUtil;
 import cn.com.infohold.p2papp.common.ResponseResult;
 import common.eric.com.ebaselibrary.adapter.EBaseAdapter;
 
@@ -98,6 +100,11 @@ public class PInvestListFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
         initialize(view);
         loanList.addFooterView(footView);
+        View emptyView = EmptyListViewUtil.newInstance().getEmptyView(getActivity());
+        emptyView.setLayoutParams(new ViewGroup.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
+        ((FrameLayout) loanList.getParent()).addView(emptyView);
+        loanList.setEmptyView(emptyView);
+
         investProjectBeans = new ArrayList<>();
         if (status == 1 || status == 3) {
             baseAdapter = new EBaseAdapter(getActivity(), investProjectBeans, R.layout.p_self_having_invest_item,
@@ -177,6 +184,8 @@ public class PInvestListFragment extends BaseFragment {
                 investProjectBean.setLoanno(selfInvestBean.getLoan_no());
                 investProjectBean.setUsertype(Integer.valueOf(selfInvestBean.getUsertype()));
                 investProjectBean.setProjectname(selfInvestBean.getProject_name());
+                if (status == 2)
+                    investProjectBean.setNowstatus("01");
                 bundle.putSerializable("investProject", investProjectBean);
                 ((BaseActivity) getActivity()).toActivity(PProjectDetailActivity.class, bundle);
             }
@@ -212,7 +221,10 @@ public class PInvestListFragment extends BaseFragment {
 
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-
+                if (firstVisibleItem == 0 && totalItemCount > 0)
+                    swipeRefresh.setEnabled(true);
+                else
+                    swipeRefresh.setEnabled(false);
             }
         });
     }

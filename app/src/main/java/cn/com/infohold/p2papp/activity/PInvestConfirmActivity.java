@@ -122,7 +122,7 @@ public class PInvestConfirmActivity extends BaseActivity implements View.OnClick
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent();
-                    intent.putExtra("nowstatus", response.getData().getString("nowstatus"));
+                    intent.putExtra("nowstatus", response.getData().getString("newstatus"));
                     setResult(RESULT_OK, intent);
                     PInvestConfirmActivity.this.finish();
                 }

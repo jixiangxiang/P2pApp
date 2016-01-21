@@ -100,20 +100,13 @@
             android:text="利息" />
     </LinearLayout>
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipeRefresh"
+    <cn.com.infohold.p2papp.views.WrapScrollListView
+        android:id="@+id/repayPlan"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_8">
+        android:background="@android:color/white"
+        android:divider="@color/p_bg_color"
+        android:dividerHeight="@dimen/dp_1">
 
-        <ListView
-            android:id="@+id/repayPlan"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/white"
-            android:divider="@color/p_bg_color"
-            android:dividerHeight="@dimen/dp_1">
-
-        </ListView>
-    </android.support.v4.widget.SwipeRefreshLayout>
+    </cn.com.infohold.p2papp.views.WrapScrollListView>
 </LinearLayout>

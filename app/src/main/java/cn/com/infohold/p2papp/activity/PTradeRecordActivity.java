@@ -3,8 +3,10 @@ package cn.com.infohold.p2papp.activity;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -16,6 +18,7 @@ import java.util.List;
 import cn.com.infohold.p2papp.R;
 import cn.com.infohold.p2papp.bean.TradeRecordBean;
 import cn.com.infohold.p2papp.common.ApiUtils;
+import cn.com.infohold.p2papp.common.EmptyListViewUtil;
 import cn.com.infohold.p2papp.common.ResponseResult;
 import common.eric.com.ebaselibrary.adapter.EBaseAdapter;
 
@@ -41,10 +44,30 @@ public class PTradeRecordActivity extends BaseActivity {
         initTitleText(getString(R.string.title_activity_ptrade_record), BaseActivity.TITLE_CENTER, android.R.color.black);
         initialize();
         tradeList.addFooterView(footView);
+        View emptyView = EmptyListViewUtil.newInstance().getEmptyView(this);
+        ((ViewGroup) tradeList.getParent()).addView(emptyView);
+        tradeList.setEmptyView(emptyView);
+
         tradeRecordBeans = new ArrayList<TradeRecordBean>();
         baseAdapter = new EBaseAdapter(this, tradeRecordBeans, R.layout.list_trade_record_item,
-                new String[]{"trs_name", "trs_date", "amount", "avai_balance"},
-                new int[]{R.id.tradeType, R.id.tradeDate, R.id.tradeMoney, R.id.balanceMoney});
+                new String[]{"trs_name", "trs_date", "amount", "avai_balance", "trs_flag"},
+                new int[]{R.id.tradeType, R.id.tradeDate, R.id.tradeMoney, R.id.balanceMoney, R.id.tradeMoney});
+        baseAdapter.setViewBinder(new EBaseAdapter.ViewBinder() {
+            @Override
+            public boolean setViewValue(View view, Object o, String s) {
+                if (o instanceof Integer && view instanceof TextView) {
+                    Integer flag = (Integer) o;
+                    TextView tv = (TextView) view;
+                    if (flag == 0) {
+                        tv.setTextColor(getResources().getColor(R.color.green_color));
+                    } else {
+                        tv.setTextColor(getResources().getColor(android.R.color.holo_red_light));
+                    }
+                    return true;
+                }
+                return false;
+            }
+        });
         tradeList.setAdapter(baseAdapter);
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -74,7 +97,10 @@ public class PTradeRecordActivity extends BaseActivity {
 
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-
+                if (firstVisibleItem == 0 && totalItemCount > 0)
+                    swipeRefresh.setEnabled(true);
+                else
+                    swipeRefresh.setEnabled(false);
             }
         });
 

@@ -46,7 +46,7 @@ public class PRepaymentActivity extends BaseActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
         if (v == toRechargeBtn) {
-
+            toActivity(PRechargeStaticActivity.class);
         } else if (v == toRepayBtn) {
             alertPayPwdDialog(new PayPwdConfirmClickListener() {
                 @Override
@@ -80,8 +80,9 @@ public class PRepaymentActivity extends BaseActivity implements View.OnClickList
         if (requestMethod.equals(ApiUtils.PRENORMALRP)) {
             totalRepayMoney.setText(response.getData().getString("repaytotalamt"));
             principal.setText(response.getData().getString("currentrpcap"));
-            penaltyInterest.setText(response.getData().getString("currentinterest"));
+            penaltyInterest.setText(response.getData().getString("arrearspen"));
             balance.setText(response.getData().getString("acctbalance"));
+            interest.setText(response.getData().getString("currentinterest"));
         } else if (requestMethod.equals(ApiUtils.REPAYSETTLE)) {
             alertDialogNoCancel(response.getReturn_message(), new View.OnClickListener() {
                 @Override

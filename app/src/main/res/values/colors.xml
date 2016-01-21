@@ -16,4 +16,5 @@
     <color name="collect_interst_color">#B6A5DC</color>
     <color name="frozen_money_color">#5EB3EC</color>
     <color name="red_money_color">#FFB985</color>
+    <color name="green_color">#5AC92E</color>
 </resources>
