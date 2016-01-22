@@ -52,4 +52,5 @@
     <string name="title_activity_ppay_pwd_find">找回支付密码</string>
     <string name="title_activity_pabout">关于</string>
     <string name="title_activity_prisk_warn">风险提示</string>
+    <string name="title_activity_prepay_plan_detail">还款明细</string>
 </resources>

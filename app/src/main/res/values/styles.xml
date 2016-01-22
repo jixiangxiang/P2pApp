@@ -129,6 +129,11 @@
         <item name="android:textColor">@color/p_blue_color</item>
     </style>
 
+    <style name="text_12_selector">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@drawable/textview_btn_selector</item>
+    </style>
+
     <style name="text_12_white">
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">@android:color/white</item>

@@ -17,7 +17,9 @@ import java.util.HashMap;
 import java.util.List;
 
 import cn.com.infohold.p2papp.R;
+import cn.com.infohold.p2papp.activity.BaseActivity;
 import cn.com.infohold.p2papp.activity.PProjectDetailActivity;
+import cn.com.infohold.p2papp.activity.PRepayPlanDetailActivity;
 import cn.com.infohold.p2papp.activity.PTransProjectDetailActivity;
 import cn.com.infohold.p2papp.base.BaseFragment;
 import cn.com.infohold.p2papp.bean.RepayPlanBean;
@@ -25,6 +27,7 @@ import cn.com.infohold.p2papp.common.ApiUtils;
 import cn.com.infohold.p2papp.common.DensityUtils;
 import cn.com.infohold.p2papp.common.ResponseResult;
 import common.eric.com.ebaselibrary.adapter.EBaseAdapter;
+import common.eric.com.ebaselibrary.util.StringUtils;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -49,12 +52,14 @@ public class PRepayPlanFragment extends BaseFragment {
     private List<RepayPlanBean> repayPlanBeas;
     private TextView principle;
     private TextView interest;
+    private TextView repayDetail;
 
     private boolean isOnCreate = false;
     private int offset = 0;
     private int qrsize = 10;
     private View footView;
     private boolean isLoadMore = false;
+    private int height = 85;
 
     public PRepayPlanFragment() {
         // Required empty public constructor
@@ -99,6 +104,12 @@ public class PRepayPlanFragment extends BaseFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initialize(view);
+        if (!StringUtils.isEmpty(status) && status.equals("2")) {
+            height = height + 50;
+            repayDetail.setVisibility(View.VISIBLE);
+        } else {
+            repayDetail.setVisibility(View.GONE);
+        }
         repayPlan.addFooterView(footView);
         repayPlanBeas = new ArrayList<RepayPlanBean>();
         baseAdapter = new EBaseAdapter(getActivity(), repayPlanBeas, R.layout.p_repay_plan_item,
@@ -131,9 +142,18 @@ public class PRepayPlanFragment extends BaseFragment {
     private void initialize(View view) {
         principle = (TextView) view.findViewById(R.id.principle);
         interest = (TextView) view.findViewById(R.id.interest);
+        repayDetail = (TextView) view.findViewById(R.id.repayDetail);
         repayPlan = (ListView) view.findViewById(R.id.repayPlan);
         footView = getActivity().getLayoutInflater().inflate(R.layout.listview_footview, null);
         footView.setVisibility(View.GONE);
+        repayDetail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putString("loan_no", mParam2);
+                ((BaseActivity) getActivity()).toActivity(PRepayPlanDetailActivity.class, bundle);
+            }
+        });
     }
 
     @Override
@@ -153,7 +173,7 @@ public class PRepayPlanFragment extends BaseFragment {
     @Override
     protected void doResponse(ResponseResult response) {
         JSONObject data = response.getData();
-        principle.setText(data.getString("principle"));
+        principle.setText(data.getString("principal"));
         interest.setText(data.getString("interest"));
         int itemCount = (data.getInteger("total_count") - offset * qrsize);
         if (itemCount > 1) {
@@ -175,9 +195,9 @@ public class PRepayPlanFragment extends BaseFragment {
             @Override
             public void run() {
                 if (getActivity() instanceof PProjectDetailActivity)
-                    ((PProjectDetailActivity) getActivity()).setViewPagerHeight(repayPlan.getHeight() + DensityUtils.dip2px(getActivity(), 95));
+                    ((PProjectDetailActivity) getActivity()).setViewPagerHeight(repayPlan.getHeight() + DensityUtils.dip2px(getActivity(), height));
                 else if (getActivity() instanceof PTransProjectDetailActivity)
-                    ((PTransProjectDetailActivity) getActivity()).setViewPagerHeight(repayPlan.getHeight() + DensityUtils.dip2px(getActivity(), 95));
+                    ((PTransProjectDetailActivity) getActivity()).setViewPagerHeight(repayPlan.getHeight() + DensityUtils.dip2px(getActivity(), height));
 
             }
         }, 500);

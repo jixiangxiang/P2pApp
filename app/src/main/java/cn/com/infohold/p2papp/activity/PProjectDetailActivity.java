@@ -266,7 +266,7 @@ public class PProjectDetailActivity extends BaseActivity implements View.OnClick
             fragmentList.add(PProjectDetailFragment.newInstance(data.toJSONString(), null));
             fragmentList.add(PInvestRecordFragment.newInstance(data.getString("projectno"), null));
             if (StringUtils.isEmpty(investProjectBean.getNowstatus()) || (!investProjectBean.getNowstatus().equals("01") && !investProjectBean.getNowstatus().equals("02")))
-                fragmentList.add(PRepayPlanFragment.newInstance(null, investProjectBean.getLoanno()));
+                fragmentList.add(PRepayPlanFragment.newInstance(status == 2 ? "2" : null, investProjectBean.getLoanno()));
             adapter = new FragmentPagerAdapter(getSupportFragmentManager(), fragmentList);
             detailPager.setAdapter(adapter);
             detailPager.setCurrentItem(0);

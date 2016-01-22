@@ -86,6 +86,8 @@ public class ApiUtils {
     public static final String BANKCARDQUERY = API_BASE + "router.bankcardQuery";
     public static final String FINDBACKPAYPWD = API_BASE + "router.findback_paypwd";
     public static final String FEETRIAL = API_BASE + "router.fee_trial";
+    public static final String REPAYHISTORY = API_BASE + "router.repayhistory";
+    public static final String UNPAIDDETAIL = API_BASE + "router.unpaidDetail";
 
 
     private ApiUtils() {

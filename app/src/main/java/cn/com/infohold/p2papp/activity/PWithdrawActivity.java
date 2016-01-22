@@ -17,7 +17,10 @@ import cn.com.infohold.p2papp.common.ResponseResult;
 import common.eric.com.ebaselibrary.util.StringUtils;
 
 public class PWithdrawActivity extends BaseActivity implements View.OnClickListener {
-
+    /**
+     * 输入框小数的位数
+     */
+    private static final int DECIMAL_DIGITS = 2;
     private TextView cardNo;
     private TextView bankName;
     private EditText withdrawMoney;
@@ -58,7 +61,14 @@ public class PWithdrawActivity extends BaseActivity implements View.OnClickListe
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                String content = s == null ? null : s.toString();
+                if (s == null || s.length() == 0) {
+                    return;
+                }
+                int size = content.length();
+                if (content.contains(".") && !content.endsWith(".")  && content.split("\\.")[1].length() > DECIMAL_DIGITS) { //判断之前有没有输入过点
+                    s.delete(size - 1, size);//之前有输入过点，删除重复输入的点
+                }
             }
         });
         params = new HashMap<>();
@@ -92,7 +102,7 @@ public class PWithdrawActivity extends BaseActivity implements View.OnClickListe
             cardNo.setText(response.getData().getString("bank_card_no"));
             bankName.setText(response.getData().getString("bank_name"));
             ac_no = response.getData().getString("ac_no");
-            balance.setText(response.getData().getString("available_bal"));
+            balance.setText("￥" + response.getData().getString("available_bal"));
         } else if (requestMethod.equals(ApiUtils.WITHDRAW)) {
             alertDialogNoCancel(response.getReturn_message(), new View.OnClickListener() {
                 @Override
@@ -102,7 +112,7 @@ public class PWithdrawActivity extends BaseActivity implements View.OnClickListe
                 }
             });
         } else if (requestMethod.equals(ApiUtils.FEETRIAL)) {
-            DecimalFormat sdf = new DecimalFormat("#.00");
+            DecimalFormat sdf = new DecimalFormat("#0.00");
             Double actualMoney = Double.valueOf(withdrawMoney.getText().toString()) - Double.valueOf(response.getData().getString("fee"));
             alertPayPwdDialogCust(new PayPwdConfirmClickListener() {
                 @Override

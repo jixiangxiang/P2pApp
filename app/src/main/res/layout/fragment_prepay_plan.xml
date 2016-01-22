@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/p_bg_color"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -104,9 +105,18 @@
         android:id="@+id/repayPlan"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"
         android:divider="@color/p_bg_color"
         android:dividerHeight="@dimen/dp_1">
 
     </cn.com.infohold.p2papp.views.WrapScrollListView>
+
+    <TextView
+        android:id="@+id/repayDetail"
+        style="@style/text_13_red"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:layout_marginTop="-40dp"
+        android:background="@android:color/white"
+        android:gravity="center"
+        android:text="查看实际还款明细" />
 </LinearLayout>

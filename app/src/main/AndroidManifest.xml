@@ -25,6 +25,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/android_iocn"
         android:label="@string/app_name"
+        android:screenOrientation="portrait"
         android:theme="@style/AppTheme">
         <activity
             android:name=".activity.PStartActivity"
@@ -183,7 +184,10 @@
             android:label="@string/title_activity_pabout" />
         <activity
             android:name=".activity.PRiskWarnActivity"
-            android:label="@string/title_activity_prisk_warn"></activity>
+            android:label="@string/title_activity_prisk_warn" />
+        <activity
+            android:name=".activity.PRepayPlanDetailActivity"
+            android:label="@string/title_activity_prepay_plan_detail"></activity>
     </application>
 
 </manifest>
