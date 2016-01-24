@@ -17,6 +17,7 @@ import com.example.eric.oscar.R;
 import com.example.eric.oscar.common.ApiUtils;
 import com.example.eric.oscar.common.BaseActivity;
 import com.example.eric.oscar.common.ResponseResult;
+import com.example.eric.oscar.common.SPUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -52,6 +53,7 @@ public class OOscarBalanceActivity extends BaseActivity implements View.OnClickL
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> map = new HashMap<>();
                 map.put("card", oscarNo.getText().toString());
+                map.put("sign", SPUtils.getString(OOscarBalanceActivity.this, "sign"));
                 return map;
             }
         };

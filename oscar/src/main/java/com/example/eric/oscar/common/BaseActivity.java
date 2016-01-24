@@ -428,4 +428,5 @@ public abstract class BaseActivity extends AppCompatActivity implements Response
         // 完成 Mac 操作
         return mac.doFinal(text);
     }
+
 }

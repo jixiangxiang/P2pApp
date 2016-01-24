@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context="com.example.eric.oscar.activity.OInvestActivity">
+
+    <LinearLayout
+        android:layout_width="@dimen/dp_230"
+        android:layout_height="@dimen/dp_40"
+        android:layout_marginTop="@dimen/dp_25">
+
+        <TextView
+            android:id="@+id/investing"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/p_invest_left_selector"
+            android:gravity="center"
+            android:text="投资中" />
+
+        <TextView
+            android:id="@+id/invested"
+            style="@style/text_13_black"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/p_invest_right_selector"
+            android:gravity="center"
+            android:text="已完成" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/investList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/dp_10"
+        android:dividerHeight="@dimen/dp_10">
+
+    </ListView>
+</LinearLayout>

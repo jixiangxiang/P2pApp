@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.eric.oscar.activity.OInvProvDetailActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/dp_18"
+        android:background="@android:color/white"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/dp_20"
+        android:paddingRight="@dimen/dp_20">
+
+        <TextView
+            android:id="@+id/name"
+            style="@style/text_13_black"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_40"
+            android:gravity="center_vertical"
+            android:text="点点盈NO" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_line"
+            android:background="@color/o_line_bg" />
+
+        <TextView
+            android:id="@+id/limit"
+            style="@style/text_12_black"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_30"
+            android:gravity="center_vertical"
+            android:text="期限日期：30天" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_line"
+            android:background="@color/o_line_bg" />
+
+        <TextView
+            android:id="@+id/repayType"
+            style="@style/text_12_black"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_30"
+            android:gravity="center_vertical"
+            android:text="还款方式：一次性本息" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_line"
+            android:background="@color/o_line_bg" />
+
+        <TextView
+            android:id="@+id/total"
+            style="@style/text_12_black"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_30"
+            android:gravity="center_vertical"
+            android:text="项目总额：200000.00" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_line"
+            android:background="@color/o_line_bg" />
+
+        <TextView
+            android:id="@+id/startdate"
+            style="@style/text_12_black"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_30"
+            android:gravity="center_vertical"
+            android:text="开标日期：2001-01-01" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_line"
+            android:background="@color/o_line_bg" />
+
+        <TextView
+            android:id="@+id/enddate"
+            style="@style/text_12_black"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_30"
+            android:gravity="center_vertical"
+            android:text="截止时间：2002-01-01" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_line"
+            android:background="@color/o_line_bg" />
+
+        <TextView
+            android:id="@+id/avaliable"
+            style="@style/text_12_black"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_30"
+            android:gravity="center_vertical"
+            android:text="可投金额：10000.00" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_line"
+            android:background="@color/o_line_bg" />
+
+        <TextView
+            android:id="@+id/interestDate"
+            style="@style/text_12_black"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_30"
+            android:gravity="center_vertical"
+            android:text="开始计息：2013-01-01" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_line"
+            android:background="@color/o_line_bg" />
+
+        <TextView
+            android:id="@+id/repayDate"
+            style="@style/text_12_black"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_30"
+            android:gravity="center_vertical"
+            android:text="还本付息：2014-01-01" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_line"
+            android:background="@color/o_line_bg" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_67">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_67"
+                android:gravity="center_vertical">
+
+                <TextView
+                    style="@style/text_14_black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="我要投￥"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/oscarNo"
+                    style="@style/text_13_black"
+                    android:layout_width="@dimen/dp_86"
+                    android:layout_height="@dimen/dp_40"
+                    android:layout_marginLeft="@dimen/dp_5"
+                    android:background="@drawable/edittext_border_conner"
+                    android:gravity="center_vertical"
+                    android:inputType="numberDecimal"
+                    android:padding="@dimen/dp_5" />
+
+                <TextView
+                    style="@style/text_13_black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/dp_5"
+                    android:gravity="center_vertical"
+                    android:text="元" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/investConfirm"
+                style="@style/text_13_white"
+                android:layout_width="@dimen/dp_100"
+                android:layout_height="@dimen/dp_28"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="@dimen/dp_20"
+                android:onClick="onClick"
+                android:background="@mipmap/o_login_btn"
+                android:text="确认投资" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_125"
+            android:background="@drawable/descript_border_conner"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/text_13_black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_5"
+                android:gravity="center_vertical"
+                android:padding="@dimen/dp_10"
+                android:text="产品简介：" />
+
+            <TextView
+                android:id="@+id/productDesc"
+                style="@style/text_13_black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_5"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/dp_10"
+                android:paddingRight="@dimen/dp_10"
+                android:text="..." />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

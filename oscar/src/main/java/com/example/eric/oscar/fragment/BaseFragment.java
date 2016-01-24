@@ -158,7 +158,12 @@ public class BaseFragment extends Fragment implements Response.Listener, Respons
         if (result.getReturn_code() == ApiUtils.REQUEST_SUCCESS) {
             doResponse(result);
         } else if (result.getReturn_code().intValue() == ApiUtils.NEED_LOGIN) {
-            ((BaseActivity) getActivity()).showLogin();
+            alertDialogNoCancel(result.getReturn_message(), new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ((BaseActivity) getActivity()).showLogin();
+                }
+            });
         } else
             alertDialog(result.getReturn_message(), null);
     }
@@ -205,7 +210,6 @@ public class BaseFragment extends Fragment implements Response.Listener, Respons
      */
     public void showLogin() {
         Intent intent = new Intent(getActivity(), OLoginActivity.class);
-        intent.putExtra("fromCode", true);
-        startActivityForResult(intent, getActivity().RESULT_FIRST_USER);//为返回是否登录的状态
+        startActivityForResult(intent, 999);//为返回是否登录的状态
     }
 }

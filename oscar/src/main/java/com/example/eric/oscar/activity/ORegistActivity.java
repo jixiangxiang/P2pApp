@@ -25,6 +25,7 @@ import com.example.eric.oscar.common.TimeCount;
 import com.qiniu.android.http.ResponseInfo;
 import com.qiniu.android.storage.UpCompletionHandler;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -49,7 +50,7 @@ public class ORegistActivity extends BaseActivity implements View.OnClickListene
     private Button nextStep;
     private ImageButton checkbox;
     private Request request;
-
+    private String avator;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -129,7 +130,7 @@ public class ORegistActivity extends BaseActivity implements View.OnClickListene
                     Map<String, String> map = new HashMap<String, String>();
                     map.put("acct", phone);
                     map.put("pass", confirmPwd);
-                    map.put("avatar", "");
+                    map.put("avatar", avator);
                     map.put("vstr", captchaText.getText().toString());
                     return map;
                 }
@@ -192,7 +193,11 @@ public class ORegistActivity extends BaseActivity implements View.OnClickListene
                                 new UpCompletionHandler() {
                                     @Override
                                     public void complete(String key, ResponseInfo info, JSONObject response) {
-                                        Log.e("reponse", response.toString());
+                                        try {
+                                            avator = response.getString("key");
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
                                     }
                                 }, null);
                     } catch (FileNotFoundException e) {

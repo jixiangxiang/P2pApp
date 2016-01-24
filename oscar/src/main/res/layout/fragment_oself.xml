@@ -33,7 +33,7 @@
                 style="@style/text_11_white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/headImg"
+                android:layout_below="@+id/headImage"
                 android:layout_marginLeft="@dimen/dp_28"
                 android:layout_marginTop="@dimen/dp_8"
                 android:text="" />

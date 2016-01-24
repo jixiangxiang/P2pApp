@@ -7,6 +7,7 @@ public class ApiUtils {
 
     public static final Integer REQUEST_SUCCESS = 0;
     public static final String BASE_URL = "http://211.157.145.67:6081/app/";
+    public static final String QINIU_URL = "http://7xq99q.com2.z0.glb.qiniucdn.com/";
     public static final String SIGN = "111111";
     public static final String TOKEN = "111111";
     public static int NEED_LOGIN = 10012;
@@ -43,4 +44,5 @@ public class ApiUtils {
     public static final String AUTHEN = BASE_URL + "ac/authen";//
     public static final String CROIL = BASE_URL + "os/croil";// 创建加油卡订单
     public static final String ACOIL = BASE_URL + "os/acoil";// 激活加油卡订单
+    public static final String INVLIST = BASE_URL + "iv/invlist";// 理财列表
 }

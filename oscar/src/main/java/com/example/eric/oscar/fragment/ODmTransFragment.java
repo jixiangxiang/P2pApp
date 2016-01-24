@@ -32,10 +32,10 @@ import common.eric.com.ebaselibrary.adapter.EBaseAdapter;
  * Activities that contain this fragment must implement the
  * {@link OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link OCardTransFragment#newInstance} factory method to
+ * Use the {@link ODmTransFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class OCardTransFragment extends BaseFragment implements View.OnClickListener {
+public class ODmTransFragment extends BaseFragment implements View.OnClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -55,7 +55,7 @@ public class OCardTransFragment extends BaseFragment implements View.OnClickList
     private AlertDialog numberAlert;
     private int position = 0;
 
-    public OCardTransFragment() {
+    public ODmTransFragment() {
         // Required empty public constructor
     }
 
@@ -68,8 +68,8 @@ public class OCardTransFragment extends BaseFragment implements View.OnClickList
      * @return A new instance of fragment OSelfFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static OCardTransFragment newInstance(String param1, String param2) {
-        OCardTransFragment fragment = new OCardTransFragment();
+    public static ODmTransFragment newInstance(String param1, String param2) {
+        ODmTransFragment fragment = new ODmTransFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -90,7 +90,7 @@ public class OCardTransFragment extends BaseFragment implements View.OnClickList
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_ocard_trans, container, false);
+        return inflater.inflate(R.layout.fragment_odm_trans, container, false);
     }
 
     @Override
@@ -110,7 +110,7 @@ public class OCardTransFragment extends BaseFragment implements View.OnClickList
         cardBarList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                OCardTransFragment.this.position = position;
+                ODmTransFragment.this.position = position;
                 initAlertDialog();
             }
         });
@@ -125,7 +125,7 @@ public class OCardTransFragment extends BaseFragment implements View.OnClickList
             Bundle bundle = new Bundle();
             bundle.putString("cardBeans", JSONArray.toJSONString(cardBeans));
             bundle.putString("totalMoney", totalMoney.getText().toString());
-            bundle.putInt("icon", R.mipmap.o_amazon_card);
+            bundle.putInt("icon",R.mipmap.o_damai_icon);
             ((BaseActivity) getActivity()).toActivity(OTransListActivity.class, bundle);
         }
     }

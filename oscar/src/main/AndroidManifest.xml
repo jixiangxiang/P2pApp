@@ -119,6 +119,24 @@
             android:name=".activity.OSelectPicActivity"
             android:screenOrientation="portrait"
             android:theme="@style/DialogStyleBottom" />
+        <activity
+            android:name=".activity.OTransToTransActivity"
+            android:label="@string/title_activity_otrans_to_trans" />
+        <activity
+            android:name=".activity.OBillSearchActivity"
+            android:label="@string/title_activity_obill_search" />
+        <activity
+            android:name=".activity.OOscarRechageActivity"
+            android:label="@string/title_activity_ooscar_recharge" />
+        <activity
+            android:name=".activity.OInvestActivity"
+            android:label="@string/title_activity_oinvest" />
+        <activity
+            android:name=".activity.OInvestListActivity"
+            android:label="@string/title_activity_oinvest_list" />
+        <activity
+            android:name=".activity.OInvProvDetailActivity"
+            android:label="@string/title_activity_oinv_prov_detail"></activity>
     </application>
 
 </manifest>

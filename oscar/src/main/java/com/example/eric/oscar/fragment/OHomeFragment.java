@@ -9,17 +9,29 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.alibaba.fastjson.JSONArray;
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.toolbox.StringRequest;
 import com.example.eric.oscar.R;
 import com.example.eric.oscar.activity.OMerchantDetailActivity;
+import com.example.eric.oscar.activity.OTransCardsActivity;
 import com.example.eric.oscar.adapter.ViewPagerAdapter;
+import com.example.eric.oscar.bean.InvestBean;
 import com.example.eric.oscar.bean.MerchantBean;
+import com.example.eric.oscar.common.ApiUtils;
 import com.example.eric.oscar.common.BaseActivity;
+import com.example.eric.oscar.common.ResponseResult;
+import com.example.eric.oscar.common.SPUtils;
 import com.example.eric.oscar.views.DotLayout;
 import com.example.eric.oscar.views.WrapScrollListView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import common.eric.com.ebaselibrary.adapter.EBaseAdapter;
 
@@ -51,6 +63,10 @@ public class OHomeFragment extends BaseFragment implements View.OnClickListener 
     private DotLayout dotLayout;
     private List<MerchantBean> merchantBeans;
     private ArrayList<View> views;
+
+    private StringRequest request;
+    private TextView firstProduct;
+    private TextView secondProduct;
 
     public OHomeFragment() {
         // Required empty public constructor
@@ -142,10 +158,25 @@ public class OHomeFragment extends BaseFragment implements View.OnClickListener 
 
             }
         });
+
+        request = new StringRequest(Request.Method.POST, ApiUtils.INVLIST, this, this) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> map = new HashMap<>();
+                map.put("type", "0");
+                map.put("page", "1");
+                map.put("sign", SPUtils.getString(getActivity(), "sign"));
+                return map;
+            }
+        };
+        addToRequestQueue(request, ApiUtils.INVLIST, true);
     }
 
     @Override
     public void onClick(View v) {
+        if (v == giftArea) {
+            ((BaseActivity) getActivity()).toActivity(OTransCardsActivity.class);
+        }
     }
 
     private void initialize(View view) {
@@ -156,6 +187,10 @@ public class OHomeFragment extends BaseFragment implements View.OnClickListener 
         merchantCatePager = (ViewPager) view.findViewById(R.id.merchantCatePager);
         marchantList = (WrapScrollListView) view.findViewById(R.id.marchantList);
         dotLayout = (DotLayout) view.findViewById(R.id.dotLayout);
+        firstProduct = (TextView) view.findViewById(R.id.firstProduct);
+        secondProduct = (TextView) view.findViewById(R.id.secondProduct);
+
+        giftArea.setOnClickListener(this);
     }
 
     private void initMerchantCateViews() {
@@ -165,5 +200,14 @@ public class OHomeFragment extends BaseFragment implements View.OnClickListener 
         views.add(view2);
         View view3 = getActivity().getLayoutInflater().inflate(R.layout.list_merchant_cate_item3, null);
         views.add(view3);
+    }
+
+    @Override
+    protected void doResponse(ResponseResult response) {
+        List<InvestBean> investBeanList = JSONArray.parseArray(((JSONArray) response.getData()).toJSONString(), InvestBean.class);
+        if (investBeanList != null && investBeanList.get(0) != null)
+            firstProduct.setText(investBeanList.get(0).getDuration() + "天年化利率收益" + investBeanList.get(0).getProfit());
+        if (investBeanList != null && investBeanList.get(1) != null)
+            secondProduct.setText(investBeanList.get(1).getDuration() + "天年化利率收益" + investBeanList.get(1).getProfit());
     }
 }

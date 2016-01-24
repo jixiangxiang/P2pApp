@@ -53,6 +53,7 @@ public class OTransListActivity extends BaseActivity implements View.OnClickList
         initTitleText(getString(R.string.title_activity_otrans_list), BaseActivity.TITLE_CENTER);
         initHandler();
         cardBeans = JSONArray.parseArray(getIntent().getExtras().getString("cardBeans"), CardBean.class);
+        cardIcon.setImageResource(getIntent().getExtras().getInt("icon"));
         List<CardBean> cbs = new ArrayList<CardBean>();
         for (CardBean cardBean : cardBeans) {
             if (cardBean.getCount() != 0)

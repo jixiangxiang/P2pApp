@@ -11,12 +11,15 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.example.eric.oscar.R;
+import com.example.eric.oscar.activity.OBillSearchActivity;
 import com.example.eric.oscar.activity.OBindOscarActivity;
 import com.example.eric.oscar.activity.OHelpActivity;
 import com.example.eric.oscar.activity.OMerchantListActivity;
 import com.example.eric.oscar.activity.OOscarBalanceActivity;
+import com.example.eric.oscar.activity.OOscarRechageActivity;
 import com.example.eric.oscar.activity.OTransCardsActivity;
 import com.example.eric.oscar.activity.OTransFuelCardActivity;
+import com.example.eric.oscar.activity.OTransToTransActivity;
 import com.example.eric.oscar.bean.OscarServiceBean;
 import com.example.eric.oscar.common.BaseActivity;
 import com.example.eric.oscar.views.WrapScrollListView;
@@ -118,11 +121,13 @@ public class OOscarFragment extends BaseFragment implements View.OnClickListener
                         ((BaseActivity) getActivity()).toActivity(OOscarBalanceActivity.class);
                         break;
                     case R.mipmap.o_os_trans:
-                        ((BaseActivity) getActivity()).toActivity(OTransCardsActivity.class);
+                        ((BaseActivity) getActivity()).toActivity(OTransToTransActivity.class);
                         break;
                     case R.mipmap.o_os_recharge:
+                        ((BaseActivity) getActivity()).toActivity(OOscarRechageActivity.class);
                         break;
                     case R.mipmap.o_os_bill:
+                        ((BaseActivity) getActivity()).toActivity(OBillSearchActivity.class);
                         break;
                     case R.mipmap.o_os_salecard:
                         ((BaseActivity) getActivity()).toActivity(OMerchantListActivity.class);

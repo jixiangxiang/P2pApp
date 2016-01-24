@@ -101,8 +101,10 @@ public class OLoginActivity extends BaseActivity implements View.OnClickListener
     protected void doResponse(ResponseResult response) {
         SPUtils.setString(this, "isLogin", "true");
         SPUtils.setString(this, "acct", loginPhoneText.getText().toString());
-        if (response.getData() != null)
+        if (response.getData() != null) {
             SPUtils.setString(this, "sign", ((JSONObject) response.getData()).getString("sign"));
+            SPUtils.setInt(this, "status", ((JSONObject) response.getData()).getIntValue("status"));
+        }
         setResult(RESULT_OK);
         OLoginActivity.this.finish();
     }

@@ -147,11 +147,14 @@ public class OSelfFragment extends BaseFragment implements View.OnClickListener 
             SPUtils.setString(getActivity(), "isLogin", "false");
             SPUtils.setString(getActivity(), "acct", "");
             showLogin();
+        } else if (v == nameArea) {
+            Intent intent = new Intent(getActivity(), OAuthenticationActivity.class);
+            startActivityForResult(intent, 888);
         }
     }
 
     private void initialize(View view) {
-        headImg = (SimpleDraweeView) view.findViewById(R.id.headImg);
+        headImg = (SimpleDraweeView) view.findViewById(R.id.headImage);
         username = (TextView) view.findViewById(R.id.username);
         usernameText = (TextView) view.findViewById(R.id.usernameText);
         totalMoney = (TextView) view.findViewById(R.id.totalMoney);
@@ -167,13 +170,16 @@ public class OSelfFragment extends BaseFragment implements View.OnClickListener 
         registPhoneArea = (RelativeLayout) view.findViewById(R.id.registPhoneArea);
         loginOutBtn = (Button) view.findViewById(R.id.loginOutBtn);
         loginOutBtn.setOnClickListener(this);
+        nameArea.setOnClickListener(this);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == getActivity().RESULT_FIRST_USER && resultCode == getActivity().RESULT_OK) {
+        if (requestCode == 999 && resultCode == getActivity().RESULT_OK) {
             addToRequestQueue(request, true);
+        } else if (requestCode == 888 && resultCode == getActivity().RESULT_OK) {
+            username.setText(data.getStringExtra("name"));
         }
     }
 
@@ -181,7 +187,7 @@ public class OSelfFragment extends BaseFragment implements View.OnClickListener 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (isOncreate && isVisibleToUser) {
+        if (isVisibleToUser) {
             isOncreate = false;
             if (!SPUtils.getString(getActivity(), "isLogin").equals("true")) {
                 showLogin();
@@ -198,7 +204,7 @@ public class OSelfFragment extends BaseFragment implements View.OnClickListener 
             username.setText(((JSONObject) response.getData()).getString("userName"));
             usernameText.setText(((JSONObject) response.getData()).getString("realName"));
             idCard.setText(((JSONObject) response.getData()).getString("idCard"));
-            Uri uri = Uri.parse(((JSONObject) response.getData()).getString("avatar"));
+            Uri uri = Uri.parse(ApiUtils.QINIU_URL + ((JSONObject) response.getData()).getString("avatar"));
             headImg.setImageURI(uri);
         }
     }

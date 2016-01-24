@@ -14,6 +14,8 @@ import com.example.eric.oscar.adapter.FragmentPagerAdapter;
 import com.example.eric.oscar.common.BaseActivity;
 import com.example.eric.oscar.fragment.BaseFragment;
 import com.example.eric.oscar.fragment.OCardTransFragment;
+import com.example.eric.oscar.fragment.ODmTransFragment;
+import com.example.eric.oscar.fragment.OJDTransFragment;
 
 import java.util.ArrayList;
 
@@ -37,8 +39,8 @@ public class OTransCardsActivity extends BaseActivity implements View.OnClickLis
         initTitleText(getString(R.string.title_activity_otrans_cards), BaseActivity.TITLE_CENTER);
         fragmentList = new ArrayList<>();
         fragmentList.add(OCardTransFragment.newInstance(null, null));
-        fragmentList.add(OCardTransFragment.newInstance(null, null));
-        fragmentList.add(OCardTransFragment.newInstance(null, null));
+        fragmentList.add(OJDTransFragment.newInstance(null, null));
+        fragmentList.add(ODmTransFragment.newInstance(null, null));
         cardsPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager(), fragmentList));
         cardsPager.setCurrentItem(0);//设置当前显示标签页为第一页
         amazon.setSelected(true);
@@ -117,6 +119,10 @@ public class OTransCardsActivity extends BaseActivity implements View.OnClickLis
         jd = (TextView) findViewById(R.id.jd);
         damai = (TextView) findViewById(R.id.damai);
         cardsPager = (ViewPager) findViewById(R.id.cardsPager);
+
+        amazon.setOnClickListener(this);
+        jd.setOnClickListener(this);
+        damai.setOnClickListener(this);
     }
 
     @Override

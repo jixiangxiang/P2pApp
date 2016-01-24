@@ -1,11 +1,13 @@
 package com.example.eric.oscar.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -28,6 +30,11 @@ public class OAuthenticationActivity extends BaseActivity implements View.OnClic
     private Button nextStepBtn;
 
     private StringRequest request;
+    private EditText branchBank;
+    private TextView bankCity;
+    private EditText cardNo;
+    private TextView bankAddress;
+    private TextView accountBank;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +53,11 @@ public class OAuthenticationActivity extends BaseActivity implements View.OnClic
                 Map<String, String> map = new HashMap<>();
                 map.put("name", payPwd.getText().toString());
                 map.put("idc", confirmPwdText.getText().toString());
+                map.put("card", cardNo.getText().toString());
+                map.put("bank", accountBank.getText().toString());
+                map.put("prov", bankAddress.getText().toString());
+                map.put("city", bankCity.getText().toString());
+                map.put("bn", branchBank.getText().toString());
                 map.put("sign", SPUtils.getString(OAuthenticationActivity.this, "sign"));
                 return map;
             }
@@ -72,6 +84,11 @@ public class OAuthenticationActivity extends BaseActivity implements View.OnClic
         payPwd = (EditText) findViewById(R.id.payPwd);
         confirmPwdText = (EditText) findViewById(R.id.confirmPwdText);
         nextStepBtn = (Button) findViewById(R.id.nextStepBtn);
+        branchBank = (EditText) findViewById(R.id.branchBank);
+        bankCity = (TextView) findViewById(R.id.bankCity);
+        cardNo = (EditText) findViewById(R.id.cardNo);
+        bankAddress = (TextView) findViewById(R.id.bankAddress);
+        accountBank = (TextView) findViewById(R.id.accountBank);
     }
 
     @Override
@@ -94,6 +111,9 @@ public class OAuthenticationActivity extends BaseActivity implements View.OnClic
         alertDialogNoCancel(response.getReturn_message(), new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.putExtra("name", payPwd.getText().toString());
+                setResult(RESULT_OK, intent);
                 OAuthenticationActivity.this.finish();
             }
         });
