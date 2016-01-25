@@ -45,4 +45,9 @@ public class ApiUtils {
     public static final String CROIL = BASE_URL + "os/croil";// 创建加油卡订单
     public static final String ACOIL = BASE_URL + "os/acoil";// 激活加油卡订单
     public static final String INVLIST = BASE_URL + "iv/invlist";// 理财列表
+    public static final String INVINFO = BASE_URL + "iv/invinfo";// 理财列表
+    public static final String WALBAL = BASE_URL + "wa/bal";// 钱包余额
+    public static final String CPLIS = BASE_URL + "wa/cplis";// 钱包余额
+    public static final String CRTELE = BASE_URL + "os/crtele";//充手机
+    public static final String ACTELE = BASE_URL + "os/actele";//
 }

@@ -50,7 +50,7 @@ public class ORegistActivity extends BaseActivity implements View.OnClickListene
     private Button nextStep;
     private ImageButton checkbox;
     private Request request;
-    private String avator;
+    private String avator = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

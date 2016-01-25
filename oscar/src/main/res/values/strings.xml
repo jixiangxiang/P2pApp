@@ -45,4 +45,7 @@
     <string name="title_activity_oinvest">天天理财-我的投资</string>
     <string name="title_activity_oinvest_list">天天理财-理财产品</string>
     <string name="title_activity_oinv_prov_detail">天天理财-产品信息</string>
+    <string name="title_activity_oinv_prov_select">天天理财-投资</string>
+    <string name="title_activity_ophone_recharge">我的奥斯卡-手机充值</string>
+    <string name="title_activity_orecharge_confirm">我的奥斯卡-手机充值</string>
 </resources>

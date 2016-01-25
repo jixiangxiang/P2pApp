@@ -49,7 +49,10 @@ public class OInvestListActivity extends BaseActivity implements View.OnClickLis
         productList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                toActivity(OInvProvDetailActivity.class);
+                InvestBean investBean = (InvestBean) parent.getAdapter().getItem(position);
+                Bundle bundle = new Bundle();
+                bundle.putString("id", String.valueOf(investBean.getId()));
+                toActivity(OInvProvDetailActivity.class, bundle);
             }
         });
         request = new StringRequest(Request.Method.POST, ApiUtils.INVLIST, this, this) {

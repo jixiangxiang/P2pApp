@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONArray;
@@ -16,7 +17,9 @@ import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.example.eric.oscar.R;
+import com.example.eric.oscar.activity.OInvProvDetailActivity;
 import com.example.eric.oscar.activity.OMerchantDetailActivity;
+import com.example.eric.oscar.activity.OPhoneRechargeActivity;
 import com.example.eric.oscar.activity.OTransCardsActivity;
 import com.example.eric.oscar.adapter.ViewPagerAdapter;
 import com.example.eric.oscar.bean.InvestBean;
@@ -67,6 +70,7 @@ public class OHomeFragment extends BaseFragment implements View.OnClickListener 
     private StringRequest request;
     private TextView firstProduct;
     private TextView secondProduct;
+    private List<InvestBean> investBeanList;
 
     public OHomeFragment() {
         // Required empty public constructor
@@ -176,6 +180,16 @@ public class OHomeFragment extends BaseFragment implements View.OnClickListener 
     public void onClick(View v) {
         if (v == giftArea) {
             ((BaseActivity) getActivity()).toActivity(OTransCardsActivity.class);
+        } else if (v == firstProduct.getParent()) {
+            Bundle bundle = new Bundle();
+            bundle.putString("id", String.valueOf(investBeanList.get(0).getId()));
+            ((BaseActivity) getActivity()).toActivity(OInvProvDetailActivity.class, bundle);
+        } else if (v == secondProduct.getParent()) {
+            Bundle bundle = new Bundle();
+            bundle.putString("id", String.valueOf(investBeanList.get(1).getId()));
+            ((BaseActivity) getActivity()).toActivity(OInvProvDetailActivity.class, bundle);
+        } else if (v == rechargePhoneArea) {
+            ((BaseActivity) getActivity()).toActivity(OPhoneRechargeActivity.class);
         }
     }
 
@@ -191,6 +205,11 @@ public class OHomeFragment extends BaseFragment implements View.OnClickListener 
         secondProduct = (TextView) view.findViewById(R.id.secondProduct);
 
         giftArea.setOnClickListener(this);
+        rechargePhoneArea.setOnClickListener(this);
+        rechargeTelArea.setOnClickListener(this);
+        rechargeOilArea.setOnClickListener(this);
+        ((RelativeLayout) firstProduct.getParent()).setOnClickListener(this);
+        ((RelativeLayout) secondProduct.getParent()).setOnClickListener(this);
     }
 
     private void initMerchantCateViews() {
@@ -204,7 +223,7 @@ public class OHomeFragment extends BaseFragment implements View.OnClickListener 
 
     @Override
     protected void doResponse(ResponseResult response) {
-        List<InvestBean> investBeanList = JSONArray.parseArray(((JSONArray) response.getData()).toJSONString(), InvestBean.class);
+        investBeanList = JSONArray.parseArray(((JSONArray) response.getData()).toJSONString(), InvestBean.class);
         if (investBeanList != null && investBeanList.get(0) != null)
             firstProduct.setText(investBeanList.get(0).getDuration() + "天年化利率收益" + investBeanList.get(0).getProfit());
         if (investBeanList != null && investBeanList.get(1) != null)

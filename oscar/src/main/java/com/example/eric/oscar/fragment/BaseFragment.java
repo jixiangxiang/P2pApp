@@ -17,7 +17,6 @@ import com.android.volley.VolleyError;
 import com.example.eric.oscar.R;
 import com.example.eric.oscar.activity.OLoginActivity;
 import com.example.eric.oscar.common.ApiUtils;
-import com.example.eric.oscar.common.BaseActivity;
 import com.example.eric.oscar.common.ProgressUtil;
 import com.example.eric.oscar.common.ResponseResult;
 import com.example.eric.oscar.common.VolleyErrorHelper;
@@ -151,6 +150,7 @@ public class BaseFragment extends Fragment implements Response.Listener, Respons
     @Override
     public void onResponse(Object response) {
         Log.i("onResponse", "Response: " + response.toString());
+        Log.i("onResponse", "http url is: " + requestMethod);
         getProgressDialog().dismiss();
         if (swipeRefresh != null)
             swipeRefresh.setRefreshing(false);
@@ -161,7 +161,7 @@ public class BaseFragment extends Fragment implements Response.Listener, Respons
             alertDialogNoCancel(result.getReturn_message(), new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ((BaseActivity) getActivity()).showLogin();
+                    showLogin();
                 }
             });
         } else

@@ -136,7 +136,19 @@
             android:label="@string/title_activity_oinvest_list" />
         <activity
             android:name=".activity.OInvProvDetailActivity"
-            android:label="@string/title_activity_oinv_prov_detail"></activity>
+            android:label="@string/title_activity_oinv_prov_detail" />
+        <activity
+            android:name=".activity.OInvProvSelectActivity"
+            android:label="@string/title_activity_oinv_prov_select" />
+        <activity
+            android:name=".activity.OInvestConfirmActivity"
+            android:label="@string/title_activity_oinv_prov_select" />
+        <activity
+            android:name=".activity.OPhoneRechargeActivity"
+            android:label="@string/title_activity_ophone_recharge"></activity>
+        <activity
+            android:name=".activity.ORechargeConfirmActivity"
+            android:label="@string/title_activity_orecharge_confirm"></activity>
     </application>
 
 </manifest>

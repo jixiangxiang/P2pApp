@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.eric.oscar.activity.OInvProvDetailActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/dp_18"
+        android:background="@android:color/white"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/dp_20"
+        android:paddingRight="@dimen/dp_20">
+
+        <TextView
+            android:id="@+id/name"
+            style="@style/text_13_black"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_40"
+            android:gravity="center_vertical"
+            android:text="点点盈NO"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_line"
+            android:background="@color/o_line_bg" />
+
+        <TextView
+            android:id="@+id/profit"
+            style="@style/text_12_black"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_30"
+            android:gravity="center_vertical"
+            android:text="年化收益：" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_line"
+            android:background="@color/o_line_bg" />
+
+        <TextView
+            android:id="@+id/limit"
+            style="@style/text_12_black"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_30"
+            android:gravity="center_vertical"
+            android:text="项目期限：" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_line"
+            android:background="@color/o_line_bg" />
+
+        <TextView
+            android:id="@+id/type"
+            style="@style/text_12_black"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_30"
+            android:gravity="center_vertical"
+            android:text="还款方式：" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_line"
+            android:background="@color/o_line_bg" />
+
+        <TextView
+            android:id="@+id/total"
+            style="@style/text_12_black"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_30"
+            android:gravity="center_vertical"
+            android:text="项目总额：" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_line"
+            android:background="@color/o_line_bg" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/investMoney"
+                style="@style/text_13_99"
+                android:layout_width="@dimen/dp_100"
+                android:layout_height="@dimen/dp_28"
+                android:layout_alignParentRight="true"
+                android:gravity="center"
+                android:text="我要投￥0元" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/investway"
+            style="@style/text_12_black"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_30"
+            android:gravity="center_vertical"
+            android:text="投资方式：" />
+
+        <TextView
+            android:id="@+id/oscarNo"
+            style="@style/text_12_black"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_30"
+            android:gravity="center_vertical"
+            android:text="奥斯卡号：" />
+
+        <TextView
+            android:id="@+id/tool"
+            style="@style/text_12_black"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_30"
+            android:gravity="center_vertical"
+            android:text="使用道具：" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/text_13_black"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="个人账户支付密码：" />
+
+            <EditText
+                android:id="@+id/payPwd"
+                style="@style/text_13_black"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_40"
+                android:layout_marginLeft="@dimen/dp_5"
+                android:background="@drawable/edittext_border_conner"
+                android:gravity="center_vertical"
+                android:inputType="textPassword"
+                android:padding="@dimen/dp_5" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/investConfirm"
+            style="@style/text_16_white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp_20"
+            android:layout_marginLeft="@dimen/dp_8"
+            android:layout_marginRight="@dimen/dp_8"
+            android:layout_marginTop="@dimen/dp_45"
+            android:background="@mipmap/o_login_btn"
+            android:onClick="onClick"
+            android:text="确认投资" />
+    </LinearLayout>
+</ScrollView>

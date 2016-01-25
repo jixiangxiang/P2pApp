@@ -12,6 +12,7 @@ public class OscarBean extends EBaseModel {
     private String cardNo;
     private Double balance;
     private Boolean locked;
+    private Boolean select;
 
     public OscarBean() {
     }
@@ -68,5 +69,15 @@ public class OscarBean extends EBaseModel {
 
     public void setLocked(Boolean locked) {
         this.locked = locked;
+    }
+
+    public Boolean getSelect() {
+        if (select == null)
+            select = false;
+        return select;
+    }
+
+    public void setSelect(Boolean select) {
+        this.select = select;
     }
 }

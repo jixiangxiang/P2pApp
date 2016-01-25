@@ -426,6 +426,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Response
     @Override
     public void onResponse(Object response) {
         Log.i("onResponse", "Response: " + response.toString());
+        Log.i("onResponse", "http url is: " + requestMethod);
         getProgressDialog().dismiss();
         if (swipeRefresh != null)
             swipeRefresh.setRefreshing(false);

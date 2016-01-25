@@ -11,6 +11,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
@@ -36,8 +37,8 @@ public class OBindOscarActivity extends BaseActivity implements View.OnClickList
     private RelativeLayout topArea;
     private ListView oscarList;
     private EBaseAdapter adapter;
-    private StringRequest request;
     private ArrayList<OscarBean> oscarBeanList;
+    private StringRequest request;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +53,7 @@ public class OBindOscarActivity extends BaseActivity implements View.OnClickList
         initTitleText(getString(R.string.title_activity_obind_oscar), BaseActivity.TITLE_CENTER);
         oscarBeanList = new ArrayList<OscarBean>();
         adapter = new EBaseAdapter(this, oscarBeanList, R.layout.list_self_oscar_item,
-                new String[]{"authAcct", "bindDate", "balance"},
+                new String[]{"cardNo", "bindDate", "balance"},
                 new int[]{R.id.cardNo, R.id.bindDate, R.id.balance});
         oscarList.setAdapter(adapter);
     }
@@ -129,9 +130,19 @@ public class OBindOscarActivity extends BaseActivity implements View.OnClickList
             adapter.setmData(oscarBeanList);
             adapter.notifyDataSetChanged();
         } else if (requestMethod.equals(ApiUtils.PREBIND)) {
-            Intent intent = new Intent(this, OBindValidActivity.class);
-            intent.putExtra("cardNo", oscarNo.getText().toString());
-            startActivityForResult(intent, 111);
+            JSONObject jsonObject = (JSONObject) response.getData();
+            if (jsonObject.getString("flag").equals("true")) {
+                alertDialogNoCancel(response.getReturn_message(), new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        OBindOscarActivity.this.finish();
+                    }
+                });
+            } else {
+                Intent intent = new Intent(this, OBindValidActivity.class);
+                intent.putExtra("cardNo", oscarNo.getText().toString());
+                startActivityForResult(intent, 111);
+            }
         }
     }
 
@@ -144,6 +155,7 @@ public class OBindOscarActivity extends BaseActivity implements View.OnClickList
                 protected Map<String, String> getParams() throws AuthFailureError {
                     Map<String, String> map = new HashMap<String, String>();
                     map.put("acct", SPUtils.getString(OBindOscarActivity.this, "acct"));
+                    map.put("sign", SPUtils.getString(OBindOscarActivity.this, "sign"));
                     return map;
                 }
             };

@@ -5,6 +5,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
@@ -22,7 +23,8 @@ import java.util.Map;
 public class OBindValidActivity extends BaseActivity implements View.OnClickListener {
 
     private TextView oscarNo;
-    private TextView oscarPayPwd;
+    private TextView title;
+    private EditText oscarPayPwd;
     private Button confirmBindBtn;
     private StringRequest request;
 
@@ -37,6 +39,10 @@ public class OBindValidActivity extends BaseActivity implements View.OnClickList
         initialize();
         initTitleText(getString(R.string.title_activity_obind_valid), BaseActivity.TITLE_CENTER);
         initHandler();
+
+        oscarNo.setText(getIntent().getExtras().getString("cardNo"));
+        title.setText("您的卡号为"
+                + getIntent().getExtras().getString("cardNo") + "的奥斯卡曾经设置过支付密码，需要验证支付密码后完成绑定");
     }
 
     private void initHandler() {
@@ -47,6 +53,7 @@ public class OBindValidActivity extends BaseActivity implements View.OnClickList
                 map.put("card", oscarNo.getText().toString());
                 map.put("acct", SPUtils.getString(OBindValidActivity.this, "acct"));
                 map.put("pass", oscarPayPwd.getText().toString());
+                map.put("sign", SPUtils.getString(OBindValidActivity.this, "sign"));
                 return map;
             }
         };
@@ -78,7 +85,8 @@ public class OBindValidActivity extends BaseActivity implements View.OnClickList
     private void initialize() {
 
         oscarNo = (TextView) findViewById(R.id.oscarNo);
-        oscarPayPwd = (TextView) findViewById(R.id.oscarPayPwd);
+        title = (TextView) findViewById(R.id.title);
+        oscarPayPwd = (EditText) findViewById(R.id.oscarPayPwd);
         confirmBindBtn = (Button) findViewById(R.id.confirmBindBtn);
     }
 
