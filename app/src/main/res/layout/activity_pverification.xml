@@ -41,7 +41,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:hint="真实姓名" />
+            android:hint="真实姓名"
+            android:singleLine="true" />
 
         <View
             android:layout_width="match_parent"
@@ -90,9 +91,9 @@
         style="@style/text_11_99"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_5"
+        android:layout_marginTop="@dimen/dp_10"
         android:paddingLeft="@dimen/dp_20"
         android:paddingRight="@dimen/dp_20"
-        android:layout_marginTop="@dimen/dp_10"
-        android:layout_marginLeft="@dimen/dp_5"
         android:text="完成实名认证后，您的账户将得到更完整的保护，投资更安全 " />
 </LinearLayout>

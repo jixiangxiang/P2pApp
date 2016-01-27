@@ -90,24 +90,25 @@ public class ToTransProjectBean extends EBaseModel {
     }
 
     public String getRepaytype() {
+        String repaytypetext = "";
         switch (Integer.valueOf(repaytype)) {
             case 1:
-                repaytype = "等额本息";
+                repaytypetext = "等额本息";
                 break;
             case 2:
-                repaytype = "等额本金";
+                repaytypetext = "等额本金";
                 break;
             case 3:
-                repaytype = "按月付息，一次还本";
+                repaytypetext = "按月付息，一次还本";
                 break;
             case 4:
-                repaytype = "利随本清";
+                repaytypetext = "利随本清";
                 break;
             default:
-                repaytype = "等额本金";
+                repaytypetext = "等额本金";
                 break;
         }
-        return repaytype;
+        return repaytypetext;
     }
 
     public void setRepaytype(String repaytype) {

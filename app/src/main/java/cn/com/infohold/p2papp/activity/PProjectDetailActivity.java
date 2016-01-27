@@ -96,6 +96,9 @@ public class PProjectDetailActivity extends BaseActivity implements View.OnClick
             case 4:
                 toInvestBtn.setBackgroundResource(R.mipmap.backout_trans_btn);
                 break;
+            case 5:
+                toInvestBtn.setVisibility(View.GONE);
+                break;
             default:
                 if (investProjectBean.getStatus().equals("01")) {
                     toInvestBtn.setBackgroundResource(R.mipmap.p_invest_btn);
@@ -191,6 +194,7 @@ public class PProjectDetailActivity extends BaseActivity implements View.OnClick
                 return;
             }
             Bundle bundle = new Bundle();
+            bundle.putString("status", investProjectBean.getStatus());
             switch (status) {
                 case 0:
                     bundle.putString("data", data.toJSONString());
@@ -263,7 +267,7 @@ public class PProjectDetailActivity extends BaseActivity implements View.OnClick
             yieldCircle.invalidate();
             yieldText.setText(data.getString("rate"));
             ArrayList<Fragment> fragmentList = new ArrayList<Fragment>();
-            fragmentList.add(PProjectDetailFragment.newInstance(data.toJSONString(), null));
+            fragmentList.add(PProjectDetailFragment.newInstance(data.toJSONString(), investProjectBean.getStatus(), status));
             fragmentList.add(PInvestRecordFragment.newInstance(data.getString("projectno"), null));
             if (StringUtils.isEmpty(investProjectBean.getNowstatus()) || (!investProjectBean.getNowstatus().equals("01") && !investProjectBean.getNowstatus().equals("02")))
                 fragmentList.add(PRepayPlanFragment.newInstance(status == 2 ? "2" : null, investProjectBean.getLoanno()));

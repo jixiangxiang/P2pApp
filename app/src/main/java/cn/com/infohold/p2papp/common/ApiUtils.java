@@ -37,6 +37,7 @@ public class ApiUtils {
     public static final int REQUEST_SUCCESS = 0;
     public static final int NEED_LOGIN = -112004;
     public static final int NO_RELANAME = 100009;
+    public static final int NOSMSCHECKED = 800013;
     public static final String CIFSEQ = "2";
     /**
      * ***************************************
@@ -88,6 +89,7 @@ public class ApiUtils {
     public static final String FEETRIAL = API_BASE + "router.fee_trial";
     public static final String REPAYHISTORY = API_BASE + "router.repayhistory";
     public static final String UNPAIDDETAIL = API_BASE + "router.unpaidDetail";
+    public static final String INVESTCONTRACT = API_BASE + "router.queryContractUrl";
 
 
     private ApiUtils() {

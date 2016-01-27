@@ -118,7 +118,7 @@ public class PTransListFragment extends BaseFragment {
                 if (status == 2)
                     bundle.putInt("status", 4);
                 else
-                    bundle.putInt("status", 1);
+                    bundle.putInt("status", 5);
                 InvestProjectBean investProjectBean = new InvestProjectBean();
                 investProjectBean.setStatus(transFerringBean.getProject_status());
                 investProjectBean.setLoanno(transFerringBean.getLoan_no());
@@ -170,7 +170,7 @@ public class PTransListFragment extends BaseFragment {
 
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                if (firstVisibleItem == 0  && totalItemCount > 0)
+                if (firstVisibleItem == 0 && totalItemCount > 0)
                     swipeRefresh.setEnabled(true);
                 else
                     swipeRefresh.setEnabled(false);

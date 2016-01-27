@@ -1,6 +1,8 @@
 package cn.com.infohold.p2papp.activity;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -29,6 +31,11 @@ public class PPayPwdSetActivity extends BaseActivity implements View.OnClickList
         initialize();
         initTitleText(getString(R.string.title_activity_ppay_pwd_set), BaseActivity.TITLE_CENTER, android.R.color.black);
 
+        nextBtn.setSelected(false);
+        nextBtn.setEnabled(false);
+
+        payPwd.addTextChangedListener(textWatcher);
+        confirmPwd.addTextChangedListener(textWatcher);
     }
 
     private void initialize() {
@@ -60,6 +67,29 @@ public class PPayPwdSetActivity extends BaseActivity implements View.OnClickList
             addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(this, params, ApiUtils.SECURITYPASSWORD), true);
         }
     }
+
+    private TextWatcher textWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            if (StringUtils.isEmpty(payPwd.getText().toString()) || StringUtils.isEmpty(confirmPwd.getText().toString())) {
+                nextBtn.setSelected(false);
+                nextBtn.setEnabled(false);
+            } else {
+                nextBtn.setSelected(true);
+                nextBtn.setEnabled(true);
+            }
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+        }
+    };
 
     @Override
     protected void doResponse(ResponseResult response) {

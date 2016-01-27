@@ -170,6 +170,7 @@ public class PInvestProjectActivity extends BaseActivity implements View.OnClick
         swipeRefresh = (SwipeRefreshLayout) findViewById(R.id.swipeRefresh);
         footView = getLayoutInflater().inflate(R.layout.listview_footview, null);
         footView.setVisibility(View.GONE);
+        colligate.setOnClickListener(this);
     }
 
     @Override
@@ -191,9 +192,9 @@ public class PInvestProjectActivity extends BaseActivity implements View.OnClick
 
             switch ((int) yieldSort.getTag()) {
                 case R.mipmap.p_sort_default:
-                    yieldSort.setImageResource(R.mipmap.p_sort_up);
-                    yieldSort.setTag(R.mipmap.p_sort_up);
-                    typemethod = "2";
+                    yieldSort.setImageResource(R.mipmap.p_sort_down);
+                    yieldSort.setTag(R.mipmap.p_sort_down);
+                    typemethod = "1";
                     break;
                 case R.mipmap.p_sort_up:
                     yieldSort.setImageResource(R.mipmap.p_sort_down);
@@ -201,14 +202,17 @@ public class PInvestProjectActivity extends BaseActivity implements View.OnClick
                     typemethod = "1";
                     break;
                 case R.mipmap.p_sort_down:
-                    yieldSort.setImageResource(R.mipmap.p_sort_default);
-                    yieldSort.setTag(R.mipmap.p_sort_default);
-                    typemethod = null;
+//                    yieldSort.setImageResource(R.mipmap.p_sort_default);
+//                    yieldSort.setTag(R.mipmap.p_sort_default);
+//                    typemethod = null;
+                    yieldSort.setImageResource(R.mipmap.p_sort_up);
+                    yieldSort.setTag(R.mipmap.p_sort_up);
+                    typemethod = "2";
                     break;
                 default:
-                    yieldSort.setImageResource(R.mipmap.p_sort_default);
-                    yieldSort.setTag(R.mipmap.p_sort_default);
-                    typemethod = null;
+//                    yieldSort.setImageResource(R.mipmap.p_sort_default);
+//                    yieldSort.setTag(R.mipmap.p_sort_default);
+//                    typemethod = null;
                     break;
             }
         } else if (v == limitArea) {
@@ -228,15 +232,18 @@ public class PInvestProjectActivity extends BaseActivity implements View.OnClick
                     typemethod = "1";
                     break;
                 case R.mipmap.p_sort_down:
-                    limitSort.setImageResource(R.mipmap.p_sort_default);
-                    limitSort.setTag(R.mipmap.p_sort_default);
-                    typemethod = null;
+//                    limitSort.setImageResource(R.mipmap.p_sort_default);
+//                    limitSort.setTag(R.mipmap.p_sort_default);
+//                    typemethod = null;
+                    limitSort.setImageResource(R.mipmap.p_sort_up);
+                    limitSort.setTag(R.mipmap.p_sort_up);
+                    typemethod = "2";
                     break;
-                default:
-                    limitSort.setImageResource(R.mipmap.p_sort_default);
-                    limitSort.setTag(R.mipmap.p_sort_default);
-                    typemethod = null;
-                    break;
+//                default:
+//                    limitSort.setImageResource(R.mipmap.p_sort_default);
+//                    limitSort.setTag(R.mipmap.p_sort_default);
+//                    typemethod = null;
+//                    break;
             }
         }
         switchSelect(v);

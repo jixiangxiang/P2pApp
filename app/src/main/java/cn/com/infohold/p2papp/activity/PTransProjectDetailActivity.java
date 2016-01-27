@@ -140,6 +140,9 @@ public class PTransProjectDetailActivity extends BaseActivity implements View.On
         productNameShow = (TextView) findViewById(R.id.productNameShow);
         availInvestMoney = (TextView) findViewById(R.id.availInvestMoney);
         assignmentpricevalue = (TextView) findViewById(R.id.assignmentpricevalue);
+        investRecord.setOnClickListener(this);
+        projectDetail.setOnClickListener(this);
+        questions.setOnClickListener(this);
     }
 
     @Override
@@ -220,7 +223,7 @@ public class PTransProjectDetailActivity extends BaseActivity implements View.On
             yieldCircle.invalidate();
             yieldText.setText(String.valueOf(transferProjectBean.getRate()));
             ArrayList<Fragment> fragmentList = new ArrayList<Fragment>();
-            fragmentList.add(PProjectDetailFragment.newInstance(data.toJSONString(), null));
+            fragmentList.add(PProjectDetailFragment.newInstance(data.toJSONString(), null,null));
             fragmentList.add(PInvestRecordFragment.newInstance(data.getString("projectno"), null));
             fragmentList.add(PRepayPlanFragment.newInstance(null, transferProjectBean.getLoanno()));
             adapter = new FragmentPagerAdapter(getSupportFragmentManager(), fragmentList);

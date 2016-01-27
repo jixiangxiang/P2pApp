@@ -62,6 +62,5 @@ public class TimeCount extends CountDownTimer {
             this.codeBtn.setText("重新获取");
             this.codeBtn.setClickable(true);
         }
-
     }
 }

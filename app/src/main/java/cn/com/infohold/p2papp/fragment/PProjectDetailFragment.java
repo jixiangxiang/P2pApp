@@ -14,14 +14,18 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import cn.com.infohold.p2papp.R;
+import cn.com.infohold.p2papp.activity.PContactDetailActivity;
 import cn.com.infohold.p2papp.activity.PProjectDetailActivity;
 import cn.com.infohold.p2papp.activity.PRiskWarnActivity;
 import cn.com.infohold.p2papp.activity.PTransProjectDetailActivity;
 import cn.com.infohold.p2papp.base.BaseFragment;
 import cn.com.infohold.p2papp.bean.ReviewBean;
+import cn.com.infohold.p2papp.common.ApiUtils;
+import cn.com.infohold.p2papp.common.ResponseResult;
 import common.eric.com.ebaselibrary.adapter.EBaseAdapter;
 
 /**
@@ -37,11 +41,13 @@ public class PProjectDetailFragment extends BaseFragment implements View.OnClick
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private static final String ARG_PARAM3 = "param3";
     private EBaseAdapter reviewAdapter;
     private List<ReviewBean> reviewBeans;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private Integer status;
 
     private TextView property;
     private TextView address;
@@ -64,6 +70,7 @@ public class PProjectDetailFragment extends BaseFragment implements View.OnClick
     private GridView reviewGrid;
     private TextView loandesc;
     private TextView safedesc;
+    private TextView contact;
 
     private JSONObject data;
 
@@ -80,11 +87,12 @@ public class PProjectDetailFragment extends BaseFragment implements View.OnClick
      * @return A new instance of fragment PProjectDetailFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static PProjectDetailFragment newInstance(String param1, String param2) {
+    public static PProjectDetailFragment newInstance(String param1, String param2, Integer param3) {
         PProjectDetailFragment fragment = new PProjectDetailFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
+        args.putInt(ARG_PARAM3, param3);
         fragment.setArguments(args);
         return fragment;
     }
@@ -96,6 +104,7 @@ public class PProjectDetailFragment extends BaseFragment implements View.OnClick
             mParam1 = getArguments().getString(ARG_PARAM1);
             data = JSONObject.parseObject(mParam1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+            status = getArguments().getInt(ARG_PARAM3);
         }
     }
 
@@ -169,8 +178,10 @@ public class PProjectDetailFragment extends BaseFragment implements View.OnClick
         reviewGrid = (GridView) view.findViewById(R.id.reviewGrid);
         loandesc = (TextView) view.findViewById(R.id.loandesc);
         safedesc = (TextView) view.findViewById(R.id.safedesc);
+        contact = (TextView) view.findViewById(R.id.contact);
 
         riskWarn.setOnClickListener(this);
+        ((ViewGroup) contact.getParent()).setOnClickListener(this);
     }
 
     @Override
@@ -179,6 +190,42 @@ public class PProjectDetailFragment extends BaseFragment implements View.OnClick
             Intent intent = new Intent(getActivity(), PRiskWarnActivity.class);
             intent.putExtra("riskdesc", data.getString("riskdesc"));
             startActivity(intent);
+        } else if (v == contact.getParent()) {
+            if (status == 0) {
+                params = new HashMap<>();
+                if (mParam2 != null) {
+                    params = new HashMap<>();
+                    params.put("type", "2");
+                    params.put("loanno", data.getString("loanno"));
+                    params.put("status", mParam2);
+                    params.put("cif_seq", ApiUtils.CIFSEQ);
+                } else {
+                    params = new HashMap<>();
+                    params.put("type", "3");
+                    params.put("assignmentseq", data.getString("assignmentseq"));
+                    params.put("cif_seq", ApiUtils.CIFSEQ);
+                }
+            } else if (status == 1) {//我的投资
+                params = new HashMap<>();
+                params.put("type", "4");
+                params.put("loanno", data.getString("loanno"));
+                params.put("status", mParam2);
+                params.put("mobilephone", ApiUtils.getLoginUserPhone(getActivity()));
+                params.put("cif_seq", ApiUtils.CIFSEQ);
+            } else if (status == 5 || status == 3) {//我的转让
+                params = new HashMap<>();
+                params.put("type", "4");
+                params.put("loanno", data.getString("loanno"));
+                params.put("status", mParam2);
+                params.put("mobilephone", ApiUtils.getLoginUserPhone(getActivity()));
+            } else if (status == 2) {//我的借款
+                params = new HashMap<>();
+                params.put("type", "5");
+                params.put("loanno", data.getString("loanno"));
+                params.put("status", mParam2);
+                params.put("cif_seq", ApiUtils.CIFSEQ);
+            }
+            addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(this, params, ApiUtils.INVESTCONTRACT), ApiUtils.INVESTCONTRACT, true);
         }
     }
 
@@ -196,4 +243,11 @@ public class PProjectDetailFragment extends BaseFragment implements View.OnClick
         }
     }
 
+    @Override
+    protected void doResponse(ResponseResult response) {
+        Intent intent = new Intent(getActivity(), PContactDetailActivity.class);
+        intent.putExtra("title", contact.getText());
+        intent.putExtra("url", response.getData().getString("url"));
+        startActivity(intent);
+    }
 }

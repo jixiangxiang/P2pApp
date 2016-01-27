@@ -1,6 +1,7 @@
 package cn.com.infohold.p2papp.activity;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -31,6 +32,7 @@ import cn.com.infohold.p2papp.base.BaseApplication;
 import cn.com.infohold.p2papp.common.ApiUtils;
 import cn.com.infohold.p2papp.common.ProgressUtil;
 import cn.com.infohold.p2papp.common.ResponseResult;
+import cn.com.infohold.p2papp.common.TimeCount;
 import cn.com.infohold.p2papp.common.VolleyErrorHelper;
 import cn.com.infohold.p2papp.views.CustomProgressDialog;
 import common.eric.com.ebaselibrary.common.EBaseApplication;
@@ -45,11 +47,13 @@ public abstract class BaseActivity extends AppCompatActivity implements Response
     private NiftyDialogBuilder dialogBuilder;
     protected Map<String, String> params;
     protected SwipeRefreshLayout swipeRefresh;
+    protected TimeCount time;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.activity_base);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         ((BaseApplication) BaseApplication.getInstance()).addActivity(this);
     }
 
@@ -438,6 +442,15 @@ public abstract class BaseActivity extends AppCompatActivity implements Response
                 @Override
                 public void onClick(View v) {
                     toActivity(PVerificationActivity.class);
+                }
+            });
+        } else if (result.getReturn_code() == ApiUtils.NOSMSCHECKED) {
+            alertDialog(result.getReturn_message(), new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (time != null) {
+                        time.onError();
+                    }
                 }
             });
         } else

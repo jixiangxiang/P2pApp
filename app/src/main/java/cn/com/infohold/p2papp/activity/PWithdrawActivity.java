@@ -66,7 +66,7 @@ public class PWithdrawActivity extends BaseActivity implements View.OnClickListe
                     return;
                 }
                 int size = content.length();
-                if (content.contains(".") && !content.endsWith(".")  && content.split("\\.")[1].length() > DECIMAL_DIGITS) { //判断之前有没有输入过点
+                if (content.contains(".") && !content.endsWith(".") && content.split("\\.")[1].length() > DECIMAL_DIGITS) { //判断之前有没有输入过点
                     s.delete(size - 1, size);//之前有输入过点，删除重复输入的点
                 }
             }
@@ -79,6 +79,10 @@ public class PWithdrawActivity extends BaseActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if (v == nextStep) {
+            if (Double.valueOf(withdrawMoney.getText().toString()) <= 0) {
+                showToastShort("提现金额必须大于0");
+                return;
+            }
             params = new HashMap<>();
             params.put("currency", "CNY");
             params.put("amount", withdrawMoney.getText().toString());

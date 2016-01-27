@@ -101,12 +101,6 @@ public class PSelfLoanActivity extends BaseActivity implements View.OnClickListe
                 finish.setSelected(false);
                 loaning.setSelected(false);
                 break;
-//            case 2:
-//                repaying.setSelected(false);
-//                applying.setSelected(true);
-//                finish.setSelected(false);
-//                loaning.setSelected(false);
-//                break;
             case 2:
                 repaying.setSelected(false);
                 applying.setSelected(false);
@@ -148,6 +142,12 @@ public class PSelfLoanActivity extends BaseActivity implements View.OnClickListe
         money.setText(d3);
         question = (ImageView) view3.findViewById(R.id.question);
         question.setVisibility(View.VISIBLE);
+        question.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showToastShort("本期应还金额=累计当月应还+累计拖欠本息");
+            }
+        });
         views.add(view3);
     }
 

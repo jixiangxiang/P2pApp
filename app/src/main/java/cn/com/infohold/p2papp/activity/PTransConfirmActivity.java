@@ -1,5 +1,6 @@
 package cn.com.infohold.p2papp.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -82,6 +83,11 @@ public class PTransConfirmActivity extends BaseActivity implements View.OnClickL
             params.put("cif_seq", ApiUtils.CIFSEQ);
             params.put("amount", investMoeny.getText().toString());
             addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(this, params, ApiUtils.TRANFERPERPROJECT), ApiUtils.TRANFERPERPROJECT, true);
+        } else if (v == termSheet) {
+            params.put("type", "3");
+            params.put("assignmentseq", data.getString("assignmentseq"));
+            params.put("cif_seq", ApiUtils.CIFSEQ);
+            addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(this, params, ApiUtils.INVESTCONTRACT), ApiUtils.INVESTCONTRACT, true);
         }
     }
 
@@ -101,6 +107,8 @@ public class PTransConfirmActivity extends BaseActivity implements View.OnClickL
         termSheet = (TextView) findViewById(R.id.termSheet);
         availInvestMoney = (TextView) findViewById(R.id.availInvestMoney);
         assignmentpricevalue = (TextView) findViewById(R.id.assignmentpricevalue);
+
+        termSheet.setOnClickListener(this);
     }
 
     @Override
@@ -114,6 +122,11 @@ public class PTransConfirmActivity extends BaseActivity implements View.OnClickL
                     PTransConfirmActivity.this.finish();
                 }
             });
+        } else if (StringUtils.isEquals(requestMethod, ApiUtils.INVESTCONTRACT)) {
+            Intent intent = new Intent(this, PContactDetailActivity.class);
+            intent.putExtra("title", termSheet.getText());
+            intent.putExtra("url", response.getData().getString("url"));
+            startActivity(intent);
         }
     }
 }

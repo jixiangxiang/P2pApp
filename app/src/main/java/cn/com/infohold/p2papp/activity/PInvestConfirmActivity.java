@@ -91,6 +91,13 @@ public class PInvestConfirmActivity extends BaseActivity implements View.OnClick
             params.put("cif_seq", ApiUtils.CIFSEQ);
             params.put("amount", investMoeny.getText().toString());
             addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(this, params, ApiUtils.INVESTPROJECT), ApiUtils.INVESTPROJECT, true);
+        } else if (v == termSheet) {
+            params = new HashMap<>();
+            params.put("type", "2");
+            params.put("loanno", data.getString("loanno"));
+            params.put("status", getIntent().getExtras().getString("status"));
+            params.put("cif_seq", ApiUtils.CIFSEQ);
+            addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(this, params, ApiUtils.INVESTCONTRACT), ApiUtils.INVESTCONTRACT, true);
         }
     }
 
@@ -111,6 +118,7 @@ public class PInvestConfirmActivity extends BaseActivity implements View.OnClick
         termSheet = (TextView) findViewById(R.id.termSheet);
         availInvestMoney = (TextView) findViewById(R.id.availInvestMoney);
         pricevalue = (TextView) findViewById(R.id.pricevalue);
+        termSheet.setOnClickListener(this);
     }
 
     @Override
@@ -127,6 +135,11 @@ public class PInvestConfirmActivity extends BaseActivity implements View.OnClick
                     PInvestConfirmActivity.this.finish();
                 }
             });
+        } else if (StringUtils.isEquals(requestMethod, ApiUtils.INVESTCONTRACT)) {
+            Intent intent = new Intent(this, PContactDetailActivity.class);
+            intent.putExtra("title", termSheet.getText());
+            intent.putExtra("url", response.getData().getString("url"));
+            startActivity(intent);
         }
     }
 }

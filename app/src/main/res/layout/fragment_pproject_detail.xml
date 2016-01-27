@@ -20,6 +20,7 @@
             android:paddingRight="@dimen/dp_20">
 
             <TextView
+                android:id="@+id/contact"
                 style="@style/text_13_black"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"

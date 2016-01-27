@@ -146,7 +146,13 @@ public class PLoanListFragment extends BaseFragment {
                 bundle.putInt("status", 2);
                 InvestProjectBean investProjectBean = new InvestProjectBean();
                 investProjectBean.setLoanno(loanProjectBean.getLoan_no());
-                investProjectBean.setStatus(String.valueOf(status));
+                if(status==0){
+                    investProjectBean.setStatus("04");
+                }else if(status==1){
+                    investProjectBean.setStatus("07");
+                }else if(status==2){
+                    investProjectBean.setStatus("04");
+                }
                 investProjectBean.setUsertype(ApiUtils.getLoginUserType(getActivity()));
                 investProjectBean.setProjectno(loanProjectBean.getProjectno());
                 investProjectBean.setProjectname(loanProjectBean.getProjectname());

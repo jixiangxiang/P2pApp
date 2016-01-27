@@ -45,6 +45,7 @@ public class PRegistCommitActivity extends BaseActivity implements View.OnClickL
             //验证标识符必须由字母、数字、下划线组成
             Pattern p = Pattern.compile("^([a-zA-Z])[a-zA-Z0-9_—-]{3,19}$");
             Matcher m = p.matcher(username);
+            Matcher m1 = p.matcher(loginpwd);
             if (!m.matches()) {
                 showToastShort("用户名必须以字母开头，4~20位，只能是字母、数字、_、—和-");
                 return;
@@ -64,6 +65,10 @@ public class PRegistCommitActivity extends BaseActivity implements View.OnClickL
             }
             if (!StringUtils.isEquals(loginpwd, confirmpwd)) {
                 showToastShort("两次密码输入不一致，请确认!");
+                return;
+            }
+            if (!m1.matches()) {
+                showToastShort("密码必须以字母开头，4~20位，只能是字母、数字、_、—和-");
                 return;
             }
             params = new HashMap<String, String>();

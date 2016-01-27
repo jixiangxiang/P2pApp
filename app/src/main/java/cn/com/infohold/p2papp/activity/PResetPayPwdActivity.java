@@ -108,7 +108,7 @@ public class PResetPayPwdActivity extends BaseActivity implements View.OnClickLi
         if (StringUtils.isEquals(requestMethod, ApiUtils.SEND_VALID_CODE)) {
             showToastShort("验证码已经发送");
             String seconds = response.getData().getString("seconds");
-            TimeCount time = TimeCount.getInstance(Integer.valueOf(seconds) * 1000, 1000, sendCaptchBtn, this);
+            time = TimeCount.getInstance(Integer.valueOf(seconds) * 1000, 1000, sendCaptchBtn, this);
             time.start();
         } else if (StringUtils.isEquals(requestMethod, ApiUtils.CHECK_VALID_CODE)) {
             Bundle bundle = new Bundle();
