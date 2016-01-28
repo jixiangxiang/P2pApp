@@ -20,6 +20,7 @@
             android:layout_weight="1"
             android:background="@drawable/p_invest_left_selector"
             android:gravity="center"
+            android:onClick="onClick"
             android:text="投资中" />
 
         <TextView
@@ -30,6 +31,7 @@
             android:layout_weight="1"
             android:background="@drawable/p_invest_right_selector"
             android:gravity="center"
+            android:onClick="onClick"
             android:text="已完成" />
     </LinearLayout>
 
@@ -37,7 +39,10 @@
         android:id="@+id/investList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/dp_8"
+        android:layout_marginRight="@dimen/dp_8"
         android:layout_marginTop="@dimen/dp_10"
+        android:divider="@android:color/white"
         android:dividerHeight="@dimen/dp_10">
 
     </ListView>

@@ -6,65 +6,70 @@ import common.eric.com.ebaselibrary.model.EBaseModel;
  * Created by eric on 2015/12/1.
  */
 public class MerchantBean extends EBaseModel {
-    private int merchantLogo;
-    private String merchantName;
-    private String merchantAddress;
-    private String distance;
-    private String phone;
+    private Integer id;
+    private String name;
+    private String addr;
+    private String dist;
+    private String img;
+    private String x;
+    private String y;
 
     public MerchantBean() {
     }
 
-    public MerchantBean(int merchantLogo, String merchantName, String merchantAddress, String distance) {
-        this.merchantLogo = merchantLogo;
-        this.merchantName = merchantName;
-        this.merchantAddress = merchantAddress;
-        this.distance = distance;
+    public Integer getId() {
+        return id;
     }
 
-    public MerchantBean(String merchantName, String merchantAddress, String phone) {
-        this.merchantName = merchantName;
-        this.merchantAddress = merchantAddress;
-        this.phone = phone;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public int getMerchantLogo() {
-        return merchantLogo;
+    public String getName() {
+        return name;
     }
 
-    public void setMerchantLogo(int merchantLogo) {
-        this.merchantLogo = merchantLogo;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getMerchantName() {
-        return merchantName;
+    public String getAddr() {
+        return addr;
     }
 
-    public void setMerchantName(String merchantName) {
-        this.merchantName = merchantName;
+    public void setAddr(String addr) {
+        this.addr = addr;
     }
 
-    public String getMerchantAddress() {
-        return merchantAddress;
+    public String getDist() {
+        return dist;
     }
 
-    public void setMerchantAddress(String merchantAddress) {
-        this.merchantAddress = merchantAddress;
+    public void setDist(String dist) {
+        this.dist = dist;
     }
 
-    public String getDistance() {
-        return distance;
+    public String getImg() {
+        return img;
     }
 
-    public void setDistance(String distance) {
-        this.distance = distance;
+    public void setImg(String img) {
+        this.img = img;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getX() {
+        return x;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setX(String x) {
+        this.x = x;
+    }
+
+    public String getY() {
+        return y;
+    }
+
+    public void setY(String y) {
+        this.y = y;
     }
 }

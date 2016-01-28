@@ -123,7 +123,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Response
         toolbar.setVisibility(View.GONE);
     }
 
-    protected UploadManager getUploadManager() {
+    public UploadManager getUploadManager() {
         if (uploadManager == null) {
             Configuration config = new Configuration.Builder()
                     .chunkSize(256 * 1024)  //分片上传时，每片的大小。 默认 256K
@@ -227,7 +227,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Response
     public <T> void addToRequestQueue(Request<T> req, Boolean isShowDialog) {
         if ((!getProgressDialog().isShowing()) && isShowDialog)
             getProgressDialog().show();
-        req.setRetryPolicy(new DefaultRetryPolicy(30 * 1000, 1, 1.0f));
+        req.setRetryPolicy(new DefaultRetryPolicy(30 * 1000, 0, 1.0f));
         ((EBaseApplication) getApplication()).addToRequestQueue(req);
     }
 
@@ -235,7 +235,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Response
         requestMethod = tag;
         if (!getProgressDialog().isShowing() && isShowDialog)
             getProgressDialog().show();
-        req.setRetryPolicy(new DefaultRetryPolicy(30 * 1000, 1, 1.0f));
+        req.setRetryPolicy(new DefaultRetryPolicy(30 * 1000, 0, 1.0f));
         ((EBaseApplication) getApplication()).addToRequestQueue(req, tag);
     }
 
@@ -387,7 +387,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Response
      *
      * @return
      */
-    protected String getToken() {
+    public String getToken() {
         try {
             // 1 构造上传策略
             JSONObject _json = new JSONObject();

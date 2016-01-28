@@ -15,11 +15,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
 
-import com.alibaba.fastjson.JSONArray;
 import com.example.eric.oscar.R;
-import com.example.eric.oscar.activity.OTransListActivity;
 import com.example.eric.oscar.bean.CardBean;
-import com.example.eric.oscar.common.BaseActivity;
 import com.example.eric.oscar.views.WrapScrollListView;
 
 import java.util.ArrayList;
@@ -111,7 +108,7 @@ public class ODmTransFragment extends BaseFragment implements View.OnClickListen
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ODmTransFragment.this.position = position;
-                initAlertDialog();
+                initAlertDialog((int) (1000 / cardBeans.get(position).getBar()));
             }
         });
 
@@ -122,11 +119,15 @@ public class ODmTransFragment extends BaseFragment implements View.OnClickListen
     @Override
     public void onClick(View v) {
         if (v == transBtn) {
+            return;
+            /*
             Bundle bundle = new Bundle();
             bundle.putString("cardBeans", JSONArray.toJSONString(cardBeans));
             bundle.putString("totalMoney", totalMoney.getText().toString());
             bundle.putInt("icon",R.mipmap.o_damai_icon);
+            bundle.putInt("status",2);
             ((BaseActivity) getActivity()).toActivity(OTransListActivity.class, bundle);
+            */
         }
     }
 
@@ -161,7 +162,8 @@ public class ODmTransFragment extends BaseFragment implements View.OnClickListen
 
     }
 
-    private void initAlertDialog() {
+    private void initAlertDialog(int maxvalue) {
+        numberPicker.setMaxValue(maxvalue);
         if (numberAlert != null && numberAlert.isShowing()) {
             numberAlert.dismiss();
         }

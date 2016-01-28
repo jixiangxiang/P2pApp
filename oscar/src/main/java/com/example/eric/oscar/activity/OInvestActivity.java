@@ -10,7 +10,7 @@ import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.example.eric.oscar.R;
-import com.example.eric.oscar.bean.InvestBean;
+import com.example.eric.oscar.bean.SelfInvestBean;
 import com.example.eric.oscar.common.ApiUtils;
 import com.example.eric.oscar.common.BaseActivity;
 import com.example.eric.oscar.common.ResponseResult;
@@ -30,8 +30,9 @@ public class OInvestActivity extends BaseActivity implements View.OnClickListene
     private ListView investList;
 
     private StringRequest request;
-    private List<InvestBean> investBeanList;
+    private List<SelfInvestBean> investBeanList;
     private EBaseAdapter baseAdapter;
+    private String type = "0";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,37 +45,64 @@ public class OInvestActivity extends BaseActivity implements View.OnClickListene
         initialize();
         initTitleText(getString(R.string.title_activity_oinvest), BaseActivity.TITLE_CENTER);
         investBeanList = new ArrayList<>();
-        //baseAdapter = new EBaseAdapter(this,investBeanList,)
+        baseAdapter = new EBaseAdapter(this, investBeanList, R.layout.list_self_invest_item,
+                new String[]{"name", "profit", "type", "duration", "amt", "interest", "coupon", "date", "invdate", "invtype"},
+                new int[]{R.id.name, R.id.profit, R.id.invtype, R.id.duration, R.id.amt, R.id.interest, R.id.coupon, R.id.date, R.id.invdate, R.id.status});
 
-        request = new StringRequest(Request.Method.POST, ApiUtils.INVLIST, this, this) {
+        investList.setAdapter(baseAdapter);
+
+        request = new StringRequest(Request.Method.POST, ApiUtils.MMYINV, this, this) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> map = new HashMap<>();
-                map.put("type", "1");
-                map.put("page", "1");
+                map.put("type", type);
                 map.put("sign", SPUtils.getString(OInvestActivity.this, "sign"));
                 return map;
             }
         };
-
-        addToRequestQueue(request, ApiUtils.INVLIST, true);
+        investing.setSelected(true);
+        invested.setSelected(false);
+        addToRequestQueue(request, ApiUtils.MMYINV, true);
     }
 
     @Override
     public void onClick(View v) {
-
+        if (v == investing) {
+            investing.setSelected(true);
+            invested.setSelected(false);
+            type = "0";
+        } else if (v == invested) {
+            investing.setSelected(false);
+            invested.setSelected(true);
+            type = "1";
+        }
+        request = new StringRequest(Request.Method.POST, ApiUtils.MMYINV, this, this) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> map = new HashMap<>();
+                map.put("type", type);
+                map.put("sign", SPUtils.getString(OInvestActivity.this, "sign"));
+                return map;
+            }
+        };
+        addToRequestQueue(request, ApiUtils.MMYINV, true);
     }
 
     private void initialize() {
         investing = (TextView) findViewById(R.id.investing);
         invested = (TextView) findViewById(R.id.invested);
         investList = (ListView) findViewById(R.id.investList);
+        investing.setOnClickListener(this);
+        invested.setOnClickListener(this);
     }
 
     @Override
     protected void doResponse(ResponseResult response) {
-        investBeanList = JSONArray.parseArray(((JSONArray)response.getData()).toJSONString(),InvestBean.class);
-
-
+        investBeanList = JSONArray.parseArray(((JSONArray) response.getData()).toJSONString(), SelfInvestBean.class);
+        for (SelfInvestBean selfInvestBean : investBeanList) {
+            selfInvestBean.setInvtype("当前状态：" + (type.equals("0") ? "持有中" : "已完成"));
+        }
+        baseAdapter.setmData(investBeanList);
+        baseAdapter.notifyDataSetChanged();
     }
 }

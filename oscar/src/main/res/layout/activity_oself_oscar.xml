@@ -101,6 +101,7 @@
         android:layout_marginTop="@dimen/dp_18">
 
         <TextView
+            android:id="@+id/goAdd"
             style="@style/text_10_400"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

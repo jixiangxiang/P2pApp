@@ -17,7 +17,7 @@
         <Button
             android:id="@+id/btn_take_photo"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/dp_40"
             android:layout_marginLeft="20dip"
             android:layout_marginRight="20dip"
             android:layout_marginTop="20dip"
@@ -28,7 +28,7 @@
         <Button
             android:id="@+id/btn_pick_photo"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/dp_40"
             android:layout_marginLeft="20dip"
             android:layout_marginRight="20dip"
             android:layout_marginTop="5dip"
@@ -39,7 +39,7 @@
         <Button
             android:id="@+id/btn_cancel"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/dp_40"
             android:layout_marginBottom="15dip"
             android:layout_marginLeft="20dip"
             android:layout_marginRight="20dip"

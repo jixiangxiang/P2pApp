@@ -19,6 +19,7 @@ import com.example.eric.oscar.bean.CardBean;
 import com.example.eric.oscar.common.ApiUtils;
 import com.example.eric.oscar.common.BaseActivity;
 import com.example.eric.oscar.common.ResponseResult;
+import com.example.eric.oscar.common.SPUtils;
 import com.example.eric.oscar.views.WrapScrollListView;
 
 import java.util.ArrayList;
@@ -40,6 +41,8 @@ public class OTransListActivity extends BaseActivity implements View.OnClickList
     private List<CardBean> cardBeans;
 
     private StringRequest request;
+    private int status;
+    private String method;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +52,7 @@ public class OTransListActivity extends BaseActivity implements View.OnClickList
 
     @Override
     protected void initView() {
+        status = getIntent().getExtras().getInt("status");
         initialize();
         initTitleText(getString(R.string.title_activity_otrans_list), BaseActivity.TITLE_CENTER);
         initHandler();
@@ -82,13 +86,18 @@ public class OTransListActivity extends BaseActivity implements View.OnClickList
     }
 
     private void initHandler() {
-        request = new StringRequest(Request.Method.POST, ApiUtils.CRAMZ, this, this) {
+        if (status == 1) {
+            method = ApiUtils.CRAMZ;
+        } else if (status == 2) {
+            method = ApiUtils.CRJD;
+        }
+        request = new StringRequest(Request.Method.POST, method, this, this) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> map = new HashMap<>();
                 map.put("amt", getIntent().getExtras().getString("totalMoney"));
                 map.put("phone", phone.getText().toString());
-                map.put("sign", "");
+                map.put("sign", SPUtils.getString(OTransListActivity.this, "sign"));
                 return map;
             }
         };
@@ -131,7 +140,11 @@ public class OTransListActivity extends BaseActivity implements View.OnClickList
     protected void doResponse(ResponseResult response) {
         Bundle bundle = new Bundle();
         bundle.putString("order", ((JSONObject) response.getData()).getString("order"));
-        bundle.putString("totalMoney", getIntent().getExtras().getString("totalMoney"));
+        bundle.putString("total", getIntent().getExtras().getString("total"));
+        bundle.putString("amt", getIntent().getExtras().getString("amt"));
+        bundle.putString("fee", getIntent().getExtras().getString("fee"));
+        bundle.putString("rate", getIntent().getExtras().getString("rate"));
+        bundle.putString("mobile", getIntent().getExtras().getString("mobile"));
         toActivity(OTransConfirmActivity.class, bundle);
         OTransListActivity.this.finish();
     }

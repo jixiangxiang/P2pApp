@@ -1,5 +1,6 @@
 package cn.com.infohold.p2papp.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -23,6 +24,7 @@ public class PConfirmTransActivity extends BaseActivity implements View.OnClickL
     private TextView totalMoney;
     private TextView principal;
     private TextView interest;
+    private TextView termSheet;
     private TextView surplusLimit;
     private TextView actualTransMoney;
     private EditText transShare;
@@ -81,6 +83,15 @@ public class PConfirmTransActivity extends BaseActivity implements View.OnClickL
                 }
             });
 
+        } else if (v == termSheet) {
+            if (true) {
+                return;
+            }
+            params.put("type", "3");
+            if (!StringUtils.isEmpty(ApiUtils.getLoginUserPhone(this)))
+                params.put("mobilephone", ApiUtils.getLoginUserPhone(this));
+            params.put("cif_seq", ApiUtils.CIFSEQ);
+            addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(this, params, ApiUtils.INVESTCONTRACT), ApiUtils.INVESTCONTRACT, true);
         }
     }
 
@@ -88,11 +99,13 @@ public class PConfirmTransActivity extends BaseActivity implements View.OnClickL
         totalMoney = (TextView) findViewById(R.id.totalMoney);
         principal = (TextView) findViewById(R.id.principal);
         interest = (TextView) findViewById(R.id.interest);
+        termSheet = (TextView) findViewById(R.id.termSheet);
         surplusLimit = (TextView) findViewById(R.id.surplusLimit);
         actualTransMoney = (TextView) findViewById(R.id.actualTransMoney);
         transShare = (EditText) findViewById(R.id.transShare);
         maxTransMoney = (EditText) findViewById(R.id.maxTransMoney);
         confirmTransBtn = (ImageButton) findViewById(R.id.confirmTransBtn);
+        termSheet.setOnClickListener(this);
     }
 
     @Override
@@ -130,6 +143,11 @@ public class PConfirmTransActivity extends BaseActivity implements View.OnClickL
                     PConfirmTransActivity.this.finish();
                 }
             });
+        } else if (StringUtils.isEquals(requestMethod, ApiUtils.INVESTCONTRACT)) {
+            Intent intent = new Intent(this, PContactDetailActivity.class);
+            intent.putExtra("title", termSheet.getText());
+            intent.putExtra("url", response.getData().getString("url"));
+            startActivity(intent);
         }
     }
 }

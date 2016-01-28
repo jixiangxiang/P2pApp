@@ -1,6 +1,7 @@
 package com.example.eric.oscar.fragment;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -21,14 +22,24 @@ import com.example.eric.oscar.activity.OAccountActivity;
 import com.example.eric.oscar.activity.OAuthenticationActivity;
 import com.example.eric.oscar.activity.OChangePhoneActivity;
 import com.example.eric.oscar.activity.OModifyLoginPwdActivity;
+import com.example.eric.oscar.activity.OSelectPicActivity;
 import com.example.eric.oscar.activity.OSetPayPwdActivity;
 import com.example.eric.oscar.common.ApiUtils;
 import com.example.eric.oscar.common.BaseActivity;
+import com.example.eric.oscar.common.ImageUtils;
 import com.example.eric.oscar.common.ResponseResult;
 import com.example.eric.oscar.common.SPUtils;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.qiniu.android.http.ResponseInfo;
+import com.qiniu.android.storage.UpCompletionHandler;
 
+import org.json.JSONException;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -52,6 +63,7 @@ public class OSelfFragment extends BaseFragment implements View.OnClickListener 
     private SimpleDraweeView headImg;
     private TextView username;
     private TextView totalMoney;
+    private TextView registPhone;
     private ImageView arrowRight;
     private RelativeLayout headImgArea;
     private TextView usernameText;
@@ -67,6 +79,7 @@ public class OSelfFragment extends BaseFragment implements View.OnClickListener 
 
     private StringRequest request;
     private TextView idCard;
+    private String avator;
 
     public OSelfFragment() {
         // Required empty public constructor
@@ -99,7 +112,6 @@ public class OSelfFragment extends BaseFragment implements View.OnClickListener 
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
         isOncreate = true;
-        initHandler();
     }
 
     @Override
@@ -113,22 +125,16 @@ public class OSelfFragment extends BaseFragment implements View.OnClickListener 
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initialize(view);
+        if (SPUtils.getInt(getActivity(), "status", 0) == 1) {
+            verticalStatus.setText("已验证");
+        }
+        registPhone.setText(SPUtils.getString(getActivity(), "acct"));
         loginPwdArea.setOnClickListener(this);
         payPwdArea.setOnClickListener(this);
         registPhoneArea.setOnClickListener(this);
         validateArea.setOnClickListener(this);
+        headImgArea.setOnClickListener(this);
         ((ViewGroup) arrowRight.getParent()).setOnClickListener(this);
-    }
-
-    private void initHandler() {
-        request = new StringRequest(Request.Method.POST, ApiUtils.ACCTINFO, this, this) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> map = new HashMap<>();
-                map.put("sign", SPUtils.getString(getActivity(), "sign"));
-                return map;
-            }
-        };
     }
 
     @Override
@@ -136,12 +142,21 @@ public class OSelfFragment extends BaseFragment implements View.OnClickListener 
         if (v == loginPwdArea) {
             ((BaseActivity) getActivity()).toActivity(OModifyLoginPwdActivity.class);
         } else if (v == payPwdArea) {
-            ((BaseActivity) getActivity()).toActivity(OSetPayPwdActivity.class);
+            if (SPUtils.getInt(getActivity(), "status", 0) == 1) {
+                ((BaseActivity) getActivity()).toActivity(OSetPayPwdActivity.class);
+            } else {
+                ((BaseActivity) getActivity()).showToastShort("当前未实名制，先去身份验证才可以设置支付密码");
+            }
+
         } else if (v == registPhoneArea) {
             ((BaseActivity) getActivity()).toActivity(OChangePhoneActivity.class);
         } else if (v == ((ViewGroup) arrowRight.getParent())) {
             ((BaseActivity) getActivity()).toActivity(OAccountActivity.class);
         } else if (v == validateArea) {
+            if (SPUtils.getInt(getActivity(), "status", 0) == 1) {
+                ((BaseActivity) getActivity()).showToastShort("已经实名认证完成。");
+                return;
+            }
             ((BaseActivity) getActivity()).toActivity(OAuthenticationActivity.class);
         } else if (v == loginOutBtn) {
             SPUtils.setString(getActivity(), "isLogin", "false");
@@ -150,6 +165,9 @@ public class OSelfFragment extends BaseFragment implements View.OnClickListener 
         } else if (v == nameArea) {
             Intent intent = new Intent(getActivity(), OAuthenticationActivity.class);
             startActivityForResult(intent, 888);
+        } else if (v == headImgArea) {
+            Intent intent = new Intent(getActivity(), OSelectPicActivity.class);
+            startActivityForResult(intent, BaseActivity.TO_SELECT_PHOTO);
         }
     }
 
@@ -157,6 +175,7 @@ public class OSelfFragment extends BaseFragment implements View.OnClickListener 
         headImg = (SimpleDraweeView) view.findViewById(R.id.headImage);
         username = (TextView) view.findViewById(R.id.username);
         usernameText = (TextView) view.findViewById(R.id.usernameText);
+        registPhone = (TextView) view.findViewById(R.id.registPhone);
         totalMoney = (TextView) view.findViewById(R.id.totalMoney);
         idCard = (TextView) view.findViewById(R.id.idCard);
         arrowRight = (ImageView) view.findViewById(R.id.arrowRight);
@@ -177,9 +196,57 @@ public class OSelfFragment extends BaseFragment implements View.OnClickListener 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 999 && resultCode == getActivity().RESULT_OK) {
-            addToRequestQueue(request, true);
+            request = new StringRequest(Request.Method.POST, ApiUtils.ACCTINFO, this, this) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> map = new HashMap<>();
+                    map.put("sign", SPUtils.getString(getActivity(), "sign"));
+                    return map;
+                }
+            };
+            addToRequestQueue(request, ApiUtils.ACCTINFO, true);
         } else if (requestCode == 888 && resultCode == getActivity().RESULT_OK) {
             username.setText(data.getStringExtra("name"));
+        } else if (resultCode == getActivity().RESULT_OK && requestCode == BaseActivity.TO_SELECT_PHOTO) {
+            final String picPath = data.getStringExtra(OSelectPicActivity.KEY_PHOTO_PATH);
+            final Bitmap bitmap = ImageUtils.getSmallBitmap(picPath, headImg.getWidth(), headImg.getHeight());
+            headImg.setImageBitmap(bitmap);
+            new Thread() {
+                @Override
+                public void run() {
+                    super.run();
+                    try {
+//                          float scale=300000f/bitmapSize;
+                        FileOutputStream out = new FileOutputStream(new File(picPath));
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 40, out);
+                        File cert = new File(picPath);
+                        ((BaseActivity) getActivity()).getUploadManager().put(cert, "oscar" + Calendar.getInstance().getTimeInMillis(),
+                                ((BaseActivity) getActivity()).getToken(),
+                                new UpCompletionHandler() {
+                                    @Override
+                                    public void complete(String key, ResponseInfo info, org.json.JSONObject response) {
+                                        try {
+                                            avator = response.getString("key");
+                                            request = new StringRequest(Request.Method.POST, ApiUtils.AVATAR, OSelfFragment.this, OSelfFragment.this) {
+                                                @Override
+                                                protected Map<String, String> getParams() throws AuthFailureError {
+                                                    params = new HashMap<String, String>();
+                                                    params.put("avatar", avator);
+                                                    params.put("sign", SPUtils.getString(getActivity(), "sign"));
+                                                    return params;
+                                                }
+                                            };
+                                            addToRequestQueue(request, ApiUtils.AVATAR, true);
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                }, null);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }.start();
         }
     }
 
@@ -193,19 +260,31 @@ public class OSelfFragment extends BaseFragment implements View.OnClickListener 
                 showLogin();
                 return;
             }
-            addToRequestQueue(request, true);
+            request = new StringRequest(Request.Method.POST, ApiUtils.ACCTINFO, this, this) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> map = new HashMap<>();
+                    map.put("sign", SPUtils.getString(getActivity(), "sign"));
+                    return map;
+                }
+            };
+            addToRequestQueue(request, ApiUtils.ACCTINFO, true);
         }
     }
 
     @Override
     protected void doResponse(ResponseResult response) {
-        if (response.getData() != null) {
-            totalMoney.setText(((JSONObject) response.getData()).getString("assets"));
-            username.setText(((JSONObject) response.getData()).getString("userName"));
-            usernameText.setText(((JSONObject) response.getData()).getString("realName"));
-            idCard.setText(((JSONObject) response.getData()).getString("idCard"));
-            Uri uri = Uri.parse(ApiUtils.QINIU_URL + ((JSONObject) response.getData()).getString("avatar"));
-            headImg.setImageURI(uri);
+        if (requestMethod.equals(ApiUtils.ACCTINFO)) {
+            if (response.getData() != null) {
+                totalMoney.setText(((JSONObject) response.getData()).getString("assets"));
+                username.setText(((JSONObject) response.getData()).getString("userName"));
+                usernameText.setText(((JSONObject) response.getData()).getString("realName"));
+                idCard.setText(((JSONObject) response.getData()).getString("idCard"));
+                Uri uri = Uri.parse(ApiUtils.QINIU_URL + ((JSONObject) response.getData()).getString("avatar"));
+                headImg.setImageURI(uri);
+            }
+        } else if (requestMethod.equals(ApiUtils.AVATAR)) {
+            alertDialog(response.getReturn_message(), null);
         }
     }
 }

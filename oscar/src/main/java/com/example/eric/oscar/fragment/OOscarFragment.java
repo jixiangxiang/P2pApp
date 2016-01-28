@@ -18,6 +18,7 @@ import com.example.eric.oscar.activity.OMerchantListActivity;
 import com.example.eric.oscar.activity.OOscarBalanceActivity;
 import com.example.eric.oscar.activity.OOscarRechageActivity;
 import com.example.eric.oscar.activity.OPhoneRechargeActivity;
+import com.example.eric.oscar.activity.OTelRechargeActivity;
 import com.example.eric.oscar.activity.OTransCardsActivity;
 import com.example.eric.oscar.activity.OTransFuelCardActivity;
 import com.example.eric.oscar.activity.OTransToTransActivity;
@@ -151,6 +152,10 @@ public class OOscarFragment extends BaseFragment implements View.OnClickListener
             ((BaseActivity) getActivity()).toActivity(OTransFuelCardActivity.class);
         } else if (v == rechargePhoneArea) {
             ((BaseActivity) getActivity()).toActivity(OPhoneRechargeActivity.class);
+        } else if (v == rechargeTelArea) {
+            ((BaseActivity) getActivity()).toActivity(OTelRechargeActivity.class);
+        } else if (v == rechargeOilArea) {
+            ((BaseActivity) getActivity()).toActivity(OTransFuelCardActivity.class);
         }
     }
 
@@ -165,6 +170,7 @@ public class OOscarFragment extends BaseFragment implements View.OnClickListener
 
         giftArea.setOnClickListener(this);
         rechargePhoneArea.setOnClickListener(this);
+        rechargeTelArea.setOnClickListener(this);
         rechargeOilArea.setOnClickListener(this);
     }
 }

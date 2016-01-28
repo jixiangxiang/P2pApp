@@ -27,6 +27,7 @@ import cn.com.infohold.p2papp.bean.ReviewBean;
 import cn.com.infohold.p2papp.common.ApiUtils;
 import cn.com.infohold.p2papp.common.ResponseResult;
 import common.eric.com.ebaselibrary.adapter.EBaseAdapter;
+import common.eric.com.ebaselibrary.util.StringUtils;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -92,7 +93,8 @@ public class PProjectDetailFragment extends BaseFragment implements View.OnClick
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
-        args.putInt(ARG_PARAM3, param3);
+        if (param3 != null)
+            args.putInt(ARG_PARAM3, param3);
         fragment.setArguments(args);
         return fragment;
     }
@@ -182,6 +184,11 @@ public class PProjectDetailFragment extends BaseFragment implements View.OnClick
 
         riskWarn.setOnClickListener(this);
         ((ViewGroup) contact.getParent()).setOnClickListener(this);
+        if (status == 0 && mParam2 != null) {
+            contact.setText("投资协议");
+        }else if(status==0 && mParam2 ==null){
+            contact.setText("转让协议");
+        }
     }
 
     @Override
@@ -198,6 +205,8 @@ public class PProjectDetailFragment extends BaseFragment implements View.OnClick
                     params.put("type", "2");
                     params.put("loanno", data.getString("loanno"));
                     params.put("status", mParam2);
+                    if (!StringUtils.isEmpty(ApiUtils.getLoginUserPhone(getActivity())))
+                        params.put("mobilephone", ApiUtils.getLoginUserPhone(getActivity()));
                     params.put("cif_seq", ApiUtils.CIFSEQ);
                 } else {
                     params = new HashMap<>();
@@ -212,12 +221,13 @@ public class PProjectDetailFragment extends BaseFragment implements View.OnClick
                 params.put("status", mParam2);
                 params.put("mobilephone", ApiUtils.getLoginUserPhone(getActivity()));
                 params.put("cif_seq", ApiUtils.CIFSEQ);
-            } else if (status == 5 || status == 3) {//我的转让
+            } else if (status == 5 || status == 3 || status == 4) {//我的转让
                 params = new HashMap<>();
                 params.put("type", "4");
                 params.put("loanno", data.getString("loanno"));
                 params.put("status", mParam2);
                 params.put("mobilephone", ApiUtils.getLoginUserPhone(getActivity()));
+                params.put("cif_seq", ApiUtils.CIFSEQ);
             } else if (status == 2) {//我的借款
                 params = new HashMap<>();
                 params.put("type", "5");

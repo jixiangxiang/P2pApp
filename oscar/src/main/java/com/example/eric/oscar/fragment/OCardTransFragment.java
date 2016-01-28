@@ -111,7 +111,7 @@ public class OCardTransFragment extends BaseFragment implements View.OnClickList
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 OCardTransFragment.this.position = position;
-                initAlertDialog();
+                initAlertDialog((int) (1000 / cardBeans.get(position).getBar()));
             }
         });
 
@@ -122,9 +122,15 @@ public class OCardTransFragment extends BaseFragment implements View.OnClickList
     @Override
     public void onClick(View v) {
         if (v == transBtn) {
+            Double money = Double.valueOf(totalMoney.getText().toString());
+            if (money > 1000 || money == 0) {
+                ((BaseActivity) getActivity()).showToastShort("兑换金额不能为0且不能超过1000");
+                return;
+            }
             Bundle bundle = new Bundle();
             bundle.putString("cardBeans", JSONArray.toJSONString(cardBeans));
-            bundle.putString("totalMoney", totalMoney.getText().toString());
+            bundle.putString("totalMoney", String.valueOf(money));
+            bundle.putInt("status", 1);
             bundle.putInt("icon", R.mipmap.o_amazon_card);
             ((BaseActivity) getActivity()).toActivity(OTransListActivity.class, bundle);
         }
@@ -138,7 +144,6 @@ public class OCardTransFragment extends BaseFragment implements View.OnClickList
 
         numberPicker = new NumberPicker(getActivity());
         numberPicker.setMinValue(0);
-        numberPicker.setMaxValue(100);
         numberPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
 
         numberAlert = new AlertDialog.Builder(getActivity())
@@ -161,7 +166,8 @@ public class OCardTransFragment extends BaseFragment implements View.OnClickList
 
     }
 
-    private void initAlertDialog() {
+    private void initAlertDialog(int maxvalue) {
+        numberPicker.setMaxValue(maxvalue);
         if (numberAlert != null && numberAlert.isShowing()) {
             numberAlert.dismiss();
         }

@@ -36,6 +36,7 @@ public class ORechargeConfirmActivity extends BaseActivity implements View.OnCli
     private TextView payMoney;
     private TextView orderMoney;
     private TextView orderDesc;
+    private TextView feeDesc;
     private RelativeLayout topArea;
     private ListView oscarList;
     private EditText payPwd;
@@ -56,6 +57,13 @@ public class ORechargeConfirmActivity extends BaseActivity implements View.OnCli
     protected void initView() {
         initialize();
         initTitleText(getString(R.string.title_activity_orecharge_confirm), BaseActivity.TITLE_CENTER);
+
+        rechargeNo.setText("充值号码：" + getIntent().getStringExtra("mobile"));
+        payMoney.setText("应付金额：" + getIntent().getStringExtra("total"));
+        orderMoney.setText("订单金额：" + getIntent().getStringExtra("amt"));
+        orderDesc.setText("手续费：" + getIntent().getStringExtra("fee"));
+        feeDesc.setText("加收" + getIntent().getStringExtra("rate") + "手续费");
+        rechargeNo.setText(getIntent().getStringExtra("mobile"));
         oscarBeanList = new ArrayList<OscarBean>();
         adapter = new EBaseAdapter(this, oscarBeanList, R.layout.list_recharge_oscar_item,
                 new String[]{"cardNo", "balance", "select"},
@@ -124,6 +132,7 @@ public class ORechargeConfirmActivity extends BaseActivity implements View.OnCli
                     return map;
                 }
             };
+            addToRequestQueue(request, ApiUtils.ACTELE, true);
         }
     }
 
@@ -149,6 +158,7 @@ public class ORechargeConfirmActivity extends BaseActivity implements View.OnCli
         payMoney = (TextView) findViewById(R.id.payMoney);
         orderMoney = (TextView) findViewById(R.id.orderMoney);
         orderDesc = (TextView) findViewById(R.id.orderDesc);
+        feeDesc = (TextView) findViewById(R.id.feeDesc);
         topArea = (RelativeLayout) findViewById(R.id.topArea);
         oscarList = (ListView) findViewById(R.id.oscarList);
         payPwd = (EditText) findViewById(R.id.payPwd);

@@ -149,7 +149,7 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/dp_18"
             android:gravity="center_vertical"
-            android:text="登陆密码" />
+            android:text="登录密码" />
 
         <ImageView
             android:layout_width="wrap_content"

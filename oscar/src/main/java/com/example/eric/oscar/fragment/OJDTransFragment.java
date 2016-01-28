@@ -111,7 +111,7 @@ public class OJDTransFragment extends BaseFragment implements View.OnClickListen
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 OJDTransFragment.this.position = position;
-                initAlertDialog();
+                initAlertDialog((int) (1000 / cardBeans.get(position).getBar()));
             }
         });
 
@@ -122,10 +122,16 @@ public class OJDTransFragment extends BaseFragment implements View.OnClickListen
     @Override
     public void onClick(View v) {
         if (v == transBtn) {
+            Double money = Double.valueOf(totalMoney.getText().toString());
+            if (money > 1000 || money == 0) {
+                ((BaseActivity) getActivity()).showToastShort("兑换金额不能为0且不能超过1000");
+                return;
+            }
             Bundle bundle = new Bundle();
             bundle.putString("cardBeans", JSONArray.toJSONString(cardBeans));
             bundle.putString("totalMoney", totalMoney.getText().toString());
             bundle.putInt("icon", R.mipmap.o_jd_icon);
+            bundle.putInt("status", 1);
             ((BaseActivity) getActivity()).toActivity(OTransListActivity.class, bundle);
         }
     }
@@ -161,7 +167,8 @@ public class OJDTransFragment extends BaseFragment implements View.OnClickListen
 
     }
 
-    private void initAlertDialog() {
+    private void initAlertDialog(int maxvalue) {
+        numberPicker.setMaxValue(maxvalue);
         if (numberAlert != null && numberAlert.isShowing()) {
             numberAlert.dismiss();
         }

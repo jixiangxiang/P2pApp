@@ -10,9 +10,13 @@ public class InvestBean extends EBaseModel {
     private String name;
     private String profit;
     private String type;
-    private String duration;
     private String total;
     private String mini;
+    private String duration;
+    private String amt;
+    private String interest;
+    private String coupon;
+    private String date;
 
     public int getId() {
         return id;
@@ -68,5 +72,37 @@ public class InvestBean extends EBaseModel {
 
     public void setMini(String mini) {
         this.mini = mini;
+    }
+
+    public String getAmt() {
+        return amt;
+    }
+
+    public void setAmt(String amt) {
+        this.amt = amt;
+    }
+
+    public String getInterest() {
+        return interest;
+    }
+
+    public void setInterest(String interest) {
+        this.interest = interest;
+    }
+
+    public String getCoupon() {
+        return coupon;
+    }
+
+    public void setCoupon(String coupon) {
+        this.coupon = coupon;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }

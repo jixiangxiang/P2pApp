@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
@@ -72,7 +73,7 @@ public class OBankListActivity extends BaseActivity implements View.OnClickListe
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_home:
-                showToastShort("点击了右侧按钮");
+                toActivity(OHelpActivity.class);
                 break;
         }
         return true;
@@ -85,18 +86,35 @@ public class OBankListActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     protected void doResponse(ResponseResult response) {
-        JSONArray data = (JSONArray) response.getData();
-        if (data != null) {
-            bankInfoList = JSONArray.parseArray(data.toJSONString(), BankInfo.class);
-            baseAdapter.setmData(bankInfoList);
-            baseAdapter.notifyDataSetChanged();
+        if (requestMethod.equals(ApiUtils.PREADD)) {
+            JSONObject data = (JSONObject) response.getData();
+            if (data != null && data.getBoolean("flag")) {
+                toActivity(OAddBankActivity.class);
+            } else {
+                toActivity(OAuthenticationActivity.class);
+            }
+        } else if (requestMethod.equals(ApiUtils.BANKCARD)) {
+            JSONArray data = (JSONArray) response.getData();
+            if (data != null) {
+                bankInfoList = JSONArray.parseArray(data.toJSONString(), BankInfo.class);
+                baseAdapter.setmData(bankInfoList);
+                baseAdapter.notifyDataSetChanged();
+            }
         }
     }
 
     @Override
     public void onClick(View v) {
         if (v == addBankBtn) {
-            toActivity(OAddBankActivity.class);
+            request = new StringRequest(Request.Method.POST, ApiUtils.PREADD, this, this) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> map = new HashMap<>();
+                    map.put("sign", SPUtils.getString(OBankListActivity.this, "sign"));
+                    return map;
+                }
+            };
+            addToRequestQueue(request, ApiUtils.PREADD, true);
         }
     }
 }

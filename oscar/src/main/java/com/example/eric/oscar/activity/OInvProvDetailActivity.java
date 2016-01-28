@@ -19,6 +19,8 @@ import com.example.eric.oscar.common.SPUtils;
 import java.util.HashMap;
 import java.util.Map;
 
+import common.eric.com.ebaselibrary.util.StringUtils;
+
 public class OInvProvDetailActivity extends BaseActivity implements View.OnClickListener {
 
     private TextView name;
@@ -64,6 +66,14 @@ public class OInvProvDetailActivity extends BaseActivity implements View.OnClick
     @Override
     public void onClick(View v) {
         if (v == investConfirm) {
+            if (StringUtils.isEmpty(oscarNo.getText().toString())) {
+                showToastShort("请输入投资金额");
+                return;
+            }
+            if (Double.valueOf(oscarNo.getText().toString()) <= 0) {
+                showToastShort("投资金额必须大于0");
+                return;
+            }
             Bundle bundle = new Bundle();
             bundle.putString("id", getIntent().getExtras().getString("id"));
             bundle.putString("money", oscarNo.getText().toString());
@@ -98,6 +108,6 @@ public class OInvProvDetailActivity extends BaseActivity implements View.OnClick
         enddate.setText("可投金额：" + data.getString("eDate"));
         interestDate.setText("开始计息：" + data.getString("siDate"));
         repayDate.setText("还本付息：" + data.getString("eiDate"));
-        productDesc.setText(data.getString("productDesc"));
+        productDesc.setText(data.getString("desc"));
     }
 }

@@ -3,7 +3,6 @@ package com.example.eric.oscar.activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -51,6 +50,7 @@ public class ORegistActivity extends BaseActivity implements View.OnClickListene
     private ImageButton checkbox;
     private Request request;
     private String avator = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,7 +73,7 @@ public class ORegistActivity extends BaseActivity implements View.OnClickListene
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_home:
-                showToastShort("点击了右侧按钮");
+                toActivity(OHelpActivity.class);
                 break;
         }
         return true;
@@ -105,7 +105,7 @@ public class ORegistActivity extends BaseActivity implements View.OnClickListene
                 return;
             }
             if (StringUtils.isEmpty(pwd) || pwd.length() < 6 || pwd.length() > 12) {
-                showToastShort("请输入正确的密码！");
+                showToastShort("请输入6-12位密码！");
                 return;
             }
             if (StringUtils.isEmpty(confirmPwd) || confirmPwd.length() < 6 || confirmPwd.length() > 12) {

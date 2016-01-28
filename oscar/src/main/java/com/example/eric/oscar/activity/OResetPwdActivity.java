@@ -78,7 +78,7 @@ public class OResetPwdActivity extends BaseActivity implements View.OnClickListe
                 protected Map<String, String> getParams() throws AuthFailureError {
                     Map<String, String> map = new HashMap<>();
                     map.put("acct", SPUtils.getString(OResetPwdActivity.this, "acct"));
-                    map.put("vstr", "123456");
+                    map.put("vstr", captchaText.getText().toString());
                     return map;
                 }
             };
@@ -96,7 +96,7 @@ public class OResetPwdActivity extends BaseActivity implements View.OnClickListe
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_home:
-                showToastShort("点击了右侧按钮");
+                toActivity(OHelpActivity.class);
                 break;
         }
         return true;

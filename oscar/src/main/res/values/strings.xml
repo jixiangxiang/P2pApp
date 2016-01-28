@@ -48,4 +48,7 @@
     <string name="title_activity_oinv_prov_select">天天理财-投资</string>
     <string name="title_activity_ophone_recharge">我的奥斯卡-手机充值</string>
     <string name="title_activity_orecharge_confirm">我的奥斯卡-手机充值</string>
+    <string name="title_activity_otel_recharge">我的奥斯卡-固话充值</string>
+    <string name="title_activity_oinvest_prop">天天理财-我的道具</string>
+    <string name="title_activity_otrans_to_trans_confirm">我的奥斯卡-卡卡转账</string>
 </resources>

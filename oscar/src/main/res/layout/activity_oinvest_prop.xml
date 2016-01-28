@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        android:orientation="vertical">
+
+        <com.example.eric.oscar.views.WrapScrollListView
+            android:id="@+id/investPropList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginLeft="@dimen/dp_8"
+            android:layout_marginRight="@dimen/dp_8"
+            android:dividerHeight="@dimen/dp_10">
+
+        </com.example.eric.oscar.views.WrapScrollListView>
+
+        <TextView
+            style="@style/text_11_black"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_60"
+            android:gravity="center"
+            android:text="小贴士：道具过期后会自动消失，请及时使用哦！" />
+    </LinearLayout>
+
+</ScrollView>

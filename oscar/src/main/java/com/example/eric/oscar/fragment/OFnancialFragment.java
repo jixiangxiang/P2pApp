@@ -14,8 +14,11 @@ import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.example.eric.oscar.R;
+import com.example.eric.oscar.activity.OAccountActivity;
 import com.example.eric.oscar.activity.OInvProvDetailActivity;
+import com.example.eric.oscar.activity.OInvestActivity;
 import com.example.eric.oscar.activity.OInvestListActivity;
+import com.example.eric.oscar.activity.OInvestPropActivity;
 import com.example.eric.oscar.bean.InvestBean;
 import com.example.eric.oscar.common.ApiUtils;
 import com.example.eric.oscar.common.BaseActivity;
@@ -126,6 +129,12 @@ public class OFnancialFragment extends BaseFragment implements View.OnClickListe
     public void onClick(View v) {
         if (v == giftArea) {
             ((BaseActivity) getActivity()).toActivity(OInvestListActivity.class);
+        } else if (v == rechargeTelArea) {
+            ((BaseActivity) getActivity()).toActivity(OInvestActivity.class);
+        } else if (v == rechargePhoneArea) {
+            ((BaseActivity) getActivity()).toActivity(OAccountActivity.class);
+        } else if (v == rechargeOilArea) {
+            ((BaseActivity) getActivity()).toActivity(OInvestPropActivity.class);
         }
     }
 
@@ -157,6 +166,9 @@ public class OFnancialFragment extends BaseFragment implements View.OnClickListe
         messageBtn = (ImageView) view.findViewById(R.id.messageBtn);
 
         giftArea.setOnClickListener(this);
+        rechargeOilArea.setOnClickListener(this);
+        rechargePhoneArea.setOnClickListener(this);
+        rechargeTelArea.setOnClickListener(this);
     }
 
     @Override

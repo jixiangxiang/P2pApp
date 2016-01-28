@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/dp_40"
             android:gravity="center_vertical"
-            android:text="点点盈NO" />
+            android:text="" />
 
         <View
             android:layout_width="match_parent"
@@ -33,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/dp_30"
             android:gravity="center_vertical"
-            android:text="期限日期：30天" />
+            android:text="期限日期：" />
 
         <View
             android:layout_width="match_parent"
@@ -46,7 +46,7 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/dp_30"
             android:gravity="center_vertical"
-            android:text="还款方式：一次性本息" />
+            android:text="还款方式：" />
 
         <View
             android:layout_width="match_parent"
@@ -59,7 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/dp_30"
             android:gravity="center_vertical"
-            android:text="项目总额：200000.00" />
+            android:text="项目总额：" />
 
         <View
             android:layout_width="match_parent"
@@ -72,7 +72,7 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/dp_30"
             android:gravity="center_vertical"
-            android:text="开标日期：2001-01-01" />
+            android:text="开标日期：" />
 
         <View
             android:layout_width="match_parent"
@@ -85,7 +85,7 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/dp_30"
             android:gravity="center_vertical"
-            android:text="截止时间：2002-01-01" />
+            android:text="截止时间：" />
 
         <View
             android:layout_width="match_parent"
@@ -98,7 +98,7 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/dp_30"
             android:gravity="center_vertical"
-            android:text="可投金额：10000.00" />
+            android:text="可投金额：" />
 
         <View
             android:layout_width="match_parent"
@@ -111,7 +111,7 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/dp_30"
             android:gravity="center_vertical"
-            android:text="开始计息：2013-01-01" />
+            android:text="开始计息：" />
 
         <View
             android:layout_width="match_parent"
@@ -124,7 +124,7 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/dp_30"
             android:gravity="center_vertical"
-            android:text="还本付息：2014-01-01" />
+            android:text="还本付息：" />
 
         <View
             android:layout_width="match_parent"

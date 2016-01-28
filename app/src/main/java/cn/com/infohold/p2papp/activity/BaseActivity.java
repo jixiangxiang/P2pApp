@@ -405,7 +405,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Response
     public <T> void addToRequestQueue(Request<T> req, Boolean isShowDialog) {
         if ((!getProgressDialog().isShowing()) && isShowDialog)
             getProgressDialog().show();
-        req.setRetryPolicy(new DefaultRetryPolicy(30 * 1000, 1, 1.0f));
+        req.setRetryPolicy(new DefaultRetryPolicy(30 * 1000, 0, 1.0f));
         ((EBaseApplication) getApplication()).addToRequestQueue(req);
     }
 
@@ -413,7 +413,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Response
         requestMethod = tag;
         if (!getProgressDialog().isShowing() && isShowDialog)
             getProgressDialog().show();
-        req.setRetryPolicy(new DefaultRetryPolicy(30 * 1000, 1, 1.0f));
+        req.setRetryPolicy(new DefaultRetryPolicy(30 * 1000, 0, 1.0f));
         ((EBaseApplication) getApplication()).addToRequestQueue(req, tag);
     }
 

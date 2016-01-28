@@ -19,8 +19,11 @@ import com.android.volley.toolbox.StringRequest;
 import com.example.eric.oscar.R;
 import com.example.eric.oscar.activity.OInvProvDetailActivity;
 import com.example.eric.oscar.activity.OMerchantDetailActivity;
+import com.example.eric.oscar.activity.OMerchantListActivity;
 import com.example.eric.oscar.activity.OPhoneRechargeActivity;
+import com.example.eric.oscar.activity.OTelRechargeActivity;
 import com.example.eric.oscar.activity.OTransCardsActivity;
+import com.example.eric.oscar.activity.OTransFuelCardActivity;
 import com.example.eric.oscar.adapter.ViewPagerAdapter;
 import com.example.eric.oscar.bean.InvestBean;
 import com.example.eric.oscar.bean.MerchantBean;
@@ -117,10 +120,8 @@ public class OHomeFragment extends BaseFragment implements View.OnClickListener 
         initialize(view);
         views = new ArrayList<View>();
         merchantBeans = new ArrayList<MerchantBean>();
-        merchantBeans.add(new MerchantBean(R.mipmap.o_merchant1, "朝阳大悦城", "地址：北京市朝阳区朝阳北路101号（青年）", "0.9km"));
-        merchantBeans.add(new MerchantBean(R.mipmap.o_merchant2, "中国联通(朝阳区营业厅)", "地址：北京市朝阳区朝阳路住邦2000", "1.3km"));
-        baseAdapter = new EBaseAdapter(getActivity(), merchantBeans, R.layout.list_merchant_item,
-                new String[]{"merchantLogo", "merchantName", "merchantAddress", "distance"},
+        baseAdapter = new EBaseAdapter(getActivity(), merchantBeans, R.layout.list_merchant_sub_item,
+                new String[]{"img", "name", "addr", "dist"},
                 new int[]{R.id.merchantLogo, R.id.merchantAddress, R.id.merchantAddress, R.id.distance});
         baseAdapter.setViewBinder(new EBaseAdapter.ViewBinder() {
             @Override
@@ -190,6 +191,10 @@ public class OHomeFragment extends BaseFragment implements View.OnClickListener 
             ((BaseActivity) getActivity()).toActivity(OInvProvDetailActivity.class, bundle);
         } else if (v == rechargePhoneArea) {
             ((BaseActivity) getActivity()).toActivity(OPhoneRechargeActivity.class);
+        } else if (v == rechargeTelArea) {
+            ((BaseActivity) getActivity()).toActivity(OTelRechargeActivity.class);
+        } else if (v == rechargeOilArea) {
+            ((BaseActivity) getActivity()).toActivity(OTransFuelCardActivity.class);
         }
     }
 
@@ -214,19 +219,54 @@ public class OHomeFragment extends BaseFragment implements View.OnClickListener 
 
     private void initMerchantCateViews() {
         View view1 = getActivity().getLayoutInflater().inflate(R.layout.list_merchant_cate_item1, null);
+        view1.findViewById(R.id.rechargePhoneArea).setOnClickListener(merchantCateClick);
+        view1.findViewById(R.id.rechargeTelArea).setOnClickListener(merchantCateClick);
+        view1.findViewById(R.id.rechargeOilArea).setOnClickListener(merchantCateClick);
+        view1.findViewById(R.id.giftArea).setOnClickListener(merchantCateClick);
         views.add(view1);
         View view2 = getActivity().getLayoutInflater().inflate(R.layout.list_merchant_cate_item2, null);
+        view2.findViewById(R.id.rechargePhoneArea).setOnClickListener(merchantCateClick);
+        view2.findViewById(R.id.rechargeTelArea).setOnClickListener(merchantCateClick);
+        view2.findViewById(R.id.rechargeOilArea).setOnClickListener(merchantCateClick);
+        view2.findViewById(R.id.giftArea).setOnClickListener(merchantCateClick);
         views.add(view2);
         View view3 = getActivity().getLayoutInflater().inflate(R.layout.list_merchant_cate_item3, null);
+        view3.findViewById(R.id.rechargePhoneArea).setOnClickListener(merchantCateClick);
+        view3.findViewById(R.id.rechargeTelArea).setOnClickListener(merchantCateClick);
+        view3.findViewById(R.id.rechargeOilArea).setOnClickListener(merchantCateClick);
+        view3.findViewById(R.id.giftArea).setOnClickListener(merchantCateClick);
         views.add(view3);
     }
 
+    private View.OnClickListener merchantCateClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            ((BaseActivity) getActivity()).toActivity(OMerchantListActivity.class);
+        }
+    };
+
     @Override
     protected void doResponse(ResponseResult response) {
-        investBeanList = JSONArray.parseArray(((JSONArray) response.getData()).toJSONString(), InvestBean.class);
-        if (investBeanList != null && investBeanList.get(0) != null)
-            firstProduct.setText(investBeanList.get(0).getDuration() + "天年化利率收益" + investBeanList.get(0).getProfit());
-        if (investBeanList != null && investBeanList.get(1) != null)
-            secondProduct.setText(investBeanList.get(1).getDuration() + "天年化利率收益" + investBeanList.get(1).getProfit());
+        if (requestMethod.equals(ApiUtils.INVLIST)) {
+            investBeanList = JSONArray.parseArray(((JSONArray) response.getData()).toJSONString(), InvestBean.class);
+            if (investBeanList != null && investBeanList.get(0) != null)
+                firstProduct.setText(investBeanList.get(0).getDuration() + "天年化利率收益" + investBeanList.get(0).getProfit());
+            if (investBeanList != null && investBeanList.get(1) != null)
+                secondProduct.setText(investBeanList.get(1).getDuration() + "天年化利率收益" + investBeanList.get(1).getProfit());
+            request = new StringRequest(Request.Method.POST, ApiUtils.MCLIST, this, this) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    params = new HashMap<String, String>();
+                    params.put("type", "0");
+                    params.put("page", "1");
+                    return params;
+                }
+            };
+            addToRequestQueue(request, ApiUtils.MCLIST, true);
+        } else if (requestMethod.equals(ApiUtils.MCLIST)) {
+            merchantBeans = JSONArray.parseArray(((JSONArray) response.getData()).toJSONString(), MerchantBean.class);
+            baseAdapter.setmData(merchantBeans);
+            baseAdapter.notifyDataSetChanged();
+        }
     }
 }

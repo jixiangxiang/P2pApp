@@ -178,7 +178,7 @@ public class BaseFragment extends Fragment implements Response.Listener, Respons
     public <T> void addToRequestQueue(Request<T> req, Boolean isShowDialog) {
         if ((!getProgressDialog().isShowing()) && isShowDialog)
             getProgressDialog().show();
-        req.setRetryPolicy(new DefaultRetryPolicy(30 * 1000, 1, 1.0f));
+        req.setRetryPolicy(new DefaultRetryPolicy(30 * 1000, 0, 1.0f));
         ((EBaseApplication) getActivity().getApplication()).addToRequestQueue(req);
     }
 
@@ -186,7 +186,7 @@ public class BaseFragment extends Fragment implements Response.Listener, Respons
         requestMethod = tag;
         if (!getProgressDialog().isShowing() && isShowDialog)
             getProgressDialog().show();
-        req.setRetryPolicy(new DefaultRetryPolicy(30 * 1000, 1, 1.0f));
+        req.setRetryPolicy(new DefaultRetryPolicy(30 * 1000, 0, 1.0f));
         ((EBaseApplication) getActivity().getApplication()).addToRequestQueue(req, tag);
     }
 

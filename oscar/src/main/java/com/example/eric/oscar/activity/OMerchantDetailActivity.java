@@ -39,10 +39,6 @@ public class OMerchantDetailActivity extends BaseActivity implements View.OnClic
         initialize();
         initTitleText(getString(R.string.title_activity_omerchant_detail), BaseActivity.TITLE_CENTER);
         merchantBeans = new ArrayList<>();
-        merchantBeans.add(new MerchantBean("南苑店", "丰台区南苑北里一区6号楼", "15010163401"));
-        merchantBeans.add(new MerchantBean("南苑店", "丰台区南苑北里一区6号楼", "15010163401"));
-        merchantBeans.add(new MerchantBean("南苑店", "丰台区南苑北里一区6号楼", "15010163401"));
-        merchantBeans.add(new MerchantBean("南苑店", "丰台区南苑北里一区6号楼", "15010163401"));
         baseAdapter = new EBaseAdapter(this, merchantBeans, R.layout.list_sub_merchant_item,
                 new String[]{"merchantName", "merchantAddress", "phone"}, new int[]{R.id.subName, R.id.address, R.id.telphone});
         subMerchantList.setAdapter(baseAdapter);

@@ -66,7 +66,8 @@ public class OTransFuelCardActivity extends BaseActivity implements View.OnClick
     public void onClick(View v) {
         if (v == transMoney.getParent()) {
             numberPicker = new NumberPicker(this);
-            numberPicker.setMaxValue(1000);
+            numberPicker.setMaxValue(500);
+            numberPicker.setMinValue(500);
             numberPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
             numberAlert = new AlertDialog.Builder(this)
                     .setMessage("请选择兑换金额").setCancelable(true)
@@ -124,5 +125,6 @@ public class OTransFuelCardActivity extends BaseActivity implements View.OnClick
         bundle.putString("phone", confirmPhone.getText().toString());
         bundle.putString("totalMoney", transMoney.getText().toString());
         toActivity(OTransFuleConfirmActivity.class, bundle);
+        this.finish();
     }
 }

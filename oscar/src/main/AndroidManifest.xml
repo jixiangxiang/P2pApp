@@ -149,6 +149,18 @@
         <activity
             android:name=".activity.ORechargeConfirmActivity"
             android:label="@string/title_activity_orecharge_confirm"></activity>
+        <activity
+            android:name=".activity.OTransFuleConfirmActivity"
+            android:label="@string/title_activity_otrans_fuel_card_confirm"></activity>
+        <activity
+            android:name=".activity.OTelRechargeActivity"
+            android:label="@string/title_activity_otel_recharge"></activity>
+        <activity
+            android:name=".activity.OInvestPropActivity"
+            android:label="@string/title_activity_oinvest_prop"></activity>
+        <activity
+            android:name=".activity.OTransToTransConfirmActivity"
+            android:label="@string/title_activity_otrans_to_trans_confirm"></activity>
     </application>
 
 </manifest>

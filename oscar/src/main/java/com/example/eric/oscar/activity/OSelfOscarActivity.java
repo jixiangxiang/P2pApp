@@ -3,6 +3,7 @@ package com.example.eric.oscar.activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -28,6 +29,7 @@ public class OSelfOscarActivity extends BaseActivity {
 
     private ListView oscarList;
     private TextView totalMoney;
+    private TextView goAdd;
     private EBaseAdapter adapter;
 
     private StringRequest request;
@@ -50,7 +52,7 @@ public class OSelfOscarActivity extends BaseActivity {
                 new int[]{R.id.cardNo, R.id.bindDate, R.id.balance});
         oscarList.setAdapter(adapter);
 
-        request = new StringRequest(Request.Method.POST, ApiUtils.OSCAR, this, this) {
+        request = new StringRequest(Request.Method.POST, ApiUtils.BINDLIST, this, this) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> map = new HashMap<>();
@@ -64,6 +66,13 @@ public class OSelfOscarActivity extends BaseActivity {
     private void initialize() {
         oscarList = (ListView) findViewById(R.id.oscarList);
         totalMoney = (TextView) findViewById(R.id.totalMoney);
+        goAdd = (TextView) findViewById(R.id.goAdd);
+        goAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toActivity(OBindOscarActivity.class);
+            }
+        });
     }
 
     @Override
@@ -76,7 +85,7 @@ public class OSelfOscarActivity extends BaseActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_home:
-                showToastShort("点击了右侧按钮");
+                toActivity(OHelpActivity.class);
                 break;
         }
         return true;

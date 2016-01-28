@@ -23,8 +23,8 @@
                 android:layout_height="@dimen/dp_60"
                 android:layout_marginLeft="@dimen/dp_28"
                 android:layout_marginTop="@dimen/dp_12"
-                android:onClick="onClick"
                 android:scaleType="fitXY"
+                android:clickable="false"
                 app:placeholderImageScaleType="fitXY"
                 fresco:placeholderImage="@mipmap/o_mine" />
 
@@ -216,7 +216,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="@dimen/dp_60"
                 android:gravity="center_vertical"
-                android:text="更换" />
+                android:text="去验证" />
 
             <View
                 android:layout_width="match_parent"
@@ -320,6 +320,7 @@
                 android:text="注册手机号" />
 
             <TextView
+                android:id="@+id/registPhone"
                 style="@style/text_13_55"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"

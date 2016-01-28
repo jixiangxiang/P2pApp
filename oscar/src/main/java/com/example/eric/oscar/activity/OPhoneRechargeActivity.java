@@ -92,8 +92,14 @@ public class OPhoneRechargeActivity extends BaseActivity implements View.OnClick
     @Override
     protected void doResponse(ResponseResult response) {
         Intent intent = new Intent(this, ORechargeConfirmActivity.class);
-        if (response.getData() instanceof JSONObject)
+        if (response.getData() instanceof JSONObject) {
             intent.putExtra("order", ((JSONObject) response.getData()).getString("order"));
+            intent.putExtra("total", ((JSONObject) response.getData()).getString("total"));
+            intent.putExtra("amt", ((JSONObject) response.getData()).getString("amt"));
+            intent.putExtra("fee", ((JSONObject) response.getData()).getString("fee"));
+            intent.putExtra("rate", ((JSONObject) response.getData()).getString("rate"));
+            intent.putExtra("mobile", ((JSONObject) response.getData()).getString("mobile"));
+        }
         intent.putExtra("order", response.getData().toString());
         startActivity(intent);
         this.finish();

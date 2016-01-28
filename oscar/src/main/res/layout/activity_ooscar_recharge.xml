@@ -46,17 +46,10 @@
                 style="@style/text_13_55"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_170"
+                android:layout_marginLeft="@dimen/dp_165"
                 android:text="余额（元）"
                 android:textStyle="bold" />
 
-            <TextView
-                style="@style/text_13_55"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_270"
-                android:text="可充（元）"
-                android:textStyle="bold" />
 
         </RelativeLayout>
 

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
@@ -19,6 +20,7 @@ import com.example.eric.oscar.bean.OscarBean;
 import com.example.eric.oscar.common.ApiUtils;
 import com.example.eric.oscar.common.BaseActivity;
 import com.example.eric.oscar.common.ResponseResult;
+import com.example.eric.oscar.common.SPUtils;
 import com.example.eric.oscar.views.WrapScrollListView;
 
 import java.util.ArrayList;
@@ -39,6 +41,7 @@ public class OTransFuleConfirmActivity extends BaseActivity implements View.OnCl
     private EditText payPwd;
     private Button confirmBtn;
     private ArrayList<OscarBean> oscarBeanList;
+    private OscarBean selectOscar;
     private EBaseAdapter adapter;
 
     @Override
@@ -51,37 +54,60 @@ public class OTransFuleConfirmActivity extends BaseActivity implements View.OnCl
     protected void initView() {
         initialize();
         initTitleText(getString(R.string.title_activity_otrans_fuel_card_confirm), BaseActivity.TITLE_CENTER);
-        initHandler();
         oscarBeanList = new ArrayList<OscarBean>();
-        adapter = new EBaseAdapter(this, oscarBeanList, R.layout.list_self_oscar_item,
-                new String[]{"authAcct", "bindDate", "balance"},
-                new int[]{R.id.cardNo, R.id.bindDate, R.id.balance});
+        adapter = new EBaseAdapter(this, oscarBeanList, R.layout.list_recharge_oscar_item,
+                new String[]{"cardNo", "balance", "select"},
+                new int[]{R.id.cardNo, R.id.balance, R.id.checkedView});
         oscarList.setAdapter(adapter);
         orderNo.setText("订单编号：" + getIntent().getExtras().getString("order"));
         money.setText(getIntent().getExtras().getString("totalMoney"));
         phone.setText("接收手机号：" + getIntent().getExtras().getString("phone"));
 
-        addToRequestQueue(request, ApiUtils.BINDLIST, true);
+        oscarList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                OscarBean oscarBean = (OscarBean) parent.getAdapter().getItem(position);
+                for (OscarBean oc : oscarBeanList) {
+                    if (oscarBean.getCardNo().equals(oc.getCardNo())) {
+                        oc.setSelect(true);
+                        selectOscar = oc;
+                    } else {
+                        oc.setSelect(false);
+                    }
+                }
+                adapter.setmData(oscarBeanList);
+                adapter.notifyDataSetChanged();
+            }
+        });
 
-    }
-
-    private void initHandler() {
-        request = new StringRequest(Request.Method.POST, ApiUtils.ACOIL, this, this) {
+        request = new StringRequest(Request.Method.POST, ApiUtils.BINDLIST, this, this) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> map = new HashMap<>();
-                map.put("card", getIntent().getExtras().getString("totalMoney"));
-                map.put("order", getIntent().getExtras().getString("order"));
-                map.put("pass", payPwd.getText().toString());
+                Map<String, String> map = new HashMap<String, String>();
+                map.put("acct", SPUtils.getString(OTransFuleConfirmActivity.this, "acct"));
+                map.put("sign", SPUtils.getString(OTransFuleConfirmActivity.this, "sign"));
                 return map;
             }
         };
+        addToRequestQueue(request, ApiUtils.BINDLIST, true);
+
     }
 
     @Override
     public void onClick(View v) {
         if (v == confirmBtn) {
-            addToRequestQueue(request, ApiUtils.CRAMZ, true);
+            request = new StringRequest(Request.Method.POST, ApiUtils.ACOIL, this, this) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> map = new HashMap<>();
+                    map.put("card", selectOscar.getCardNo());
+                    map.put("order", getIntent().getExtras().getString("order"));
+                    map.put("pass", payPwd.getText().toString());
+                    map.put("sign", SPUtils.getString(OTransFuleConfirmActivity.this, "sign"));
+                    return map;
+                }
+            };
+            addToRequestQueue(request, ApiUtils.ACOIL, true);
         }
     }
 
@@ -105,7 +131,7 @@ public class OTransFuleConfirmActivity extends BaseActivity implements View.OnCl
     @Override
     protected void doResponse(ResponseResult response) {
         if (requestMethod.equals(ApiUtils.BINDLIST)) {
-            JSONArray list = ((JSONObject) response.getData()).getJSONArray("list");
+            JSONArray list = ((JSONArray) response.getData());
             oscarBeanList = (ArrayList<OscarBean>) JSONArray.parseArray(list.toJSONString(), OscarBean.class);
             adapter.setmData(oscarBeanList);
             adapter.notifyDataSetChanged();

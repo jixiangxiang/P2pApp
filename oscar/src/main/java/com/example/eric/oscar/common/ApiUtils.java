@@ -50,4 +50,19 @@ public class ApiUtils {
     public static final String CPLIS = BASE_URL + "wa/cplis";// 钱包余额
     public static final String CRTELE = BASE_URL + "os/crtele";//充手机
     public static final String ACTELE = BASE_URL + "os/actele";//
+    public static final String MMYINV = BASE_URL + "iv/myinv";//
+    public static final String CPLISt = BASE_URL + "wa/cplist";//
+    public static final String ACINV = BASE_URL + "iv/acinv";//
+    public static final String PRETOCARD = BASE_URL + "os/pretocard";//
+    public static final String TOCARD = BASE_URL + "os/tocard";//
+    public static final String CRINV = BASE_URL + "iv/crinv";//创建投资
+    public static final String TRANSLIST = BASE_URL + "os/translist";
+    public static final String PREADD = BASE_URL + "bk/preadd";
+    public static final String AVATAR = BASE_URL + "ac/avatar";
+    public static final String PROV = BASE_URL + "bk/prov";
+    public static final String CITY = BASE_URL + "bk/city";
+    public static final String BKBN = BASE_URL + "bk/bn";
+
+    public static final String MCLIST = BASE_URL + "mc/mclist";//
+    public static final String SLIST = BASE_URL + "mc/slist";//
 }

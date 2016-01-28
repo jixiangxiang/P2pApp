@@ -87,7 +87,7 @@ public class OSetPayPwdActivity extends BaseActivity implements View.OnClickList
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_home:
-                showToastShort("点击了右侧按钮");
+                toActivity(OHelpActivity.class);
                 break;
         }
         return true;
