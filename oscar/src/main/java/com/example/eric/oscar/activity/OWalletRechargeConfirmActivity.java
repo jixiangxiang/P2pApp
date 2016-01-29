@@ -91,10 +91,10 @@ public class OWalletRechargeConfirmActivity extends BaseActivity implements View
                 @Override
                 protected Map<String, String> getParams() throws AuthFailureError {
                     Map<String, String> map = new HashMap<>();
-                    map.put("acct", SPUtils.getString(OWalletRechargeConfirmActivity.this, "acct"));
-                    map.put("vstr", captchaText.getText().toString());
+                    map.put("sign", SPUtils.getString(OWalletRechargeConfirmActivity.this, "sign"));
+                    map.put("sms", captchaText.getText().toString());
                     map.put("order", order);
-                    map.put("amt", getIntent().getExtras().getString("amt"));
+                    map.put("pass", phoneText.getText().toString());
                     return map;
                 }
             };
