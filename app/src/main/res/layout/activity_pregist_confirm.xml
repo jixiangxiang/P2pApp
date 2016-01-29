@@ -96,6 +96,7 @@
         android:layout_marginTop="@dimen/dp_23"
         android:background="@android:color/transparent"
         android:padding="@dimen/dp_10"
+        android:onClick="onClick"
         android:src="@mipmap/p_back" />
 
     <LinearLayout

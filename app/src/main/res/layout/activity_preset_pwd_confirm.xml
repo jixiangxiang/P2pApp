@@ -68,9 +68,11 @@
         android:id="@+id/backBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dp_18"
-        android:layout_marginTop="@dimen/dp_33"
+        android:layout_marginLeft="@dimen/dp_8"
+        android:layout_marginTop="@dimen/dp_23"
         android:background="@android:color/transparent"
+        android:onClick="onClick"
+        android:padding="@dimen/dp_10"
         android:src="@mipmap/p_back" />
 
     <LinearLayout
