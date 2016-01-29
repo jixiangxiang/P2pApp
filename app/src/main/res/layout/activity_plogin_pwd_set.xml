@@ -41,7 +41,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:hint="当前登陆密码"
+            android:hint="当前登录密码"
             android:inputType="textPassword" />
 
         <View

@@ -33,7 +33,7 @@
     <string name="title_activity_paccount_safe">账户安全</string>
     <string name="title_activity_pverification">实名认证</string>
     <string name="title_activity_pmail_set">邮箱认证</string>
-    <string name="title_activity_plogin_pwd_set">登陆密码</string>
+    <string name="title_activity_plogin_pwd_set">登录密码</string>
     <string name="title_activity_ppay_pwd_set">支付密码</string>
     <string name="title_activity_pphone_set">修改绑定手机</string>
     <string name="title_activity_pbind_phone">修改绑定手机</string>

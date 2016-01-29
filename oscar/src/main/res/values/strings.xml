@@ -51,4 +51,6 @@
     <string name="title_activity_otel_recharge">我的奥斯卡-固话充值</string>
     <string name="title_activity_oinvest_prop">天天理财-我的道具</string>
     <string name="title_activity_otrans_to_trans_confirm">我的奥斯卡-卡卡转账</string>
+    <string name="title_activity_owallet_recharge">钱包充值</string>
+    <string name="title_activity_owithdraw">提现</string>
 </resources>

@@ -35,12 +35,12 @@ public class ApiUtils {
     public static final String ESACCT = BASE_URL + "ac/esacct";//
     public static final String ASSETS = BASE_URL + "ac/assets";//
     public static final String OSCAR = BASE_URL + "ac/oscar";//
-    public static final String BANKCARD = BASE_URL + "ac/bankcard";//
+    public static final String BANKCARD = BASE_URL + "bk/list";//
     public static final String WALREC = BASE_URL + "ac/walrec";//资金记录
     public static final String RECHGREC = BASE_URL + "ac/rechgrec";//充值记录
     public static final String FROZREC = BASE_URL + "ac/frozrec";//充值记录
     public static final String BCINFO = BASE_URL + "ac/bcinfo";//
-    public static final String ADDBC = BASE_URL + "ac/addbc";//
+    public static final String ADDBC = BASE_URL + "bk/bind";//
     public static final String AUTHEN = BASE_URL + "ac/authen";//
     public static final String CROIL = BASE_URL + "os/croil";// 创建加油卡订单
     public static final String ACOIL = BASE_URL + "os/acoil";// 激活加油卡订单
@@ -57,7 +57,7 @@ public class ApiUtils {
     public static final String TOCARD = BASE_URL + "os/tocard";//
     public static final String CRINV = BASE_URL + "iv/crinv";//创建投资
     public static final String TRANSLIST = BASE_URL + "os/translist";
-    public static final String PREADD = BASE_URL + "bk/preadd";
+    public static final String PREADD = BASE_URL + "bk/prebind";
     public static final String AVATAR = BASE_URL + "ac/avatar";
     public static final String PROV = BASE_URL + "bk/prov";
     public static final String CITY = BASE_URL + "bk/city";
@@ -65,4 +65,9 @@ public class ApiUtils {
 
     public static final String MCLIST = BASE_URL + "mc/mclist";//
     public static final String SLIST = BASE_URL + "mc/slist";//
+    public static final String DSMS = BASE_URL + "bk/dsms";//
+    public static final String REDSMS = BASE_URL + "bk/redsms";//
+    public static final String DEPOSIT = BASE_URL + "bk/deposit";//
+    public static final String CASH = BASE_URL + "bk/cash";//
+    public static final String CASHRATE = BASE_URL + "bk/cashrate";//
 }

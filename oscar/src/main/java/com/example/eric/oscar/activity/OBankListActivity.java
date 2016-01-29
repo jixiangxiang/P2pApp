@@ -59,7 +59,7 @@ public class OBankListActivity extends BaseActivity implements View.OnClickListe
                 return map;
             }
         };
-        addToRequestQueue(request, true);
+        addToRequestQueue(request, ApiUtils.BANKCARD, true);
     }
 
 
@@ -88,8 +88,10 @@ public class OBankListActivity extends BaseActivity implements View.OnClickListe
     protected void doResponse(ResponseResult response) {
         if (requestMethod.equals(ApiUtils.PREADD)) {
             JSONObject data = (JSONObject) response.getData();
-            if (data != null && data.getBoolean("flag")) {
-                toActivity(OAddBankActivity.class);
+            if (SPUtils.getInt(this, "status", 0) > 0) {
+                Bundle bundle = new Bundle();
+                bundle.putString("name", data.getString("data"));
+                toActivity(OAddBankActivity.class, bundle);
             } else {
                 toActivity(OAuthenticationActivity.class);
             }

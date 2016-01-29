@@ -126,6 +126,8 @@ public class OSelfFragment extends BaseFragment implements View.OnClickListener 
         super.onViewCreated(view, savedInstanceState);
         initialize(view);
         if (SPUtils.getInt(getActivity(), "status", 0) == 1) {
+            verticalStatus.setText("验证中");
+        } else if (SPUtils.getInt(getActivity(), "status", 0) == 2) {
             verticalStatus.setText("已验证");
         }
         registPhone.setText(SPUtils.getString(getActivity(), "acct"));
@@ -154,6 +156,10 @@ public class OSelfFragment extends BaseFragment implements View.OnClickListener 
             ((BaseActivity) getActivity()).toActivity(OAccountActivity.class);
         } else if (v == validateArea) {
             if (SPUtils.getInt(getActivity(), "status", 0) == 1) {
+                ((BaseActivity) getActivity()).showToastShort("实名认证正在处理中。");
+                return;
+            }
+            if (SPUtils.getInt(getActivity(), "status", 0) == 2) {
                 ((BaseActivity) getActivity()).showToastShort("已经实名认证完成。");
                 return;
             }
@@ -163,8 +169,7 @@ public class OSelfFragment extends BaseFragment implements View.OnClickListener 
             SPUtils.setString(getActivity(), "acct", "");
             showLogin();
         } else if (v == nameArea) {
-            Intent intent = new Intent(getActivity(), OAuthenticationActivity.class);
-            startActivityForResult(intent, 888);
+
         } else if (v == headImgArea) {
             Intent intent = new Intent(getActivity(), OSelectPicActivity.class);
             startActivityForResult(intent, BaseActivity.TO_SELECT_PHOTO);
@@ -206,7 +211,20 @@ public class OSelfFragment extends BaseFragment implements View.OnClickListener 
             };
             addToRequestQueue(request, ApiUtils.ACCTINFO, true);
         } else if (requestCode == 888 && resultCode == getActivity().RESULT_OK) {
-            username.setText(data.getStringExtra("name"));
+            if (SPUtils.getInt(getActivity(), "status", 0) == 1) {
+                verticalStatus.setText("验证中");
+            } else if (SPUtils.getInt(getActivity(), "status", 0) == 2) {
+                verticalStatus.setText("已验证");
+            }
+            request = new StringRequest(Request.Method.POST, ApiUtils.ACCTINFO, this, this) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> map = new HashMap<>();
+                    map.put("sign", SPUtils.getString(getActivity(), "sign"));
+                    return map;
+                }
+            };
+            addToRequestQueue(request, ApiUtils.ACCTINFO, true);
         } else if (resultCode == getActivity().RESULT_OK && requestCode == BaseActivity.TO_SELECT_PHOTO) {
             final String picPath = data.getStringExtra(OSelectPicActivity.KEY_PHOTO_PATH);
             final Bitmap bitmap = ImageUtils.getSmallBitmap(picPath, headImg.getWidth(), headImg.getHeight());

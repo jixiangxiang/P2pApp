@@ -84,13 +84,16 @@ public class PConfirmTransActivity extends BaseActivity implements View.OnClickL
             });
 
         } else if (v == termSheet) {
-            if (true) {
-                return;
-            }
+            final String transMoney = maxTransMoney.getText().toString();
+            params = new HashMap<>();
             params.put("type", "3");
             if (!StringUtils.isEmpty(ApiUtils.getLoginUserPhone(this)))
                 params.put("mobilephone", ApiUtils.getLoginUserPhone(this));
             params.put("cif_seq", ApiUtils.CIFSEQ);
+            params.put("assigningPrincipal", data.getString("remain_principal"));
+            params.put("actualAssignPrice", String.valueOf(Double.valueOf(data.getString("remain_principal")) + Double.valueOf(data.getString("accrued_interest")) - Double.valueOf(StringUtils.isEmpty(transMoney) ? "0" : transMoney)));
+            params.put("assigningFee", data.getString("fee"));
+            params.put("accruedInterest", data.getString("accrued_interest"));
             addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(this, params, ApiUtils.INVESTCONTRACT), ApiUtils.INVESTCONTRACT, true);
         }
     }

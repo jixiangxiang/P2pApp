@@ -77,6 +77,10 @@ public class OAccountActivity extends BaseActivity implements View.OnClickListen
             toActivity(OWithdrawRecordActivity.class);
         } else if (v == socar) {
             toActivity(OSelfOscarActivity.class);
+        } else if (v == rechartBtn) {
+            toActivity(OWalletRechargeActivity.class);
+        } else if (v == reflectBtn) {
+            toActivity(OWithdrawActivity.class);
         }
     }
 
@@ -113,6 +117,8 @@ public class OAccountActivity extends BaseActivity implements View.OnClickListen
         frozen = (RelativeLayout) findViewById(R.id.frozen);
         recharge = (RelativeLayout) findViewById(R.id.recharge);
         withdraw = (RelativeLayout) findViewById(R.id.withdraw);
+        rechartBtn.setOnClickListener(this);
+        reflectBtn.setOnClickListener(this);
     }
 
     @Override

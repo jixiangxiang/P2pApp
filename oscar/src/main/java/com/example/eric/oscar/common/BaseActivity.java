@@ -246,7 +246,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Response
             getProgressDialog().dismiss();
         if (swipeRefresh != null)
             swipeRefresh.setRefreshing(false);
-        alertDialog(error.toString(), null);
+        alertDialog(VolleyErrorHelper.getMessage(error, this), null);
     }
 
     @Override

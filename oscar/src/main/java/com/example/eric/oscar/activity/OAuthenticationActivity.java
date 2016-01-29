@@ -16,6 +16,7 @@ import android.widget.NumberPicker;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
@@ -170,15 +171,22 @@ public class OAuthenticationActivity extends BaseActivity implements View.OnClic
     }
 
     @Override
-    protected void doResponse(ResponseResult response) {
+    protected void doResponse(final ResponseResult response) {
         if (requestMethod.equals(ApiUtils.AUTHEN)) {
             alertDialogNoCancel(response.getReturn_message(), new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent();
-                    intent.putExtra("name", payPwd.getText().toString());
-                    setResult(RESULT_OK, intent);
-                    OAuthenticationActivity.this.finish();
+                    SPUtils.setInt(OAuthenticationActivity.this, "status", ((JSONObject) response.getData()).getIntValue("status"));
+                    alertDialogNoCancel(response.getReturn_message(), new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent();
+                            intent.putExtra("name", payPwd.getText().toString());
+                            intent.putExtra("status", ((JSONObject) response.getData()).getIntValue("data"));
+                            setResult(RESULT_OK, intent);
+                            OAuthenticationActivity.this.finish();
+                        }
+                    });
                 }
             });
         } else if (requestMethod.equals(ApiUtils.BKBN)) {

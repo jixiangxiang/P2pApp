@@ -84,6 +84,7 @@ public class PTransConfirmActivity extends BaseActivity implements View.OnClickL
             params.put("amount", investMoeny.getText().toString());
             addToRequestQueue(ApiUtils.newInstance().getRequestByMethod(this, params, ApiUtils.TRANFERPERPROJECT), ApiUtils.TRANFERPERPROJECT, true);
         } else if (v == termSheet) {
+            params = new HashMap<>();
             params.put("type", "3");
             params.put("assignmentseq", data.getString("assignmentseq"));
             params.put("cif_seq", ApiUtils.CIFSEQ);

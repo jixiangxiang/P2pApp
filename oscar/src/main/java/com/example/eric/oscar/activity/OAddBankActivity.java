@@ -34,6 +34,7 @@ import common.eric.com.ebaselibrary.util.StringUtils;
 public class OAddBankActivity extends BaseActivity implements View.OnClickListener {
 
     private TextView accountBank;
+    private TextView username;
     private TextView bankAddress;
     private TextView bankCity;
     private EditText branchBank;
@@ -58,12 +59,13 @@ public class OAddBankActivity extends BaseActivity implements View.OnClickListen
     protected void initView() {
         initialize();
         initTitleText(getString(R.string.title_activity_oadd_bank), BaseActivity.TITLE_CENTER);
-
+        username.setText(getIntent().getExtras().getString("name"));
     }
 
     private void initialize() {
         accountBank = (TextView) findViewById(R.id.accountBank);
         bankAddress = (TextView) findViewById(R.id.bankAddress);
+        username = (TextView) findViewById(R.id.username);
         bankCity = (TextView) findViewById(R.id.bankCity);
         branchBank = (EditText) findViewById(R.id.branchBank);
         cardNo = (EditText) findViewById(R.id.cardNo);
@@ -101,6 +103,8 @@ public class OAddBankActivity extends BaseActivity implements View.OnClickListen
                 protected Map<String, String> getParams() throws AuthFailureError {
                     Map<String, String> map = new HashMap<>();
                     map.put("card", cardNo.getText().toString());
+                    map.put("province", bankAddress.getText().toString());
+                    map.put("city", bankCity.getText().toString());
                     map.put("bank", accountBank.getText().toString());
                     map.put("bankName", branchBank.getText().toString());
                     map.put("sign", SPUtils.getString(OAddBankActivity.this, "sign"));

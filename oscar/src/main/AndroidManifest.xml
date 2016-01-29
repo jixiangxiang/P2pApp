@@ -145,22 +145,31 @@
             android:label="@string/title_activity_oinv_prov_select" />
         <activity
             android:name=".activity.OPhoneRechargeActivity"
-            android:label="@string/title_activity_ophone_recharge"></activity>
+            android:label="@string/title_activity_ophone_recharge" />
         <activity
             android:name=".activity.ORechargeConfirmActivity"
-            android:label="@string/title_activity_orecharge_confirm"></activity>
+            android:label="@string/title_activity_orecharge_confirm" />
         <activity
             android:name=".activity.OTransFuleConfirmActivity"
-            android:label="@string/title_activity_otrans_fuel_card_confirm"></activity>
+            android:label="@string/title_activity_otrans_fuel_card_confirm" />
         <activity
             android:name=".activity.OTelRechargeActivity"
-            android:label="@string/title_activity_otel_recharge"></activity>
+            android:label="@string/title_activity_otel_recharge" />
         <activity
             android:name=".activity.OInvestPropActivity"
-            android:label="@string/title_activity_oinvest_prop"></activity>
+            android:label="@string/title_activity_oinvest_prop" />
         <activity
             android:name=".activity.OTransToTransConfirmActivity"
-            android:label="@string/title_activity_otrans_to_trans_confirm"></activity>
+            android:label="@string/title_activity_otrans_to_trans_confirm" />
+        <activity
+            android:name=".activity.OWalletRechargeActivity"
+            android:label="@string/title_activity_owallet_recharge"></activity>
+        <activity
+            android:name=".activity.OWalletRechargeConfirmActivity"
+            android:label="@string/title_activity_owallet_recharge"></activity>
+        <activity
+            android:name=".activity.OWithdrawActivity"
+            android:label="@string/title_activity_owithdraw"></activity>
     </application>
 
 </manifest>
