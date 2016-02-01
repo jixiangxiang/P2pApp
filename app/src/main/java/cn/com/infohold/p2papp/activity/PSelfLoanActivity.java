@@ -145,7 +145,7 @@ public class PSelfLoanActivity extends BaseActivity implements View.OnClickListe
         question.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showToastShort("本期应还金额=累计当月应还+累计拖欠本息");
+                alertDialog("本期应还金额=累计当月应还+累计拖欠本息", null);
             }
         });
         views.add(view3);

@@ -6,7 +6,7 @@
 
     <LinearLayout
         android:layout_width="@dimen/dp_270"
-        android:layout_height="@dimen/dp_152"
+        android:layout_height="@dimen/dp_177"
         android:background="@drawable/dialog_corner_bg"
         android:orientation="vertical">
 
@@ -17,7 +17,7 @@
             android:layout_height="@dimen/dp_45"
             android:background="@android:color/transparent"
             android:gravity="center"
-            android:text="温馨提示" />
+            android:text="支付密码" />
 
         <View
             android:layout_width="match_parent"
@@ -31,7 +31,19 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_18"
             android:layout_marginTop="@dimen/dp_20"
-            android:text="" />
+            android:text="为保证资金安全，该操作需要验证密码" />
+
+        <EditText
+            android:id="@+id/pwdEdit"
+            style="@style/text_12_black"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_25"
+            android:layout_marginLeft="@dimen/dp_18"
+            android:layout_marginRight="@dimen/dp_18"
+            android:layout_marginTop="@dimen/dp_10"
+            android:background="@drawable/edit_border_bg"
+            android:hint="请输入支付密码"
+            android:inputType="textPassword" />
 
         <View
             android:layout_width="match_parent"
@@ -44,6 +56,20 @@
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/cancelBtn"
+                style="@style/text_16_blue"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="取消" />
+
+            <View
+                android:layout_width="@dimen/dp_0.1"
+                android:layout_height="match_parent"
+                android:background="@color/background_material_light" />
 
             <TextView
                 android:id="@+id/confirmBtn"

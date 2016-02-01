@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_18"
             android:layout_marginTop="@dimen/dp_20"
-            android:text="" />
+            android:text="为保证资金安全，该操作需要验证密码" />
 
         <View
             android:layout_width="match_parent"
@@ -44,6 +44,20 @@
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/cancelBtn"
+                style="@style/text_16_blue"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="取消" />
+
+            <View
+                android:layout_width="@dimen/dp_0.1"
+                android:layout_height="match_parent"
+                android:background="@color/background_material_light" />
 
             <TextView
                 android:id="@+id/confirmBtn"

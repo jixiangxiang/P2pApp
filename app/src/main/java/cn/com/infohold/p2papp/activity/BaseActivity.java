@@ -1,5 +1,6 @@
 package cn.com.infohold.p2papp.activity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -7,10 +8,12 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -22,7 +25,6 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.facebook.drawee.backends.pipeline.Fresco;
-import com.gitonway.lee.niftymodaldialogeffects.lib.Effectstype;
 import com.gitonway.lee.niftymodaldialogeffects.lib.NiftyDialogBuilder;
 
 import java.util.Map;
@@ -243,15 +245,11 @@ public abstract class BaseActivity extends AppCompatActivity implements Response
      */
     public void alertDialog(String message, final View.OnClickListener okClickListener) {
         dialogBuilder = NiftyDialogBuilder.getInstance(this);
-        dialogBuilder
-                .withTitle("温馨提示")
-                .withDialogColor(getResources().getColor(R.color.p_77_color))
-                .withIcon(R.mipmap.android_iocn)
-                .withButton1Text("确定")                                      //def gone
-                .withDuration(500)
-                .withEffect(Effectstype.SlideBottom);
-
-        dialogBuilder.withMessage(message).setButton1Click(new View.OnClickListener() {
+        dialogBuilder.setContentView(R.layout.custom_dialog_view);
+        final TextView confirmBtn = (TextView) dialogBuilder.getWindow().findViewById(R.id.confirmBtn);
+        final TextView actualMoney = (TextView) dialogBuilder.getWindow().findViewById(R.id.actualMoney);                       //def gone
+        actualMoney.setText(message);
+        confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (okClickListener != null)
@@ -259,7 +257,8 @@ public abstract class BaseActivity extends AppCompatActivity implements Response
                 dialogBuilder.dismiss();
             }
         });
-        dialogBuilder.show();
+        toShowDialog(dialogBuilder);
+        ;
     }
 
     /**
@@ -271,39 +270,27 @@ public abstract class BaseActivity extends AppCompatActivity implements Response
      */
     public void alertConfirmDialog(String message, final View.OnClickListener confirmClickListener, final View.OnClickListener cancelClickListener) {
         dialogBuilder = NiftyDialogBuilder.getInstance(this);
-        dialogBuilder
-                .withTitle("温馨提示")
-                .withDialogColor(getResources().getColor(R.color.p_77_color))
-                .withIcon(R.mipmap.android_iocn)
-                .withButton1Text("是")                                      //def gone
-                .withButton2Text("否")
-                .withDuration(500)
-                .withEffect(Effectstype.SlideBottom);
-
-        dialogBuilder.withMessage(message).setButton1Click(new View.OnClickListener() {
+        dialogBuilder.setContentView(R.layout.custom_confirm_dialog_view);
+        final TextView confirmBtn = (TextView) dialogBuilder.getWindow().findViewById(R.id.confirmBtn);
+        final TextView cacelBtn = (TextView) dialogBuilder.getWindow().findViewById(R.id.cancelBtn);                       //def gone
+        final TextView actualMoney = (TextView) dialogBuilder.getWindow().findViewById(R.id.actualMoney);                       //def gone
+        actualMoney.setText(message);
+        dialogBuilder.isCancelableOnTouchOutside(false);
+        cacelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                confirmClickListener.onClick(v);
                 dialogBuilder.dismiss();
             }
         });
-        if (cancelClickListener != null) {
-            dialogBuilder.setButton2Click(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    cancelClickListener.onClick(v);
-                    dialogBuilder.dismiss();
-                }
-            });
-        } else {
-            dialogBuilder.setButton2Click(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dialogBuilder.dismiss();
-                }
-            });
-        }
-        dialogBuilder.show();
+        confirmBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (confirmClickListener != null)
+                    confirmClickListener.onClick(v);
+                dialogBuilder.dismiss();
+            }
+        });
+        toShowDialog(dialogBuilder);
 
     }
 
@@ -315,16 +302,13 @@ public abstract class BaseActivity extends AppCompatActivity implements Response
      */
     public void alertDialogNoCancel(String message, final View.OnClickListener okClickListener) {
         dialogBuilder = NiftyDialogBuilder.getInstance(this);
-        dialogBuilder
-                .withTitle("温馨提示")
-                .withDialogColor(getResources().getColor(R.color.p_77_color))
-                .withIcon(R.mipmap.android_iocn)
-                .withButton1Text("确定")                                    //def gone
-                .withDuration(500)
-                .withEffect(Effectstype.SlideBottom);
+        dialogBuilder.setContentView(R.layout.custom_dialog_view);
+        final TextView confirmBtn = (TextView) dialogBuilder.getWindow().findViewById(R.id.confirmBtn);
+        final TextView actualMoney = (TextView) dialogBuilder.getWindow().findViewById(R.id.actualMoney);                       //def gone
+        actualMoney.setText(message);
         dialogBuilder.setCancelable(false);
         dialogBuilder.isCancelableOnTouchOutside(false);
-        dialogBuilder.withMessage(message).setButton1Click(new View.OnClickListener() {
+        confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (okClickListener != null)
@@ -332,7 +316,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Response
                 dialogBuilder.dismiss();
             }
         });
-        dialogBuilder.show();
+        toShowDialog(dialogBuilder);
     }
 
     /**
@@ -342,7 +326,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Response
      */
     public void alertPayPwdDialog(final PayPwdConfirmClickListener okClickListener) {
         dialogBuilder = NiftyDialogBuilder.getInstance(this);
-        dialogBuilder.setContentView(R.layout.custom_dialog_view);
+        dialogBuilder.setContentView(R.layout.custom_paypwd_dialog_view);
         final EditText payPwd = (EditText) dialogBuilder.getWindow().findViewById(R.id.pwdEdit);
         final TextView confirmBtn = (TextView) dialogBuilder.getWindow().findViewById(R.id.confirmBtn);
         final TextView cacelBtn = (TextView) dialogBuilder.getWindow().findViewById(R.id.cancelBtn);
@@ -352,8 +336,6 @@ public abstract class BaseActivity extends AppCompatActivity implements Response
                 dialogBuilder.dismiss();
             }
         });
-        dialogBuilder.withDuration(500)
-                .withEffect(Effectstype.SlideBottom);
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -362,7 +344,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Response
                 dialogBuilder.dismiss();
             }
         });
-        dialogBuilder.show();
+        toShowDialog(dialogBuilder);
     }
 
     /**
@@ -372,7 +354,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Response
      */
     public void alertPayPwdDialogCust(final PayPwdConfirmClickListener okClickListener, String drawMoney) {
         dialogBuilder = NiftyDialogBuilder.getInstance(this);
-        dialogBuilder.setContentView(R.layout.custom_dialog_view);
+        dialogBuilder.setContentView(R.layout.custom_paypwd_dialog_view);
         final EditText payPwd = (EditText) dialogBuilder.getWindow().findViewById(R.id.pwdEdit);
         final TextView confirmBtn = (TextView) dialogBuilder.getWindow().findViewById(R.id.confirmBtn);
         final TextView cacelBtn = (TextView) dialogBuilder.getWindow().findViewById(R.id.cancelBtn);
@@ -384,8 +366,6 @@ public abstract class BaseActivity extends AppCompatActivity implements Response
                 dialogBuilder.dismiss();
             }
         });
-        dialogBuilder.withDuration(500)
-                .withEffect(Effectstype.SlideBottom);
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -394,7 +374,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Response
                 dialogBuilder.dismiss();
             }
         });
-        dialogBuilder.show();
+        toShowDialog(dialogBuilder);
     }
 
     public interface PayPwdConfirmClickListener {
@@ -469,5 +449,15 @@ public abstract class BaseActivity extends AppCompatActivity implements Response
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void toShowDialog(Dialog dialog) {
+        if (dialog != null && dialog.isShowing()) {
+            dialog.dismiss();
+        }
+        Window window = dialog.getWindow();
+        window.setGravity(Gravity.BOTTOM);
+        window.setWindowAnimations(R.style.alert_dialog_animations);
+        dialog.show();
     }
 }
