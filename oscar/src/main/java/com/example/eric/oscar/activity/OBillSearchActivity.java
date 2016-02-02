@@ -78,7 +78,7 @@ public class OBillSearchActivity extends BaseActivity implements View.OnClickLis
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> map = new HashMap<String, String>();
-                map.put("acct", SPUtils.getString(OBillSearchActivity.this, "acct"));
+                map.put("type", "PHONE");
                 map.put("sign", SPUtils.getString(OBillSearchActivity.this, "sign"));
                 return map;
             }

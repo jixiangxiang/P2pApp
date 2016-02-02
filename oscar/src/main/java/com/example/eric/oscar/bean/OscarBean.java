@@ -6,13 +6,14 @@ import common.eric.com.ebaselibrary.model.EBaseModel;
  * Created by eric on 2015/11/29.
  */
 public class OscarBean extends EBaseModel {
-    private int id;
+    private String id;
     private String authAcct;
     private String bindDate;
     private String cardNo;
     private Double balance;
     private Boolean locked;
     private Boolean select;
+    private Double rate;
 
     public OscarBean() {
     }
@@ -23,11 +24,11 @@ public class OscarBean extends EBaseModel {
         this.balance = balance;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -79,5 +80,13 @@ public class OscarBean extends EBaseModel {
 
     public void setSelect(Boolean select) {
         this.select = select;
+    }
+
+    public Double getRate() {
+        return rate;
+    }
+
+    public void setRate(Double rate) {
+        this.rate = rate;
     }
 }

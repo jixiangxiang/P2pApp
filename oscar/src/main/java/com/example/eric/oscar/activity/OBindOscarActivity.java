@@ -63,7 +63,7 @@ public class OBindOscarActivity extends BaseActivity implements View.OnClickList
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> map = new HashMap<String, String>();
-                map.put("acct", SPUtils.getString(OBindOscarActivity.this, "acct"));
+                map.put("type", "PHONE");
                 map.put("sign", SPUtils.getString(OBindOscarActivity.this, "sign"));
                 return map;
             }
@@ -154,7 +154,7 @@ public class OBindOscarActivity extends BaseActivity implements View.OnClickList
                 @Override
                 protected Map<String, String> getParams() throws AuthFailureError {
                     Map<String, String> map = new HashMap<String, String>();
-                    map.put("acct", SPUtils.getString(OBindOscarActivity.this, "acct"));
+                    map.put("type", "PHONE");
                     map.put("sign", SPUtils.getString(OBindOscarActivity.this, "sign"));
                     return map;
                 }

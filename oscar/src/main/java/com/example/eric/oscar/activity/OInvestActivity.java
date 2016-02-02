@@ -46,7 +46,7 @@ public class OInvestActivity extends BaseActivity implements View.OnClickListene
         initTitleText(getString(R.string.title_activity_oinvest), BaseActivity.TITLE_CENTER);
         investBeanList = new ArrayList<>();
         baseAdapter = new EBaseAdapter(this, investBeanList, R.layout.list_self_invest_item,
-                new String[]{"name", "profit", "type", "duration", "amt", "interest", "coupon", "date", "invdate", "invtype"},
+                new String[]{"name", "profit", "type", "duration", "amt", "interest", "coupon", "eDate", "invdate", "invtype"},
                 new int[]{R.id.name, R.id.profit, R.id.invtype, R.id.duration, R.id.amt, R.id.interest, R.id.coupon, R.id.date, R.id.invdate, R.id.status});
 
         investList.setAdapter(baseAdapter);

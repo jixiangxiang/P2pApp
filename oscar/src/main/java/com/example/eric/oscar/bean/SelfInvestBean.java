@@ -16,7 +16,7 @@ public class SelfInvestBean extends EBaseModel {
     private String amt;
     private String interest;
     private String coupon;
-    private String date;
+    private String eDate;
 
     public String getInvtype() {
         return invtype;
@@ -63,7 +63,7 @@ public class SelfInvestBean extends EBaseModel {
     }
 
     public String getType() {
-        return "投资类型："+type;
+        return "投资类型：" + type;
     }
 
     public void setType(String type) {
@@ -118,11 +118,11 @@ public class SelfInvestBean extends EBaseModel {
         this.coupon = coupon;
     }
 
-    public String getDate() {
-        return "到期时间：" + date;
+    public String geteDate() {
+        return eDate;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void seteDate(String eDate) {
+        this.eDate = eDate;
     }
 }

@@ -53,4 +53,5 @@
     <string name="title_activity_otrans_to_trans_confirm">我的奥斯卡-卡卡转账</string>
     <string name="title_activity_owallet_recharge">钱包充值</string>
     <string name="title_activity_owithdraw">提现</string>
+    <string name="title_activity_obill_list">我的奥斯卡-账单查询</string>
 </resources>

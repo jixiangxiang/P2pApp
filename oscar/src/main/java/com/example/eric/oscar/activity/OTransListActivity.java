@@ -28,6 +28,7 @@ import java.util.List;
 import java.util.Map;
 
 import common.eric.com.ebaselibrary.adapter.EBaseAdapter;
+import common.eric.com.ebaselibrary.util.StringUtils;
 
 public class OTransListActivity extends BaseActivity implements View.OnClickListener {
 
@@ -106,6 +107,18 @@ public class OTransListActivity extends BaseActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
         if (v == confirmBtn) {
+            if (StringUtils.isEmpty(phone.getText().toString()) || phone.getText().toString().length() != 11) {
+                showToastShort("请输入正确的手机号码");
+                return;
+            }
+            if (StringUtils.isEmpty(confirmPhone.getText().toString()) || confirmPhone.getText().toString().length() != 11) {
+                showToastShort("请输入正确的确认手机号码");
+                return;
+            }
+            if (!StringUtils.isEquals(confirmPhone.getText().toString(), phone.getText().toString())) {
+                showToastShort("请确认两次输入的手机号码一致");
+                return;
+            }
             addToRequestQueue(request, true);
         }
     }
@@ -133,18 +146,18 @@ public class OTransListActivity extends BaseActivity implements View.OnClickList
         confirmPhone = (EditText) findViewById(R.id.confirmPhone);
         confirmBtn = (Button) findViewById(R.id.confirmBtn);
         totalMoeny = (TextView) findViewById(R.id.totalMoney);
-
     }
 
     @Override
     protected void doResponse(ResponseResult response) {
         Bundle bundle = new Bundle();
         bundle.putString("order", ((JSONObject) response.getData()).getString("order"));
-        bundle.putString("total", getIntent().getExtras().getString("total"));
-        bundle.putString("amt", getIntent().getExtras().getString("amt"));
-        bundle.putString("fee", getIntent().getExtras().getString("fee"));
-        bundle.putString("rate", getIntent().getExtras().getString("rate"));
-        bundle.putString("mobile", getIntent().getExtras().getString("mobile"));
+        bundle.putString("total", ((JSONObject) response.getData()).getString("total"));
+        bundle.putString("amt", ((JSONObject) response.getData()).getString("amt"));
+        bundle.putString("fee", ((JSONObject) response.getData()).getString("fee"));
+        bundle.putString("rate", ((JSONObject) response.getData()).getString("rate"));
+        bundle.putString("mobile", ((JSONObject) response.getData()).getString("mobile"));
+        bundle.putString("type", getIntent().getExtras().getString("type"));
         toActivity(OTransConfirmActivity.class, bundle);
         OTransListActivity.this.finish();
     }

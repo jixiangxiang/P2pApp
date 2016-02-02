@@ -6,7 +6,7 @@
 
     <LinearLayout
         android:layout_width="@dimen/dp_270"
-        android:layout_height="@dimen/dp_152"
+        android:layout_height="wrap_content"
         android:background="@drawable/dialog_corner_bg"
         android:orientation="vertical">
 
@@ -16,32 +16,30 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_45"
             android:background="@android:color/transparent"
-            android:gravity="center"
+            android:gravity="center_horizontal"
+            android:paddingTop="@dimen/dp_20"
             android:text="温馨提示" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_0.1"
-            android:background="@color/background_material_light" />
 
         <TextView
             android:id="@+id/actualMoney"
             style="@style/text_11_99"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_18"
-            android:layout_marginTop="@dimen/dp_20"
-            android:text="为保证资金安全，该操作需要验证密码" />
+            android:gravity="center_horizontal"
+            android:paddingLeft="@dimen/dp_20"
+            android:paddingRight="@dimen/dp_20"
+            android:paddingTop="@dimen/dp_10"
+            android:text="提示信息" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_0.1"
-            android:layout_marginTop="@dimen/dp_23"
+            android:layout_marginTop="@dimen/dp_15"
             android:background="@color/background_material_light" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="@dimen/dp_45"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 

@@ -81,7 +81,7 @@ public class OOscarRechageActivity extends BaseActivity implements View.OnClickL
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> map = new HashMap<String, String>();
-                map.put("acct", SPUtils.getString(OOscarRechageActivity.this, "acct"));
+                map.put("type", "PHONE");
                 map.put("sign", SPUtils.getString(OOscarRechageActivity.this, "sign"));
                 return map;
             }

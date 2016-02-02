@@ -132,6 +132,7 @@ public class OJDTransFragment extends BaseFragment implements View.OnClickListen
             bundle.putString("totalMoney", totalMoney.getText().toString());
             bundle.putInt("icon", R.mipmap.o_jd_icon);
             bundle.putInt("status", 1);
+            bundle.putString("type", "JD");
             ((BaseActivity) getActivity()).toActivity(OTransListActivity.class, bundle);
         }
     }

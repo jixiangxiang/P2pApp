@@ -11,7 +11,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
@@ -28,6 +27,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import common.eric.com.ebaselibrary.adapter.EBaseAdapter;
+import common.eric.com.ebaselibrary.util.StringUtils;
 
 public class OTransConfirmActivity extends BaseActivity implements View.OnClickListener {
 
@@ -36,6 +36,8 @@ public class OTransConfirmActivity extends BaseActivity implements View.OnClickL
     private TextView orderNo;
     private TextView phone;
     private TextView money;
+    private TextView orderMoney;
+    private TextView fee;
     private RelativeLayout topArea;
     private WrapScrollListView oscarList;
     private EditText payPwd;
@@ -54,6 +56,13 @@ public class OTransConfirmActivity extends BaseActivity implements View.OnClickL
     protected void initView() {
         initialize();
         initTitleText(getString(R.string.title_activity_otrans_list), BaseActivity.TITLE_CENTER);
+
+        orderNo.setText("订单编号：" + getIntent().getExtras().getString("order"));
+        money.setText(getIntent().getExtras().getString("total"));
+        fee.setText("手  续  费：0.00");
+        orderMoney.setText("订单金额：" + getIntent().getExtras().getString("amt"));
+        phone.setText("接收手机号：" + getIntent().getExtras().getString("mobile"));
+
         oscarList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -66,6 +75,10 @@ public class OTransConfirmActivity extends BaseActivity implements View.OnClickL
                         oc.setSelect(false);
                     }
                 }
+                Double totalMoney = Double.valueOf(getIntent().getStringExtra("total"))
+                        + Double.valueOf(getIntent().getStringExtra("total")) * selectOscar.getRate();
+                fee.setText("手  续  费：" + String.valueOf(Double.valueOf(getIntent().getStringExtra("total")) * selectOscar.getRate()));
+                money.setText(String.valueOf(totalMoney));
                 adapter.setmData(oscarBeanList);
                 adapter.notifyDataSetChanged();
             }
@@ -81,7 +94,7 @@ public class OTransConfirmActivity extends BaseActivity implements View.OnClickL
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> map = new HashMap<String, String>();
-                map.put("acct", SPUtils.getString(OTransConfirmActivity.this, "acct"));
+                map.put("type", getIntent().getExtras().getString("type"));
                 map.put("sign", SPUtils.getString(OTransConfirmActivity.this, "sign"));
                 return map;
             }
@@ -93,18 +106,24 @@ public class OTransConfirmActivity extends BaseActivity implements View.OnClickL
     @Override
     public void onClick(View v) {
         if (v == confirmBtn) {
-            request = new StringRequest(Request.Method.POST, ApiUtils.ACAMZ, this, this) {
-                @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
-                    Map<String, String> map = new HashMap<>();
-                    map.put("card", selectOscar.getCardNo());
-                    map.put("order", getIntent().getExtras().getString("order"));
-                    map.put("pass", payPwd.getText().toString());
-                    map.put("sign", SPUtils.getString(OTransConfirmActivity.this, "sign"));
-                    return map;
-                }
-            };
-            addToRequestQueue(request, ApiUtils.CRAMZ, true);
+            if (StringUtils.isEmpty(payPwd.getText().toString())) {
+                showToastShort("请输入支付密码");
+                return;
+            }
+            if (isCanPay()) {
+                request = new StringRequest(Request.Method.POST, ApiUtils.ACAMZ, this, this) {
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> map = new HashMap<>();
+                        map.put("card", selectOscar.getCardNo());
+                        map.put("order", getIntent().getExtras().getString("order"));
+                        map.put("pass", payPwd.getText().toString());
+                        map.put("sign", SPUtils.getString(OTransConfirmActivity.this, "sign"));
+                        return map;
+                    }
+                };
+                addToRequestQueue(request, ApiUtils.CRAMZ, true);
+            }
         }
     }
 
@@ -147,6 +166,8 @@ public class OTransConfirmActivity extends BaseActivity implements View.OnClickL
         orderNo = (TextView) findViewById(R.id.orderNo);
         phone = (TextView) findViewById(R.id.phone);
         money = (TextView) findViewById(R.id.money);
+        orderMoney = (TextView) findViewById(R.id.orderMoney);
+        fee = (TextView) findViewById(R.id.fee);
         topArea = (RelativeLayout) findViewById(R.id.topArea);
         oscarList = (WrapScrollListView) findViewById(R.id.oscarList);
         payPwd = (EditText) findViewById(R.id.payPwd);

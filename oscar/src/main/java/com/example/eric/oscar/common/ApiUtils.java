@@ -10,11 +10,11 @@ public class ApiUtils {
     public static final String QINIU_URL = "http://7xq99q.com2.z0.glb.qiniucdn.com/";
     public static final String SIGN = "111111";
     public static final String TOKEN = "111111";
-    public static int NEED_LOGIN = 10012;
+    public static int NEED_LOGIN = 10001;
 
     public static final String REGIST = BASE_URL + "ac/registration";
     public static final String LOGIN = BASE_URL + "ac/login";
-    public static final String BINDLIST = BASE_URL + "os/bindlist";
+    public static final String BINDLIST = BASE_URL + "os/ratelist";
     public static final String BIND = BASE_URL + "os/bind";
     public static final String PREBIND = BASE_URL + "os/prebind";
     public static final String BAL = BASE_URL + "os/bal";

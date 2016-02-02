@@ -163,13 +163,16 @@
             android:label="@string/title_activity_otrans_to_trans_confirm" />
         <activity
             android:name=".activity.OWalletRechargeActivity"
-            android:label="@string/title_activity_owallet_recharge"></activity>
+            android:label="@string/title_activity_owallet_recharge" />
         <activity
             android:name=".activity.OWalletRechargeConfirmActivity"
-            android:label="@string/title_activity_owallet_recharge"></activity>
+            android:label="@string/title_activity_owallet_recharge" />
         <activity
             android:name=".activity.OWithdrawActivity"
-            android:label="@string/title_activity_owithdraw"></activity>
+            android:label="@string/title_activity_owithdraw" />
+        <activity
+            android:name=".activity.OBillListActivity"
+            android:label="@string/title_activity_obill_list"></activity>
     </application>
 
 </manifest>

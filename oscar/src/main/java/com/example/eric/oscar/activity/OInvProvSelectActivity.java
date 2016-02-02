@@ -181,7 +181,7 @@ public class OInvProvSelectActivity extends BaseActivity implements View.OnClick
                 @Override
                 protected Map<String, String> getParams() throws AuthFailureError {
                     Map<String, String> map = new HashMap<String, String>();
-                    map.put("acct", SPUtils.getString(OInvProvSelectActivity.this, "acct"));
+                    map.put("type", "PHONE");
                     map.put("sign", SPUtils.getString(OInvProvSelectActivity.this, "sign"));
                     return map;
                 }

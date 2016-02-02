@@ -53,19 +53,21 @@ public class OTransToTransConfirmActivity extends BaseActivity implements View.O
                 showToastShort("支付密码不能为空");
                 return;
             }
-            request = new StringRequest(Request.Method.POST, ApiUtils.TOCARD, this, this) {
-                @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
-                    Map<String, String> map = new HashMap<>();
-                    map.put("card", getIntent().getExtras().getString("cardNo"));
-                    map.put("tocard", getIntent().getExtras().getString("toCardNo"));
-                    map.put("order", getIntent().getExtras().getString("order"));
-                    map.put("pass", payPwd.getText().toString());
-                    map.put("sign", SPUtils.getString(OTransToTransConfirmActivity.this, "sign"));
-                    return map;
-                }
-            };
-            addToRequestQueue(request, ApiUtils.TOCARD, true);
+            if (isCanPay()) {
+                request = new StringRequest(Request.Method.POST, ApiUtils.TOCARD, this, this) {
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> map = new HashMap<>();
+                        map.put("card", getIntent().getExtras().getString("cardNo"));
+                        map.put("tocard", getIntent().getExtras().getString("toCardNo"));
+                        map.put("order", getIntent().getExtras().getString("order"));
+                        map.put("pass", payPwd.getText().toString());
+                        map.put("sign", SPUtils.getString(OTransToTransConfirmActivity.this, "sign"));
+                        return map;
+                    }
+                };
+                addToRequestQueue(request, ApiUtils.TOCARD, true);
+            }
         }
     }
 

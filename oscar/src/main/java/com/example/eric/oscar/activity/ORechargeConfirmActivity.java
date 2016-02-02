@@ -62,7 +62,6 @@ public class ORechargeConfirmActivity extends BaseActivity implements View.OnCli
         payMoney.setText("应付金额：" + getIntent().getStringExtra("total"));
         orderMoney.setText("订单金额：" + getIntent().getStringExtra("amt"));
         orderDesc.setText("手续费：" + getIntent().getStringExtra("fee"));
-        feeDesc.setText("加收" + getIntent().getStringExtra("rate") + "手续费");
         rechargeNo.setText(getIntent().getStringExtra("mobile"));
         oscarBeanList = new ArrayList<OscarBean>();
         adapter = new EBaseAdapter(this, oscarBeanList, R.layout.list_recharge_oscar_item,
@@ -93,6 +92,10 @@ public class ORechargeConfirmActivity extends BaseActivity implements View.OnCli
                         oc.setSelect(false);
                     }
                 }
+                Double totalMoney = Double.valueOf(getIntent().getStringExtra("total"))
+                        + Double.valueOf(getIntent().getStringExtra("amt")) * selectOscar.getRate();
+                orderDesc.setText("手续费：" + String.valueOf(Double.valueOf(getIntent().getStringExtra("amt")) * selectOscar.getRate()));
+                payMoney.setText("应付金额：" + totalMoney);
                 adapter.setmData(oscarBeanList);
                 adapter.notifyDataSetChanged();
             }
@@ -102,7 +105,7 @@ public class ORechargeConfirmActivity extends BaseActivity implements View.OnCli
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> map = new HashMap<String, String>();
-                map.put("acct", SPUtils.getString(ORechargeConfirmActivity.this, "acct"));
+                map.put("type", "PHONE");
                 map.put("sign", SPUtils.getString(ORechargeConfirmActivity.this, "sign"));
                 return map;
             }
@@ -121,18 +124,20 @@ public class ORechargeConfirmActivity extends BaseActivity implements View.OnCli
                 showToastShort("请输入支付密码");
                 return;
             }
-            request = new StringRequest(Request.Method.POST, ApiUtils.ACTELE, this, this) {
-                @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
-                    Map<String, String> map = new HashMap<>();
-                    map.put("order", getIntent().getStringExtra("order"));
-                    map.put("card", selectOscar.getCardNo());
-                    map.put("pass", payPwd.getText().toString());
-                    map.put("sign", SPUtils.getString(ORechargeConfirmActivity.this, "sign"));
-                    return map;
-                }
-            };
-            addToRequestQueue(request, ApiUtils.ACTELE, true);
+            if (isCanPay()) {
+                request = new StringRequest(Request.Method.POST, ApiUtils.ACTELE, this, this) {
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> map = new HashMap<>();
+                        map.put("order", getIntent().getStringExtra("order"));
+                        map.put("card", selectOscar.getCardNo());
+                        map.put("pass", payPwd.getText().toString());
+                        map.put("sign", SPUtils.getString(ORechargeConfirmActivity.this, "sign"));
+                        return map;
+                    }
+                };
+                addToRequestQueue(request, ApiUtils.ACTELE, true);
+            }
         }
     }
 

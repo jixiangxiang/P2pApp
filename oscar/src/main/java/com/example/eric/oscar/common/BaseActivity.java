@@ -20,8 +20,10 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.example.eric.oscar.R;
+import com.example.eric.oscar.activity.OAuthenticationActivity;
 import com.example.eric.oscar.activity.OLoginActivity;
 import com.example.eric.oscar.activity.OMainActivity;
+import com.example.eric.oscar.activity.OSetPayPwdActivity;
 import com.example.eric.oscar.views.CustomProgressDialog;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.gitonway.lee.niftymodaldialogeffects.lib.Effectstype;
@@ -427,6 +429,23 @@ public abstract class BaseActivity extends AppCompatActivity implements Response
         byte[] text = encryptText.getBytes(ENCODING);
         // 完成 Mac 操作
         return mac.doFinal(text);
+    }
+
+    protected boolean isCanPay() {
+        if (SPUtils.getInt(this, "status", 0) == 0) {
+            showToastShort("请先去完成实名认证并绑卡");
+            toActivity(OAuthenticationActivity.class);
+            return false;
+        } else if (SPUtils.getInt(this, "status", 0) == 1) {
+            showToastShort("实名信息正在认证中，暂无法进行此操作");
+            return false;
+        } else if (SPUtils.getInt(this, "status", 0) == 2) {
+            showToastShort("用户暂未设置支付密码，请先去设置支付密码");
+            toActivity(OSetPayPwdActivity.class);
+            return false;
+        } else {
+            return true;
+        }
     }
 
 }

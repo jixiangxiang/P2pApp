@@ -87,18 +87,20 @@ public class OWalletRechargeConfirmActivity extends BaseActivity implements View
                 showToastShort("请输入支付密码");
                 return;
             }
-            request = new StringRequest(Request.Method.POST, ApiUtils.DEPOSIT, this, this) {
-                @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
-                    Map<String, String> map = new HashMap<>();
-                    map.put("sign", SPUtils.getString(OWalletRechargeConfirmActivity.this, "sign"));
-                    map.put("sms", captchaText.getText().toString());
-                    map.put("order", order);
-                    map.put("pass", phoneText.getText().toString());
-                    return map;
-                }
-            };
-            addToRequestQueue(request, ApiUtils.DEPOSIT, true);
+            if (isCanPay()) {
+                request = new StringRequest(Request.Method.POST, ApiUtils.DEPOSIT, this, this) {
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> map = new HashMap<>();
+                        map.put("sign", SPUtils.getString(OWalletRechargeConfirmActivity.this, "sign"));
+                        map.put("sms", captchaText.getText().toString());
+                        map.put("order", order);
+                        map.put("pass", phoneText.getText().toString());
+                        return map;
+                    }
+                };
+                addToRequestQueue(request, ApiUtils.DEPOSIT, true);
+            }
         }
     }
 

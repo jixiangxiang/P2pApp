@@ -35,6 +35,7 @@
         <item name="android:windowEnterAnimation">@anim/push_top_in</item>
         //退出时的动画
         <item name="android:windowExitAnimation">@anim/push_top_out</item>
+        <item name="android:interpolator">@android:anim/bounce_interpolator</item>
     </style>
 
     <style name="dialog" parent="@android:style/Theme.Dialog">

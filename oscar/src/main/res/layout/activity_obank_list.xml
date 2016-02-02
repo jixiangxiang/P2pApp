@@ -14,9 +14,12 @@
             android:id="@+id/bankList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_25"
             android:background="@android:color/white"
             android:divider="@android:color/white"
-            android:dividerHeight="@dimen/dp_10">
+            android:dividerHeight="@dimen/dp_10"
+            android:paddingLeft="@dimen/dp_8"
+            android:paddingRight="@dimen/dp_8">
 
         </com.example.eric.oscar.views.WrapScrollListView>
 
@@ -28,8 +31,8 @@
             android:layout_marginLeft="@dimen/dp_8"
             android:layout_marginRight="@dimen/dp_8"
             android:layout_marginTop="@dimen/dp_10"
-            android:onClick="onClick"
             android:background="@mipmap/o_login_btn"
+            android:onClick="onClick"
             android:text="添加银行卡" />
     </LinearLayout>
 </ScrollView>

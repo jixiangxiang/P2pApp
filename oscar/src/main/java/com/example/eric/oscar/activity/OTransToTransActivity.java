@@ -76,7 +76,7 @@ public class OTransToTransActivity extends BaseActivity implements View.OnClickL
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> map = new HashMap<String, String>();
-                map.put("acct", SPUtils.getString(OTransToTransActivity.this, "acct"));
+                map.put("type", "PHONE");
                 map.put("sign", SPUtils.getString(OTransToTransActivity.this, "sign"));
                 return map;
             }

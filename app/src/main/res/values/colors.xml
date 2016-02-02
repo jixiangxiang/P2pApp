@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="p_bg_color">#F5F5F9</color>
+    <color name="alert_bg_color">#FDFFFFFF</color>
     <color name="p_99_color">#999999</color>
     <color name="p_77_color">#777777</color>
     <color name="p_date_black_color">#68000000</color>

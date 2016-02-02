@@ -75,17 +75,19 @@ public class OInvestConfirmActivity extends BaseActivity implements View.OnClick
                 showToastShort("请输入支付密码");
                 return;
             }
-            request = new StringRequest(Request.Method.POST, ApiUtils.ACINV, this, this) {
-                @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
-                    Map<String, String> map = new HashMap<>();
-                    map.put("order", getIntent().getExtras().getString("order"));
-                    map.put("pass", payPwd.getText().toString());
-                    map.put("sign", SPUtils.getString(OInvestConfirmActivity.this, "sign"));
-                    return map;
-                }
-            };
-            addToRequestQueue(request, ApiUtils.ACINV, true);
+            if (isCanPay()) {
+                request = new StringRequest(Request.Method.POST, ApiUtils.ACINV, this, this) {
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> map = new HashMap<>();
+                        map.put("order", getIntent().getExtras().getString("order"));
+                        map.put("pass", payPwd.getText().toString());
+                        map.put("sign", SPUtils.getString(OInvestConfirmActivity.this, "sign"));
+                        return map;
+                    }
+                };
+                addToRequestQueue(request, ApiUtils.ACINV, true);
+            }
         }
     }
 

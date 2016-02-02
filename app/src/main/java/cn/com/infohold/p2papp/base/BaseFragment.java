@@ -1,7 +1,6 @@
 package cn.com.infohold.p2papp.base;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -109,7 +108,7 @@ public class BaseFragment extends Fragment implements Response.Listener, Respons
                 dialogBuilder.dismiss();
             }
         });
-        toShowDialog(dialogBuilder);
+        toShowDialog();
     }
 
     /**
@@ -135,7 +134,7 @@ public class BaseFragment extends Fragment implements Response.Listener, Respons
                 dialogBuilder.dismiss();
             }
         });
-        toShowDialog(dialogBuilder);
+        toShowDialog();
     }
 
     @Override
@@ -208,13 +207,13 @@ public class BaseFragment extends Fragment implements Response.Listener, Respons
         startActivityForResult(intent, getActivity().RESULT_FIRST_USER);//为返回是否登录的状态
     }
 
-    private void toShowDialog(Dialog dialog) {
-        if (dialog != null && dialog.isShowing()) {
-            dialog.dismiss();
+    private void toShowDialog() {
+        if (dialogBuilder != null && dialogBuilder.isShowing()) {
+            dialogBuilder.dismiss();
         }
-        Window window = dialog.getWindow();
+        Window window = dialogBuilder.getWindow();
         window.setGravity(Gravity.BOTTOM);
         window.setWindowAnimations(R.style.alert_dialog_animations);
-        dialog.show();
+        dialogBuilder.show();
     }
 }

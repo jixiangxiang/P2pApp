@@ -131,6 +131,7 @@ public class OCardTransFragment extends BaseFragment implements View.OnClickList
             bundle.putString("cardBeans", JSONArray.toJSONString(cardBeans));
             bundle.putString("totalMoney", String.valueOf(money));
             bundle.putInt("status", 1);
+            bundle.putString("type", "AMZ");
             bundle.putInt("icon", R.mipmap.o_amazon_card);
             ((BaseActivity) getActivity()).toActivity(OTransListActivity.class, bundle);
         }

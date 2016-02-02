@@ -86,7 +86,7 @@ public class PConfirmTransActivity extends BaseActivity implements View.OnClickL
         } else if (v == termSheet) {
             final String transMoney = maxTransMoney.getText().toString();
             params = new HashMap<>();
-            params.put("type", "3");
+            params.put("type", "6");
             if (!StringUtils.isEmpty(ApiUtils.getLoginUserPhone(this)))
                 params.put("mobilephone", ApiUtils.getLoginUserPhone(this));
             params.put("cif_seq", ApiUtils.CIFSEQ);
