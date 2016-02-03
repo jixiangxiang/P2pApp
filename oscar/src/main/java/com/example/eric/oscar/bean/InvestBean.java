@@ -6,7 +6,7 @@ import common.eric.com.ebaselibrary.model.EBaseModel;
  * Created by eric on 2016/1/24.
  */
 public class InvestBean extends EBaseModel {
-    private int id;
+    private String id;
     private String name;
     private String profit;
     private String type;
@@ -18,11 +18,11 @@ public class InvestBean extends EBaseModel {
     private String coupon;
     private String date;
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

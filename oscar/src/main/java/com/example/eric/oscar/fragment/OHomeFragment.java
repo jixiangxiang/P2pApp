@@ -20,6 +20,7 @@ import com.example.eric.oscar.R;
 import com.example.eric.oscar.activity.OInvProvDetailActivity;
 import com.example.eric.oscar.activity.OMerchantDetailActivity;
 import com.example.eric.oscar.activity.OMerchantListActivity;
+import com.example.eric.oscar.activity.OMessageActivity;
 import com.example.eric.oscar.activity.OPhoneRechargeActivity;
 import com.example.eric.oscar.activity.OTelRechargeActivity;
 import com.example.eric.oscar.activity.OTransCardsActivity;
@@ -74,6 +75,7 @@ public class OHomeFragment extends BaseFragment implements View.OnClickListener 
     private TextView firstProduct;
     private TextView secondProduct;
     private List<InvestBean> investBeanList;
+    private ImageView messageBtn;
 
     public OHomeFragment() {
         // Required empty public constructor
@@ -195,6 +197,8 @@ public class OHomeFragment extends BaseFragment implements View.OnClickListener 
             ((BaseActivity) getActivity()).toActivity(OTelRechargeActivity.class);
         } else if (v == rechargeOilArea) {
             ((BaseActivity) getActivity()).toActivity(OTransFuelCardActivity.class);
+        } else if (v == messageBtn) {
+            ((BaseActivity) getActivity()).toActivity(OMessageActivity.class);
         }
     }
 
@@ -208,11 +212,13 @@ public class OHomeFragment extends BaseFragment implements View.OnClickListener 
         dotLayout = (DotLayout) view.findViewById(R.id.dotLayout);
         firstProduct = (TextView) view.findViewById(R.id.firstProduct);
         secondProduct = (TextView) view.findViewById(R.id.secondProduct);
+        messageBtn = (ImageView) view.findViewById(R.id.messageBtn);
 
         giftArea.setOnClickListener(this);
         rechargePhoneArea.setOnClickListener(this);
         rechargeTelArea.setOnClickListener(this);
         rechargeOilArea.setOnClickListener(this);
+        messageBtn.setOnClickListener(this);
         ((RelativeLayout) firstProduct.getParent()).setOnClickListener(this);
         ((RelativeLayout) secondProduct.getParent()).setOnClickListener(this);
     }
@@ -249,9 +255,9 @@ public class OHomeFragment extends BaseFragment implements View.OnClickListener 
     protected void doResponse(ResponseResult response) {
         if (requestMethod.equals(ApiUtils.INVLIST)) {
             investBeanList = JSONArray.parseArray(((JSONArray) response.getData()).toJSONString(), InvestBean.class);
-            if (investBeanList != null && investBeanList.get(0) != null)
+            if (investBeanList.size() > 0 && investBeanList.get(0) != null)
                 firstProduct.setText(investBeanList.get(0).getDuration() + "天年化利率收益" + investBeanList.get(0).getProfit());
-            if (investBeanList != null && investBeanList.get(1) != null)
+            if (investBeanList.size() > 0 && investBeanList.get(1) != null)
                 secondProduct.setText(investBeanList.get(1).getDuration() + "天年化利率收益" + investBeanList.get(1).getProfit());
             request = new StringRequest(Request.Method.POST, ApiUtils.MCLIST, this, this) {
                 @Override

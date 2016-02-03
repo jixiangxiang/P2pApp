@@ -2,6 +2,7 @@ package com.example.eric.oscar.activity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,6 +19,7 @@ import com.example.eric.oscar.R;
 import com.example.eric.oscar.bean.OscarBean;
 import com.example.eric.oscar.common.ApiUtils;
 import com.example.eric.oscar.common.BaseActivity;
+import com.example.eric.oscar.common.EmptyListViewUtil;
 import com.example.eric.oscar.common.ResponseResult;
 import com.example.eric.oscar.common.SPUtils;
 
@@ -100,6 +102,10 @@ public class ORechargeConfirmActivity extends BaseActivity implements View.OnCli
                 adapter.notifyDataSetChanged();
             }
         });
+
+        View emptyView = EmptyListViewUtil.newInstance().getEmptyView(this);
+        ((ViewGroup) oscarList.getParent()).addView(emptyView, 2);
+        oscarList.setEmptyView(emptyView);
 
         request = new StringRequest(Request.Method.POST, ApiUtils.BINDLIST, this, this) {
             @Override

@@ -2,6 +2,7 @@ package com.example.eric.oscar.activity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,8 +15,10 @@ import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.example.eric.oscar.R;
 import com.example.eric.oscar.bean.OscarBean;
+import com.example.eric.oscar.bean.OscarBillInfo;
 import com.example.eric.oscar.common.ApiUtils;
 import com.example.eric.oscar.common.BaseActivity;
+import com.example.eric.oscar.common.EmptyListViewUtil;
 import com.example.eric.oscar.common.ResponseResult;
 import com.example.eric.oscar.common.SPUtils;
 
@@ -50,7 +53,9 @@ public class OBillSearchActivity extends BaseActivity implements View.OnClickLis
     protected void initView() {
         initialize();
         initTitleText(getString(R.string.title_activity_obill_search), BaseActivity.TITLE_CENTER);
-
+        View emptyView = EmptyListViewUtil.newInstance().getEmptyView(this);
+        ((ViewGroup) oscarList.getParent()).addView(emptyView, 2);
+        oscarList.setEmptyView(emptyView);
         oscarList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -101,6 +106,13 @@ public class OBillSearchActivity extends BaseActivity implements View.OnClickLis
             oscarBeanList = (ArrayList<OscarBean>) JSONArray.parseArray(list.toJSONString(), OscarBean.class);
             adapter.setmData(oscarBeanList);
             adapter.notifyDataSetChanged();
+        } else if (requestMethod.equals(ApiUtils.TRANSLIST)) {
+            JSONArray list = (JSONArray) response.getData();
+            Bundle bundle = new Bundle();
+            ArrayList<OscarBillInfo> billInfoList = (ArrayList<OscarBillInfo>) JSONArray.parseArray(list.toJSONString(), OscarBillInfo.class);
+            bundle.putSerializable("billInfos", billInfoList);
+            bundle.putString("cardNo", oscarNo.getText().toString());
+            toActivity(OBillListActivity.class, bundle);
         }
     }
 
@@ -112,7 +124,7 @@ public class OBillSearchActivity extends BaseActivity implements View.OnClickLis
                 return;
             }
             if (StringUtils.isEmpty(loginPwd.getText().toString())) {
-                showToastShort("请输入奥斯卡登录账号");
+                showToastShort("请输入奥斯卡登录密码");
                 return;
             }
             request = new StringRequest(Request.Method.POST, ApiUtils.TRANSLIST, this, this) {

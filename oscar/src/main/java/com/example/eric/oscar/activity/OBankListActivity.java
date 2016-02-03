@@ -5,6 +5,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.alibaba.fastjson.JSONArray;
@@ -25,6 +26,7 @@ import java.util.List;
 import java.util.Map;
 
 import common.eric.com.ebaselibrary.adapter.EBaseAdapter;
+import common.eric.com.ebaselibrary.util.StringUtils;
 
 public class OBankListActivity extends BaseActivity implements View.OnClickListener {
 
@@ -48,7 +50,65 @@ public class OBankListActivity extends BaseActivity implements View.OnClickListe
 
         bankInfoList = new ArrayList<>();
         baseAdapter = new EBaseAdapter(this, bankInfoList, R.layout.list_bank_item,
-                new String[]{"cardNo", "bank", "type"}, new int[]{R.id.cardNo, R.id.bankName, R.id.cardType});
+                new String[]{"cardNo", "bank", "type", "code"}, new int[]{R.id.cardNo, R.id.bankName, R.id.cardType, R.id.bankIcon});
+        baseAdapter.setViewBinder(new EBaseAdapter.ViewBinder() {
+            @Override
+            public boolean setViewValue(View view, Object o, String s) {
+                if (view instanceof ImageView && o instanceof String) {
+                    ImageView iv = (ImageView) view;
+                    String code = (String) o;
+                    if (StringUtils.isEquals(code, "BJBANK")) {
+                        iv.setImageResource(R.mipmap.o_zgyh);
+                    } else if (StringUtils.isEquals(code, "BJRCB")) {
+                        iv.setImageResource(R.mipmap.o_zgyh);
+                    } else if (StringUtils.isEquals(code, "CEB")) {
+                        iv.setImageResource(R.mipmap.o_gdyh);
+                    } else if (StringUtils.isEquals(code, "CZBANK")) {
+                        iv.setImageResource(R.mipmap.o_zsyh);
+                    } else if (StringUtils.isEquals(code, "HKBEA")) {
+                        iv.setImageResource(R.mipmap.o_zsyh);
+                    } else if (StringUtils.isEquals(code, "HXBANK")) {
+                        iv.setImageResource(R.mipmap.o_hxyh);
+                    } else if (StringUtils.isEquals(code, "HZCB")) {
+                        iv.setImageResource(R.mipmap.o_zgyh);
+                    } else if (StringUtils.isEquals(code, "NBBANK")) {
+                        iv.setImageResource(R.mipmap.o_zgyh);
+                    } else if (StringUtils.isEquals(code, "NJCB")) {
+                        iv.setImageResource(R.mipmap.o_zgyh);
+                    } else if (StringUtils.isEquals(code, "PSBC")) {
+                        iv.setImageResource(R.mipmap.o_zgyh);
+                    } else if (StringUtils.isEquals(code, "SDB")) {
+                        iv.setImageResource(R.mipmap.o_gdyh);
+                    } else if (StringUtils.isEquals(code, "BOC")) {
+                        iv.setImageResource(R.mipmap.o_zgyh);
+                    } else if (StringUtils.isEquals(code, "CCB")) {
+                        iv.setImageResource(R.mipmap.o_jsyh);
+                    } else if (StringUtils.isEquals(code, "ABC")) {
+                        iv.setImageResource(R.mipmap.o_nyyh);
+                    } else if (StringUtils.isEquals(code, "ICBC")) {
+                        iv.setImageResource(R.mipmap.o_zgyh);
+                    } else if (StringUtils.isEquals(code, "COMM")) {
+                        iv.setImageResource(R.mipmap.o_jtyh);
+                    } else if (StringUtils.isEquals(code, "CMB")) {
+                        iv.setImageResource(R.mipmap.o_zsyh);
+                    } else if (StringUtils.isEquals(code, "SPDB")) {
+                        iv.setImageResource(R.mipmap.o_pfyh);
+                    } else if (StringUtils.isEquals(code, "GDB")) {
+                        iv.setImageResource(R.mipmap.o_gfyh);
+                    } else if (StringUtils.isEquals(code, "CMBC")) {
+                        iv.setImageResource(R.mipmap.o_msyh);
+                    } else if (StringUtils.isEquals(code, "CIB")) {
+                        iv.setImageResource(R.mipmap.o_xyyh);
+                    } else if (StringUtils.isEquals(code, "CITIC")) {
+                        iv.setImageResource(R.mipmap.o_zxyh);
+                    } else if (StringUtils.isEquals(code, "SPABANK")) {
+                        iv.setImageResource(R.mipmap.o_zgyh);
+                    }
+                    return true;
+                }
+                return false;
+            }
+        });
         bankList.setAdapter(baseAdapter);
 
         request = new StringRequest(Request.Method.POST, ApiUtils.BANKCARD, this, this) {

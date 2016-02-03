@@ -172,7 +172,18 @@
             android:label="@string/title_activity_owithdraw" />
         <activity
             android:name=".activity.OBillListActivity"
-            android:label="@string/title_activity_obill_list"></activity>
+            android:label="@string/title_activity_obill_list" />
+        <activity
+            android:name=".activity.OSaleCardActivity"
+            android:label="@string/title_activity_osale_card" />
+        <activity
+            android:name=".activity.OMessageActivity"
+            android:label="@string/title_activity_omessage"></activity>
+        <activity
+            android:name=".activity.OMsgDetailActivity"
+            android:label="@string/title_activity_omessage">
+            
+        </activity>
     </application>
 
 </manifest>

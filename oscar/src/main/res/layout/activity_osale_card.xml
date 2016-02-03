@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.eric.oscar.activity.OSaleCardActivity">
+
+    <TextView
+        style="@style/text_13_55"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_20"
+        android:text="    奥斯卡是“北京商银信商业信息服务有限责任公司” 发行的一张功能强大、服务体系完善的便民通用卡,可在网上进行线上购物,也可以在网上进行各项生活缴费业务,可在3000多家精选 商家进行刷卡。商银信公司于2012年获得中国人民银行颁发的支付业务许可证，能够为广大用户提供有安全保障的完善服务。
+
+    一个用户帐号可以方便的绑定多张持有的奥斯卡，绑定之后的多张奥斯卡可以方便的进行统一管理，不再需要记住冗长的卡号和每一张卡的密码。登录用户账号之后可以方便的直接查看所有绑定奥斯卡的余额信息，通过点击选取操作每一张卡片，消费、查账、转账等操作都会变得异常简便快捷。
+
+    登录用户账号后，到达“绑定奥斯卡”操作界面，按要求输入卡号和卡片密码，该密码为奥斯卡实体卡片上刮开的印刷密码，如果曾经进行过修改操作，当前输入最新密码。提交后后台会判断该奥斯卡是否在商银信网站设置过奥斯卡支付密码，如果未曾设置，直接完成绑定，如果持卡人曾经设置过奥斯卡支付密码，接下来还会要求用户输入支付密码，通过验证完成绑定。
+" />
+</RelativeLayout>

@@ -10,6 +10,7 @@ public class BankInfo extends EBaseModel {
     private String cardNo;
     private String bank;
     private String type;
+    private String code;
 
     public String getId() {
         return id;
@@ -41,5 +42,13 @@ public class BankInfo extends EBaseModel {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 }

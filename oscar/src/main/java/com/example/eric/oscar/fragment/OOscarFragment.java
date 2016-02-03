@@ -14,10 +14,10 @@ import com.example.eric.oscar.R;
 import com.example.eric.oscar.activity.OBillSearchActivity;
 import com.example.eric.oscar.activity.OBindOscarActivity;
 import com.example.eric.oscar.activity.OHelpActivity;
-import com.example.eric.oscar.activity.OMerchantListActivity;
 import com.example.eric.oscar.activity.OOscarBalanceActivity;
 import com.example.eric.oscar.activity.OOscarRechageActivity;
 import com.example.eric.oscar.activity.OPhoneRechargeActivity;
+import com.example.eric.oscar.activity.OSaleCardActivity;
 import com.example.eric.oscar.activity.OTelRechargeActivity;
 import com.example.eric.oscar.activity.OTransCardsActivity;
 import com.example.eric.oscar.activity.OTransFuelCardActivity;
@@ -132,7 +132,7 @@ public class OOscarFragment extends BaseFragment implements View.OnClickListener
                         ((BaseActivity) getActivity()).toActivity(OBillSearchActivity.class);
                         break;
                     case R.mipmap.o_os_salecard:
-                        ((BaseActivity) getActivity()).toActivity(OMerchantListActivity.class);
+                        ((BaseActivity) getActivity()).toActivity(OSaleCardActivity.class);
                         break;
 
                 }

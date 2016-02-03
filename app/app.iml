@@ -95,8 +95,8 @@
     <orderEntry type="library" exported="" name="fbcore-0.6.1" level="project" />
     <orderEntry type="library" exported="" name="drawee-0.6.1" level="project" />
     <orderEntry type="library" exported="" name="niftydialogeffects-1.0.0" level="project" />
-    <orderEntry type="library" exported="" name="MPAndroidChart-v2.1.6" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-22.2.0" level="project" />
+    <orderEntry type="library" exported="" name="MPAndroidChart-v2.1.6" level="project" />
     <orderEntry type="library" exported="" name="materialloadingprogressbar-0.5.6-RELEASE" level="project" />
     <orderEntry type="library" exported="" name="recyclerview-v7-22.2.0" level="project" />
     <orderEntry type="library" exported="" name="fastjson-1.1.43.android" level="project" />

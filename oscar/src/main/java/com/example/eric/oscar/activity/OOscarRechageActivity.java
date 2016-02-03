@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,6 +19,7 @@ import com.example.eric.oscar.R;
 import com.example.eric.oscar.bean.OscarBean;
 import com.example.eric.oscar.common.ApiUtils;
 import com.example.eric.oscar.common.BaseActivity;
+import com.example.eric.oscar.common.EmptyListViewUtil;
 import com.example.eric.oscar.common.ResponseResult;
 import com.example.eric.oscar.common.SPUtils;
 
@@ -51,7 +53,9 @@ public class OOscarRechageActivity extends BaseActivity implements View.OnClickL
         initialize();
         initHandler();
         initTitleText(getString(R.string.title_activity_ooscar_recharge), BaseActivity.TITLE_CENTER);
-
+        View emptyView = EmptyListViewUtil.newInstance().getEmptyView(this);
+        ((ViewGroup) oscarList.getParent()).addView(emptyView, 2);
+        oscarList.setEmptyView(emptyView);
         oscarList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

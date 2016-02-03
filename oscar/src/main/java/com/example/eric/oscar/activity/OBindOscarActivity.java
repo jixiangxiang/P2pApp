@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -19,6 +20,7 @@ import com.example.eric.oscar.R;
 import com.example.eric.oscar.bean.OscarBean;
 import com.example.eric.oscar.common.ApiUtils;
 import com.example.eric.oscar.common.BaseActivity;
+import com.example.eric.oscar.common.EmptyListViewUtil;
 import com.example.eric.oscar.common.ResponseResult;
 import com.example.eric.oscar.common.SPUtils;
 
@@ -56,6 +58,10 @@ public class OBindOscarActivity extends BaseActivity implements View.OnClickList
                 new String[]{"cardNo", "bindDate", "balance"},
                 new int[]{R.id.cardNo, R.id.bindDate, R.id.balance});
         oscarList.setAdapter(adapter);
+
+        View emptyView = EmptyListViewUtil.newInstance().getEmptyView(this);
+        ((ViewGroup) oscarList.getParent()).addView(emptyView, 2);
+        oscarList.setEmptyView(emptyView);
     }
 
     private void initHandler() {

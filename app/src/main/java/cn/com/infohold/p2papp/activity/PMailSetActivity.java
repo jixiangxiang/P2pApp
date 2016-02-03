@@ -9,6 +9,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import java.util.HashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import cn.com.infohold.p2papp.R;
 import cn.com.infohold.p2papp.common.ApiUtils;
@@ -48,7 +50,13 @@ public class PMailSetActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void onClick(View v) {
-        if (v == nextBtn) {
+        if (v == nextBtn) {//^[\\w-]+(\\.[\\w-]+)*@([\\w-]+\\.)+[\\w-]{2,4}$
+            Pattern p = Pattern.compile("^[\\w-]+(\\.[\\w-]+)*@([\\w-]+\\.)+[\\w-]{2,4}$");
+            Matcher m = p.matcher(mail.getText().toString());
+            if (!m.matches()) {
+                showToastShort("邮箱格式不正确!");
+                return;
+            }
             params = new HashMap<String, String>();
             params.put("modify_value", mail.getText().toString());
             params.put("modify_type", "2");
@@ -88,7 +96,7 @@ public class PMailSetActivity extends BaseActivity implements View.OnClickListen
             public void onClick(View v) {
                 Intent intent = new Intent();
                 intent.putExtra("email", mail.getText().toString());
-                setResult(RESULT_OK);
+                setResult(RESULT_OK, intent);
                 PMailSetActivity.this.finish();
             }
         });

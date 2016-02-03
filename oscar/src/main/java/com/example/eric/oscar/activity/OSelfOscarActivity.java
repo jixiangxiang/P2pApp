@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -15,6 +16,7 @@ import com.example.eric.oscar.R;
 import com.example.eric.oscar.bean.OscarBean;
 import com.example.eric.oscar.common.ApiUtils;
 import com.example.eric.oscar.common.BaseActivity;
+import com.example.eric.oscar.common.EmptyListViewUtil;
 import com.example.eric.oscar.common.ResponseResult;
 import com.example.eric.oscar.common.SPUtils;
 
@@ -51,11 +53,14 @@ public class OSelfOscarActivity extends BaseActivity {
                 new String[]{"cardNo", "bindDate", "balance"},
                 new int[]{R.id.cardNo, R.id.bindDate, R.id.balance});
         oscarList.setAdapter(adapter);
-
+        View emptyView = EmptyListViewUtil.newInstance().getEmptyView(this);
+        ((ViewGroup) oscarList.getParent()).addView(emptyView, 2);
+        oscarList.setEmptyView(emptyView);
         request = new StringRequest(Request.Method.POST, ApiUtils.BINDLIST, this, this) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> map = new HashMap<>();
+                map.put("type", "PHONE");
                 map.put("sign", SPUtils.getString(OSelfOscarActivity.this, "sign"));
                 return map;
             }
@@ -94,7 +99,14 @@ public class OSelfOscarActivity extends BaseActivity {
     @Override
     protected void doResponse(ResponseResult response) {
         oscarBeanList = JSONArray.parseArray(((JSONArray) response.getData()).toJSONString(), OscarBean.class);
-        adapter.setmData(oscarBeanList);
-        adapter.notifyDataSetChanged();
+        if (oscarBeanList != null && oscarBeanList.size() > 0) {
+            adapter.setmData(oscarBeanList);
+            adapter.notifyDataSetChanged();
+            Double totalmoney = 0.00;
+            for (OscarBean oscarBean : oscarBeanList) {
+                totalmoney += oscarBean.getBalance();
+            }
+            totalMoney.setText(String.valueOf(totalmoney));
+        }
     }
 }

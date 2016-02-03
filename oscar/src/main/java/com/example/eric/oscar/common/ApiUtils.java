@@ -70,4 +70,7 @@ public class ApiUtils {
     public static final String DEPOSIT = BASE_URL + "bk/deposit";//
     public static final String CASH = BASE_URL + "bk/cash";//
     public static final String CASHRATE = BASE_URL + "bk/cashrate";//
+    public static final String MSGLIST = BASE_URL + "nt/list";//
+    public static final String MSGDEL = BASE_URL + "nt/del";//
+    public static final String MSGINFO = BASE_URL + "nt/info";//
 }
