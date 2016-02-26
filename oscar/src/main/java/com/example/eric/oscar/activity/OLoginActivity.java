@@ -90,7 +90,7 @@ public class OLoginActivity extends BaseActivity implements View.OnClickListener
                 return;
             }
             if (StringUtils.isEmpty(pwd) || pwd.length() < 6 || pwd.length() > 12) {
-                showToastShort("请输入6-12位登录密码！");
+                showToastShort("请输入6-12位字母或数字！");
                 return;
             }
             addToRequestQueue(request, true);

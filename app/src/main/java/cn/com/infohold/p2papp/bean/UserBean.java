@@ -16,6 +16,7 @@ public class UserBean extends EBaseModel {
     private String profileimg;
     private String stacno;
     private String idno;
+    private String ssid;
 
     public String getBankcardno() {
         return bankcardno;
@@ -95,5 +96,13 @@ public class UserBean extends EBaseModel {
 
     public void setIdno(String idno) {
         this.idno = idno;
+    }
+
+    public String getSsid() {
+        return ssid;
+    }
+
+    public void setSsid(String ssid) {
+        this.ssid = ssid;
     }
 }

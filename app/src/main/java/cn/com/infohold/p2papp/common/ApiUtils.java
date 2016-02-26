@@ -172,6 +172,8 @@ public class ApiUtils {
      * @return
      */
     public Request getRequestByMethod(BaseActivity activity, Map<String, String> params, String method) {
+        if (!StringUtils.isEmpty(ApiUtils.getSsid(activity)))
+            params.put("ssid", ApiUtils.getSsid(activity));
         request = new StringRequest(transGatewayUrl(activity, method, params), activity, activity);
         return request;
     }
@@ -184,6 +186,8 @@ public class ApiUtils {
      * @return
      */
     public Request getRequestByMethod(BaseFragment fragment, Map<String, String> params, String method) {
+        if (!StringUtils.isEmpty(ApiUtils.getSsid(fragment.getActivity())))
+            params.put("ssid", ApiUtils.getSsid(fragment.getActivity()));
         request = new StringRequest(transGatewayUrl(fragment.getActivity(), method, params), fragment, fragment);
         return request;
     }
@@ -212,6 +216,16 @@ public class ApiUtils {
         String userinfo = (String) SharedPreferencesUtils.getParam(context, "userinfo", "");
         UserBean user = JSONObject.parseObject(userinfo, UserBean.class);
         return user;
+    }
+
+    public static String getSsid(Context context) {
+        String userinfo = (String) SharedPreferencesUtils.getParam(context, "userinfo", "");
+        if(!StringUtils.isEmpty(userinfo)) {
+            UserBean user = JSONObject.parseObject(userinfo, UserBean.class);
+            return user.getSsid();
+        }else{
+            return null;
+        }
     }
 
     public static void updateUserStatus(Context context, String userStatus, String username, String idNo) {
