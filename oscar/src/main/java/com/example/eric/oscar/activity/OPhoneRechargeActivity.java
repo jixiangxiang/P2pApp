@@ -100,7 +100,7 @@ public class OPhoneRechargeActivity extends BaseActivity implements View.OnClick
             intent.putExtra("rate", ((JSONObject) response.getData()).getString("rate"));
             intent.putExtra("mobile", ((JSONObject) response.getData()).getString("mobile"));
         }
-        intent.putExtra("order", response.getData().toString());
+        intent.putExtra("order", ((JSONObject)response.getData()).getString("order"));
         startActivity(intent);
         this.finish();
     }

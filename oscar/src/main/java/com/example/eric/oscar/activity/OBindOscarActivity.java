@@ -58,7 +58,6 @@ public class OBindOscarActivity extends BaseActivity implements View.OnClickList
                 new String[]{"cardNo", "bindDate", "balance"},
                 new int[]{R.id.cardNo, R.id.bindDate, R.id.balance});
         oscarList.setAdapter(adapter);
-
         View emptyView = EmptyListViewUtil.newInstance().getEmptyView(this);
         ((ViewGroup) oscarList.getParent()).addView(emptyView, 2);
         oscarList.setEmptyView(emptyView);
@@ -137,7 +136,7 @@ public class OBindOscarActivity extends BaseActivity implements View.OnClickList
             adapter.notifyDataSetChanged();
         } else if (requestMethod.equals(ApiUtils.PREBIND)) {
             JSONObject jsonObject = (JSONObject) response.getData();
-            if (jsonObject.getString("flag").equals("true")) {
+            if (jsonObject.getString("flag").equals("false")) {
                 alertDialogNoCancel(response.getReturn_message(), new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

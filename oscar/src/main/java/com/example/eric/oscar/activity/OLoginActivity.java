@@ -43,6 +43,15 @@ public class OLoginActivity extends BaseActivity implements View.OnClickListener
         initHandler();
         initTitleText(getString(R.string.title_activity_ologin), BaseActivity.TITLE_CENTER, android.R.color.white);
 
+        if (getIntent().getBooleanExtra("isLogOut", false)) {
+            getToolbar().setNavigationIcon(null);
+            getToolbar().setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                }
+            });
+        }
+
         toRegist.setOnClickListener(this);
         findPwd.setOnClickListener(this);
         loginBtn.setOnClickListener(this);
@@ -107,5 +116,12 @@ public class OLoginActivity extends BaseActivity implements View.OnClickListener
         }
         setResult(RESULT_OK);
         OLoginActivity.this.finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (!getIntent().getBooleanExtra("isLogOut", false)) {
+            super.onBackPressed();
+        }
     }
 }

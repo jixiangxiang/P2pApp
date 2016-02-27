@@ -77,7 +77,7 @@ public class OResetPwdActivity extends BaseActivity implements View.OnClickListe
                 @Override
                 protected Map<String, String> getParams() throws AuthFailureError {
                     Map<String, String> map = new HashMap<>();
-                    map.put("acct", SPUtils.getString(OResetPwdActivity.this, "acct"));
+                    map.put("acct", phoneText.getText().toString());
                     map.put("vstr", captchaText.getText().toString());
                     return map;
                 }
@@ -118,6 +118,7 @@ public class OResetPwdActivity extends BaseActivity implements View.OnClickListe
             time.start();
         } else if (requestMethod.equals(ApiUtils.FOGLP)) {
             Bundle bundle = new Bundle();
+            bundle.putString("phone", phoneText.getText().toString());
             bundle.putString("phone", phoneText.getText().toString());
             toActivity(OFindLoginPwdActivity.class, bundle);
             OResetPwdActivity.this.finish();

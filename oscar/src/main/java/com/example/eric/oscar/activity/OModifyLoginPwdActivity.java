@@ -63,16 +63,16 @@ public class OModifyLoginPwdActivity extends BaseActivity implements View.OnClic
     @Override
     public void onClick(View v) {
         if (v == nextStepBtn) {
-            if (StringUtils.isEmpty(oldLoginPwd.getText().toString())) {
-                showToastShort("请输入旧登录密码");
+            if (StringUtils.isEmpty(oldLoginPwd.getText().toString()) || oldLoginPwd.length() < 6 || oldLoginPwd.length() > 12) {
+                showToastShort("请输入6-12位旧登录密码");
                 return;
             }
-            if (StringUtils.isEmpty(newLoginPwd.getText().toString())) {
-                showToastShort("请输入新登录密码");
+            if (StringUtils.isEmpty(newLoginPwd.getText().toString()) || newLoginPwd.length() < 6 || newLoginPwd.length() > 12) {
+                showToastShort("请输入6-12位新登录密码");
                 return;
             }
-            if (StringUtils.isEmpty(confirmPwdText.getText().toString())) {
-                showToastShort("请输入确认新登录密码");
+            if (StringUtils.isEmpty(confirmPwdText.getText().toString()) || confirmPwdText.length() < 6 || confirmPwdText.length() > 12) {
+                showToastShort("请输入6-12位确认新登录密码");
                 return;
             }
             if (!StringUtils.isEquals(confirmPwdText.getText().toString(), newLoginPwd.getText().toString())) {

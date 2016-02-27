@@ -15,6 +15,7 @@ import com.example.eric.oscar.R;
 import com.example.eric.oscar.common.ApiUtils;
 import com.example.eric.oscar.common.BaseActivity;
 import com.example.eric.oscar.common.ResponseResult;
+import com.example.eric.oscar.common.SPUtils;
 import com.example.eric.oscar.common.TimeCount;
 
 import java.util.HashMap;
@@ -60,17 +61,26 @@ public class OPhoneCaptchaActivity extends BaseActivity implements View.OnClickL
                 }
             };
             addToRequestQueue(request, ApiUtils.SMS, true);
-            TimeCount time = TimeCount.getInstance(Integer.valueOf(60) * 1000, 1000, captchaSendBtn, this);
-            time.start();
         } else if (v == nextStepBtn) {
+            if (StringUtils.isEmpty(phoneText.getText().toString()) && phoneText.getText().toString().length() != 11) {
+                showToastShort("请输入正确的手机号码");
+                return;
+            }
+            if (StringUtils.isEmpty(captchaText.getText().toString())) {
+                showToastShort("验证码不能为空");
+                return;
+            }
             request = new StringRequest(Request.Method.POST, ApiUtils.ESACCT, this, this) {
                 @Override
                 protected Map<String, String> getParams() throws AuthFailureError {
                     Map<String, String> map = new HashMap<>();
-
+                    map.put("acct", phoneText.getText().toString());
+                    map.put("vstr", captchaText.getText().toString());
+                    map.put("sign", SPUtils.getString(OPhoneCaptchaActivity.this, "sign"));
                     return map;
                 }
             };
+            addToRequestQueue(request, ApiUtils.ESACCT, true);
         }
     }
 
@@ -101,6 +111,8 @@ public class OPhoneCaptchaActivity extends BaseActivity implements View.OnClickL
     protected void doResponse(ResponseResult response) {
         if (requestMethod.equals(ApiUtils.SMS)) {
             showToastShort("验证码已发送");
+            TimeCount time = TimeCount.getInstance(Integer.valueOf(90) * 1000, 1000, captchaSendBtn, this);
+            time.start();
         } else if (requestMethod.equals(ApiUtils.ESACCT)) {
             alertDialogNoCancel(response.getReturn_message(), new View.OnClickListener() {
                 @Override

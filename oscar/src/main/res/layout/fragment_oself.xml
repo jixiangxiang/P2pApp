@@ -23,8 +23,8 @@
                 android:layout_height="@dimen/dp_60"
                 android:layout_marginLeft="@dimen/dp_28"
                 android:layout_marginTop="@dimen/dp_12"
-                android:scaleType="fitXY"
                 android:clickable="false"
+                android:scaleType="fitXY"
                 app:placeholderImageScaleType="fitXY"
                 fresco:placeholderImage="@mipmap/o_mine" />
 
@@ -131,7 +131,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="@dimen/dp_60"
                 android:gravity="center_vertical"
-                android:text="" />
+                android:text="未验证" />
 
             <View
                 android:layout_width="match_parent"
@@ -161,13 +161,6 @@
                 android:layout_marginLeft="@dimen/dp_50"
                 android:gravity="center_vertical"
                 android:text="身份证号" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="@dimen/dp_35"
-                android:src="@mipmap/o_arrow_right_gray" />
 
             <TextView
                 android:id="@+id/idCard"

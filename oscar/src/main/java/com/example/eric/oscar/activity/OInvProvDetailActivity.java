@@ -100,7 +100,7 @@ public class OInvProvDetailActivity extends BaseActivity implements View.OnClick
     protected void doResponse(ResponseResult response) {
         JSONObject data = (JSONObject) response.getData();
         name.setText(data.getString("name"));
-        limit.setText("期限日期：" + data.getString("duration") + "天");
+        limit.setText("项目期限：" + data.getString("duration") + "天");
         repayType.setText("还款方式：" + data.getString("type"));
         total.setText("项目总额：" + data.getString("total"));
         avaliable.setText("开标日期：" + data.getString("value"));

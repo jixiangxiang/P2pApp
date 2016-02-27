@@ -16,11 +16,25 @@
 
         <TextView
             android:id="@+id/name"
-            style="@style/text_13_black"
+            style="@style/text_14_black"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/dp_40"
             android:gravity="center_vertical"
-            android:text="" />
+            android:text=""
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_line"
+            android:background="@color/o_line_bg" />
+
+        <TextView
+            android:id="@+id/rateYear"
+            style="@style/text_12_black"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_30"
+            android:gravity="center_vertical"
+            android:text="年化收益：" />
 
         <View
             android:layout_width="match_parent"
@@ -33,7 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/dp_30"
             android:gravity="center_vertical"
-            android:text="期限日期：" />
+            android:text="项目期限：" />
 
         <View
             android:layout_width="match_parent"
@@ -156,7 +170,7 @@
                     android:layout_marginLeft="@dimen/dp_5"
                     android:background="@drawable/edittext_border_conner"
                     android:gravity="center_vertical"
-                    android:inputType="numberDecimal"
+                    android:inputType="numberSigned"
                     android:padding="@dimen/dp_5" />
 
                 <TextView
@@ -175,8 +189,8 @@
                 android:layout_height="@dimen/dp_28"
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="@dimen/dp_20"
-                android:onClick="onClick"
                 android:background="@mipmap/o_login_btn"
+                android:onClick="onClick"
                 android:text="确认投资" />
         </RelativeLayout>
 

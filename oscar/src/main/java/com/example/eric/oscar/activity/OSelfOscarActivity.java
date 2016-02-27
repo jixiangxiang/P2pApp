@@ -6,6 +6,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONArray;
@@ -29,6 +30,8 @@ import common.eric.com.ebaselibrary.adapter.EBaseAdapter;
 
 public class OSelfOscarActivity extends BaseActivity {
 
+    private RelativeLayout topArea;
+    private RelativeLayout totalArea;
     private ListView oscarList;
     private TextView totalMoney;
     private TextView goAdd;
@@ -55,6 +58,9 @@ public class OSelfOscarActivity extends BaseActivity {
         oscarList.setAdapter(adapter);
         View emptyView = EmptyListViewUtil.newInstance().getEmptyView(this);
         ((ViewGroup) oscarList.getParent()).addView(emptyView, 2);
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        layoutParams.addRule(RelativeLayout.BELOW, topArea.getId());
+        emptyView.setLayoutParams(layoutParams);
         oscarList.setEmptyView(emptyView);
         request = new StringRequest(Request.Method.POST, ApiUtils.BINDLIST, this, this) {
             @Override
@@ -78,6 +84,8 @@ public class OSelfOscarActivity extends BaseActivity {
                 toActivity(OBindOscarActivity.class);
             }
         });
+        topArea = (RelativeLayout) findViewById(R.id.topArea);
+        totalArea = (RelativeLayout) findViewById(R.id.totalArea);
     }
 
     @Override

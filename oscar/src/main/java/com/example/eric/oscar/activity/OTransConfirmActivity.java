@@ -157,7 +157,7 @@ public class OTransConfirmActivity extends BaseActivity implements View.OnClickL
             oscarBeanList = (ArrayList<OscarBean>) JSONArray.parseArray(list.toJSONString(), OscarBean.class);
             adapter.setmData(oscarBeanList);
             adapter.notifyDataSetChanged();
-        } else if (requestMethod.equals(ApiUtils.ACAMZ)) {
+        } else if (requestMethod.equals(ApiUtils.CRAMZ)) {
             alertDialogNoCancel(response.getReturn_message(), new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

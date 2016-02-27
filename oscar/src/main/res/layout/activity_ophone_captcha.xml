@@ -72,6 +72,7 @@
             android:layout_marginTop="@dimen/dp_5"
             android:background="@drawable/edittext_border_conner"
             android:gravity="center"
+            android:onClick="onClick"
             android:text="免费获取" />
 
     </RelativeLayout>
@@ -85,5 +86,6 @@
         android:layout_marginRight="@dimen/dp_8"
         android:layout_marginTop="@dimen/dp_24"
         android:background="@mipmap/o_login_btn"
+        android:onClick="onClick"
         android:text="下一步" />
 </LinearLayout>

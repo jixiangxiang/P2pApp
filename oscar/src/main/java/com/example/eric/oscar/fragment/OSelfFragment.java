@@ -21,6 +21,7 @@ import com.example.eric.oscar.R;
 import com.example.eric.oscar.activity.OAccountActivity;
 import com.example.eric.oscar.activity.OAuthenticationActivity;
 import com.example.eric.oscar.activity.OChangePhoneActivity;
+import com.example.eric.oscar.activity.OLoginActivity;
 import com.example.eric.oscar.activity.OModifyLoginPwdActivity;
 import com.example.eric.oscar.activity.OSelectPicActivity;
 import com.example.eric.oscar.activity.OSetPayPwdActivity;
@@ -127,10 +128,9 @@ public class OSelfFragment extends BaseFragment implements View.OnClickListener 
         initialize(view);
         if (SPUtils.getInt(getActivity(), "status", 0) == 1) {
             verticalStatus.setText("验证中");
-        } else if (SPUtils.getInt(getActivity(), "status", 0) == 2) {
+        } else if (SPUtils.getInt(getActivity(), "status", 0) == 2 || SPUtils.getInt(getActivity(), "status", 0) == 3) {
             verticalStatus.setText("已验证");
         }
-        registPhone.setText(SPUtils.getString(getActivity(), "acct"));
         loginPwdArea.setOnClickListener(this);
         payPwdArea.setOnClickListener(this);
         registPhoneArea.setOnClickListener(this);
@@ -144,7 +144,7 @@ public class OSelfFragment extends BaseFragment implements View.OnClickListener 
         if (v == loginPwdArea) {
             ((BaseActivity) getActivity()).toActivity(OModifyLoginPwdActivity.class);
         } else if (v == payPwdArea) {
-            if (SPUtils.getInt(getActivity(), "status", 0) == 1) {
+            if (SPUtils.getInt(getActivity(), "status", 0) > 1) {
                 ((BaseActivity) getActivity()).toActivity(OSetPayPwdActivity.class);
             } else {
                 ((BaseActivity) getActivity()).showToastShort("当前未实名制，先去身份验证才可以设置支付密码");
@@ -159,7 +159,7 @@ public class OSelfFragment extends BaseFragment implements View.OnClickListener 
                 ((BaseActivity) getActivity()).showToastShort("实名认证正在处理中。");
                 return;
             }
-            if (SPUtils.getInt(getActivity(), "status", 0) == 2) {
+            if (SPUtils.getInt(getActivity(), "status", 0) >= 2) {
                 ((BaseActivity) getActivity()).showToastShort("已经实名认证完成。");
                 return;
             }
@@ -167,7 +167,12 @@ public class OSelfFragment extends BaseFragment implements View.OnClickListener 
         } else if (v == loginOutBtn) {
             SPUtils.setString(getActivity(), "isLogin", "false");
             SPUtils.setString(getActivity(), "acct", "");
-            showLogin();
+            SPUtils.setString(getActivity(), "sign", "");
+            SPUtils.setInt(getActivity(), "status", 0);
+            Intent intent = new Intent(getActivity(), OLoginActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.putExtra("isLogOut", true);
+            startActivityForResult(intent,999);
         } else if (v == nameArea) {
 
         } else if (v == headImgArea) {
@@ -274,10 +279,6 @@ public class OSelfFragment extends BaseFragment implements View.OnClickListener 
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
             isOncreate = false;
-            if (!SPUtils.getString(getActivity(), "isLogin").equals("true")) {
-                showLogin();
-                return;
-            }
             request = new StringRequest(Request.Method.POST, ApiUtils.ACCTINFO, this, this) {
                 @Override
                 protected Map<String, String> getParams() throws AuthFailureError {
@@ -298,6 +299,7 @@ public class OSelfFragment extends BaseFragment implements View.OnClickListener 
                 username.setText(((JSONObject) response.getData()).getString("userName"));
                 usernameText.setText(((JSONObject) response.getData()).getString("realName"));
                 idCard.setText(((JSONObject) response.getData()).getString("idCard"));
+                registPhone.setText(((JSONObject) response.getData()).getString("acct"));
                 Uri uri = Uri.parse(ApiUtils.QINIU_URL + ((JSONObject) response.getData()).getString("avatar"));
                 headImg.setImageURI(uri);
             }
@@ -305,4 +307,6 @@ public class OSelfFragment extends BaseFragment implements View.OnClickListener 
             alertDialog(response.getReturn_message(), null);
         }
     }
+
+
 }

@@ -58,7 +58,7 @@
             android:layout_marginLeft="@dimen/dp_5"
             android:background="@drawable/edittext_border_conner"
             android:gravity="center_vertical"
-            android:hint="请输入旧登录密码"
+            android:hint="6-12个字母或数字"
             android:inputType="textPassword"
             android:padding="@dimen/dp_5" />
     </LinearLayout>
@@ -87,7 +87,7 @@
             android:layout_marginLeft="@dimen/dp_5"
             android:background="@drawable/edittext_border_conner"
             android:gravity="center_vertical"
-            android:hint="请输入新登录密码"
+            android:hint="6-12个字母或数字"
             android:inputType="textPassword"
             android:padding="@dimen/dp_5" />
     </LinearLayout>
@@ -116,7 +116,7 @@
             android:layout_marginLeft="@dimen/dp_5"
             android:background="@drawable/edittext_border_conner"
             android:gravity="center_vertical"
-            android:hint="再次输入新登录密码"
+            android:hint="6-12个字母或数字"
             android:inputType="textPassword"
             android:padding="@dimen/dp_5" />
     </LinearLayout>
