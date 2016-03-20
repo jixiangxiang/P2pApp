@@ -132,6 +132,8 @@ public class ORegistActivity extends BaseActivity implements View.OnClickListene
                     map.put("pass", confirmPwd);
                     map.put("avatar", avator);
                     map.put("vstr", captchaText.getText().toString());
+                    if (!StringUtils.isEmpty(recommendPhoneText.getText().toString()))
+                        map.put("vstr", recommendPhoneText.getText().toString());
                     return map;
                 }
             };

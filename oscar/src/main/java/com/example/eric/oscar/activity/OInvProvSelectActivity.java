@@ -203,6 +203,7 @@ public class OInvProvSelectActivity extends BaseActivity implements View.OnClick
                 protected Map<String, String> getParams() throws AuthFailureError {
                     Map<String, String> map = new HashMap<>();
                     map.put("sign", SPUtils.getString(OInvProvSelectActivity.this, "sign"));
+                    map.put("amt", getIntent().getStringExtra("money"));
                     return map;
                 }
             };

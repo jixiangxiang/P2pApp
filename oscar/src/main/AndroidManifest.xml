@@ -22,14 +22,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activity.OMainActivity"
-            android:label="@string/app_name">
+            android:name=".activity.OStartActivity"
+            android:label="@string/app_name"
+            android:theme="@style/Start_Theme_Default">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activity.OMainActivity"
+            android:label="@string/app_name"></activity>
         <activity
             android:name=".activity.OLoginActivity"
             android:label="@string/title_activity_ologin" />
@@ -66,6 +70,9 @@
             android:label="@string/title_activity_oself_oscar" />
         <activity
             android:name=".activity.OHelpActivity"
+            android:label="@string/title_activity_ohelp" />
+        <activity
+            android:name=".activity.OHelpDescActivity"
             android:label="@string/title_activity_ohelp" />
         <activity
             android:name=".activity.OBindOscarActivity"
@@ -182,7 +189,7 @@
         <activity
             android:name=".activity.OMsgDetailActivity"
             android:label="@string/title_activity_omessage">
-            
+
         </activity>
     </application>
 

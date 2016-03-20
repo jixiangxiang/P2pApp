@@ -21,9 +21,7 @@ public class PContactDetailActivity extends BaseActivity {
     @Override
     protected void initView() {
         initialize();
-        getToolbar().setBackgroundResource(R.mipmap.p_invest_list_title_bg);
-        getToolbar().setNavigationIcon(R.mipmap.p_back);
-        initTitleText(getIntent().getStringExtra("title"), BaseActivity.TITLE_CENTER);
+        initTitleText(getIntent().getStringExtra("title"), BaseActivity.TITLE_CENTER, android.R.color.black);
     }
 
     private void initialize() {

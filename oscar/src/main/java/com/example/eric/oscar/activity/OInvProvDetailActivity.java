@@ -26,6 +26,7 @@ public class OInvProvDetailActivity extends BaseActivity implements View.OnClick
     private TextView name;
     private TextView limit;
     private TextView repayType;
+    private TextView rateYear;
     private TextView total;
     private TextView startdate;
     private TextView enddate;
@@ -85,6 +86,7 @@ public class OInvProvDetailActivity extends BaseActivity implements View.OnClick
         name = (TextView) findViewById(R.id.name);
         limit = (TextView) findViewById(R.id.limit);
         repayType = (TextView) findViewById(R.id.repayType);
+        rateYear = (TextView) findViewById(R.id.repayType);
         total = (TextView) findViewById(R.id.total);
         startdate = (TextView) findViewById(R.id.startdate);
         enddate = (TextView) findViewById(R.id.enddate);
@@ -101,7 +103,8 @@ public class OInvProvDetailActivity extends BaseActivity implements View.OnClick
         JSONObject data = (JSONObject) response.getData();
         name.setText(data.getString("name"));
         limit.setText("项目期限：" + data.getString("duration") + "天");
-        repayType.setText("还款方式：" + data.getString("type"));
+        //repayType.setText("还款方式：" + data.getString("type"));
+        repayType.setText("还款方式：一次性还本付息");
         total.setText("项目总额：" + data.getString("total"));
         avaliable.setText("开标日期：" + data.getString("value"));
         startdate.setText("截止时间：" + data.getString("sDate"));
@@ -109,5 +112,6 @@ public class OInvProvDetailActivity extends BaseActivity implements View.OnClick
         interestDate.setText("开始计息：" + data.getString("siDate"));
         repayDate.setText("还本付息：" + data.getString("eiDate"));
         productDesc.setText(data.getString("desc"));
+        rateYear.setText(Double.valueOf(data.getString("profit")) * 100 + "%");
     }
 }

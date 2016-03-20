@@ -38,6 +38,7 @@ public class ApiUtils {
     public static final int NEED_LOGIN = -112004;
     public static final int NO_RELANAME = 100009;
     public static final int NOSMSCHECKED = 800013;
+    public static final int fREMOTE_LOGIN = 200000;
     public static final String CIFSEQ = "2";
     /**
      * ***************************************

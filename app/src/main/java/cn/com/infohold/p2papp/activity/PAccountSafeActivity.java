@@ -83,11 +83,13 @@ public class PAccountSafeActivity extends BaseActivity implements View.OnClickLi
                 toActivityForResult(PVerificationActivity.class, 000);
                 showToastShort("请实名认证，绑定银行卡后设置支付密码");
                 return;
-            } else if (StringUtils.isEquals(ApiUtils.getLoginUserStatus(this), "01")) {
-                toActivityForResult(PAddBankActivity.class, 000);
-                showToastShort("请绑定银行卡后设置支付密码");
-                return;
-            } else if (StringUtils.isEquals(ApiUtils.getLoginUserStatus(this), "02")) {
+            }
+//            else if (StringUtils.isEquals(ApiUtils.getLoginUserStatus(this), "01")) {
+//                toActivityForResult(PAddBankActivity.class, 000);
+//                showToastShort("请绑定银行卡后设置支付密码");
+//                return;
+//            }
+            else if (StringUtils.isEquals(ApiUtils.getLoginUserStatus(this), "02")) {
                 toActivityForResult(PPayPwdSetActivity.class, 000);
                 //showToastShort("实名绑卡未设置支付密码状态，不用给出提示语直接跳转至支付密码设置页面");
                 return;

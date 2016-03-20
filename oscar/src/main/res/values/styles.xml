@@ -10,6 +10,11 @@
         <item name="android:windowSoftInputMode">stateHidden|stateUnchanged</item>
     </style>
 
+    <style name="Start_Theme_Default" parent="AppTheme">
+        <item name="android:windowBackground">@mipmap/welcome_bg</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
     <style name="dialog_animations" parent="android:Animation">
         //进入时的动画
         <item name="android:windowEnterAnimation">@anim/push_bottom_in</item>
