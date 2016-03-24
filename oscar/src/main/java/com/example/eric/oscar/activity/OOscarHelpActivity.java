@@ -17,7 +17,7 @@ import java.util.List;
 
 import common.eric.com.ebaselibrary.adapter.EBaseAdapter;
 
-public class OHelpActivity extends BaseActivity implements AdapterView.OnItemClickListener {
+public class OOscarHelpActivity extends BaseActivity implements AdapterView.OnItemClickListener {
 
     private WrapScrollListView oscarHelpList;
     private List<OscarServiceBean> oscarServiceBeans;

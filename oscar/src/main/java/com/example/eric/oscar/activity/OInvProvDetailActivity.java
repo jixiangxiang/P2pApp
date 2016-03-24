@@ -1,6 +1,7 @@
 package com.example.eric.oscar.activity;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -86,7 +87,7 @@ public class OInvProvDetailActivity extends BaseActivity implements View.OnClick
         name = (TextView) findViewById(R.id.name);
         limit = (TextView) findViewById(R.id.limit);
         repayType = (TextView) findViewById(R.id.repayType);
-        rateYear = (TextView) findViewById(R.id.repayType);
+        rateYear = (TextView) findViewById(R.id.rateYear);
         total = (TextView) findViewById(R.id.total);
         startdate = (TextView) findViewById(R.id.startdate);
         enddate = (TextView) findViewById(R.id.enddate);
@@ -96,6 +97,16 @@ public class OInvProvDetailActivity extends BaseActivity implements View.OnClick
         oscarNo = (EditText) findViewById(R.id.oscarNo);
         investConfirm = (Button) findViewById(R.id.investConfirm);
         productDesc = (TextView) findViewById(R.id.productDesc);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_home:
+                toActivity(OInvestHelpActivity.class);
+                break;
+        }
+        return true;
     }
 
     @Override
@@ -112,6 +123,6 @@ public class OInvProvDetailActivity extends BaseActivity implements View.OnClick
         interestDate.setText("开始计息：" + data.getString("siDate"));
         repayDate.setText("还本付息：" + data.getString("eiDate"));
         productDesc.setText(data.getString("desc"));
-        rateYear.setText(Double.valueOf(data.getString("profit")) * 100 + "%");
+        rateYear.setText("年化收益：" + data.getString("profit"));
     }
 }

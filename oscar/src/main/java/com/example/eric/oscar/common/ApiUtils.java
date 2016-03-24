@@ -73,4 +73,5 @@ public class ApiUtils {
     public static final String MSGLIST = BASE_URL + "nt/list";//
     public static final String MSGDEL = BASE_URL + "nt/del";//
     public static final String MSGINFO = BASE_URL + "nt/info";//
+    public static final String MCINFO = BASE_URL + "mc/mcinfo";//
 }

@@ -13,7 +13,7 @@ import android.widget.RelativeLayout;
 import com.example.eric.oscar.R;
 import com.example.eric.oscar.activity.OBillSearchActivity;
 import com.example.eric.oscar.activity.OBindOscarActivity;
-import com.example.eric.oscar.activity.OHelpActivity;
+import com.example.eric.oscar.activity.OOscarHelpActivity;
 import com.example.eric.oscar.activity.OMerchantListActivity;
 import com.example.eric.oscar.activity.OOscarBalanceActivity;
 import com.example.eric.oscar.activity.OOscarRechageActivity;
@@ -148,7 +148,7 @@ public class OOscarFragment extends BaseFragment implements View.OnClickListener
     @Override
     public void onClick(View v) {
         if (v == messageBtn) {
-            ((BaseActivity) getActivity()).toActivity(OHelpActivity.class);
+            ((BaseActivity) getActivity()).toActivity(OOscarHelpActivity.class);
         } else if (v == giftArea) {
             ((BaseActivity) getActivity()).toActivity(OTransCardsActivity.class);
         } else if (v == rechargeOilArea) {

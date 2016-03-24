@@ -69,7 +69,13 @@
             android:name=".activity.OSelfOscarActivity"
             android:label="@string/title_activity_oself_oscar" />
         <activity
-            android:name=".activity.OHelpActivity"
+            android:name=".activity.OOscarHelpActivity"
+            android:label="@string/title_activity_ohelp" />
+        <activity
+            android:name=".activity.OInvestHelpActivity"
+            android:label="@string/title_activity_ohelp" />
+        <activity
+            android:name=".activity.OSelfHelpActivity"
             android:label="@string/title_activity_ohelp" />
         <activity
             android:name=".activity.OHelpDescActivity"

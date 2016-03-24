@@ -6,15 +6,24 @@ import common.eric.com.ebaselibrary.model.EBaseModel;
  * Created by eric on 2015/12/4.
  */
 public class MerchantCateBean extends EBaseModel {
+    private String id;
     private String tag;
     private Boolean select;
 
     public MerchantCateBean() {
     }
 
-    public MerchantCateBean(String tag, boolean isSelect) {
+    public MerchantCateBean(String tag, String id) {
         this.tag = tag;
-        this.select = isSelect;
+        this.id = id;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getTag() {

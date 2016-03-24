@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp_28"
+    android:layout_gravity="center_horizontal"
+    android:gravity="center_vertical">
+
+    <TextView
+        style="@style/text_12_55"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:text="礼品卡面值（元）：" />
+
+    <TextView
+        android:id="@+id/cardFace"
+        style="@style/text_12_55"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/dp_105"
+        android:gravity="center_vertical"
+        android:text="0" />
+
+    <TextView
+        android:id="@+id/cardCount"
+        style="@style/text_12_55"
+        android:layout_width="@dimen/dp_38"
+        android:layout_height="@dimen/dp_20"
+        android:layout_marginLeft="@dimen/dp_140"
+        android:layout_marginTop="@dimen/dp_5"
+        android:background="@drawable/edittext_border_conner"
+        android:gravity="center"
+        android:text="0" />
+
+    <TextView
+        style="@style/text_12_55"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:gravity="center_vertical"
+        android:text="张" />
+</RelativeLayout>

@@ -21,7 +21,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.example.eric.oscar.R;
 import com.example.eric.oscar.activity.OAuthenticationActivity;
-import com.example.eric.oscar.activity.OHelpActivity;
+import com.example.eric.oscar.activity.OOscarHelpActivity;
 import com.example.eric.oscar.activity.OLoginActivity;
 import com.example.eric.oscar.activity.OMainActivity;
 import com.example.eric.oscar.activity.OSetPayPwdActivity;
@@ -166,7 +166,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Response
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_home:
-                toActivity(OHelpActivity.class);
+                toActivity(OOscarHelpActivity.class);
                 break;
         }
         return true;

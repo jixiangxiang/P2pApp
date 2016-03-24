@@ -13,6 +13,30 @@
         tools:context="com.example.eric.oscar.activity.OSelfCenterActivity">
 
         <RelativeLayout
+            android:id="@+id/topBar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/o_title_bgcolor">
+
+            <TextView
+                style="@style/text_15_white"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="奥斯卡——我" />
+
+            <ImageView
+                android:id="@+id/messageBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:padding="@dimen/dp_10"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/o_to_descript" />
+        </RelativeLayout>
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_100"
             android:background="@mipmap/o_login_banner">

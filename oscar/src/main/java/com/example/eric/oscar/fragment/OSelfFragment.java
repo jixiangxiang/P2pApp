@@ -24,6 +24,7 @@ import com.example.eric.oscar.activity.OChangePhoneActivity;
 import com.example.eric.oscar.activity.OLoginActivity;
 import com.example.eric.oscar.activity.OModifyLoginPwdActivity;
 import com.example.eric.oscar.activity.OSelectPicActivity;
+import com.example.eric.oscar.activity.OSelfHelpActivity;
 import com.example.eric.oscar.activity.OSetPayPwdActivity;
 import com.example.eric.oscar.common.ApiUtils;
 import com.example.eric.oscar.common.BaseActivity;
@@ -77,6 +78,7 @@ public class OSelfFragment extends BaseFragment implements View.OnClickListener 
     private RelativeLayout registPhoneArea;
     private Button loginOutBtn;
     private Boolean isOncreate = false;
+    private ImageView messageBtn;
 
     private StringRequest request;
     private TextView idCard;
@@ -172,12 +174,14 @@ public class OSelfFragment extends BaseFragment implements View.OnClickListener 
             Intent intent = new Intent(getActivity(), OLoginActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent.putExtra("isLogOut", true);
-            startActivityForResult(intent,999);
+            startActivityForResult(intent, 999);
         } else if (v == nameArea) {
 
         } else if (v == headImgArea) {
             Intent intent = new Intent(getActivity(), OSelectPicActivity.class);
             startActivityForResult(intent, BaseActivity.TO_SELECT_PHOTO);
+        } else if (v == messageBtn) {
+            ((BaseActivity) getActivity()).toActivity(OSelfHelpActivity.class);
         }
     }
 
@@ -198,8 +202,10 @@ public class OSelfFragment extends BaseFragment implements View.OnClickListener 
         payPwdArea = (RelativeLayout) view.findViewById(R.id.payPwdArea);
         registPhoneArea = (RelativeLayout) view.findViewById(R.id.registPhoneArea);
         loginOutBtn = (Button) view.findViewById(R.id.loginOutBtn);
+        messageBtn = (ImageView) view.findViewById(R.id.messageBtn);
         loginOutBtn.setOnClickListener(this);
         nameArea.setOnClickListener(this);
+        messageBtn.setOnClickListener(this);
     }
 
     @Override
