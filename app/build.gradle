@@ -11,10 +11,27 @@ android {
         versionCode 1
         versionName "1.1.0"
     }
+    signingConfigs {
+        config {
+            storeFile file('F:\\签名文件\\bank.key')
+            storePassword "infoholdd"
+            keyAlias "bank_wallet"
+            keyPassword "infoholdd"
+        }
+    }
     buildTypes {
         release {
-            minifyEnabled false
+            signingConfig signingConfigs.config
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            debuggable false
+            jniDebuggable false
+            renderscriptDebuggable false
+            minifyEnabled true
+            zipAlignEnabled true
+        }
+        debug {
+            signingConfig signingConfigs.config
+            versionNameSuffix '-debug'
         }
     }
     sourceSets { main { assets.srcDirs = ['src/main/assets', 'src/main/assets/'] } }

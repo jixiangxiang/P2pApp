@@ -7,15 +7,8 @@
         <item name="android:windowAnimationStyle">@android:style/Animation.Translucent</item>
         <item name="android:windowExitAnimation">@android:anim/slide_out_right</item>
         <item name="android:windowEnterAnimation">@android:anim/slide_in_left</item>
-        <!-- Actionbar color -->
-        <!--<item name="colorPrimary">@color/material_blue_grey_950</item>-->
-        <!--&lt;!&ndash;Status bar color&ndash;&gt;-->
-        <!--<item name="colorPrimaryDark">@color/accent_material_light</item>-->
-        <!--&lt;!&ndash;Window color&ndash;&gt;-->
-        <!--<item name="android:windowBackground">@color/dim_foreground_material_dark</item>-->
-        <!--<item name="android:textColorPrimary">@color/dim_foreground_material_dark</item>-->
-        <!-- 使用自定义样式-->
-        <!--<item name="drawerArrowStyle">@style/AppTheme.MyDrawerArrowStyle</item>-->
+        <!--Status bar color-->
+        <item name="colorPrimaryDark">@color/p_bottom_bar_color</item>
     </style>
 
     <style name="Start_Theme_Default" parent="AppTheme">

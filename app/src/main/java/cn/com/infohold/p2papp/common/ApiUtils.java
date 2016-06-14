@@ -10,6 +10,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Map;
 
+import cn.com.infohold.p2papp.BuildConfig;
 import cn.com.infohold.p2papp.activity.BaseActivity;
 import cn.com.infohold.p2papp.base.BaseFragment;
 import cn.com.infohold.p2papp.bean.UserBean;
@@ -21,7 +22,9 @@ import common.eric.com.ebaselibrary.util.StringUtils;
  */
 public class ApiUtils {
 
-    public static final String url_api = "http://182.48.115.38:8088/platform/api";
+    //public static final String url_uat_api = "http://182.48.115.38:8088/platform/api";
+    public static final String url_uat_api = "https://cafe.smallpay.com/platform/api";
+    public static final String url_on_api = "https://cafe.smallpay.com/platform/api";
     private StringRequest request;
     private static ApiUtils instance = null;
 
@@ -31,8 +34,8 @@ public class ApiUtils {
      * ****************************************
      */
     private final static String API_BASE = "ih.p2p.";
-    public final static String APP_KEY = "610147";
-    public final static String APP_SECRET = "XjieYvpcSdVgrhTlHytDImKwA9W3zPFU";
+    public final static String APP_KEY = "610162";
+    public final static String APP_SECRET = "XBik6Av2Yp5byLWarMulcUN0oEZ8fRHn";
     public final static String APP_CHANNEL = "10002";
     public static final int REQUEST_SUCCESS = 0;
     public static final int NEED_LOGIN = -112004;
@@ -161,7 +164,7 @@ public class ApiUtils {
      * @return
      */
     public static String transGatewayUrl(Context context, String method, Map<String, String> params) {
-        return SignatureUtil.sign(context, url_api, method, params);
+        return SignatureUtil.sign(context, BuildConfig.DEBUG ? url_uat_api : url_on_api, method, params);
     }
 
     /**
@@ -181,7 +184,6 @@ public class ApiUtils {
     /**
      * 获取请求类
      *
-     * @param activity
      * @param params
      * @return
      */
@@ -194,12 +196,16 @@ public class ApiUtils {
 
     public static String getLoginUserPhone(Context context) {
         String userinfo = (String) SharedPreferencesUtils.getParam(context, "userinfo", "");
-        return JSONObject.parseObject(userinfo).getString("mobilephone");
+        if (!StringUtils.isEmpty(userinfo))
+            return JSONObject.parseObject(userinfo).getString("mobilephone");
+        return null;
     }
 
     public static Integer getLoginUserType(Context context) {
         String userinfo = (String) SharedPreferencesUtils.getParam(context, "userinfo", "");
-        return JSONObject.parseObject(userinfo).getInteger("usertype");
+        if (!StringUtils.isEmpty(userinfo))
+            return JSONObject.parseObject(userinfo).getInteger("usertype");
+        return null;
     }
 
     public static boolean isLogin(Context context) {
@@ -209,7 +215,9 @@ public class ApiUtils {
 
     public static String getLoginUserStatus(Context context) {
         String userinfo = (String) SharedPreferencesUtils.getParam(context, "userinfo", "");
-        return JSONObject.parseObject(userinfo).getString("userstatus");
+        if (!StringUtils.isEmpty(userinfo))
+            return JSONObject.parseObject(userinfo).getString("userstatus");
+        return null;
     }
 
     public static UserBean getLoginUser(Context context) {
@@ -220,10 +228,10 @@ public class ApiUtils {
 
     public static String getSsid(Context context) {
         String userinfo = (String) SharedPreferencesUtils.getParam(context, "userinfo", "");
-        if(!StringUtils.isEmpty(userinfo)) {
+        if (!StringUtils.isEmpty(userinfo)) {
             UserBean user = JSONObject.parseObject(userinfo, UserBean.class);
             return user.getSsid();
-        }else{
+        } else {
             return null;
         }
     }
