@@ -1,6 +1,7 @@
 package com.example.eric.oscar.activity;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -53,7 +54,10 @@ public class OInvestConfirmActivity extends BaseActivity implements View.OnClick
             oscarNo.setText("奥斯卡号：" + getIntent().getExtras().getString("cardNo"));
         else
             oscarNo.setVisibility(View.GONE);
-        tool.setText("使用道具：" + getIntent().getExtras().getString("coupon"));
+        if (!StringUtils.isEmpty(getIntent().getExtras().getString("coupon")))
+            tool.setText("使用道具：" + getIntent().getExtras().getString("coupon"));
+        else
+            tool.setVisibility(View.GONE);
 
         request = new StringRequest(Request.Method.POST, ApiUtils.INVINFO, this, this) {
             @Override
@@ -92,6 +96,16 @@ public class OInvestConfirmActivity extends BaseActivity implements View.OnClick
     }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_home:
+                toActivity(OInvestHelpActivity.class);
+                break;
+        }
+        return true;
+    }
+
+    @Override
     protected void doResponse(ResponseResult response) {
         if (requestMethod.equals(ApiUtils.ACINV)) {
             alertDialogNoCancel(response.getReturn_message(), new View.OnClickListener() {
@@ -104,7 +118,8 @@ public class OInvestConfirmActivity extends BaseActivity implements View.OnClick
             JSONObject data = (JSONObject) response.getData();
             name.setText(data.getString("name"));
             limit.setText("期限日期：" + data.getString("duration") + "天");
-            type.setText("还款方式：" + data.getString("type"));
+            //type.setText("还款方式：" + data.getString("type"));
+            type.setText("还款方式：一次性还本付息");
             total.setText("项目总额：" + data.getString("total") + "元");
             profit.setText("年化收益：" + data.getString("profit"));
         }

@@ -7,13 +7,21 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSONObject;
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.toolbox.StringRequest;
 import com.example.eric.oscar.R;
 import com.example.eric.oscar.bean.MerchantBean;
+import com.example.eric.oscar.common.ApiUtils;
 import com.example.eric.oscar.common.BaseActivity;
+import com.example.eric.oscar.common.ResponseResult;
 import com.example.eric.oscar.views.WrapScrollListView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import common.eric.com.ebaselibrary.adapter.EBaseAdapter;
 
@@ -27,6 +35,8 @@ public class OMerchantDetailActivity extends BaseActivity implements View.OnClic
     private WrapScrollListView subMerchantList;
     private EBaseAdapter baseAdapter;
     private List<MerchantBean> merchantBeans;
+
+    private StringRequest request;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +54,16 @@ public class OMerchantDetailActivity extends BaseActivity implements View.OnClic
         subMerchantList.setAdapter(baseAdapter);
         subMerchantList.setFocusable(false);
 
+        request = new StringRequest(Request.Method.POST, ApiUtils.MCINFO, this, this) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> map = new HashMap<>();
+                map.put("id", getIntent().getStringExtra("merchantId"));
+                return map;
+            }
+        };
+        addToRequestQueue(request, ApiUtils.MCINFO, true);
+
     }
 
     @Override
@@ -53,17 +73,11 @@ public class OMerchantDetailActivity extends BaseActivity implements View.OnClic
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_omodify_login_pwd, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_home:
-                toActivity(OHelpActivity.class);
-                break;
-        }
         return true;
     }
 
@@ -74,5 +88,13 @@ public class OMerchantDetailActivity extends BaseActivity implements View.OnClic
         merchantDesc = (TextView) findViewById(R.id.merchantDesc);
         merchantMap = (ImageView) findViewById(R.id.merchantMap);
         subMerchantList = (WrapScrollListView) findViewById(R.id.subMerchantList);
+    }
+
+    @Override
+    protected void doResponse(ResponseResult response) {
+        JSONObject data = (JSONObject) response.getData();
+        marchantName.setText(data.getString("name"));
+        marchantCount.setText(data.getString("phone"));
+        merchantDesc.setText(data.getString("desc"));
     }
 }

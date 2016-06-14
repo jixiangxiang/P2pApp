@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -138,21 +139,25 @@ public class OInvProvSelectActivity extends BaseActivity implements View.OnClick
                     }).create();
             initAlertDialog();
         } else if (v == toolSelect.getParent()) {
-            numberPicker = new NumberPicker(this);
-            numberPicker.setDisplayedValues(props);
-            numberPicker.setMaxValue(props.length - 1);
-            numberPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
-            numberAlert = new AlertDialog.Builder(this)
-                    .setMessage("请选择道具").setCancelable(true)
-                    .setView(numberPicker)
-                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            investPropBean = investPropBeanList.get(numberPicker.getValue());
-                            toolSelect.setText(props[numberPicker.getValue()]);
-                        }
-                    }).create();
-            initAlertDialog();
+            if (props.length > 0) {
+                numberPicker = new NumberPicker(this);
+                numberPicker.setDisplayedValues(props);
+                numberPicker.setMaxValue(props.length - 1);
+                numberPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
+                numberAlert = new AlertDialog.Builder(this)
+                        .setMessage("请选择道具").setCancelable(true)
+                        .setView(numberPicker)
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                investPropBean = investPropBeanList.get(numberPicker.getValue());
+                                toolSelect.setText(props[numberPicker.getValue()]);
+                            }
+                        }).create();
+                initAlertDialog();
+            } else {
+                showToastShort("暂无可用的道具");
+            }
         }
     }
 
@@ -203,6 +208,7 @@ public class OInvProvSelectActivity extends BaseActivity implements View.OnClick
                 protected Map<String, String> getParams() throws AuthFailureError {
                     Map<String, String> map = new HashMap<>();
                     map.put("sign", SPUtils.getString(OInvProvSelectActivity.this, "sign"));
+                    map.put("amt", getIntent().getStringExtra("money"));
                     return map;
                 }
             };
@@ -216,6 +222,8 @@ public class OInvProvSelectActivity extends BaseActivity implements View.OnClick
                 for (int i = 0; i < investPropBeanList.size(); i++) {
                     props[i] = investPropBeanList.get(i).getCoupon().replace("道具：", "") + "(有效期至" + sdf.format(investPropBeanList.get(i).geteUseDate()) + ")";
                 }
+            } else {
+                props = new String[]{};
             }
         } else if (requestMethod.equals(ApiUtils.CRINV)) {
             JSONObject data = (JSONObject) response.getData();
@@ -261,5 +269,15 @@ public class OInvProvSelectActivity extends BaseActivity implements View.OnClick
         window.setGravity(Gravity.BOTTOM);
         window.setWindowAnimations(R.style.dialog_animations);
         numberAlert.show();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_home:
+                toActivity(OInvestHelpActivity.class);
+                break;
+        }
+        return true;
     }
 }

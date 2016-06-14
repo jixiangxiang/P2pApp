@@ -42,7 +42,7 @@ public class MerchantBean extends EBaseModel {
     }
 
     public String getDist() {
-        return dist;
+        return dist + "米";
     }
 
     public void setDist(String dist) {

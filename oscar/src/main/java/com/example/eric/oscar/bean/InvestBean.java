@@ -67,7 +67,7 @@ public class InvestBean extends EBaseModel {
     }
 
     public String getMini() {
-        return mini;
+        return mini + " 起投";
     }
 
     public void setMini(String mini) {

@@ -50,7 +50,7 @@
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        android:text="朝阳大悦城" />
+                        android:text="" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -63,7 +63,7 @@
                         style="@style/text_14_55"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="分店数量：" />
+                        android:text="联系电话：" />
 
                     <TextView
                         android:id="@+id/marchantCount"
@@ -72,7 +72,7 @@
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        android:text="2家" />
+                        android:text="" />
                 </LinearLayout>
             </LinearLayout>
         </RelativeLayout>

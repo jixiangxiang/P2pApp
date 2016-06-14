@@ -73,7 +73,7 @@ public class ORegistActivity extends BaseActivity implements View.OnClickListene
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_home:
-                toActivity(OHelpActivity.class);
+                toActivity(OOscarHelpActivity.class);
                 break;
         }
         return true;
@@ -132,6 +132,8 @@ public class ORegistActivity extends BaseActivity implements View.OnClickListene
                     map.put("pass", confirmPwd);
                     map.put("avatar", avator);
                     map.put("vstr", captchaText.getText().toString());
+                    if (!StringUtils.isEmpty(recommendPhoneText.getText().toString()))
+                        map.put("vstr", recommendPhoneText.getText().toString());
                     return map;
                 }
             };

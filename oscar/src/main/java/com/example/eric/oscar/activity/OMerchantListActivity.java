@@ -1,5 +1,6 @@
 package com.example.eric.oscar.activity;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
@@ -49,6 +50,18 @@ public class OMerchantListActivity extends BaseActivity {
         initialize();
         initTitleText(getString(R.string.title_activity_omerchant_list), BaseActivity.TITLE_CENTER);
         merchantCateBeans = new ArrayList<>();
+        merchantCateBeans.add(new MerchantCateBean("商场", "0"));
+        merchantCateBeans.add(new MerchantCateBean("超市", "1"));
+        merchantCateBeans.add(new MerchantCateBean("餐饮", "2"));
+        merchantCateBeans.add(new MerchantCateBean("酒店", "3"));
+        merchantCateBeans.add(new MerchantCateBean("休闲", "4"));
+        merchantCateBeans.add(new MerchantCateBean("家电", "5"));
+        merchantCateBeans.add(new MerchantCateBean("健身", "6"));
+        merchantCateBeans.add(new MerchantCateBean("美容", "7"));
+        merchantCateBeans.add(new MerchantCateBean("体检", "8"));
+        merchantCateBeans.add(new MerchantCateBean("网上购物", "9"));
+        merchantCateBeans.add(new MerchantCateBean("汽车服务", "10"));
+        merchantCateBeans.add(new MerchantCateBean("其他", "11"));
         cateAdapter = new EBaseAdapter(this, merchantCateBeans, R.layout.list_merchant_cate_item,
                 new String[]{"tag", "select"},
                 new int[]{R.id.cateName, R.id.cateName});
@@ -115,12 +128,14 @@ public class OMerchantListActivity extends BaseActivity {
         merchantList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                toActivity(OMerchantDetailActivity.class);
+                Intent intent = new Intent(OMerchantListActivity.this, OMerchantDetailActivity.class);
+                intent.putExtra("merchantId", String.valueOf(merchantBeans.get(position).getId()));
+                startActivity(intent);
             }
         });
 
-        request = new StringRequest(Request.Method.POST, ApiUtils.SLIST, this, this);
-        addToRequestQueue(request, ApiUtils.SLIST, true);
+        //request = new StringRequest(Request.Method.POST, ApiUtils.SLIST, this, this);
+        //addToRequestQueue(request, ApiUtils.SLIST, true);
     }
 
     private void initialize() {

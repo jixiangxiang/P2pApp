@@ -98,7 +98,7 @@ public class OSelfOscarActivity extends BaseActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_home:
-                toActivity(OHelpActivity.class);
+                toActivity(OOscarHelpActivity.class);
                 break;
         }
         return true;

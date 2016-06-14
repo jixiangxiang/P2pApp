@@ -1,5 +1,6 @@
 package com.example.eric.oscar.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -124,7 +125,7 @@ public class OHomeFragment extends BaseFragment implements View.OnClickListener 
         merchantBeans = new ArrayList<MerchantBean>();
         baseAdapter = new EBaseAdapter(getActivity(), merchantBeans, R.layout.list_merchant_sub_item,
                 new String[]{"img", "name", "addr", "dist"},
-                new int[]{R.id.merchantLogo, R.id.merchantAddress, R.id.merchantAddress, R.id.distance});
+                new int[]{R.id.merchantLogo, R.id.merchantName, R.id.merchantAddress, R.id.distance});
         baseAdapter.setViewBinder(new EBaseAdapter.ViewBinder() {
             @Override
             public boolean setViewValue(View view, Object o, String s) {
@@ -142,7 +143,9 @@ public class OHomeFragment extends BaseFragment implements View.OnClickListener 
         marchantList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ((BaseActivity) getActivity()).toActivity(OMerchantDetailActivity.class);
+                Intent intent = new Intent(getActivity(), OMerchantDetailActivity.class);
+                intent.putExtra("merchantId", String.valueOf(merchantBeans.get(position).getId()));
+                startActivity(intent);
             }
         });
         initMerchantCateViews();

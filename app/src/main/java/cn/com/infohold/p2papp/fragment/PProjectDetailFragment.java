@@ -28,6 +28,7 @@ import cn.com.infohold.p2papp.common.ApiUtils;
 import cn.com.infohold.p2papp.common.ResponseResult;
 import common.eric.com.ebaselibrary.adapter.EBaseAdapter;
 import common.eric.com.ebaselibrary.util.StringUtils;
+import common.eric.com.ebaselibrary.util.ToastUtils;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -186,7 +187,7 @@ public class PProjectDetailFragment extends BaseFragment implements View.OnClick
         ((ViewGroup) contact.getParent()).setOnClickListener(this);
         if (status == 0 && mParam2 != null) {
             contact.setText("投资协议");
-        }else if(status==0 && mParam2 ==null){
+        } else if (status == 0 && mParam2 == null) {
             contact.setText("转让协议");
         }
     }
@@ -198,6 +199,11 @@ public class PProjectDetailFragment extends BaseFragment implements View.OnClick
             intent.putExtra("riskdesc", data.getString("riskdesc"));
             startActivity(intent);
         } else if (v == contact.getParent()) {
+            if (!ApiUtils.isLogin(getActivity())) {
+                ToastUtils.show(getActivity(), "请先登录才能查看");
+                showLogin();
+                return;
+            }
             if (status == 0) {
                 params = new HashMap<>();
                 if (mParam2 != null) {
@@ -256,7 +262,7 @@ public class PProjectDetailFragment extends BaseFragment implements View.OnClick
     @Override
     protected void doResponse(ResponseResult response) {
         Intent intent = new Intent(getActivity(), PContactDetailActivity.class);
-        intent.putExtra("title", contact.getText());
+        intent.putExtra("title", "《" + contact.getText() + "》");
         intent.putExtra("url", response.getData().getString("url"));
         startActivity(intent);
     }

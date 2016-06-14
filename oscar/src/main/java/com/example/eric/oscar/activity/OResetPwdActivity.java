@@ -14,7 +14,6 @@ import com.example.eric.oscar.R;
 import com.example.eric.oscar.common.ApiUtils;
 import com.example.eric.oscar.common.BaseActivity;
 import com.example.eric.oscar.common.ResponseResult;
-import com.example.eric.oscar.common.SPUtils;
 import com.example.eric.oscar.common.TimeCount;
 
 import java.util.HashMap;
@@ -96,7 +95,7 @@ public class OResetPwdActivity extends BaseActivity implements View.OnClickListe
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_home:
-                toActivity(OHelpActivity.class);
+                toActivity(OOscarHelpActivity.class);
                 break;
         }
         return true;

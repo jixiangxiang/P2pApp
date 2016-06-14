@@ -17,6 +17,7 @@ import com.example.eric.oscar.R;
 import com.example.eric.oscar.activity.OAccountActivity;
 import com.example.eric.oscar.activity.OInvProvDetailActivity;
 import com.example.eric.oscar.activity.OInvestActivity;
+import com.example.eric.oscar.activity.OInvestHelpActivity;
 import com.example.eric.oscar.activity.OInvestListActivity;
 import com.example.eric.oscar.activity.OInvestPropActivity;
 import com.example.eric.oscar.bean.InvestBean;
@@ -93,6 +94,7 @@ public class OFnancialFragment extends BaseFragment implements View.OnClickListe
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
         isOnCreate = true;
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -135,6 +137,8 @@ public class OFnancialFragment extends BaseFragment implements View.OnClickListe
             ((BaseActivity) getActivity()).toActivity(OAccountActivity.class);
         } else if (v == rechargeOilArea) {
             ((BaseActivity) getActivity()).toActivity(OInvestPropActivity.class);
+        } else if (v == messageBtn) {
+            ((BaseActivity) getActivity()).toActivity(OInvestHelpActivity.class);
         }
     }
 
@@ -157,6 +161,7 @@ public class OFnancialFragment extends BaseFragment implements View.OnClickListe
         }
     }
 
+
     private void initialize(View view) {
         productList = (WrapScrollListView) view.findViewById(R.id.productList);
         rechargeOilArea = (LinearLayout) view.findViewById(R.id.rechargeOilArea);
@@ -169,6 +174,7 @@ public class OFnancialFragment extends BaseFragment implements View.OnClickListe
         rechargeOilArea.setOnClickListener(this);
         rechargePhoneArea.setOnClickListener(this);
         rechargeTelArea.setOnClickListener(this);
+        messageBtn.setOnClickListener(this);
     }
 
     @Override
