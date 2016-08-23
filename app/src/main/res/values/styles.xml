@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowAnimationStyle">@android:style/Animation.Translucent</item>
@@ -9,6 +9,7 @@
         <item name="android:windowEnterAnimation">@android:anim/slide_in_left</item>
         <!--Status bar color-->
         <item name="colorPrimaryDark">@color/p_bottom_bar_color</item>
+        <item name="colorPrimary">@color/p_bottom_bar_color</item>
     </style>
 
     <style name="Start_Theme_Default" parent="AppTheme">

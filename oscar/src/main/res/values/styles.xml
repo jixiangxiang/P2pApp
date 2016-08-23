@@ -2,6 +2,9 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/o_title_bgcolor</item>
+        <item name="colorPrimaryDark">@color/o_title_bgcolor</item>
+        <item name="colorAccent">@color/o_title_bgcolor</item>
         <!-- Customize your theme here. -->
         <item name="android:windowAnimationStyle">@android:style/Animation.Translucent</item>
         <item name="android:windowExitAnimation">@android:anim/slide_out_right</item>
