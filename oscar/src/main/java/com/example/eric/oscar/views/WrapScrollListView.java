@@ -3,6 +3,7 @@ package com.example.eric.oscar.views;
 import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
+import android.view.ViewGroup;
 import android.widget.ListView;
 
 /**
@@ -25,7 +26,7 @@ public class WrapScrollListView extends ListView {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int heightSpec;
 
-        if (getLayoutParams().height == ViewPager.LayoutParams.WRAP_CONTENT) {
+        if (getLayoutParams().height == ViewGroup.LayoutParams.WRAP_CONTENT) {
             // The great Android "hackatlon", the love, the magic.
             // The two leftmost bits in the height measure spec have
             // a special meaning, hence we can't use them to describe height.

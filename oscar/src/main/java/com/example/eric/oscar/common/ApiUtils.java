@@ -11,6 +11,7 @@ public class ApiUtils {
     public static final String QINIU_URL = "http://7xq99q.com2.z0.glb.qiniucdn.com/";
     public static final String SIGN = "111111";
     public static final String TOKEN = "111111";
+    public static final String PWD_REGEX = "^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$";
     public static int NEED_LOGIN = 10001;
 
     public static final String REGIST = BASE_URL + "ac/registration";
@@ -24,6 +25,12 @@ public class ApiUtils {
     public static final String JDCARD = BASE_URL + "os/jdcard";
     public static final String CRJD = BASE_URL + "os/crjd";
     public static final String ACJD = BASE_URL + "os/acjd";
+    public static final String PRERECHG = BASE_URL + "os/prerechg";
+    public static final String RECHG = BASE_URL + "os/rechg";
+    public static final String OSDEL = BASE_URL + "os/del";
+    public static final String LOGOUT = BASE_URL + "ac/logout";
+
+
     public static final String SETPP = BASE_URL + "ac/setpp";//设置支付密码
     public static final String ACCTINFO = BASE_URL + "ac/i";//个人中心
     public static final String EDITLP = BASE_URL + "ac/editlp";//修改登陆密码

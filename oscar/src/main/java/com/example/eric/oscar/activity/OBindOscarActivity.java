@@ -30,6 +30,7 @@ import java.util.Map;
 
 import common.eric.com.ebaselibrary.adapter.EBaseAdapter;
 import common.eric.com.ebaselibrary.util.StringUtils;
+import common.eric.com.ebaselibrary.util.ToastUtils;
 
 public class OBindOscarActivity extends BaseActivity implements View.OnClickListener {
 
@@ -41,6 +42,9 @@ public class OBindOscarActivity extends BaseActivity implements View.OnClickList
     private EBaseAdapter adapter;
     private ArrayList<OscarBean> oscarBeanList;
     private StringRequest request;
+    private StringRequest requestDel;
+
+    private String delCardNo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,8 +59,23 @@ public class OBindOscarActivity extends BaseActivity implements View.OnClickList
         initTitleText(getString(R.string.title_activity_obind_oscar), BaseActivity.TITLE_CENTER);
         oscarBeanList = new ArrayList<OscarBean>();
         adapter = new EBaseAdapter(this, oscarBeanList, R.layout.list_self_oscar_item,
-                new String[]{"cardNo", "bindDate", "balance"},
-                new int[]{R.id.cardNo, R.id.bindDate, R.id.balance});
+                new String[]{"cardNo", "bindDate", "balance", "cardNo"},
+                new int[]{R.id.cardNo, R.id.bindDate, R.id.balance, R.id.deleteBtn});
+        adapter.setViewBinder(new EBaseAdapter.ViewBinder() {
+            @Override
+            public boolean setViewValue(View view, final Object o, String s) {
+                if (view instanceof Button) {
+                    view.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            delCardNo = o.toString();
+                            addToRequestQueue(requestDel, ApiUtils.OSDEL, true);
+                        }
+                    });
+                }
+                return false;
+            }
+        });
         oscarList.setAdapter(adapter);
         View emptyView = EmptyListViewUtil.newInstance().getEmptyView(this);
         ((ViewGroup) oscarList.getParent()).addView(emptyView, 2);
@@ -74,6 +93,15 @@ public class OBindOscarActivity extends BaseActivity implements View.OnClickList
             }
         };
         addToRequestQueue(request, ApiUtils.BINDLIST, true);
+        requestDel = new StringRequest(Request.Method.POST, ApiUtils.OSDEL, this, this) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> map = new HashMap<String, String>();
+                map.put("card", delCardNo);
+                map.put("sign", SPUtils.getString(OBindOscarActivity.this, "sign"));
+                return map;
+            }
+        };
     }
 
     @Override
@@ -148,6 +176,9 @@ public class OBindOscarActivity extends BaseActivity implements View.OnClickList
                 intent.putExtra("cardNo", oscarNo.getText().toString());
                 startActivityForResult(intent, 111);
             }
+        } else if (requestMethod.equals(ApiUtils.OSDEL)) {
+            ToastUtils.show(this, "卡号为:" + delCardNo + "的奥斯卡解绑成功");
+            addToRequestQueue(request, ApiUtils.BINDLIST, true);
         }
     }
 

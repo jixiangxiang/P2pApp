@@ -58,8 +58,9 @@
             android:layout_marginLeft="@dimen/dp_5"
             android:background="@drawable/edittext_border_conner"
             android:gravity="center_vertical"
-            android:hint="6-12个字母或数字"
+            android:hint="6-12个字母和数字"
             android:inputType="textPassword"
+            android:maxLength="12"
             android:padding="@dimen/dp_5" />
     </LinearLayout>
 
@@ -87,8 +88,9 @@
             android:layout_marginLeft="@dimen/dp_5"
             android:background="@drawable/edittext_border_conner"
             android:gravity="center_vertical"
-            android:hint="6-12个字母或数字"
+            android:hint="6-12个字母和数字"
             android:inputType="textPassword"
+            android:maxLength="12"
             android:padding="@dimen/dp_5" />
     </LinearLayout>
 
@@ -108,6 +110,7 @@
             android:gravity="center_vertical"
             android:text="新密码确认：" />
 
+
         <EditText
             android:id="@+id/confirmPwdText"
             style="@style/text_13_black"
@@ -116,8 +119,9 @@
             android:layout_marginLeft="@dimen/dp_5"
             android:background="@drawable/edittext_border_conner"
             android:gravity="center_vertical"
-            android:hint="6-12个字母或数字"
+            android:hint="6-12个字母和数字"
             android:inputType="textPassword"
+            android:maxLength="12"
             android:padding="@dimen/dp_5" />
     </LinearLayout>
 

@@ -108,8 +108,16 @@ public class ORegistActivity extends BaseActivity implements View.OnClickListene
                 showToastShort("请输入6-12位密码！");
                 return;
             }
+            if (!pwd.matches(ApiUtils.PWD_REGEX)) {
+                showToastShort("密码必须由字母和数字组成");
+                return;
+            }
             if (StringUtils.isEmpty(confirmPwd) || confirmPwd.length() < 6 || confirmPwd.length() > 12) {
                 showToastShort("请输入正确的确认密码！");
+                return;
+            }
+            if (!confirmPwd.matches(ApiUtils.PWD_REGEX)) {
+                showToastShort("密码必须由字母和数字组成");
                 return;
             }
             if (!StringUtils.isEquals(pwd, confirmPwd)) {

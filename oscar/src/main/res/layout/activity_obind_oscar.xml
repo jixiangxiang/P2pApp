@@ -102,7 +102,7 @@
             style="@style/text_13_55"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_170"
+            android:layout_marginLeft="@dimen/dp_180"
             android:text="绑定日期"
             android:textStyle="bold" />
 
@@ -110,9 +110,16 @@
             style="@style/text_13_55"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_270"
+            android:layout_marginLeft="@dimen/dp_280"
             android:text="余额（元）"
             android:textStyle="bold" />
+
+        <TextView
+            style="@style/text_13_55"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dp_10"
+            android:layout_alignParentRight="true"/>
     </RelativeLayout>
 
     <ListView
@@ -123,8 +130,8 @@
         android:background="@android:color/white"
         android:divider="@color/o_line_bg"
         android:dividerHeight="@dimen/dp_line"
-        android:paddingLeft="@dimen/dp_20"
-        android:paddingRight="@dimen/dp_20">
+        android:paddingLeft="@dimen/dp_10"
+        android:paddingRight="@dimen/dp_10">
 
     </ListView>
 </LinearLayout>

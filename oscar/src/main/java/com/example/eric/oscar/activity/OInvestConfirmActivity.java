@@ -75,8 +75,8 @@ public class OInvestConfirmActivity extends BaseActivity implements View.OnClick
     @Override
     public void onClick(View v) {
         if (v == investConfirm) {
-            if (StringUtils.isEmpty(payPwd.getText().toString())) {
-                showToastShort("请输入支付密码");
+            if (StringUtils.isEmpty(payPwd.getText().toString()) || !payPwd.getText().toString().matches(ApiUtils.PWD_REGEX)) {
+                showToastShort("请输入正确的支付密码");
                 return;
             }
             if (isCanPay()) {

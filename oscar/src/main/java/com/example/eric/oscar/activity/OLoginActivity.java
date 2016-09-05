@@ -82,6 +82,7 @@ public class OLoginActivity extends BaseActivity implements View.OnClickListener
         loginBtn = (Button) findViewById(R.id.loginBtn);
         toRegist = (TextView) findViewById(R.id.toRegist);
         findPwd = (TextView) findViewById(R.id.findPwd);
+        loginPhoneText.setText(SPUtils.getData(this,"acct"));
     }
 
 
@@ -99,7 +100,11 @@ public class OLoginActivity extends BaseActivity implements View.OnClickListener
                 return;
             }
             if (StringUtils.isEmpty(pwd) || pwd.length() < 6 || pwd.length() > 12) {
-                showToastShort("请输入6-12位字母或数字！");
+                showToastShort("请输入6-12位字母和数字！");
+                return;
+            }
+            if (!pwd.matches(ApiUtils.PWD_REGEX)) {
+                showToastShort("登录密码必须由字母和数字组成");
                 return;
             }
             addToRequestQueue(request, true);

@@ -167,14 +167,15 @@ public class OSelfFragment extends BaseFragment implements View.OnClickListener 
             }
             ((BaseActivity) getActivity()).toActivity(OAuthenticationActivity.class);
         } else if (v == loginOutBtn) {
-            SPUtils.setString(getActivity(), "isLogin", "false");
-            SPUtils.setString(getActivity(), "acct", "");
-            SPUtils.setString(getActivity(), "sign", "");
-            SPUtils.setInt(getActivity(), "status", 0);
-            Intent intent = new Intent(getActivity(), OLoginActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intent.putExtra("isLogOut", true);
-            startActivityForResult(intent, 999);
+            request = new StringRequest(Request.Method.POST, ApiUtils.LOGOUT, this, this) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> map = new HashMap<>();
+                    map.put("sign", SPUtils.getString(getActivity(), "sign"));
+                    return map;
+                }
+            };
+            addToRequestQueue(request, ApiUtils.LOGOUT, true);
         } else if (v == nameArea) {
 
         } else if (v == headImgArea) {
@@ -311,6 +312,15 @@ public class OSelfFragment extends BaseFragment implements View.OnClickListener 
             }
         } else if (requestMethod.equals(ApiUtils.AVATAR)) {
             alertDialog(response.getReturn_message(), null);
+        } else if (requestMethod.equals(ApiUtils.LOGOUT)) {
+            SPUtils.setString(getActivity(), "isLogin", "false");
+            SPUtils.setString(getActivity(), "acct", "");
+            SPUtils.setString(getActivity(), "sign", "");
+            SPUtils.setInt(getActivity(), "status", 0);
+            Intent intent = new Intent(getActivity(), OLoginActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.putExtra("isLogOut", true);
+            startActivityForResult(intent, 999);
         }
     }
 

@@ -46,17 +46,17 @@
 
         </RelativeLayout>
 
-        <ListView
+        <com.example.eric.oscar.views.WrapScrollListView
             android:id="@+id/oscarList"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/topArea"
             android:divider="@color/o_line_bg"
             android:dividerHeight="@dimen/dp_line"
             android:paddingLeft="@dimen/dp_20"
             android:paddingRight="@dimen/dp_20">
 
-        </ListView>
+        </com.example.eric.oscar.views.WrapScrollListView>
 
         <LinearLayout
             android:layout_width="match_parent"

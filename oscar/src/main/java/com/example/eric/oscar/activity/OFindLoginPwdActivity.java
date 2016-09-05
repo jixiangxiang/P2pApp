@@ -65,8 +65,16 @@ public class OFindLoginPwdActivity extends BaseActivity implements View.OnClickL
                 showToastShort("请输入新登录密码");
                 return;
             }
+            if (!newLoginPwd.getText().toString().matches(ApiUtils.PWD_REGEX)) {
+                showToastShort("请输入正确的新登录密码");
+                return;
+            }
             if (StringUtils.isEmpty(confirmPwdText.getText().toString())) {
                 showToastShort("请输入确认新登录密码");
+                return;
+            }
+            if (!confirmPwdText.getText().toString().matches(ApiUtils.PWD_REGEX)) {
+                showToastShort("请输入正确的确认新登录密码");
                 return;
             }
             if (!StringUtils.isEquals(confirmPwdText.getText().toString(), newLoginPwd.getText().toString())) {

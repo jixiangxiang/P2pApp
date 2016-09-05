@@ -67,14 +67,27 @@ public class OModifyLoginPwdActivity extends BaseActivity implements View.OnClic
                 showToastShort("请输入6-12位旧登录密码");
                 return;
             }
+            if (!oldLoginPwd.getText().toString().matches(ApiUtils.PWD_REGEX)) {
+                showToastShort("登录密码必须由字母和数字组成");
+                return;
+            }
             if (StringUtils.isEmpty(newLoginPwd.getText().toString()) || newLoginPwd.length() < 6 || newLoginPwd.length() > 12) {
                 showToastShort("请输入6-12位新登录密码");
+                return;
+            }
+            if (!newLoginPwd.getText().toString().matches(ApiUtils.PWD_REGEX)) {
+                showToastShort("新登录密码必须由字母和数字组成");
                 return;
             }
             if (StringUtils.isEmpty(confirmPwdText.getText().toString()) || confirmPwdText.length() < 6 || confirmPwdText.length() > 12) {
                 showToastShort("请输入6-12位确认新登录密码");
                 return;
             }
+            if (!confirmPwdText.getText().toString().matches(ApiUtils.PWD_REGEX)) {
+                showToastShort("确认新登录密码必须由字母和数字组成");
+                return;
+            }
+
             if (!StringUtils.isEquals(confirmPwdText.getText().toString(), newLoginPwd.getText().toString())) {
                 showToastShort("请确认两次新登录密码输入一致");
                 return;

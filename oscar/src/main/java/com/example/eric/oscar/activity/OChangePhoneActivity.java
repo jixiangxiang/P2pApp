@@ -63,12 +63,12 @@ public class OChangePhoneActivity extends BaseActivity implements View.OnClickLi
     @Override
     public void onClick(View v) {
         if (v == nextStepBtn) {
-            if (StringUtils.isEmpty(pwdText.getText().toString())) {
-                showToastShort("请输入登录密码");
+            if (StringUtils.isEmpty(pwdText.getText().toString()) || !pwdText.getText().toString().matches(ApiUtils.PWD_REGEX)) {
+                showToastShort("请输入正确的登录密码");
                 return;
             }
-            if (StringUtils.isEmpty(payPwdText.getText().toString())) {
-                showToastShort("请输入支付密码");
+            if (StringUtils.isEmpty(payPwdText.getText().toString()) || !pwdText.getText().toString().matches(ApiUtils.PWD_REGEX)) {
+                showToastShort("请输入正确的支付密码");
                 return;
             }
             if (StringUtils.isEmpty(phoneText.getText().toString()) || phoneText.getText().toString().length() != 11) {

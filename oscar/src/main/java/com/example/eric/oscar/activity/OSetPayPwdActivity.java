@@ -65,8 +65,16 @@ public class OSetPayPwdActivity extends BaseActivity implements View.OnClickList
                 showToastShort("请输入支付密码");
                 return;
             }
+            if (!payPwd.getText().toString().matches(ApiUtils.PWD_REGEX)) {
+                showToastShort("请输入正確的支付密码");
+                return;
+            }
             if (StringUtils.isEmpty(confirmPwdText.getText().toString())) {
                 showToastShort("请再次输入支付密码");
+                return;
+            }
+            if (!confirmPwdText.getText().toString().matches(ApiUtils.PWD_REGEX)) {
+                showToastShort("请输入正確的确认支付密码");
                 return;
             }
             if (!StringUtils.isEquals(payPwd.getText().toString(), confirmPwdText.getText().toString())) {

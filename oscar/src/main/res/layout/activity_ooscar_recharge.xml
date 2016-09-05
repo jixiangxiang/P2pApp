@@ -60,17 +60,17 @@
             android:layout_marginRight="@dimen/dp_18"
             android:background="@color/o_line_bg" />
 
-        <ListView
+        <com.example.eric.oscar.views.WrapScrollListView
             android:id="@+id/oscarList"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/topArea"
             android:divider="@color/o_line_bg"
             android:dividerHeight="@dimen/dp_line"
             android:paddingLeft="@dimen/dp_20"
             android:paddingRight="@dimen/dp_20">
 
-        </ListView>
+        </com.example.eric.oscar.views.WrapScrollListView>
 
         <TextView
             style="@style/text_13_black"
@@ -115,6 +115,51 @@
                 android:gravity="center_vertical"
                 android:text="元" />
         </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            android:background="@android:color/white"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:visibility="gone">
+
+            <TextView
+                style="@style/text_13_black"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="短信验证码：" />
+
+            <Button
+                android:id="@+id/captchaBtn"
+                style="@style/text_13_black"
+                android:layout_width="@dimen/dp_75"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="@dimen/dp_5"
+                android:layout_marginTop="@dimen/dp_5"
+                android:background="@drawable/edittext_border_conner"
+                android:gravity="center"
+                android:onClick="onClick"
+                android:text="免费获取" />
+
+            <EditText
+                android:id="@+id/captchaText"
+                style="@style/text_12_black"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/dp_5"
+                android:layout_marginLeft="@dimen/dp_80"
+                android:layout_marginRight="@dimen/dp_5"
+                android:layout_marginTop="@dimen/dp_5"
+                android:layout_toLeftOf="@+id/captchaBtn"
+                android:background="@drawable/edittext_border_conner"
+                android:hint="90秒有效，过期请重新获取"
+                android:inputType="number"
+                android:padding="@dimen/dp_5" />
+        </RelativeLayout>
 
         <Button
             android:id="@+id/transConfirm"

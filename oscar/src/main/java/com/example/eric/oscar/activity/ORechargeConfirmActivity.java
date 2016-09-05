@@ -130,6 +130,10 @@ public class ORechargeConfirmActivity extends BaseActivity implements View.OnCli
                 showToastShort("请输入支付密码");
                 return;
             }
+            if (!payPwd.getText().toString().matches(ApiUtils.PWD_REGEX)) {
+                showToastShort("请输入正確的支付密码");
+                return;
+            }
             if (isCanPay()) {
                 request = new StringRequest(Request.Method.POST, ApiUtils.ACTELE, this, this) {
                     @Override

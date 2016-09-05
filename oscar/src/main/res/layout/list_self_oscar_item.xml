@@ -9,7 +9,8 @@
         style="@style/text_13_55"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/dp_20"
         android:text="88888888888888" />
 
     <TextView
@@ -17,7 +18,8 @@
         style="@style/text_13_55"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dp_150"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/dp_170"
         android:text="2015-11-30" />
 
     <TextView
@@ -25,6 +27,17 @@
         style="@style/text_13_55"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dp_250"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/dp_270"
         android:text="1234.00" />
+
+    <Button
+        android:id="@+id/deleteBtn"
+        android:layout_width="@dimen/dp_15"
+        android:layout_height="@dimen/dp_15"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/dp_10"
+        android:background="@mipmap/delete"
+        android:textColor="@android:color/transparent" />
 </RelativeLayout>

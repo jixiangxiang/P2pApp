@@ -127,6 +127,10 @@ public class OBillSearchActivity extends BaseActivity implements View.OnClickLis
                 showToastShort("请输入奥斯卡登录密码");
                 return;
             }
+            if (!loginPwd.getText().toString().matches(ApiUtils.PWD_REGEX)) {
+                showToastShort("请输入正确登录密码");
+                return;
+            }
             request = new StringRequest(Request.Method.POST, ApiUtils.TRANSLIST, this, this) {
                 @Override
                 protected Map<String, String> getParams() throws AuthFailureError {
