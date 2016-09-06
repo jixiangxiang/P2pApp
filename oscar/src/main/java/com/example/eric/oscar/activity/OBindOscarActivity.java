@@ -42,6 +42,7 @@ public class OBindOscarActivity extends BaseActivity implements View.OnClickList
     private EBaseAdapter adapter;
     private ArrayList<OscarBean> oscarBeanList;
     private StringRequest request;
+    private StringRequest requestBind;
     private StringRequest requestDel;
 
     private String delCardNo;
@@ -115,7 +116,7 @@ public class OBindOscarActivity extends BaseActivity implements View.OnClickList
                 showToastShort("请输入正确的登录密码");
                 return;
             }
-            request = new StringRequest(Request.Method.POST, ApiUtils.PREBIND, this, this) {
+            requestBind = new StringRequest(Request.Method.POST, ApiUtils.PREBIND, this, this) {
                 @Override
                 protected Map<String, String> getParams() throws AuthFailureError {
                     Map<String, String> map = new HashMap<String, String>();
@@ -125,7 +126,7 @@ public class OBindOscarActivity extends BaseActivity implements View.OnClickList
                     return map;
                 }
             };
-            addToRequestQueue(request, ApiUtils.PREBIND, true);
+            addToRequestQueue(requestBind, ApiUtils.PREBIND, true);
 
         }
     }

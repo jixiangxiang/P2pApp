@@ -11,7 +11,7 @@ public class ApiUtils {
     public static final String QINIU_URL = "http://7xq99q.com2.z0.glb.qiniucdn.com/";
     public static final String SIGN = "111111";
     public static final String TOKEN = "111111";
-    public static final String PWD_REGEX = "^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$";
+    public static final String PWD_REGEX = "^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,12}$";
     public static int NEED_LOGIN = 10001;
 
     public static final String REGIST = BASE_URL + "ac/registration";

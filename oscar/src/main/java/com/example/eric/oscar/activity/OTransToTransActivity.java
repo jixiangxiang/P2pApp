@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -56,6 +57,20 @@ public class OTransToTransActivity extends BaseActivity implements View.OnClickL
         adapter = new EBaseAdapter(this, oscarBeanList, R.layout.list_recharge_oscar_item,
                 new String[]{"cardNo", "balance", "select"},
                 new int[]{R.id.cardNo, R.id.balance, R.id.checkedView});
+        adapter.setViewBinder(new EBaseAdapter.ViewBinder() {
+            @Override
+            public boolean setViewValue(View view, final Object o, String s) {
+                if (view instanceof TextView && o instanceof String && !o.toString().contains(".")) {
+                    view.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            transCardNo.setText(o.toString());
+                        }
+                    });
+                }
+                return false;
+            }
+        });
         oscarList.setAdapter(adapter);
         oscarList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

@@ -82,7 +82,8 @@ public class OLoginActivity extends BaseActivity implements View.OnClickListener
         loginBtn = (Button) findViewById(R.id.loginBtn);
         toRegist = (TextView) findViewById(R.id.toRegist);
         findPwd = (TextView) findViewById(R.id.findPwd);
-        loginPhoneText.setText(SPUtils.getData(this,"acct"));
+        if (!StringUtils.isEmpty(SPUtils.getString(this, "acct")) && !SPUtils.FAILURE_STRING.equals(SPUtils.getString(this, "acct")))
+            loginPhoneText.setText(SPUtils.getString(this, "acct"));
     }
 
 
