@@ -138,10 +138,11 @@ public class ORegistActivity extends BaseActivity implements View.OnClickListene
                     Map<String, String> map = new HashMap<String, String>();
                     map.put("acct", phone);
                     map.put("pass", confirmPwd);
-                    map.put("avatar", avator);
+                    if (!StringUtils.isEmpty(avator))
+                        map.put("avatar", avator);
                     map.put("vstr", captchaText.getText().toString());
                     if (!StringUtils.isEmpty(recommendPhoneText.getText().toString()))
-                        map.put("vstr", recommendPhoneText.getText().toString());
+                        map.put("intro", recommendPhoneText.getText().toString());
                     return map;
                 }
             };

@@ -79,6 +79,7 @@ public class OSelfFragment extends BaseFragment implements View.OnClickListener 
     private Button loginOutBtn;
     private Boolean isOncreate = false;
     private ImageView messageBtn;
+    private TextView payText;
 
     private StringRequest request;
     private TextView idCard;
@@ -115,6 +116,15 @@ public class OSelfFragment extends BaseFragment implements View.OnClickListener 
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
         isOncreate = true;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (SPUtils.getInt(getActivity(), "status", 0) >= 2) {
+            payText.setText("修改支付密码");
+            return;
+        }
     }
 
     @Override
@@ -204,6 +214,7 @@ public class OSelfFragment extends BaseFragment implements View.OnClickListener 
         registPhoneArea = (RelativeLayout) view.findViewById(R.id.registPhoneArea);
         loginOutBtn = (Button) view.findViewById(R.id.loginOutBtn);
         messageBtn = (ImageView) view.findViewById(R.id.messageBtn);
+        payText = (TextView) view.findViewById(R.id.payText);
         loginOutBtn.setOnClickListener(this);
         nameArea.setOnClickListener(this);
         messageBtn.setOnClickListener(this);

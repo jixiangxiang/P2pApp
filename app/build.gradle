@@ -30,7 +30,7 @@ android {
             zipAlignEnabled true
         }
         debug {
-            signingConfig signingConfigs.config
+            //signingConfig signingConfigs.config
             versionNameSuffix '-debug'
         }
     }

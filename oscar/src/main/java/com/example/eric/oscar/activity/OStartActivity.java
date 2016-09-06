@@ -4,12 +4,15 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
 
+import com.example.eric.oscar.BuildConfig;
 import com.example.eric.oscar.R;
 import com.example.eric.oscar.common.BaseActivity;
 
 
 public class OStartActivity extends BaseActivity {
+    private TextView versionTxt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +25,8 @@ public class OStartActivity extends BaseActivity {
     @Override
     protected void initView() {
         initTitleGone();
+        versionTxt = (TextView) findViewById(R.id.versionTxt);
+        versionTxt.setText(BuildConfig.VERSION_NAME);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

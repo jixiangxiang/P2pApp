@@ -293,6 +293,7 @@
                 android:src="@mipmap/o_set_pay_pwd_icon" />
 
             <TextView
+                android:id="@+id/payText"
                 style="@style/text_13_55"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"

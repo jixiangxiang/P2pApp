@@ -40,7 +40,11 @@ public class OSetPayPwdActivity extends BaseActivity implements View.OnClickList
     @Override
     protected void initView() {
         initialize();
-        initTitleText(getString(R.string.title_activity_oset_pay_pwd), BaseActivity.TITLE_CENTER);
+        String title = getString(R.string.title_activity_oset_pay_pwd);
+        if (SPUtils.getInt(this, "status", 0) >= 2) {
+            title = "修改支付密码";
+        }
+        initTitleText(title, BaseActivity.TITLE_CENTER);
         initHandler();
         phoneText.setText(SPUtils.getString(this, "acct"));
 

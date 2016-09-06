@@ -15,7 +15,6 @@ import com.example.eric.oscar.R;
 import com.example.eric.oscar.common.ApiUtils;
 import com.example.eric.oscar.common.BaseActivity;
 import com.example.eric.oscar.common.ResponseResult;
-import com.example.eric.oscar.common.SPUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -51,7 +50,7 @@ public class OFindLoginPwdActivity extends BaseActivity implements View.OnClickL
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> map = new HashMap<>();
-                map.put("acct", SPUtils.getString(OFindLoginPwdActivity.this, "acct"));
+                map.put("acct", phoneText.getText().toString());
                 map.put("pass", newLoginPwd.getText().toString());
                 return map;
             }
@@ -61,6 +60,10 @@ public class OFindLoginPwdActivity extends BaseActivity implements View.OnClickL
     @Override
     public void onClick(View v) {
         if (v == nextStepBtn) {
+            if (StringUtils.isEmpty(phoneText.getText().toString()) || phoneText.getText().toString().length() != 11) {
+                showToastShort("请输入正确的手机号！");
+                return;
+            }
             if (StringUtils.isEmpty(newLoginPwd.getText().toString())) {
                 showToastShort("请输入新登录密码");
                 return;

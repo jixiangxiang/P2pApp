@@ -30,7 +30,6 @@ import java.util.Map;
 
 import common.eric.com.ebaselibrary.adapter.EBaseAdapter;
 import common.eric.com.ebaselibrary.util.StringUtils;
-import common.eric.com.ebaselibrary.util.ToastUtils;
 
 public class OBindOscarActivity extends BaseActivity implements View.OnClickListener {
 
@@ -69,8 +68,13 @@ public class OBindOscarActivity extends BaseActivity implements View.OnClickList
                     view.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            delCardNo = o.toString();
-                            addToRequestQueue(requestDel, ApiUtils.OSDEL, true);
+                            alertConfirmDialog("您要解绑奥斯卡吗？", new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    delCardNo = o.toString();
+                                    addToRequestQueue(requestDel, ApiUtils.OSDEL, true);
+                                }
+                            }, null);
                         }
                     });
                 }
@@ -178,8 +182,12 @@ public class OBindOscarActivity extends BaseActivity implements View.OnClickList
                 startActivityForResult(intent, 111);
             }
         } else if (requestMethod.equals(ApiUtils.OSDEL)) {
-            ToastUtils.show(this, "卡号为:" + delCardNo + "的奥斯卡解绑成功");
-            addToRequestQueue(request, ApiUtils.BINDLIST, true);
+            alertDialog("卡号为:" + delCardNo + " 解绑成功", new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    addToRequestQueue(request, ApiUtils.BINDLIST, true);
+                }
+            });
         }
     }
 

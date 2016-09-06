@@ -61,12 +61,16 @@ public class OTransToTransActivity extends BaseActivity implements View.OnClickL
             @Override
             public boolean setViewValue(View view, final Object o, String s) {
                 if (view instanceof TextView && o instanceof String && !o.toString().contains(".")) {
+                    TextView tv = (TextView) view;
+                    tv.setText(o.toString());
                     view.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             transCardNo.setText(o.toString());
+                            transCardConfirm.setText(o.toString());
                         }
                     });
+                    return true;
                 }
                 return false;
             }
