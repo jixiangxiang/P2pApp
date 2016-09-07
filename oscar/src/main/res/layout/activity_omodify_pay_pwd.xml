@@ -4,19 +4,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.eric.oscar.activity.OBindValidActivity">
+    tools:context="com.example.eric.oscar.activity.OModifyLoginPwdActivity">
 
-    <TextView
-        style="@style/text_13_black"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/dp_57"
+        android:layout_marginTop="@dimen/dp_12"
         android:background="@android:color/white"
-        android:paddingBottom="@dimen/dp_25"
+        android:gravity="center_vertical"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/dp_25"
-        android:text="提供的手机充值频道是移动/联通手机网上交费的绿色营业厅，支持联通，中国移动，电信" />
+        android:paddingTop="@dimen/dp_12">
 
+        <TextView
+            style="@style/text_13_black"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="手 机 号 码：" />
+
+        <TextView
+            android:id="@+id/phoneText"
+            style="@style/text_13_black"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            android:layout_marginLeft="@dimen/dp_5"
+            android:gravity="center_vertical"
+            android:padding="@dimen/dp_5"
+            android:text="" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,25 +40,26 @@
         android:background="@android:color/white"
         android:gravity="center_vertical"
         android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin">
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/dp_12">
 
         <TextView
             style="@style/text_13_black"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:text="手机号码：" />
+            android:text="原支付密码：" />
 
         <EditText
-            android:id="@+id/phoneNum"
+            android:id="@+id/olePayPwd"
             style="@style/text_13_black"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_40"
             android:layout_marginLeft="@dimen/dp_5"
             android:background="@drawable/edittext_border_conner"
             android:gravity="center_vertical"
-            android:inputType="phone"
-            android:maxLength="11"
+            android:hint="6-12位字母+数字组合"
+            android:inputType="textPassword"
             android:padding="@dimen/dp_5" />
     </LinearLayout>
 
@@ -52,25 +69,26 @@
         android:background="@android:color/white"
         android:gravity="center_vertical"
         android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin">
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/dp_12">
 
         <TextView
             style="@style/text_13_black"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:text="再次确认：" />
+            android:text="新支付密码：" />
 
         <EditText
-            android:id="@+id/phoneConfirm"
+            android:id="@+id/payPwd"
             style="@style/text_13_black"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_40"
             android:layout_marginLeft="@dimen/dp_5"
             android:background="@drawable/edittext_border_conner"
             android:gravity="center_vertical"
-            android:inputType="phone"
-            android:maxLength="11"
+            android:hint="6-12位字母+数字组合"
+            android:inputType="textPassword"
             android:padding="@dimen/dp_5" />
     </LinearLayout>
 
@@ -87,41 +105,30 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:text="充值金额：" />
+            android:text="密 码 确 认：" />
 
-        <TextView
-            android:id="@+id/rechargeMoney"
+        <EditText
+            android:id="@+id/confirmPwdText"
             style="@style/text_13_black"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_40"
             android:layout_marginLeft="@dimen/dp_5"
             android:background="@drawable/edittext_border_conner"
             android:gravity="center_vertical"
-            android:inputType="number"
+            android:hint="再次输入新支付密码"
+            android:inputType="textPassword"
             android:padding="@dimen/dp_5" />
     </LinearLayout>
-
 
     <Button
-        android:id="@+id/confirmBtn"
+        android:id="@+id/nextStepBtn"
         style="@style/text_16_white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dp_8"
         android:layout_marginRight="@dimen/dp_8"
-        android:layout_marginTop="@dimen/dp_24"
+        android:layout_marginTop="@dimen/dp_42"
         android:background="@mipmap/o_login_btn"
         android:onClick="onClick"
-        android:text="确认" />
-
-    <TextView
-        android:id="@+id/title"
-        style="@style/text_13_black"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/dp_25"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/dp_25"
-        android:text="目前每天每个号码只能成功充值一次，单张奥斯卡每天最多给三个电话充值，请确认充值金额后再充值" />
+        android:text="下一步" />
 </LinearLayout>

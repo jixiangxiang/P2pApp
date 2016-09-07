@@ -15,7 +15,6 @@ import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.example.eric.oscar.R;
 import com.example.eric.oscar.bean.OscarBean;
-import com.example.eric.oscar.bean.OscarBillInfo;
 import com.example.eric.oscar.common.ApiUtils;
 import com.example.eric.oscar.common.BaseActivity;
 import com.example.eric.oscar.common.EmptyListViewUtil;
@@ -106,13 +105,6 @@ public class OBillSearchActivity extends BaseActivity implements View.OnClickLis
             oscarBeanList = (ArrayList<OscarBean>) JSONArray.parseArray(list.toJSONString(), OscarBean.class);
             adapter.setmData(oscarBeanList);
             adapter.notifyDataSetChanged();
-        } else if (requestMethod.equals(ApiUtils.TRANSLIST)) {
-            JSONArray list = (JSONArray) response.getData();
-            Bundle bundle = new Bundle();
-            ArrayList<OscarBillInfo> billInfoList = (ArrayList<OscarBillInfo>) JSONArray.parseArray(list.toJSONString(), OscarBillInfo.class);
-            bundle.putSerializable("billInfos", billInfoList);
-            bundle.putString("cardNo", oscarNo.getText().toString());
-            toActivity(OBillListActivity.class, bundle);
         }
     }
 
@@ -127,19 +119,10 @@ public class OBillSearchActivity extends BaseActivity implements View.OnClickLis
                 showToastShort("请输入奥斯卡登录密码");
                 return;
             }
-            request = new StringRequest(Request.Method.POST, ApiUtils.TRANSLIST, this, this) {
-                @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
-                    Map<String, String> map = new HashMap<String, String>();
-                    map.put("acct", SPUtils.getString(OBillSearchActivity.this, "acct"));
-                    map.put("card", selectOscar.getCardNo());
-                    map.put("page", "1");
-                    map.put("pass", loginPwd.getText().toString());
-                    map.put("sign", SPUtils.getString(OBillSearchActivity.this, "sign"));
-                    return map;
-                }
-            };
-            addToRequestQueue(request, ApiUtils.TRANSLIST, true);
+            Bundle bundle = new Bundle();
+            bundle.putString("cardNo", selectOscar.getCardNo());
+            bundle.putString("loginPwd", loginPwd.getText().toString());
+            toActivity(OBillListActivity.class, bundle);
         }
     }
 }

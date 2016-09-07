@@ -116,6 +116,10 @@ public class OTransConfirmActivity extends BaseActivity implements View.OnClickL
                 showToastShort("请输入支付密码");
                 return;
             }
+            if (selectOscar == null) {
+                showToastShort("请选择进行支付的奥斯卡");
+                return;
+            }
             if (isCanPay()) {
                 request = new StringRequest(Request.Method.POST, ApiUtils.ACAMZ, this, this) {
                     @Override

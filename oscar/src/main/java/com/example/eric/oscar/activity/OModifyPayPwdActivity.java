@@ -22,9 +22,10 @@ import java.util.Map;
 
 import common.eric.com.ebaselibrary.util.StringUtils;
 
-public class OSetPayPwdActivity extends BaseActivity implements View.OnClickListener {
+public class OModifyPayPwdActivity extends BaseActivity implements View.OnClickListener {
 
     private TextView phoneText;
+    private EditText olePayPwd;
     private EditText payPwd;
     private EditText confirmPwdText;
     private Button nextStepBtn;
@@ -34,13 +35,13 @@ public class OSetPayPwdActivity extends BaseActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_oset_pay_pwd);
+        setContentView(R.layout.activity_omodify_pay_pwd);
     }
 
     @Override
     protected void initView() {
         initialize();
-        String title = getString(R.string.title_activity_oset_pay_pwd);
+        String title = getString(R.string.title_activity_omodify_pay_pwd);
         initTitleText(title, BaseActivity.TITLE_CENTER);
         initHandler();
         phoneText.setText(SPUtils.getString(this, "acct"));
@@ -48,12 +49,13 @@ public class OSetPayPwdActivity extends BaseActivity implements View.OnClickList
     }
 
     private void initHandler() {
-        request = new StringRequest(Request.Method.POST, ApiUtils.SETPP, this, this) {
+        request = new StringRequest(Request.Method.POST, ApiUtils.EDITPP, this, this) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> map = new HashMap<>();
-                map.put("sign", SPUtils.getString(OSetPayPwdActivity.this, "sign"));
+                map.put("sign", SPUtils.getString(OModifyPayPwdActivity.this, "sign"));
                 map.put("pass", confirmPwdText.getText().toString());
+                map.put("opass", olePayPwd.getText().toString());
                 return map;
             }
         };
@@ -62,12 +64,20 @@ public class OSetPayPwdActivity extends BaseActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
         if (v == nextStepBtn) {
+            if (StringUtils.isEmpty(olePayPwd.getText().toString())) {
+                showToastShort("请输入原支付密码");
+                return;
+            }
+            if (!olePayPwd.getText().toString().matches(ApiUtils.PWD_REGEX)) {
+                showToastShort("请输入正确的原支付密码");
+                return;
+            }
             if (StringUtils.isEmpty(payPwd.getText().toString())) {
-                showToastShort("请输入支付密码");
+                showToastShort("请输入新支付密码");
                 return;
             }
             if (!payPwd.getText().toString().matches(ApiUtils.PWD_REGEX)) {
-                showToastShort("请输入正確的支付密码");
+                showToastShort("请输入正确的新支付密码");
                 return;
             }
             if (StringUtils.isEmpty(confirmPwdText.getText().toString())) {
@@ -75,7 +85,7 @@ public class OSetPayPwdActivity extends BaseActivity implements View.OnClickList
                 return;
             }
             if (!confirmPwdText.getText().toString().matches(ApiUtils.PWD_REGEX)) {
-                showToastShort("请输入正確的确认支付密码");
+                showToastShort("请输入正确的确认支付密码");
                 return;
             }
             if (!StringUtils.isEquals(payPwd.getText().toString(), confirmPwdText.getText().toString())) {
@@ -104,6 +114,7 @@ public class OSetPayPwdActivity extends BaseActivity implements View.OnClickList
 
     private void initialize() {
         phoneText = (TextView) findViewById(R.id.phoneText);
+        olePayPwd = (EditText) findViewById(R.id.olePayPwd);
         payPwd = (EditText) findViewById(R.id.payPwd);
         confirmPwdText = (EditText) findViewById(R.id.confirmPwdText);
         nextStepBtn = (Button) findViewById(R.id.nextStepBtn);
@@ -114,7 +125,7 @@ public class OSetPayPwdActivity extends BaseActivity implements View.OnClickList
         alertDialogNoCancel(response.getReturn_message(), new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                OSetPayPwdActivity.this.finish();
+                OModifyPayPwdActivity.this.finish();
             }
         });
     }

@@ -140,6 +140,7 @@ public class OAuthenticationActivity extends BaseActivity implements View.OnClic
                     map.put("card", cardNo.getText().toString());
                     map.put("bank", accountBank.getText().toString());
                     map.put("prov", bankAddress.getText().toString());
+                    map.put("phone", SPUtils.getString(OAuthenticationActivity.this, "acct"));
                     map.put("city", bankCity.getText().toString());
                     map.put("bn", branchBank.getText().toString());
                     map.put("sign", SPUtils.getString(OAuthenticationActivity.this, "sign"));
@@ -173,20 +174,15 @@ public class OAuthenticationActivity extends BaseActivity implements View.OnClic
     @Override
     protected void doResponse(final ResponseResult response) {
         if (requestMethod.equals(ApiUtils.AUTHEN)) {
+            SPUtils.setInt(OAuthenticationActivity.this, "status", ((JSONObject) response.getData()).getIntValue("status"));
             alertDialogNoCancel(response.getReturn_message(), new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    SPUtils.setInt(OAuthenticationActivity.this, "status", ((JSONObject) response.getData()).getIntValue("status"));
-                    alertDialogNoCancel(response.getReturn_message(), new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent intent = new Intent();
-                            intent.putExtra("name", payPwd.getText().toString());
-                            intent.putExtra("status", ((JSONObject) response.getData()).getIntValue("data"));
-                            setResult(RESULT_OK, intent);
-                            OAuthenticationActivity.this.finish();
-                        }
-                    });
+                    Intent intent = new Intent();
+                    intent.putExtra("name", payPwd.getText().toString());
+                    intent.putExtra("status", ((JSONObject) response.getData()).getIntValue("data"));
+                    setResult(RESULT_OK, intent);
+                    OAuthenticationActivity.this.finish();
                 }
             });
         } else if (requestMethod.equals(ApiUtils.BKBN)) {

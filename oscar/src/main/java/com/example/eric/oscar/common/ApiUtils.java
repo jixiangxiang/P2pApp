@@ -32,6 +32,7 @@ public class ApiUtils {
 
 
     public static final String SETPP = BASE_URL + "ac/setpp";//设置支付密码
+    public static final String EDITPP = BASE_URL + "ac/editpp";//修改支付密码
     public static final String ACCTINFO = BASE_URL + "ac/i";//个人中心
     public static final String EDITLP = BASE_URL + "ac/editlp";//修改登陆密码
     public static final String FOGLP = BASE_URL + "ac/foglp";//

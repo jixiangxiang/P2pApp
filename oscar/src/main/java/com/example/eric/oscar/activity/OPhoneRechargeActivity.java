@@ -1,10 +1,15 @@
 package com.example.eric.oscar.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
@@ -26,9 +31,11 @@ public class OPhoneRechargeActivity extends BaseActivity implements View.OnClick
 
     private EditText phoneNum;
     private EditText phoneConfirm;
-    private EditText rechargeMoney;
+    private TextView rechargeMoney;
     private Button confirmBtn;
     private TextView title;
+    private NumberPicker numberPicker;
+    private AlertDialog numberAlert;
 
     private StringRequest request;
 
@@ -43,7 +50,6 @@ public class OPhoneRechargeActivity extends BaseActivity implements View.OnClick
     protected void initView() {
         initialize();
         initTitleText(getString(R.string.title_activity_ophone_recharge), BaseActivity.TITLE_CENTER);
-
         request = new StringRequest(Request.Method.POST, ApiUtils.CRTELE, this, this) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
@@ -78,15 +84,36 @@ public class OPhoneRechargeActivity extends BaseActivity implements View.OnClick
                 return;
             }
             addToRequestQueue(request, ApiUtils.CRTELE, true);
+        } else if (v == rechargeMoney) {
+            numberPicker = new NumberPicker(this);
+            String[] displayedValues = {"20元", "30元", "50元", "100元", "200元"};
+            numberPicker.setDisplayedValues(displayedValues);
+            numberPicker.setMinValue(0);
+            numberPicker.setMaxValue(displayedValues.length - 1);
+            numberPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
+            numberAlert = new AlertDialog.Builder(this)
+                    .setMessage("请选择充值金额").setCancelable(true)
+                    .setView(numberPicker)
+                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            rechargeMoney.setText(numberPicker.getDisplayedValues()[numberPicker.getValue()].replace("元", ""));
+                        }
+                    }).create();
+            Window window = numberAlert.getWindow();
+            window.setGravity(Gravity.BOTTOM);
+            window.setWindowAnimations(R.style.dialog_animations);
+            numberAlert.show();
         }
     }
 
     private void initialize() {
         phoneNum = (EditText) findViewById(R.id.phoneNum);
         phoneConfirm = (EditText) findViewById(R.id.phoneConfirm);
-        rechargeMoney = (EditText) findViewById(R.id.rechargeMoney);
+        rechargeMoney = (TextView) findViewById(R.id.rechargeMoney);
         confirmBtn = (Button) findViewById(R.id.confirmBtn);
         title = (TextView) findViewById(R.id.title);
+        rechargeMoney.setOnClickListener(this);
     }
 
     @Override
@@ -100,7 +127,7 @@ public class OPhoneRechargeActivity extends BaseActivity implements View.OnClick
             intent.putExtra("rate", ((JSONObject) response.getData()).getString("rate"));
             intent.putExtra("mobile", ((JSONObject) response.getData()).getString("mobile"));
         }
-        intent.putExtra("order", ((JSONObject)response.getData()).getString("order"));
+        intent.putExtra("order", ((JSONObject) response.getData()).getString("order"));
         startActivity(intent);
         this.finish();
     }

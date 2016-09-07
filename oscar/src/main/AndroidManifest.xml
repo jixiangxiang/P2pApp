@@ -48,6 +48,9 @@
             android:name=".activity.OSetPayPwdActivity"
             android:label="@string/title_activity_oset_pay_pwd" />
         <activity
+            android:name=".activity.OModifyPayPwdActivity"
+            android:label="@string/title_activity_omodify_pay_pwd" />
+        <activity
             android:name=".activity.OResetPwdActivity"
             android:label="@string/title_activity_oreset_pwd" />
         <activity

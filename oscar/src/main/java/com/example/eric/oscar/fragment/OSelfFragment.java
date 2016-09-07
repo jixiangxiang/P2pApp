@@ -23,6 +23,7 @@ import com.example.eric.oscar.activity.OAuthenticationActivity;
 import com.example.eric.oscar.activity.OChangePhoneActivity;
 import com.example.eric.oscar.activity.OLoginActivity;
 import com.example.eric.oscar.activity.OModifyLoginPwdActivity;
+import com.example.eric.oscar.activity.OModifyPayPwdActivity;
 import com.example.eric.oscar.activity.OSelectPicActivity;
 import com.example.eric.oscar.activity.OSelfHelpActivity;
 import com.example.eric.oscar.activity.OSetPayPwdActivity;
@@ -121,9 +122,11 @@ public class OSelfFragment extends BaseFragment implements View.OnClickListener 
     @Override
     public void onStart() {
         super.onStart();
-        if (SPUtils.getInt(getActivity(), "status", 0) >= 2) {
+        if (SPUtils.getInt(getActivity(), "status", 0) == 1) {
+            verticalStatus.setText("审核中");
+        } else if (SPUtils.getInt(getActivity(), "status", 0) >= 2) {
+            verticalStatus.setText("已通过");
             payText.setText("修改支付密码");
-            return;
         }
     }
 
@@ -138,11 +141,6 @@ public class OSelfFragment extends BaseFragment implements View.OnClickListener 
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initialize(view);
-        if (SPUtils.getInt(getActivity(), "status", 0) == 1) {
-            verticalStatus.setText("验证中");
-        } else if (SPUtils.getInt(getActivity(), "status", 0) == 2 || SPUtils.getInt(getActivity(), "status", 0) == 3) {
-            verticalStatus.setText("已验证");
-        }
         loginPwdArea.setOnClickListener(this);
         payPwdArea.setOnClickListener(this);
         registPhoneArea.setOnClickListener(this);
@@ -157,7 +155,11 @@ public class OSelfFragment extends BaseFragment implements View.OnClickListener 
             ((BaseActivity) getActivity()).toActivity(OModifyLoginPwdActivity.class);
         } else if (v == payPwdArea) {
             if (SPUtils.getInt(getActivity(), "status", 0) > 1) {
-                ((BaseActivity) getActivity()).toActivity(OSetPayPwdActivity.class);
+                if (SPUtils.getInt(getActivity(), "status", 0) == 2) {
+                    ((BaseActivity) getActivity()).toActivity(OSetPayPwdActivity.class);
+                } else {
+                    ((BaseActivity) getActivity()).toActivity(OModifyPayPwdActivity.class);
+                }
             } else {
                 ((BaseActivity) getActivity()).showToastShort("当前未实名制，先去身份验证才可以设置支付密码");
             }
@@ -175,7 +177,8 @@ public class OSelfFragment extends BaseFragment implements View.OnClickListener 
                 ((BaseActivity) getActivity()).showToastShort("已经实名认证完成。");
                 return;
             }
-            ((BaseActivity) getActivity()).toActivity(OAuthenticationActivity.class);
+            Intent intent = new Intent(getActivity(), OAuthenticationActivity.class);
+            startActivityForResult(intent, 888);
         } else if (v == loginOutBtn) {
             request = new StringRequest(Request.Method.POST, ApiUtils.LOGOUT, this, this) {
                 @Override
@@ -235,9 +238,9 @@ public class OSelfFragment extends BaseFragment implements View.OnClickListener 
             addToRequestQueue(request, ApiUtils.ACCTINFO, true);
         } else if (requestCode == 888 && resultCode == getActivity().RESULT_OK) {
             if (SPUtils.getInt(getActivity(), "status", 0) == 1) {
-                verticalStatus.setText("验证中");
+                verticalStatus.setText("审核中");
             } else if (SPUtils.getInt(getActivity(), "status", 0) == 2) {
-                verticalStatus.setText("已验证");
+                verticalStatus.setText("已通过");
             }
             request = new StringRequest(Request.Method.POST, ApiUtils.ACCTINFO, this, this) {
                 @Override
