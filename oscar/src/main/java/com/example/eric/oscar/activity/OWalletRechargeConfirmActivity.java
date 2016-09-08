@@ -43,37 +43,32 @@ public class OWalletRechargeConfirmActivity extends BaseActivity implements View
     protected void initView() {
         initialize();
         initTitleText(getString(R.string.title_activity_owallet_recharge), BaseActivity.TITLE_CENTER);
+        request = new StringRequest(Request.Method.POST, ApiUtils.DSMS, this, this) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> map = new HashMap<>();
+                map.put("card", getIntent().getExtras().getString("card"));
+                map.put("amt", getIntent().getExtras().getString("amt"));
+                map.put("sign", SPUtils.getString(OWalletRechargeConfirmActivity.this, "sign"));
+                return map;
+            }
+        };
+        addToRequestQueue(request, ApiUtils.DSMS, true);
     }
 
     @Override
     public void onClick(View v) {
         if (v == captchaSendBtn) {
-            String method;
-            if (order == null) {
-                method = ApiUtils.DSMS;
-                request = new StringRequest(Request.Method.POST, method, this, this) {
-                    @Override
-                    protected Map<String, String> getParams() throws AuthFailureError {
-                        Map<String, String> map = new HashMap<>();
-                        map.put("card", getIntent().getExtras().getString("card"));
-                        map.put("amt", getIntent().getExtras().getString("amt"));
-                        map.put("sign", SPUtils.getString(OWalletRechargeConfirmActivity.this, "sign"));
-                        return map;
-                    }
-                };
-            } else {
-                method = ApiUtils.REDSMS;
-                request = new StringRequest(Request.Method.POST, method, this, this) {
-                    @Override
-                    protected Map<String, String> getParams() throws AuthFailureError {
-                        Map<String, String> map = new HashMap<>();
-                        map.put("order", order);
-                        map.put("sign", SPUtils.getString(OWalletRechargeConfirmActivity.this, "sign"));
-                        return map;
-                    }
-                };
-            }
-            addToRequestQueue(request, method, true);
+            request = new StringRequest(Request.Method.POST, ApiUtils.REDSMS, this, this) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> map = new HashMap<>();
+                    map.put("order", order);
+                    map.put("sign", SPUtils.getString(OWalletRechargeConfirmActivity.this, "sign"));
+                    return map;
+                }
+            };
+            addToRequestQueue(request, ApiUtils.REDSMS, true);
         } else if (v == nextStepBtn) {
             if (StringUtils.isEmpty(order)) {
                 showToastShort("请先获取验证码");
