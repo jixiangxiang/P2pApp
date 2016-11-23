@@ -6,8 +6,9 @@ package com.example.eric.oscar.common;
 public class ApiUtils {
 
     public static final Integer REQUEST_SUCCESS = 0;
-    //public static final String BASE_URL = "http://211.157.145.67:6081/app/";
-    public static final String BASE_URL = "https://mtest.allscore.com/app/";
+    public static final String BASE_URL = "https://askapp.allscore.com/app/";
+    public static final String SYS_URL =  "http://oh2m0cd2d.bkt.clouddn.com/config_ask.json";
+    //public static final String BASE_URL = "https://mtest.allscore.com/app/";
     public static final String QINIU_URL = "http://7xq99q.com2.z0.glb.qiniucdn.com/";
     public static final String SIGN = "111111";
     public static final String TOKEN = "111111";

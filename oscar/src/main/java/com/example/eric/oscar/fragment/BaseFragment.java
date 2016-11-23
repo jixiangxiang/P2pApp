@@ -157,7 +157,7 @@ public class BaseFragment extends Fragment implements Response.Listener, Respons
         ResponseResult result = JSONObject.parseObject(response.toString(), ResponseResult.class);
         if (result.getReturn_code() == ApiUtils.REQUEST_SUCCESS) {
             doResponse(result);
-        } else if (result.getReturn_code().intValue() == ApiUtils.NEED_LOGIN) {
+        } else if (result.getReturn_code() == ApiUtils.NEED_LOGIN) {
             alertDialogNoCancel(result.getReturn_message(), new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

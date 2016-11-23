@@ -39,7 +39,7 @@ android {
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
             def apk = output.outputFile;
-            def newName = apk.path.replace(".apk", "-" + getDate() + getVersionCodeFromManifest() + ".apk");
+            def newName = apk.path.replace(".apk", "-" + getDate() +  ".apk");
             output.outputFile = new File(newName);
         }
     }
@@ -69,6 +69,6 @@ def getDate() {
 }
 //从androidManifest.xml中获取版本号
 def getVersionCodeFromManifest() {
-    def manifestParser = new com.android.builder.core.DefaultManifestParser()
-    return manifestParser.getVersionCode(android.sourceSets.main.manifest.srcFile)
+    //def manifestParser = new com.android.builder.core.DefaultManifestParser()
+    //return manifestParser.getVersionCode(android.sourceSets.main.manifest.srcFile)
 }
