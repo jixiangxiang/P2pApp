@@ -15,6 +15,7 @@ import com.example.eric.oscar.BuildConfig;
 import com.example.eric.oscar.R;
 import com.example.eric.oscar.common.ApiUtils;
 import com.example.eric.oscar.common.BaseActivity;
+import com.example.eric.oscar.common.BaseApplication;
 
 
 public class OStartActivity extends BaseActivity {
@@ -36,33 +37,32 @@ public class OStartActivity extends BaseActivity {
         initHandler();
         versionTxt = (TextView) findViewById(R.id.versionTxt);
         versionTxt.setText(BuildConfig.VERSION_NAME);
+        addToRequestQueue(request, false);
     }
 
     private void initHandler() {
-        private void initHandler () {
-            request = new StringRequest(Request.Method.GET, ApiUtils.SYS_URL, new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    JSONObject jsObject = JSONObject.parseObject(response);
-                    if ("1".equals(jsObject.getString("available"))) {
-                        toActivity(OMainActivity.class);
-                    } else {
-                        alertDialog(jsObject.getString("message"), new View.OnClickListener() {
-
-                            @Override
-                            public void onClick(View v) {
-                                
-                            }
-                        });
-                    }
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
+        request = new StringRequest(Request.Method.GET, ApiUtils.SYS_URL + "?time=" + System.currentTimeMillis(), new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                JSONObject jsObject = JSONObject.parseObject(response);
+                if ("1".equals(jsObject.getString("available"))) {
                     toActivity(OMainActivity.class);
+                } else {
+                    alertDialog(jsObject.getString("message"), new View.OnClickListener() {
+
+                        @Override
+                        public void onClick(View v) {
+                            ((BaseApplication) BaseApplication.getInstance()).AppExit(OStartActivity.this);
+                        }
+                    });
                 }
-            });
-        }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                toActivity(OMainActivity.class);
+            }
+        });
     }
 
 }
