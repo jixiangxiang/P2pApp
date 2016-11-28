@@ -45,7 +45,7 @@ public class OStartActivity extends BaseActivity {
             @Override
             public void onResponse(String response) {
                 JSONObject jsObject = JSONObject.parseObject(response);
-                if ("1".equals(jsObject.getString("available"))) {
+                if ("0".equals(jsObject.getString("available"))) {
                     toActivity(OMainActivity.class);
                 } else {
                     alertDialog(jsObject.getString("message"), new View.OnClickListener() {
